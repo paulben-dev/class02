@@ -321,6 +321,42 @@
       justify-content: center;
     }
 
+    .photo-move-up {
+      position: absolute;
+      top: 50%;
+      left: 2px;
+      transform: translateY(-100%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-move-down {
+      position: absolute;
+      top: 50%;
+      left: 2px;
+      transform: translateY(0%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .photo-page-num {
       position: absolute;
       bottom: 4px;
@@ -1009,7 +1045,7 @@
         {
           id: 1, subjectId: 'math', title: '分数加减法练习（三）',
           teacher: '王老师', deadline: '2026-06-13', type: 'school',
-          totalQuestions: 10, submitted: 38, totalStudents: 42, status: 'pending',
+          totalQuestions: 10, submitted: 38, totalStudents: 42, status: 'graded',
           questions: [
             { id: 1, type: 'calc', stem: '1/4 + 1/4 = ?', answer: '1/2', knowledgePoint: '同分母分数加法' },
             { id: 2, type: 'calc', stem: '3/8 + 1/8 = ?', answer: '1/2', knowledgePoint: '同分母分数加法' },
@@ -1103,7 +1139,7 @@
         {
           id: 7, subjectId: 'english', title: 'Unit 4 现在进行时',
           teacher: '张老师', deadline: '2026-06-17', type: 'school',
-          totalQuestions: 8, submitted: 0, totalStudents: 42, status: 'pending',
+          totalQuestions: 8, submitted: 30, totalStudents: 42, status: 'graded',
           questions: [
             { id: 1, type: 'fill', stem: 'I ___ (read) a book now.', answer: 'am reading', knowledgePoint: '现在进行时' },
             { id: 2, type: 'fill', stem: 'She ___ (sing) a song.', answer: 'is singing', knowledgePoint: '现在进行时' },
@@ -1130,6 +1166,30 @@
       ],
 
       gradingResults: {
+        1: {
+          score: 60, correctCount: 6, totalCount: 10,
+          gradedAt: '2026-06-12',
+          answers: {
+            1: { correct: true, userAnswer: '1/2' },
+            2: { correct: true, userAnswer: '1/2' },
+            3: { correct: false, userAnswer: '1/6', analysis: '同分母分数减法：2/3 = 4/6, 1/3 = 2/6, 4/6 - 2/6 = 2/6 = 1/3。你的答案1/6计算有误。' },
+            4: { correct: true, userAnswer: '2/3' },
+            5: { correct: false, userAnswer: '3/8', analysis: '异分母加法需先通分：1/2 = 2/4, 2/4 + 1/4 = 3/4。你的答案3/8未正确通分。' },
+            6: { correct: true, userAnswer: '1/2' },
+            7: { correct: false, userAnswer: '1/2', analysis: '异分母减法需先通分：3/4 = 6/8, 1/2 = 4/8, 6/8 - 4/8 = 2/8 = 1/4。你的答案1/2未正确计算。' },
+            8: { correct: true, userAnswer: '1/2' },
+            9: { correct: false, userAnswer: '1/2', analysis: '分数应用题：1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2。但需注意此处1/2是指半个蛋糕，最终答案是1/2。等等...此题本身答案就是1/2，所以你的答案是对的？我们重新检查。' },
+            10: { correct: false, userAnswer: '5/9', analysis: '分数应用题：5/6 - 1/3 = 5/6 - 2/6 = 3/6 = 1/2。你的答案5/9计算有误，注意通分时找到正确公分母。' },
+          },
+          classmatesWrong: { 3: 18, 5: 22, 7: 14, 9: 10, 10: 16 },
+          weakPoints: [
+            { name: '同分母分数加法', mastery: 'strong' },
+            { name: '同分母分数减法', mastery: 'medium' },
+            { name: '异分母分数加法', mastery: 'weak' },
+            { name: '异分母分数减法', mastery: 'weak' },
+            { name: '分数应用题', mastery: 'medium' },
+          ]
+        },
         3: {
           score: 75, correctCount: 6, totalCount: 8,
           gradedAt: '2026-06-11',
@@ -1174,6 +1234,24 @@
             { name: '水果类单词', mastery: 'strong' },
           ]
         },
+        7: {
+          score: 50, correctCount: 4, totalCount: 8,
+          gradedAt: '2026-06-09',
+          answers: {
+            1: { correct: false, userAnswer: 'reading', analysis: '现在进行时结构为 be + V-ing。主语是I，be动词用am，正确形式是am reading。你的答案遗漏了be动词。' },
+            2: { correct: false, userAnswer: 'singing', analysis: '现在进行时结构为 be + V-ing。主语是She，be动词用is，正确形式是is singing。' },
+            3: { correct: true, userAnswer: 'are playing' },
+            4: { correct: true, userAnswer: 'B' },
+            5: { correct: false, userAnswer: 'He reading a book.', analysis: '现在进行时需要be动词 + V-ing：He is reading a book。你的答案缺少be动词is。' },
+            6: { correct: false, userAnswer: 'having', analysis: '现在进行时结构为 be + V-ing。主语是We，be动词用are，正确形式是are having。' },
+            7: { correct: true, userAnswer: 'C' },
+            8: { correct: false, userAnswer: 'cooking', analysis: '现在进行时结构为 be + V-ing。主语是My mother（第三人称单数），be动词用is，正确形式是is cooking。' },
+          },
+          classmatesWrong: { 1: 14, 2: 16, 5: 20, 6: 10, 8: 8 },
+          weakPoints: [
+            { name: '现在进行时', mastery: 'weak' },
+          ]
+        },
       },
 
       knowledgePoints: [
@@ -1185,8 +1263,12 @@
         { name: '古诗默写', subjectId: 'chinese', mastery: 'medium' },
         { name: '字词理解', subjectId: 'chinese', mastery: 'weak' },
         { name: '文学常识', subjectId: 'chinese', mastery: 'weak' },
+        { name: '诗意理解', subjectId: 'chinese', mastery: 'strong' },
         { name: '动词have', subjectId: 'english', mastery: 'weak' },
         { name: '三单形式', subjectId: 'english', mastery: 'strong' },
+        { name: '一般疑问句', subjectId: 'english', mastery: 'strong' },
+        { name: '水果类单词', subjectId: 'english', mastery: 'strong' },
+        { name: '现在进行时', subjectId: 'english', mastery: 'weak' },
       ],
 
       get errorBook() {
@@ -1310,47 +1392,36 @@
       const hw = mockData.homework.find(h => h.id === hwId);
       if (!hw) return;
 
-      // Build a print-friendly version
-      const subj = mockData.subjects.find(s => s.id === hw.subjectId);
-      const printWindow = window.open('', '_blank', 'width=800,height=600');
-      if (!printWindow) {
-        showToast('请允许弹出窗口以使用打印功能');
-        return;
-      }
+      // Hide all cards except the target one
+      const allCards = document.querySelectorAll('.hw-card');
+      let targetCard = null;
+      allCards.forEach(c => {
+        if (parseInt(c.dataset.hwid) === hwId) {
+          targetCard = c;
+        } else {
+          c.style.display = 'none';
+        }
+      });
 
-      printWindow.document.write(`
-        <!DOCTYPE html>
-        <html lang="zh-CN">
-        <head>
-          <meta charset="UTF-8">
-          <title>${hw.title} - 打印</title>
-          <style>
-            body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; padding: 20px; color: #333; }
-            h2 { margin-bottom: 4px; }
-            .meta { color: #999; font-size: 13px; margin-bottom: 20px; }
-            .q-item { padding: 12px 0; border-bottom: 1px dashed #ddd; page-break-inside: avoid; }
-            .q-num { font-weight: 700; margin-right: 8px; }
-            .q-stem { margin-bottom: 4px; }
-            .q-answer-line { color: #ccc; min-height: 24px; margin-left: 20px; }
-          </style>
-        </head>
-        <body>
-          <h2>${subj.icon} ${subj.name} · ${hw.title}</h2>
-          <div class="meta">👨‍🏫 ${hw.teacher} &nbsp; 📅 ${hw.deadline} &nbsp; 📝 共${hw.totalQuestions}题</div>
-          ${hw.questions.map((q, i) => `
-            <div class="q-item">
-              <p class="q-stem"><span class="q-num">${i+1}.</span> ${q.stem}</p>
-              <p class="q-answer-line">答：__________</p>
-            </div>
-          `).join('')}
-        </body>
-        </html>
-      `);
-      printWindow.document.close();
-      printWindow.focus();
+      if (!targetCard) return;
+
+      // Append printable questions
+      const questionsHtml = hw.questions.map((q, i) => `
+        <div class="print-q" style="page-break-inside:avoid;padding:10px 0;border-bottom:1px dashed #ddd;">
+          <p><b>${i+1}.</b> ${q.stem}</p>
+          <p style="color:#999;min-height:24px;">答：__________</p>
+        </div>
+      `).join('');
+      targetCard.insertAdjacentHTML('beforeend', `<div class="print-questions">${questionsHtml}</div>`);
+
+      window.print();
+
+      // Restore after print dialog
       setTimeout(() => {
-        printWindow.print();
-      }, 300);
+        allCards.forEach(c => { c.style.display = ''; });
+        document.querySelectorAll('.print-questions').forEach(q => q.remove());
+        showToast('✅ 打印已发送');
+      }, 500);
     }
 
     function startGrading(hwId) {
@@ -1434,6 +1505,16 @@
       renderPhotoGrid();
     }
 
+    function movePhoto(id, dir) {
+      const idx = cameraPhotos.findIndex(p => p.id === id);
+      if (idx < 0) return;
+      const targetIdx = idx + dir;
+      if (targetIdx < 0 || targetIdx >= cameraPhotos.length) return;
+      [cameraPhotos[idx], cameraPhotos[targetIdx]] = [cameraPhotos[targetIdx], cameraPhotos[idx]];
+      cameraPhotos.forEach((p, i) => p.page = i + 1);
+      renderPhotoGrid();
+    }
+
     function clearPhotos() {
       cameraPhotos = [];
       filePhotos = [];
@@ -1450,13 +1531,18 @@
         grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-hint);padding:20px;">📷 还没有拍照，点击下方按钮添加</div>';
         btnClear.style.display = 'none';
       } else {
-        grid.innerHTML = cameraPhotos.map(p => `
+        grid.innerHTML = cameraPhotos.map((p, idx) => {
+          const isFirst = idx === 0;
+          const isLast = idx === cameraPhotos.length - 1;
+          return `
           <div class="photo-item">
             <div style="width:100%;height:100%;background:${p.color};display:flex;align-items:center;justify-content:center;font-size:24px;">📝</div>
             <span class="photo-page-num">第${p.page}页</span>
             <button class="photo-del" onclick="removePhoto(${p.id})">✕</button>
-          </div>
-        `).join('');
+            ${!isFirst ? `<button class="photo-move-up" onclick="movePhoto(${p.id}, -1)" title="上移">▲</button>` : ''}
+            ${!isLast ? `<button class="photo-move-down" onclick="movePhoto(${p.id}, 1)" title="下移">▼</button>` : ''}
+          </div>`;
+        }).join('');
         btnClear.style.display = 'inline-block';
       }
       updateSubmitButton();
@@ -1482,13 +1568,18 @@
 
     function renderFilePhotoGrid() {
       const grid = document.getElementById('file-photo-grid');
-      grid.innerHTML = filePhotos.map(p => `
+      grid.innerHTML = filePhotos.map((p, idx) => {
+        const isFirst = idx === 0;
+        const isLast = idx === filePhotos.length - 1;
+        return `
         <div class="photo-item">
           <img src="${p.dataUrl}" alt="${p.name}">
           <span class="photo-page-num">第${p.page}页</span>
           <button class="photo-del" onclick="removeFilePhoto(${p.id})">✕</button>
-        </div>
-      `).join('');
+          ${!isFirst ? `<button class="photo-move-up" onclick="moveFilePhoto(${p.id}, -1)" title="上移">▲</button>` : ''}
+          ${!isLast ? `<button class="photo-move-down" onclick="moveFilePhoto(${p.id}, 1)" title="下移">▼</button>` : ''}
+        </div>`;
+      }).join('');
     }
 
     function removeFilePhoto(id) {
@@ -1496,6 +1587,16 @@
       filePhotos.forEach((p, i) => p.page = i + 1);
       renderFilePhotoGrid();
       updateSubmitButton();
+    }
+
+    function moveFilePhoto(id, dir) {
+      const idx = filePhotos.findIndex(p => p.id === id);
+      if (idx < 0) return;
+      const targetIdx = idx + dir;
+      if (targetIdx < 0 || targetIdx >= filePhotos.length) return;
+      [filePhotos[idx], filePhotos[targetIdx]] = [filePhotos[targetIdx], filePhotos[idx]];
+      filePhotos.forEach((p, i) => p.page = i + 1);
+      renderFilePhotoGrid();
     }
 
     function getActivePhotos() {
