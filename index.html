@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>作业批改助手</title>
+  <style>
+    :root {
+      --primary: #2EAD77;
+      --primary-light: #EDF9F3;
+      --primary-dark: #238560;
+      --accent: #FF8C42;
+      --text: #333333;
+      --text-secondary: #666666;
+      --text-hint: #999999;
+      --bg: #F5F5F5;
+      --card-bg: #FFFFFF;
+      --border: #E8E8E8;
+      --danger: #E74C3C;
+      --warning: #F39C12;
+      --success: #27AE60;
+      --radius-lg: 12px;
+      --radius-md: 8px;
+      --radius-sm: 4px;
+      --font-lg: 16px;
+      --font-md: 14px;
+      --font-sm: 12px;
+      --max-width: 414px;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      font-size: var(--font-md);
+      color: var(--text);
+      background: #E8E8E8;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    #app-container {
+      width: 100%;
+      max-width: var(--max-width);
+      background: var(--bg);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    #app-header {
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 16px;
+      text-align: center;
+      font-size: var(--font-lg);
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    #tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: var(--max-width);
+      display: flex;
+      justify-content: space-around;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 6px 0 env(safe-area-inset-bottom, 8px);
+      z-index: 100;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: var(--font-sm);
+      color: var(--text-hint);
+      cursor: pointer;
+      transition: color 0.2s;
+      padding: 4px 12px;
+    }
+
+    .tab-item.active {
+      color: var(--primary);
+    }
+
+    .tab-icon { font-size: 20px; }
+    .tab-label { font-size: 10px; }
+
+    #page-area {
+      padding-bottom: 60px;
+    }
+
+    .page {
+      display: none;
+      padding: 12px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* Sub Tabs */
+    .sub-tabs {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .sub-tab {
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: #fff;
+      color: var(--text-secondary);
+      font-size: var(--font-sm);
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .sub-tab.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Search Bar */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      gap: 8px;
+    }
+
+    .search-icon { font-size: 16px; }
+
+    .search-input {
+      border: none;
+      outline: none;
+      flex: 1;
+      font-size: var(--font-md);
+      background: transparent;
+    }
+
+    /* Homework Cards */
+    .hw-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .hw-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .hw-subject-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-sm);
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .hw-title {
+      font-size: var(--font-md);
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .hw-meta {
+      font-size: var(--font-sm);
+      color: var(--text-hint);
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .hw-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 6px 16px;
+      border-radius: var(--radius-md);
+      border: none;
+      font-size: var(--font-sm);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn:active { opacity: 0.8; }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Grading page */
+    .field-label {
+      display: block;
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .field-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-md);
+      background: #fff;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+
+    .section { margin-bottom: 16px; }
+
+    .upload-tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .upload-tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border-radius: var(--radius-md);
+      background: #fff;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-size: var(--font-sm);
+      transition: all 0.2s;
+    }
+
+    .upload-tab.active {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .photo-item {
+      aspect-ratio: 3/4;
+      border-radius: var(--radius-md);
+      background: #fff;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-del {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--danger);
+      color: #fff;
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-page-num {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+    }
+
+    .photo-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .file-upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      text-align: center;
+      color: var(--text-hint);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .file-upload-zone:hover { border-color: var(--primary); }
+
+    .btn-block {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 16px;
+      font-size: var(--font-md);
+      font-weight: 600;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .grading-info { margin-bottom: 12px; }
+
+    /* Progress */
+    .grading-progress {
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: #E8E8E8;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    /* Grading Result */
+    .grading-score {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .grading-score .big-score {
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .grading-score .score-label {
+      font-size: var(--font-sm);
+      color: var(--text-hint);
+    }
+
+    .result-question-card {
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 10px;
+      border-left: 4px solid var(--success);
+    }
+
+    .result-question-card.wrong {
+      border-left-color: var(--danger);
+    }
+
+    .result-q-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .result-q-stem {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .result-answers {
+      font-size: var(--font-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .result-answers .correct-answer {
+      color: var(--success);
+    }
+
+    .result-answers .wrong-answer {
+      color: var(--danger);
+      text-decoration: line-through;
+    }
+
+    .result-analysis {
+      margin-top: 8px;
+      padding: 8px 10px;
+      background: #FFF8E1;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-sm);
+      color: #6D5E00;
+    }
+
+    /* Report page */
+    .report-header-card {
+      background: #fff;
+      padding: 14px 16px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 12px;
+    }
+
+    .report-score-section {
+      background: #fff;
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .report-section {
+      background: #fff;
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 12px;
+    }
+
+    .report-section-title {
+      font-size: var(--font-md);
+      font-weight: 600;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .error-card {
+      background: #FFFBF0;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+    }
+
+    .report-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-sm {
+      padding: 4px 10px;
+      font-size: 11px;
+    }
+
+    .report-expand {
+      margin-top: 8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-hint);
+    }
+
+    .empty-icon { font-size: 48px; margin-bottom: 12px; }
+
+    /* Error book */
+    .kp-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .kp-filter-tag {
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      background: #fff;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .kp-filter-tag.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .error-book-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .error-book-card .eb-subject {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .error-book-card .eb-question {
+      font-weight: 500;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .error-book-card .eb-answers {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .error-book-card .eb-analysis {
+      font-size: 12px;
+      background: #FFF8E1;
+      padding: 8px;
+      border-radius: 4px;
+      color: #6D5E00;
+    }
+
+    .error-book-card .eb-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-hint);
+      margin-top: 8px;
+    }
+
+    .paywall-banner {
+      text-align: center;
+      padding: 24px 16px;
+      background: linear-gradient(to bottom, #fff, #F5F5F5);
+      border-radius: var(--radius-lg);
+      margin: 16px 0;
+    }
+
+    .error-book-card.locked {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .error-book-card.locked::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: var(--radius-lg);
+    }
+
+    .lock-overlay {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      text-align: center;
+    }
+
+    /* Profile */
+    .profile-card {
+      background: #fff;
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .profile-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .profile-info { flex: 1; }
+
+    .menu-list {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      font-size: var(--font-md);
+      transition: background 0.15s;
+    }
+
+    .menu-item:last-child { border-bottom: none; }
+
+    .menu-item:active { background: var(--bg); }
+
+    .menu-arrow {
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 16px 16px 0 0;
+      padding: 20px 16px;
+      width: 100%;
+      max-width: var(--max-width);
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 20px;
+      color: var(--text-hint);
+      cursor: pointer;
+    }
+
+    .sub-features {
+      background: var(--bg);
+      border-radius: var(--radius-md);
+      padding: 12px;
+    }
+
+    .sub-feature {
+      padding: 8px 0;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sub-feature:last-child { border-bottom: none; }
+
+    @media print {
+      body { background: #fff; }
+      #app-header, #tab-bar, .hw-actions, .search-bar, .sub-tabs,
+      #page-grading, #page-report, #page-errors, #page-profile { display: none !important; }
+      #app-container { max-width: 100%; box-shadow: none; }
+      .page { display: block !important; padding: 0; }
+      .hw-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app-container">
+    <div id="app-header">
+      <span class="header-title">作业批改助手</span>
+    </div>
+
+    <main id="page-area">
+      <!-- Tab 1: Home / Homework -->
+      <div id="page-home" class="page active">
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" placeholder="搜索作业..." oninput="filterHomework()">
+        </div>
+        <div class="sub-tabs">
+          <div class="sub-tab active" data-hwtype="all" onclick="switchHwType('all', this)">全部</div>
+          <div class="sub-tab" data-hwtype="school" onclick="switchHwType('school', this)">学校作业</div>
+          <div class="sub-tab" data-hwtype="custom" onclick="switchHwType('custom', this)">专属定制</div>
+        </div>
+        <div id="homework-list"></div>
+        <div id="homework-empty" class="empty-state" style="display:none;">
+          <div class="empty-icon">📋</div>
+          <p>暂无作业</p>
+        </div>
+      </div>
+
+      <!-- Tab 2: Grading -->
+      <div id="page-grading" class="page">
+        <div class="section">
+          <label class="field-label">选择作业</label>
+          <select id="grading-hw-select" class="field-select" onchange="updateGradingHomework()">
+            <option value="">-- 请选择作业 --</option>
+          </select>
+        </div>
+
+        <div id="grading-info" class="grading-info" style="display:none;">
+          <div class="hw-card" style="margin-bottom:12px;">
+            <div class="hw-card-header">
+              <span id="grading-subject-badge" class="hw-subject-badge"></span>
+              <span id="grading-title" class="hw-title"></span>
+            </div>
+            <div class="hw-meta">
+              <span id="grading-teacher"></span>
+              <span id="grading-questions"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <label class="field-label">上传方式</label>
+          <div class="upload-tabs">
+            <div class="upload-tab active" data-upload="camera" onclick="switchUploadMode('camera', this)">📸 拍照上传</div>
+            <div class="upload-tab" data-upload="file" onclick="switchUploadMode('file', this)">📁 文件上传</div>
+          </div>
+        </div>
+
+        <div id="camera-area">
+          <div class="photo-grid" id="photo-grid"></div>
+          <div class="photo-actions">
+            <button class="btn btn-outline" onclick="simulateTakePhoto()">📸 拍照</button>
+            <button class="btn btn-outline" onclick="simulateAddPhoto()">➕ 添加模拟照片</button>
+            <button class="btn btn-outline" onclick="clearPhotos()" id="btn-clear-photos" style="display:none;">🗑️ 清空</button>
+          </div>
+        </div>
+
+        <div id="file-area" style="display:none;">
+          <div class="file-upload-zone" onclick="document.getElementById('file-input').click()">
+            <span style="font-size:32px;">📁</span>
+            <p>点击选择图片文件</p>
+            <p style="font-size:11px;color:var(--text-hint);">支持 JPG、PNG 格式</p>
+          </div>
+          <input type="file" id="file-input" accept="image/*" multiple style="display:none;" onchange="handleFileUpload(event)">
+          <div class="photo-grid" id="file-photo-grid"></div>
+        </div>
+
+        <button class="btn btn-primary btn-block" onclick="submitGrading()" id="btn-submit-grading" disabled>
+          📤 提交批改
+        </button>
+
+        <div id="grading-progress" class="grading-progress" style="display:none;">
+          <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+          <p id="progress-text">AI 正在识别中...</p>
+        </div>
+
+        <div id="grading-result" style="display:none;"></div>
+      </div>
+
+      <!-- Tab 3: Report -->
+      <div id="page-report" class="page">
+        <div id="report-select-area" class="section">
+          <label class="field-label">选择已批改的作业</label>
+          <select id="report-hw-select" class="field-select" onchange="showReport()">
+            <option value="">-- 请选择 --</option>
+          </select>
+        </div>
+        <div id="report-content"></div>
+        <div id="report-empty" class="empty-state">
+          <div class="empty-icon">📊</div>
+          <p>还没有批改记录</p>
+        </div>
+      </div>
+
+      <!-- Tab 4: Error Book -->
+      <div id="page-errors" class="page">
+        <div class="section">
+          <label class="field-label">知识点筛选</label>
+          <div class="kp-filter" id="kp-filter">
+            <span class="kp-filter-tag active" onclick="filterErrors('all', this)">全部</span>
+          </div>
+        </div>
+        <div class="section" style="display:flex;gap:8px;justify-content:space-between;align-items:center;">
+          <label class="field-label" style="margin:0;">时间范围</label>
+          <select id="error-time-filter" class="field-select" style="width:auto;" onchange="renderErrorBook()">
+            <option value="7">最近7天</option>
+            <option value="30">最近30天</option>
+            <option value="all">全部</option>
+          </select>
+        </div>
+        <div id="error-book-list"></div>
+        <div id="error-book-empty" class="empty-state" style="display:none;">
+          <div class="empty-icon">📝</div>
+          <p>太棒了，还没有错题！</p>
+        </div>
+        <div id="error-paywall" style="display:none;">
+          <div class="paywall-banner">
+            <div style="font-size:28px;">🔒</div>
+            <p><b>部分错题已超过7天</b></p>
+            <p style="font-size:12px;color:var(--text-hint);">订阅后可查看全部历史错题</p>
+            <button class="btn btn-accent" onclick="showSubscribeModal()">📝 订阅解锁全部</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 5: Profile -->
+      <div id="page-profile" class="page">
+        <div class="profile-card">
+          <div class="profile-avatar">👩</div>
+          <div class="profile-info">
+            <h3 id="profile-name"></h3>
+            <p style="color:var(--text-hint);font-size:13px;">家长</p>
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:28px;">👦</span>
+            <div>
+              <b id="child-name"></b>
+              <p style="color:var(--text-hint);font-size:12px;" id="child-info"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-card" id="subscription-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <b id="sub-status-title">免费试用中</b>
+              <p style="color:var(--text-hint);font-size:12px;" id="sub-status-desc">订阅后可解锁全部功能</p>
+            </div>
+            <button class="btn btn-accent" onclick="showSubscribeModal()" id="btn-subscribe-top">立即订阅</button>
+          </div>
+        </div>
+
+        <div class="menu-list">
+          <div class="menu-item" onclick="showToast('打印历史（演示功能）')">
+            <span>🖨️ 打印历史</span>
+            <span class="menu-arrow">›</span>
+          </div>
+          <div class="menu-item" onclick="showToast('批改记录（演示功能）')">
+            <span>📷 批改记录</span>
+            <span class="menu-arrow">›</span>
+          </div>
+          <div class="menu-item" onclick="showToast('设置（演示功能）')">
+            <span>⚙️ 设置</span>
+            <span class="menu-arrow">›</span>
+          </div>
+          <div class="menu-item" onclick="showToast('关于作业批改助手 v1.0')">
+            <span>ℹ️ 关于</span>
+            <span class="menu-arrow">›</span>
+          </div>
+        </div>
+
+        <p style="text-align:center;color:var(--text-hint);font-size:11px;margin-top:20px;">作业批改助手 v1.0 · 演示版</p>
+      </div>
+    </main>
+
+    <nav id="tab-bar">
+      <div class="tab-item active" data-tab="home" onclick="switchPage('home')">
+        <span class="tab-icon">📋</span>
+        <span class="tab-label">作业</span>
+      </div>
+      <div class="tab-item" data-tab="grading" onclick="switchPage('grading')">
+        <span class="tab-icon">📷</span>
+        <span class="tab-label">批改</span>
+      </div>
+      <div class="tab-item" data-tab="report" onclick="switchPage('report')">
+        <span class="tab-icon">📊</span>
+        <span class="tab-label">报告</span>
+      </div>
+      <div class="tab-item" data-tab="errors" onclick="switchPage('errors')">
+        <span class="tab-icon">📝</span>
+        <span class="tab-label">错题本</span>
+      </div>
+      <div class="tab-item" data-tab="profile" onclick="switchPage('profile')">
+        <span class="tab-icon">👤</span>
+        <span class="tab-label">我的</span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Modal Overlay -->
+  <div id="modal-overlay" class="modal-overlay" style="display:none;" onclick="closeModal(event)">
+    <div class="modal-content" id="subscribe-modal" onclick="event.stopPropagation()">
+      <span class="modal-close" onclick="closeSubscribeModal()">✕</span>
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-size:40px;">👑</div>
+        <h3>解锁全部功能</h3>
+        <p style="color:var(--text-hint);font-size:13px;margin-top:4px;">提升孩子学习效率</p>
+      </div>
+      <div class="sub-features">
+        <div class="sub-feature">✅ 无限错题回顾</div>
+        <div class="sub-feature">✅ 所有题目视频讲解</div>
+        <div class="sub-feature">✅ 详细思路点拨</div>
+        <div class="sub-feature">✅ 专属定制练习卷</div>
+        <div class="sub-feature">✅ AI 薄弱点精准分析</div>
+      </div>
+      <div style="text-align:center;margin:16px 0;">
+        <span style="font-size:36px;font-weight:700;color:var(--accent);">¥9.9</span>
+        <span style="color:var(--text-hint);">/月</span>
+      </div>
+      <button class="btn btn-accent btn-block" onclick="doSubscribe()">💰 立即订阅</button>
+      <p style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:8px;">演示版：点击即模拟支付成功</p>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // Tab Navigation
+    // ============================================================
+    function switchPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+
+      const page = document.getElementById('page-' + name);
+      if (page) page.classList.add('active');
+
+      const tab = document.querySelector('[data-tab="' + name + '"]');
+      if (tab) tab.classList.add('active');
+
+      document.getElementById('page-area').scrollTop = 0;
+
+      if (name === 'report') initReportTab();
+      if (name === 'errors') initErrorBook();
+      if (name === 'profile') initProfile();
+      if (name === 'grading') refreshHomeworkSelector();
+    }
+
+    // ============================================================
+    // Mock Data
+    // ============================================================
+    const mockData = {
+      user: {
+        name: '张妈妈',
+        avatar: '👩',
+        child: { name: '小明', grade: '三年级', className: '2班' },
+        isSubscribed: false,
+        subscriptionExpiry: null,
+        firstGradingDate: null,
+      },
+
+      subjects: [
+        { id: 'math', name: '数学', color: '#4A90D9', icon: '📐' },
+        { id: 'chinese', name: '语文', color: '#E67E22', icon: '📖' },
+        { id: 'english', name: '英语', color: '#9B59B6', icon: '🌍' },
+      ],
+
+      homework: [
+        {
+          id: 1, subjectId: 'math', title: '分数加减法练习（三）',
+          teacher: '王老师', deadline: '2026-06-13', type: 'school',
+          totalQuestions: 10, submitted: 38, totalStudents: 42, status: 'pending',
+          questions: [
+            { id: 1, type: 'calc', stem: '1/4 + 1/4 = ?', answer: '1/2', knowledgePoint: '同分母分数加法' },
+            { id: 2, type: 'calc', stem: '3/8 + 1/8 = ?', answer: '1/2', knowledgePoint: '同分母分数加法' },
+            { id: 3, type: 'calc', stem: '2/3 - 1/3 = ?', answer: '1/3', knowledgePoint: '同分母分数减法' },
+            { id: 4, type: 'calc', stem: '5/6 - 1/6 = ?', answer: '2/3', knowledgePoint: '同分母分数减法' },
+            { id: 5, type: 'calc', stem: '1/2 + 1/4 = ?', answer: '3/4', knowledgePoint: '异分母分数加法' },
+            { id: 6, type: 'calc', stem: '1/3 + 1/6 = ?', answer: '1/2', knowledgePoint: '异分母分数加法' },
+            { id: 7, type: 'calc', stem: '3/4 - 1/2 = ?', answer: '1/4', knowledgePoint: '异分母分数减法' },
+            { id: 8, type: 'calc', stem: '2/5 + 1/10 = ?', answer: '1/2', knowledgePoint: '异分母分数加法' },
+            { id: 9, type: 'word', stem: '小明吃了1/3个蛋糕，小红吃了1/6个，一共吃了多少？', answer: '1/2', knowledgePoint: '分数应用题' },
+            { id: 10, type: 'word', stem: '一根绳子长5/6米，剪去1/3米，还剩多少？', answer: '1/2', knowledgePoint: '分数应用题' },
+          ]
+        },
+        {
+          id: 2, subjectId: 'math', title: '乘法口诀应用练习',
+          teacher: '王老师', deadline: '2026-06-14', type: 'school',
+          totalQuestions: 8, submitted: 0, totalStudents: 42, status: 'pending',
+          questions: [
+            { id: 1, type: 'calc', stem: '6 × 7 = ?', answer: '42', knowledgePoint: '乘法口诀' },
+            { id: 2, type: 'calc', stem: '8 × 9 = ?', answer: '72', knowledgePoint: '乘法口诀' },
+            { id: 3, type: 'calc', stem: '7 × 8 = ?', answer: '56', knowledgePoint: '乘法口诀' },
+            { id: 4, type: 'calc', stem: '9 × 6 = ?', answer: '54', knowledgePoint: '乘法口诀' },
+            { id: 5, type: 'word', stem: '每排8棵树，种了7排，一共多少棵？', answer: '56', knowledgePoint: '乘法应用' },
+            { id: 6, type: 'word', stem: '一箱苹果9千克，6箱多重？', answer: '54', knowledgePoint: '乘法应用' },
+            { id: 7, type: 'calc', stem: '12 × 5 = ?', answer: '60', knowledgePoint: '两位数乘法' },
+            { id: 8, type: 'word', stem: '买5本练习册，每本12元，共多少元？', answer: '60', knowledgePoint: '乘法应用' },
+          ]
+        },
+        {
+          id: 3, subjectId: 'chinese', title: '古诗默写与阅读理解',
+          teacher: '李老师', deadline: '2026-06-13', type: 'school',
+          totalQuestions: 8, submitted: 35, totalStudents: 42, status: 'graded',
+          questions: [
+            { id: 1, type: 'fill', stem: '床前明月光，__________。', answer: '疑是地上霜', knowledgePoint: '古诗默写' },
+            { id: 2, type: 'fill', stem: '举头望明月，__________。', answer: '低头思故乡', knowledgePoint: '古诗默写' },
+            { id: 3, type: 'choice', stem: '"疑是地上霜"中"疑"的意思是？A.怀疑 B.好像 C.疑问', answer: 'B', knowledgePoint: '字词理解' },
+            { id: 4, type: 'choice', stem: '这首诗表达了诗人什么感情？A.喜悦 B.思乡 C.愤怒', answer: 'B', knowledgePoint: '诗意理解' },
+            { id: 5, type: 'fill', stem: '白日依山尽，__________。', answer: '黄河入海流', knowledgePoint: '古诗默写' },
+            { id: 6, type: 'fill', stem: '欲穷千里目，__________。', answer: '更上一层楼', knowledgePoint: '古诗默写' },
+            { id: 7, type: 'choice', stem: '"欲穷千里目"中"穷"的意思是？A.贫穷 B.尽 C.穷困', answer: 'B', knowledgePoint: '字词理解' },
+            { id: 8, type: 'choice', stem: '这首诗的作者是？A.李白 B.王之涣 C.杜甫', answer: 'B', knowledgePoint: '文学常识' },
+          ]
+        },
+        {
+          id: 4, subjectId: 'chinese', title: '句式转换专项练习',
+          teacher: '李老师', deadline: '2026-06-15', type: 'school',
+          totalQuestions: 8, submitted: 0, totalStudents: 42, status: 'pending',
+          questions: [
+            { id: 1, type: 'rewrite', stem: '把"他完成了作业"改为"把"字句', answer: '他把作业完成了', knowledgePoint: '把字句' },
+            { id: 2, type: 'rewrite', stem: '把"风吹落了树叶"改为"被"字句', answer: '树叶被风吹落了', knowledgePoint: '被字句' },
+            { id: 3, type: 'rewrite', stem: '把"这本书被他看完了"改为"把"字句', answer: '他把这本书看完了', knowledgePoint: '把字句' },
+            { id: 4, type: 'rewrite', stem: '陈述句→反问句：你应该好好学习', answer: '难道你不应该好好学习吗？', knowledgePoint: '句式转换' },
+            { id: 5, type: 'rewrite', stem: '反问句→陈述句：难道这不是事实吗？', answer: '这是事实', knowledgePoint: '句式转换' },
+            { id: 6, type: 'rewrite', stem: '把"妈妈做好了饭"改为"被"字句', answer: '饭被妈妈做好了', knowledgePoint: '被字句' },
+            { id: 7, type: 'rewrite', stem: '扩写：小鸟飞', answer: '可爱的小鸟在天空中自由地飞', knowledgePoint: '扩写句子' },
+            { id: 8, type: 'rewrite', stem: '缩写：美丽的小鸟在天空中自由地飞', answer: '小鸟飞', knowledgePoint: '缩写句子' },
+          ]
+        },
+        {
+          id: 5, subjectId: 'english', title: 'Unit 3 单词与句型',
+          teacher: '张老师', deadline: '2026-06-14', type: 'school',
+          totalQuestions: 10, submitted: 40, totalStudents: 42, status: 'graded',
+          questions: [
+            { id: 1, type: 'translate', stem: 'apple 的中文意思是？', answer: '苹果', knowledgePoint: '水果类单词' },
+            { id: 2, type: 'translate', stem: '"香蕉"的英文是？', answer: 'banana', knowledgePoint: '水果类单词' },
+            { id: 3, type: 'fill', stem: 'I ___ (有) a new book.', answer: 'have', knowledgePoint: '动词have' },
+            { id: 4, type: 'fill', stem: 'She ___ (喜欢) apples very much.', answer: 'likes', knowledgePoint: '三单形式' },
+            { id: 5, type: 'choice', stem: '___ you like apples? A. Do B. Does C. Is', answer: 'A', knowledgePoint: '一般疑问句' },
+            { id: 6, type: 'choice', stem: 'He ___ to school every day. A. go B. goes C. going', answer: 'B', knowledgePoint: '三单形式' },
+            { id: 7, type: 'translate', stem: '"橘子"的英文是？', answer: 'orange', knowledgePoint: '水果类单词' },
+            { id: 8, type: 'fill', stem: 'They ___ (有) many friends.', answer: 'have', knowledgePoint: '动词have' },
+            { id: 9, type: 'choice', stem: '___ she like reading? A. Do B. Does C. Is', answer: 'B', knowledgePoint: '一般疑问句' },
+            { id: 10, type: 'translate', stem: 'grape 的中文意思是？', answer: '葡萄', knowledgePoint: '水果类单词' },
+          ]
+        },
+        {
+          id: 6, subjectId: 'math', title: '面积与周长计算',
+          teacher: '王老师', deadline: '2026-06-16', type: 'custom',
+          totalQuestions: 8, submitted: 0, totalStudents: 42, status: 'pending',
+          questions: [
+            { id: 1, type: 'calc', stem: '长方形长8cm，宽5cm，周长是多少？', answer: '26cm', knowledgePoint: '长方形周长' },
+            { id: 2, type: 'calc', stem: '长方形长8cm，宽5cm，面积是多少？', answer: '40cm²', knowledgePoint: '长方形面积' },
+            { id: 3, type: 'calc', stem: '正方形边长6cm，周长是多少？', answer: '24cm', knowledgePoint: '正方形周长' },
+            { id: 4, type: 'calc', stem: '正方形边长6cm，面积是多少？', answer: '36cm²', knowledgePoint: '正方形面积' },
+            { id: 5, type: 'calc', stem: '一个长方形周长24cm，长8cm，宽多少？', answer: '4cm', knowledgePoint: '周长逆运算' },
+            { id: 6, type: 'word', stem: '教室长10米宽8米，铺地砖每块1平方米，需多少块？', answer: '80', knowledgePoint: '面积应用' },
+            { id: 7, type: 'word', stem: '操场长50米，小明跑了4圈，共多少米？', answer: '400', knowledgePoint: '周长应用' },
+            { id: 8, type: 'calc', stem: '长方形面积48cm²，长12cm，宽多少？', answer: '4cm', knowledgePoint: '面积逆运算' },
+          ]
+        },
+        {
+          id: 7, subjectId: 'english', title: 'Unit 4 现在进行时',
+          teacher: '张老师', deadline: '2026-06-17', type: 'school',
+          totalQuestions: 8, submitted: 0, totalStudents: 42, status: 'pending',
+          questions: [
+            { id: 1, type: 'fill', stem: 'I ___ (read) a book now.', answer: 'am reading', knowledgePoint: '现在进行时' },
+            { id: 2, type: 'fill', stem: 'She ___ (sing) a song.', answer: 'is singing', knowledgePoint: '现在进行时' },
+            { id: 3, type: 'fill', stem: 'They ___ (play) football.', answer: 'are playing', knowledgePoint: '现在进行时' },
+            { id: 4, type: 'choice', stem: 'Look! The boy ___. A. runs B. is running C. run', answer: 'B', knowledgePoint: '现在进行时' },
+            { id: 5, type: 'rewrite', stem: 'He reads a book. (改为现在进行时)', answer: 'He is reading a book.', knowledgePoint: '现在进行时' },
+            { id: 6, type: 'fill', stem: 'We ___ (have) lunch now.', answer: 'are having', knowledgePoint: '现在进行时' },
+            { id: 7, type: 'choice', stem: 'Listen! She ___ in the room. A. sing B. sang C. is singing', answer: 'C', knowledgePoint: '现在进行时' },
+            { id: 8, type: 'fill', stem: 'My mother ___ (cook) dinner.', answer: 'is cooking', knowledgePoint: '现在进行时' },
+          ]
+        },
+        {
+          id: 8, subjectId: 'chinese', title: '阅读理解《春》节选',
+          teacher: '李老师', deadline: '2026-06-18', type: 'custom',
+          totalQuestions: 5, submitted: 0, totalStudents: 42, status: 'pending',
+          questions: [
+            { id: 1, type: 'choice', stem: '文中描写的是哪个季节？A.春 B.夏 C.秋', answer: 'A', knowledgePoint: '文章理解' },
+            { id: 2, type: 'choice', stem: '作者的心情是怎样的？A.忧伤 B.喜悦 C.平静', answer: 'B', knowledgePoint: '情感体会' },
+            { id: 3, type: 'fill', stem: '文中出现了哪些景物？（至少写2个）', answer: '小草、花朵', knowledgePoint: '信息提取' },
+            { id: 4, type: 'choice', stem: '这篇文章的体裁是？A.说明文 B.散文 C.议论文', answer: 'B', knowledgePoint: '文体知识' },
+            { id: 5, type: 'fill', stem: '用一句话概括文章主要内容', answer: '描写了春天万物复苏的景象', knowledgePoint: '概括能力' },
+          ]
+        },
+      ],
+
+      gradingResults: {
+        3: {
+          score: 75, correctCount: 6, totalCount: 8,
+          gradedAt: '2026-06-11',
+          answers: {
+            1: { correct: true, userAnswer: '疑是地上霜' },
+            2: { correct: true, userAnswer: '低头思故乡' },
+            3: { correct: false, userAnswer: 'A', analysis: '"疑"在古诗中常作"好像"解，如"疑是银河落九天"。此处理解为"好像地上结了霜"。' },
+            4: { correct: true, userAnswer: 'B' },
+            5: { correct: false, userAnswer: '黄河入水流', analysis: '应为"黄河入海流"，注意"海"和"流"的位置。' },
+            6: { correct: true, userAnswer: '更上一层楼' },
+            7: { correct: true, userAnswer: 'B' },
+            8: { correct: false, userAnswer: 'A', analysis: '《登鹳雀楼》作者是王之涣，而非李白。注意区分唐代诗人及其代表作。' },
+          },
+          classmatesWrong: { 3: 15, 5: 20, 8: 12 },
+          weakPoints: [
+            { name: '古诗默写', mastery: 'medium' },
+            { name: '字词理解', mastery: 'weak' },
+            { name: '文学常识', mastery: 'weak' },
+            { name: '诗意理解', mastery: 'strong' },
+          ]
+        },
+        5: {
+          score: 80, correctCount: 8, totalCount: 10,
+          gradedAt: '2026-06-10',
+          answers: {
+            1: { correct: true, userAnswer: '苹果' },
+            2: { correct: true, userAnswer: 'banana' },
+            3: { correct: false, userAnswer: 'has', analysis: '主语是I（第一人称），动词用原形have，不用三单形式has。' },
+            4: { correct: true, userAnswer: 'likes' },
+            5: { correct: true, userAnswer: 'A' },
+            6: { correct: true, userAnswer: 'B' },
+            7: { correct: true, userAnswer: 'orange' },
+            8: { correct: false, userAnswer: 'has', analysis: '主语是They（复数），动词用原形have。have/has区别：第三人称单数用has，其余用have。' },
+            9: { correct: true, userAnswer: 'B' },
+            10: { correct: true, userAnswer: '葡萄' },
+          },
+          classmatesWrong: { 3: 12, 8: 18 },
+          weakPoints: [
+            { name: '动词have', mastery: 'weak' },
+            { name: '三单形式', mastery: 'strong' },
+            { name: '一般疑问句', mastery: 'strong' },
+            { name: '水果类单词', mastery: 'strong' },
+          ]
+        },
+      },
+
+      knowledgePoints: [
+        { name: '同分母分数加法', subjectId: 'math', mastery: 'strong' },
+        { name: '同分母分数减法', subjectId: 'math', mastery: 'strong' },
+        { name: '异分母分数加法', subjectId: 'math', mastery: 'medium' },
+        { name: '异分母分数减法', subjectId: 'math', mastery: 'medium' },
+        { name: '分数应用题', subjectId: 'math', mastery: 'weak' },
+        { name: '古诗默写', subjectId: 'chinese', mastery: 'medium' },
+        { name: '字词理解', subjectId: 'chinese', mastery: 'weak' },
+        { name: '文学常识', subjectId: 'chinese', mastery: 'weak' },
+        { name: '动词have', subjectId: 'english', mastery: 'weak' },
+        { name: '三单形式', subjectId: 'english', mastery: 'strong' },
+      ],
+
+      get errorBook() {
+        const errors = [];
+        for (const [hwId, result] of Object.entries(this.gradingResults)) {
+          const hw = this.homework.find(h => h.id === parseInt(hwId));
+          if (!hw) continue;
+          for (const [qId, ans] of Object.entries(result.answers)) {
+            if (!ans.correct) {
+              const question = hw.questions.find(q => q.id === parseInt(qId));
+              if (!question) continue;
+              errors.push({
+                id: errors.length + 1,
+                homeworkId: hw.id,
+                homeworkTitle: hw.title,
+                subjectId: hw.subjectId,
+                question: question.stem,
+                wrongAnswer: ans.userAnswer,
+                correctAnswer: question.answer,
+                analysis: ans.analysis || '请仔细审题，注意细节。',
+                knowledgePoint: question.knowledgePoint,
+                date: result.gradedAt,
+                classmatesWrong: (result.classmatesWrong || {})[qId] || 0,
+              });
+            }
+          }
+        }
+        return errors;
+      },
+    };
+
+    // ============================================================
+    // localStorage Persistence
+    // ============================================================
+    function loadState() {
+      try {
+        const saved = localStorage.getItem('hwa_state');
+        if (saved) {
+          const state = JSON.parse(saved);
+          if (state.isSubscribed !== undefined) mockData.user.isSubscribed = state.isSubscribed;
+          if (state.subscriptionExpiry) mockData.user.subscriptionExpiry = state.subscriptionExpiry;
+          if (state.firstGradingDate) mockData.user.firstGradingDate = state.firstGradingDate;
+        }
+      } catch(e) { /* ignore */ }
+    }
+
+    function saveState() {
+      localStorage.setItem('hwa_state', JSON.stringify({
+        isSubscribed: mockData.user.isSubscribed,
+        subscriptionExpiry: mockData.user.subscriptionExpiry,
+        firstGradingDate: mockData.user.firstGradingDate,
+      }));
+    }
+
+    loadState();
+
+    // ============================================================
+    // Tab 1: Homework List with Print
+    // ============================================================
+    let currentHwType = 'all';
+    let currentHwSearch = '';
+
+    function getFilteredHomework() {
+      return mockData.homework.filter(hw => {
+        if (currentHwType !== 'all' && hw.type !== currentHwType) return false;
+        if (currentHwSearch && !hw.title.includes(currentHwSearch) && !hw.teacher.includes(currentHwSearch)) return false;
+        return true;
+      });
+    }
+
+    function switchHwType(type, el) {
+      currentHwType = type;
+      document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      renderHomeworkList();
+    }
+
+    function filterHomework() {
+      currentHwSearch = document.querySelector('.search-input').value.trim();
+      renderHomeworkList();
+    }
+
+    function renderHomeworkList() {
+      const list = document.getElementById('homework-list');
+      const empty = document.getElementById('homework-empty');
+      const hws = getFilteredHomework();
+
+      if (hws.length === 0) {
+        list.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      list.innerHTML = hws.map(hw => {
+        const subj = mockData.subjects.find(s => s.id === hw.subjectId);
+        const statusLabel = hw.status === 'graded'
+          ? '<span style="color:var(--success);font-size:11px;">✓ 已批改</span>'
+          : '<span style="color:var(--text-hint);font-size:11px;">待提交</span>';
+        return `
+        <div class="hw-card" data-hwid="${hw.id}">
+          <div class="hw-card-header">
+            <span class="hw-subject-badge" style="background:${subj.color}">${subj.icon} ${subj.name}</span>
+            <span class="hw-title">${hw.title}</span>
+          </div>
+          <div class="hw-meta">
+            <span>👨‍🏫 ${hw.teacher}</span>
+            <span>📅 ${hw.deadline}</span>
+            <span>📝 ${hw.totalQuestions}题</span>
+            ${statusLabel}
+          </div>
+          <div class="hw-actions">
+            <button class="btn btn-outline" onclick="printHomework(${hw.id})">打印</button>
+            <button class="btn btn-primary" onclick="startGrading(${hw.id})">去批改</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function printHomework(hwId) {
+      const hw = mockData.homework.find(h => h.id === hwId);
+      if (!hw) return;
+
+      // Build a print-friendly version
+      const subj = mockData.subjects.find(s => s.id === hw.subjectId);
+      const printWindow = window.open('', '_blank', 'width=800,height=600');
+      if (!printWindow) {
+        showToast('请允许弹出窗口以使用打印功能');
+        return;
+      }
+
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="zh-CN">
+        <head>
+          <meta charset="UTF-8">
+          <title>${hw.title} - 打印</title>
+          <style>
+            body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; padding: 20px; color: #333; }
+            h2 { margin-bottom: 4px; }
+            .meta { color: #999; font-size: 13px; margin-bottom: 20px; }
+            .q-item { padding: 12px 0; border-bottom: 1px dashed #ddd; page-break-inside: avoid; }
+            .q-num { font-weight: 700; margin-right: 8px; }
+            .q-stem { margin-bottom: 4px; }
+            .q-answer-line { color: #ccc; min-height: 24px; margin-left: 20px; }
+          </style>
+        </head>
+        <body>
+          <h2>${subj.icon} ${subj.name} · ${hw.title}</h2>
+          <div class="meta">👨‍🏫 ${hw.teacher} &nbsp; 📅 ${hw.deadline} &nbsp; 📝 共${hw.totalQuestions}题</div>
+          ${hw.questions.map((q, i) => `
+            <div class="q-item">
+              <p class="q-stem"><span class="q-num">${i+1}.</span> ${q.stem}</p>
+              <p class="q-answer-line">答：__________</p>
+            </div>
+          `).join('')}
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+      }, 300);
+    }
+
+    function startGrading(hwId) {
+      switchPage('grading');
+      setTimeout(() => {
+        document.getElementById('grading-hw-select').value = hwId;
+        updateGradingHomework();
+      }, 50);
+    }
+
+    // ============================================================
+    // Tab 2: Photo Upload and AI Grading Simulation
+    // ============================================================
+    let uploadMode = 'camera';
+    let cameraPhotos = [];
+    let filePhotos = [];
+    let currentGradingHwId = null;
+
+    function refreshHomeworkSelector() {
+      const sel = document.getElementById('grading-hw-select');
+      const currentVal = sel.value;
+      sel.innerHTML = '<option value="">-- 请选择作业 --</option>';
+      const pending = mockData.homework.filter(h => h.status === 'pending');
+      pending.forEach(hw => {
+        const opt = document.createElement('option');
+        opt.value = hw.id;
+        const subj = mockData.subjects.find(s => s.id === hw.subjectId);
+        opt.textContent = `[${subj.name}] ${hw.title}`;
+        sel.appendChild(opt);
+      });
+      // Restore previous selection if still valid
+      if (currentVal) {
+        const stillPending = pending.find(h => String(h.id) === currentVal);
+        if (stillPending) sel.value = currentVal;
+      }
+    }
+
+    function updateGradingHomework() {
+      const sel = document.getElementById('grading-hw-select');
+      currentGradingHwId = sel.value ? parseInt(sel.value) : null;
+      const hw = mockData.homework.find(h => h.id === currentGradingHwId);
+      const info = document.getElementById('grading-info');
+
+      if (hw) {
+        info.style.display = 'block';
+        const subj = mockData.subjects.find(s => s.id === hw.subjectId);
+        document.getElementById('grading-subject-badge').textContent = subj.icon + ' ' + subj.name;
+        document.getElementById('grading-subject-badge').style.background = subj.color;
+        document.getElementById('grading-title').textContent = hw.title;
+        document.getElementById('grading-teacher').textContent = '👨‍🏫 ' + hw.teacher;
+        document.getElementById('grading-questions').textContent = '📝 ' + hw.totalQuestions + '题';
+      } else {
+        info.style.display = 'none';
+      }
+      updateSubmitButton();
+    }
+
+    function switchUploadMode(mode, el) {
+      uploadMode = mode;
+      document.querySelectorAll('.upload-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('camera-area').style.display = mode === 'camera' ? 'block' : 'none';
+      document.getElementById('file-area').style.display = mode === 'file' ? 'block' : 'none';
+    }
+
+    function simulateTakePhoto() {
+      const colors = ['#EDF9F3', '#FFF8E1', '#EBF3FC', '#FDE8E8', '#F3E8FF'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      cameraPhotos.push({ id: Date.now(), color, page: cameraPhotos.length + 1 });
+      renderPhotoGrid();
+      showToast('拍照成功！');
+    }
+
+    function simulateAddPhoto() {
+      simulateTakePhoto();
+    }
+
+    function removePhoto(id) {
+      cameraPhotos = cameraPhotos.filter(p => p.id !== id);
+      cameraPhotos.forEach((p, i) => p.page = i + 1);
+      renderPhotoGrid();
+    }
+
+    function clearPhotos() {
+      cameraPhotos = [];
+      filePhotos = [];
+      document.getElementById('file-photo-grid').innerHTML = '';
+      renderPhotoGrid();
+      updateSubmitButton();
+    }
+
+    function renderPhotoGrid() {
+      const grid = document.getElementById('photo-grid');
+      const btnClear = document.getElementById('btn-clear-photos');
+
+      if (cameraPhotos.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-hint);padding:20px;">📷 还没有拍照，点击下方按钮添加</div>';
+        btnClear.style.display = 'none';
+      } else {
+        grid.innerHTML = cameraPhotos.map(p => `
+          <div class="photo-item">
+            <div style="width:100%;height:100%;background:${p.color};display:flex;align-items:center;justify-content:center;font-size:24px;">📝</div>
+            <span class="photo-page-num">第${p.page}页</span>
+            <button class="photo-del" onclick="removePhoto(${p.id})">✕</button>
+          </div>
+        `).join('');
+        btnClear.style.display = 'inline-block';
+      }
+      updateSubmitButton();
+    }
+
+    function handleFileUpload(event) {
+      const files = event.target.files;
+      const grid = document.getElementById('file-photo-grid');
+      grid.innerHTML = '';
+      filePhotos = [];
+      for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (function(idx, file) {
+          return function(e) {
+            filePhotos.push({ id: Date.now() + idx, dataUrl: e.target.result, page: idx + 1, name: file.name });
+            renderFilePhotoGrid();
+            updateSubmitButton();
+          };
+        })(i, files[i]);
+        reader.readAsDataURL(files[i]);
+      }
+    }
+
+    function renderFilePhotoGrid() {
+      const grid = document.getElementById('file-photo-grid');
+      grid.innerHTML = filePhotos.map(p => `
+        <div class="photo-item">
+          <img src="${p.dataUrl}" alt="${p.name}">
+          <span class="photo-page-num">第${p.page}页</span>
+          <button class="photo-del" onclick="removeFilePhoto(${p.id})">✕</button>
+        </div>
+      `).join('');
+    }
+
+    function removeFilePhoto(id) {
+      filePhotos = filePhotos.filter(p => p.id !== id);
+      filePhotos.forEach((p, i) => p.page = i + 1);
+      renderFilePhotoGrid();
+      updateSubmitButton();
+    }
+
+    function getActivePhotos() {
+      return uploadMode === 'camera' ? cameraPhotos : filePhotos;
+    }
+
+    function updateSubmitButton() {
+      const btn = document.getElementById('btn-submit-grading');
+      btn.disabled = !currentGradingHwId || getActivePhotos().length === 0;
+    }
+
+    function submitGrading() {
+      if (!currentGradingHwId || getActivePhotos().length === 0) return;
+
+      const hw = mockData.homework.find(h => h.id === currentGradingHwId);
+      if (!hw) return;
+
+      // Hide any previous result
+      document.getElementById('grading-result').style.display = 'none';
+      document.getElementById('grading-progress').style.display = 'block';
+      document.getElementById('btn-submit-grading').disabled = true;
+
+      const progressFill = document.getElementById('progress-fill');
+      const progressText = document.getElementById('progress-text');
+      const messages = ['AI 正在识别手写内容...', '正在比对答案...', '正在生成错题分析...', '正在归档错题本...'];
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 15 + 5;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          progressFill.style.width = '100%';
+          progressText.textContent = '✅ 批改完成！';
+
+          setTimeout(() => {
+            document.getElementById('grading-progress').style.display = 'none';
+            showGradingResult(hw);
+          }, 500);
+        } else {
+          progressFill.style.width = progress + '%';
+          const msgIdx = Math.min(Math.floor(progress / 25), messages.length - 1);
+          progressText.textContent = messages[msgIdx];
+        }
+      }, 300);
+    }
+
+    function computeWeakPoints(hw, answers) {
+      const kpMap = {};
+      hw.questions.forEach(q => {
+        if (!kpMap[q.knowledgePoint]) kpMap[q.knowledgePoint] = { correct: 0, total: 0 };
+        kpMap[q.knowledgePoint].total++;
+        if (answers[q.id] && answers[q.id].correct) kpMap[q.knowledgePoint].correct++;
+      });
+      return Object.entries(kpMap).map(([name, stats]) => {
+        const rate = stats.correct / stats.total;
+        return { name, mastery: rate >= 0.8 ? 'strong' : rate >= 0.5 ? 'medium' : 'weak' };
+      });
+    }
+
+    function showGradingResult(hw) {
+      const seed = hw.id * 137;
+      const correctPattern = [true, true, false, true, false, true, true, false, true, false];
+      const answers = {};
+      let correctCount = 0;
+      const classmatesWrong = {};
+
+      hw.questions.forEach((q, i) => {
+        const isCorrect = correctPattern[i % correctPattern.length] || (seed % (i + 2) === 0);
+        if (isCorrect) correctCount++;
+
+        let userAnswer;
+        if (isCorrect) {
+          userAnswer = q.answer;
+        } else {
+          if (q.type === 'choice') {
+            const options = ['A', 'B', 'C'];
+            userAnswer = options.find(o => o !== q.answer) || 'A';
+          } else if (q.type === 'calc') {
+            userAnswer = (parseInt(q.answer) + seed % 5 + 1).toString();
+          } else {
+            userAnswer = '（手写识别结果：' + q.answer.substring(0, 2) + '...识别有误）';
+          }
+        }
+
+        answers[q.id] = {
+          correct: isCorrect,
+          userAnswer,
+          analysis: isCorrect ? null : '本题考察' + q.knowledgePoint + '。正确答案应为"' + q.answer + '"，你的答案"' + userAnswer + '"有误，请检查审题和计算过程。',
+        };
+
+        if (!isCorrect) {
+          classmatesWrong[q.id] = Math.floor(Math.random() * 20) + 3;
+        }
+      });
+
+      const score = Math.round((correctCount / hw.totalQuestions) * 100);
+
+      mockData.gradingResults[hw.id] = {
+        score, correctCount, totalCount: hw.totalQuestions,
+        gradedAt: new Date().toISOString().split('T')[0],
+        answers,
+        classmatesWrong,
+        weakPoints: computeWeakPoints(hw, answers),
+      };
+
+      if (!mockData.user.firstGradingDate) {
+        mockData.user.firstGradingDate = new Date().toISOString().split('T')[0];
+        saveState();
+      }
+
+      hw.status = 'graded';
+      hw.submitted = Math.min(hw.submitted + 1, hw.totalStudents);
+
+      const container = document.getElementById('grading-result');
+      const correctRate = Math.round((correctCount / hw.totalQuestions) * 100);
+
+      let questionsHtml = '';
+      hw.questions.forEach((q, i) => {
+        const ans = answers[q.id];
+        const cls = ans.correct ? '' : 'wrong';
+        const icon = ans.correct ? '✅' : '❌';
+        const analysisHtml = ans.analysis ? `<div class="result-analysis">💡 ${ans.analysis}</div>` : '';
+        questionsHtml += `
+          <div class="result-question-card ${cls}">
+            <div class="result-q-header">
+              <span>${icon} 第${i+1}题</span>
+              <span style="font-size:11px;color:var(--text-hint);">${q.knowledgePoint}</span>
+            </div>
+            <div class="result-q-stem">${q.stem}</div>
+            <div class="result-answers">
+              <span>你的答案：<span class="${ans.correct ? 'correct-answer' : 'wrong-answer'}">${ans.userAnswer}</span></span>
+              <span>正确答案：<span class="correct-answer">${q.answer}</span></span>
+            </div>
+            ${analysisHtml}
+          </div>
+        `;
+      });
+
+      container.innerHTML = `
+        <div class="grading-score">
+          <div class="big-score">${score}<span style="font-size:24px;">分</span></div>
+          <div class="score-label">正确 ${correctCount}/${hw.totalQuestions} · 正确率 ${correctRate}%</div>
+        </div>
+        ${questionsHtml}
+        <p style="text-align:center;margin:16px 0;color:var(--text-hint);font-size:var(--font-sm);">
+          📝 错题已自动归档到错题本
+        </p>
+        <button class="btn btn-primary btn-block" onclick="switchPage('report')">📊 查看完整报告 →</button>
+      `;
+      container.style.display = 'block';
+      document.getElementById('btn-submit-grading').disabled = true;
+
+      // Clean up photos after grading
+      cameraPhotos = [];
+      filePhotos = [];
+      renderPhotoGrid();
+      document.getElementById('file-photo-grid').innerHTML = '';
+
+      saveState();
+      refreshHomeworkSelector();
+    }
+
+    // ============================================================
+    // Tab 3: Grading Report with Donut Chart
+    // ============================================================
+    function createDonutChart(percentage, size = 140) {
+      const strokeWidth = 12;
+      const radius = (size - strokeWidth) / 2;
+      const circumference = 2 * Math.PI * radius;
+      const filled = (percentage / 100) * circumference;
+      const center = size / 2;
+
+      return `
+        <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+          <circle cx="${center}" cy="${center}" r="${radius}" fill="none"
+            stroke="#E8E8E8" stroke-width="${strokeWidth}"/>
+          <circle cx="${center}" cy="${center}" r="${radius}" fill="none"
+            stroke="${percentage >= 80 ? '#27AE60' : percentage >= 60 ? '#F39C12' : '#E74C3C'}"
+            stroke-width="${strokeWidth}"
+            stroke-dasharray="${filled} ${circumference - filled}"
+            stroke-dashoffset="0"
+            stroke-linecap="round"
+            transform="rotate(-90 ${center} ${center})"/>
+          <text x="${center}" y="${center}" text-anchor="middle" dy="0.35em"
+            font-size="28" font-weight="700" fill="#333">${percentage}%</text>
+        </svg>
+      `;
+    }
+
+    function populateReportSelector() {
+      const sel = document.getElementById('report-hw-select');
+      sel.innerHTML = '<option value="">-- 请选择 --</option>';
+      const graded = mockData.homework.filter(h => h.status === 'graded' && mockData.gradingResults[h.id]);
+      graded.forEach(hw => {
+        const opt = document.createElement('option');
+        opt.value = hw.id;
+        const subj = mockData.subjects.find(s => s.id === hw.subjectId);
+        opt.textContent = `[${subj.name}] ${hw.title}`;
+        sel.appendChild(opt);
+      });
+      if (graded.length === 0) {
+        document.getElementById('report-content').style.display = 'none';
+        document.getElementById('report-empty').style.display = 'block';
+      }
+    }
+
+    function initReportTab() {
+      populateReportSelector();
+    }
+
+    function showReport() {
+      const hwId = parseInt(document.getElementById('report-hw-select').value);
+      if (!hwId) {
+        document.getElementById('report-content').style.display = 'none';
+        document.getElementById('report-empty').style.display = 'block';
+        return;
+      }
+
+      const hw = mockData.homework.find(h => h.id === hwId);
+      const result = mockData.gradingResults[hwId];
+      const subj = mockData.subjects.find(s => s.id === hw.subjectId);
+      if (!hw || !result) return;
+
+      document.getElementById('report-empty').style.display = 'none';
+      const container = document.getElementById('report-content');
+      const correctRate = Math.round((result.correctCount / result.totalCount) * 100);
+
+      const weakPointsHtml = result.weakPoints.map(wp => {
+        const color = wp.mastery === 'strong' ? 'var(--success)' : wp.mastery === 'medium' ? 'var(--warning)' : 'var(--danger)';
+        const bg = wp.mastery === 'strong' ? '#F0F9F0' : wp.mastery === 'medium' ? '#FFF8E1' : '#FDE8E8';
+        const label = wp.mastery === 'strong' ? '掌握 ✓' : wp.mastery === 'medium' ? '一般 △' : '薄弱 ✗';
+        return `<span style="display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;background:${bg};color:${color};margin:4px;">${wp.name} · ${label}</span>`;
+      }).join('');
+
+      const errorQuestions = hw.questions.filter(q => {
+        const ans = result.answers[q.id];
+        return ans && !ans.correct;
+      });
+
+      const errorsHtml = errorQuestions.map((q, i) => {
+        const ans = result.answers[q.id];
+        const cw = (result.classmatesWrong || {})[q.id] || 0;
+        return `
+          <div class="error-card">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:6px;">
+              <b>❌ 错题${i+1}：${q.knowledgePoint}</b>
+              <span style="font-size:11px;color:var(--accent);white-space:nowrap;">👥 ${cw}人同错</span>
+            </div>
+            <p style="margin-bottom:6px;">${q.stem}</p>
+            <p style="font-size:12px;"><span style="color:var(--danger);text-decoration:line-through;">✗ ${ans.userAnswer}</span> → <span style="color:var(--success);">✓ ${q.answer}</span></p>
+            <div class="report-actions">
+              <button class="btn btn-outline btn-sm" onclick="toggleAnswer(this, '${q.answer.replace(/'/g, "\\'")}')">📋 标准答案</button>
+              <button class="btn btn-outline btn-sm" onclick="toggleHint(this, '${q.knowledgePoint.replace(/'/g, "\\'")}')">💡 思路点拨</button>
+              <button class="btn btn-outline btn-sm" onclick="triggerVideoPaywall()">🎬 视频讲解</button>
+            </div>
+            <div class="report-expand" style="display:none;"></div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="report-header-card">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="hw-subject-badge" style="background:${subj.color}">${subj.icon} ${subj.name}</span>
+            <span style="font-weight:600;">${hw.title}</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-hint);margin-top:8px;">
+            👨‍🏫 ${hw.teacher} · 已上交 ${hw.submitted}/${hw.totalStudents} 人
+          </div>
+        </div>
+
+        <div class="report-score-section">
+          <div style="text-align:center;">
+            <div style="font-size:48px;font-weight:700;color:var(--primary);">${result.score}<span style="font-size:18px;">分</span></div>
+            <div style="font-size:12px;color:var(--text-hint);">正确 ${result.correctCount}/${result.totalCount} 题</div>
+          </div>
+          <div style="text-align:center;">
+            ${createDonutChart(correctRate)}
+            <div style="font-size:12px;color:var(--text-hint);margin-top:4px;">正确率</div>
+          </div>
+        </div>
+
+        <div class="report-section">
+          <h4 class="report-section-title">薄弱知识点</h4>
+          <div>${weakPointsHtml}</div>
+        </div>
+
+        <div class="report-section">
+          <h4 class="report-section-title">错题详情 (${errorQuestions.length}道)</h4>
+          ${errorsHtml || '<p style="color:var(--text-hint);text-align:center;padding:20px;">🎉 全对！没有错题</p>'}
+        </div>
+
+        <div class="report-section">
+          <h4 class="report-section-title">历史报告</h4>
+          <div id="history-reports"></div>
+        </div>
+      `;
+      container.style.display = 'block';
+
+      renderHistoryReports();
+    }
+
+    function toggleAnswer(btn, answer) {
+      const expand = btn.parentElement.nextElementSibling;
+      if (expand.style.display === 'none') {
+        expand.style.display = 'block';
+        expand.innerHTML = `<div style="padding:8px;background:#EDF9F3;border-radius:4px;margin-top:6px;font-size:13px;"><b>标准答案：</b>${answer}</div>`;
+        btn.textContent = '📋 收起答案';
+      } else {
+        expand.style.display = 'none';
+        btn.textContent = '📋 标准答案';
+      }
+    }
+
+    function toggleHint(btn, knowledgePoint) {
+      const expand = btn.parentElement.nextElementSibling;
+      const hints = {
+        '同分母分数加法': '分母不变，分子相加。关键：加法后注意约分。',
+        '同分母分数减法': '分母不变，分子相减。如果分子不够减，说明减数大于被减数。',
+        '异分母分数加法': '先通分（找最小公分母），再按同分母分数加法计算。',
+        '异分母分数减法': '先通分，再按同分母分数减法计算。',
+        '分数应用题': '找单位"1"，确定用加法还是减法，注意是否涉及通分。',
+        '古诗默写': '重点记忆每句诗的关键字，注意书写正确。可以联想诗意来辅助记忆。',
+        '字词理解': '古诗中很多字的意义与现代不同，要结合上下文理解。不会的可以查注释。',
+        '文学常识': '记住作者、朝代和作品之间的关系，可以制作知识卡片来巩固。',
+        '动词have': '注意主语的人称：I/You/We/They用have，He/She/It用has。',
+        '三单形式': '主语是第三人称单数时，动词要加-s或-es。注意特殊变化。',
+      };
+      if (expand.style.display === 'none') {
+        expand.style.display = 'block';
+        expand.innerHTML = `<div style="padding:8px;background:#FFF8E1;border-radius:4px;margin-top:6px;font-size:13px;"><b>💡 思路点拨：</b>${hints[knowledgePoint] || '请仔细审题，理清解题思路，注意容易出错的地方。'}</div>`;
+        btn.textContent = '💡 收起点拨';
+      } else {
+        expand.style.display = 'none';
+        btn.textContent = '💡 思路点拨';
+      }
+    }
+
+    function renderHistoryReports() {
+      const container = document.getElementById('history-reports');
+      if (!container) return;
+      const graded = mockData.homework.filter(h => h.status === 'graded' && mockData.gradingResults[h.id]);
+      if (graded.length <= 1) {
+        container.innerHTML = '<p style="color:var(--text-hint);font-size:12px;">暂无更多历史记录</p>';
+        return;
+      }
+      container.innerHTML = graded.slice(0, -1).map(hw => {
+        const r = mockData.gradingResults[hw.id];
+        return `<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;display:flex;justify-content:space-between;">
+          <span>📅 ${r.gradedAt} · ${hw.title}</span>
+          <span style="color:var(--primary);font-weight:600;">${r.score}分</span>
+        </div>`;
+      }).join('');
+    }
+
+    // ============================================================
+    // Tab 4: Error Book with 7-Day Paywall
+    // ============================================================
+    let errorFilterKp = 'all';
+
+    function initErrorBook() {
+      const kps = new Set();
+      mockData.errorBook.forEach(e => kps.add(e.knowledgePoint));
+      const container = document.getElementById('kp-filter');
+      container.innerHTML = '<span class="kp-filter-tag active" onclick="filterErrors(\'all\', this)">全部</span>';
+      kps.forEach(kp => {
+        container.innerHTML += `<span class="kp-filter-tag" onclick="filterErrors('${kp.replace(/'/g, "\\'")}', this)">${kp}</span>`;
+      });
+      renderErrorBook();
+    }
+
+    function filterErrors(kp, el) {
+      errorFilterKp = kp;
+      document.querySelectorAll('.kp-filter-tag').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      renderErrorBook();
+    }
+
+    function renderErrorBook() {
+      const timeFilter = document.getElementById('error-time-filter').value;
+      const list = document.getElementById('error-book-list');
+      const empty = document.getElementById('error-book-empty');
+      const paywall = document.getElementById('error-paywall');
+
+      let errors = mockData.errorBook;
+      if (errorFilterKp !== 'all') {
+        errors = errors.filter(e => e.knowledgePoint === errorFilterKp);
+      }
+
+      const now = new Date();
+      if (timeFilter !== 'all') {
+        const days = parseInt(timeFilter);
+        errors = errors.filter(e => {
+          const d = new Date(e.date);
+          return (now - d) / (1000 * 60 * 60 * 24) <= days;
+        });
+      }
+
+      if (errors.length === 0) {
+        list.innerHTML = '';
+        paywall.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      const firstGradingDate = mockData.user.firstGradingDate;
+      const daysSinceFirst = firstGradingDate
+        ? Math.floor((now - new Date(firstGradingDate)) / (1000 * 60 * 60 * 24))
+        : 0;
+      const isLocked = !mockData.user.isSubscribed && daysSinceFirst > 7;
+      const cutoffDate = new Date(now);
+      cutoffDate.setDate(cutoffDate.getDate() - 7);
+
+      let visibleErrors = errors;
+      let lockedErrors = [];
+      if (isLocked) {
+        visibleErrors = errors.filter(e => new Date(e.date) >= cutoffDate);
+        lockedErrors = errors.filter(e => new Date(e.date) < cutoffDate);
+      }
+
+      let html = visibleErrors.map(e => {
+        const subj = mockData.subjects.find(s => s.id === e.subjectId);
+        return `
+        <div class="error-book-card">
+          <span class="eb-subject" style="background:${subj.color}">${subj.name}</span>
+          <div class="eb-question">${e.question}</div>
+          <div class="eb-answers">
+            <span style="color:var(--danger);text-decoration:line-through;">✗ ${e.wrongAnswer}</span>
+            <span style="color:var(--success);">✓ ${e.correctAnswer}</span>
+          </div>
+          <div class="eb-analysis">💡 ${e.analysis}</div>
+          <div class="eb-footer">
+            <span>🏷️ ${e.knowledgePoint}</span>
+            <span>📅 ${e.date} · 👥 ${e.classmatesWrong}人同错</span>
+          </div>
+        </div>`;
+      }).join('');
+
+      if (lockedErrors.length > 0) {
+        html += lockedErrors.map(e => `
+        <div class="error-book-card locked">
+          <div class="lock-overlay">
+            <div style="font-size:24px;">🔒</div>
+            <p style="font-size:12px;margin:4px 0;">超过7天</p>
+            <button class="btn btn-accent btn-sm" onclick="showSubscribeModal()">订阅查看</button>
+          </div>
+          <span class="eb-subject" style="background:#ccc;">...</span>
+          <div class="eb-question">${e.question.substring(0, 15)}...</div>
+          <div class="eb-answers"><span>...</span></div>
+          <div class="eb-footer"><span>📅 ${e.date}</span></div>
+        </div>`).join('');
+        paywall.style.display = 'block';
+        paywall.querySelector('p b').textContent = `${lockedErrors.length}道历史错题已超过7天`;
+      } else {
+        paywall.style.display = 'none';
+      }
+
+      list.innerHTML = html;
+    }
+
+    // ============================================================
+    // Tab 5: Profile and Subscription Modal
+    // ============================================================
+    function initProfile() {
+      document.getElementById('profile-name').textContent = mockData.user.name;
+      document.getElementById('child-name').textContent = mockData.user.child.name;
+      document.getElementById('child-info').textContent =
+        mockData.user.child.grade + ' · ' + mockData.user.child.className;
+
+      updateSubscriptionUI();
+    }
+
+    function updateSubscriptionUI() {
+      const statusTitle = document.getElementById('sub-status-title');
+      const statusDesc = document.getElementById('sub-status-desc');
+      const btn = document.getElementById('btn-subscribe-top');
+      if (!statusTitle) return;
+
+      if (mockData.user.isSubscribed) {
+        statusTitle.textContent = '✅ VIP会员';
+        statusDesc.textContent = '有效期至 ' + (mockData.user.subscriptionExpiry || '--');
+        btn.textContent = '续费';
+        btn.classList.remove('btn-accent');
+        btn.classList.add('btn-outline');
+      } else {
+        statusTitle.textContent = '免费试用中';
+        statusDesc.textContent = '订阅后可解锁全部功能';
+        btn.textContent = '立即订阅';
+        btn.classList.remove('btn-outline');
+        btn.classList.add('btn-accent');
+      }
+    }
+
+    // ============================================================
+    // Subscription Modal & Paywall
+    // ============================================================
+    function showSubscribeModal() {
+      // Always rebuild the subscribe modal content to ensure it's fresh
+      const overlay = document.getElementById('modal-overlay');
+      overlay.innerHTML = `
+        <div class="modal-content" id="subscribe-modal" onclick="event.stopPropagation()">
+          <span class="modal-close" onclick="closeSubscribeModal()">✕</span>
+          <div style="text-align:center;margin-bottom:16px;">
+            <div style="font-size:40px;">👑</div>
+            <h3>解锁全部功能</h3>
+            <p style="color:var(--text-hint);font-size:13px;margin-top:4px;">提升孩子学习效率</p>
+          </div>
+          <div class="sub-features">
+            <div class="sub-feature">✅ 无限错题回顾</div>
+            <div class="sub-feature">✅ 所有题目视频讲解</div>
+            <div class="sub-feature">✅ 详细思路点拨</div>
+            <div class="sub-feature">✅ 专属定制练习卷</div>
+            <div class="sub-feature">✅ AI 薄弱点精准分析</div>
+          </div>
+          <div style="text-align:center;margin:16px 0;">
+            <span style="font-size:36px;font-weight:700;color:var(--accent);">¥9.9</span>
+            <span style="color:var(--text-hint);">/月</span>
+          </div>
+          <button class="btn btn-accent btn-block" onclick="doSubscribe()">💰 立即订阅</button>
+          <p style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:8px;">演示版：点击即模拟支付成功</p>
+        </div>
+      `;
+      overlay.style.display = 'flex';
+    }
+
+    function closeSubscribeModal() {
+      document.getElementById('modal-overlay').style.display = 'none';
+    }
+
+    function closeModal(event) {
+      if (event.target === document.getElementById('modal-overlay')) {
+        document.getElementById('modal-overlay').style.display = 'none';
+      }
+    }
+
+    function doSubscribe() {
+      mockData.user.isSubscribed = true;
+      const expiry = new Date();
+      expiry.setMonth(expiry.getMonth() + 1);
+      mockData.user.subscriptionExpiry = expiry.toISOString().split('T')[0];
+      saveState();
+      closeSubscribeModal();
+      updateSubscriptionUI();
+      renderErrorBook();
+      showToast('🎉 订阅成功！全部功能已解锁');
+    }
+
+    function triggerVideoPaywall() {
+      if (mockData.user.isSubscribed) {
+        showVideoModal();
+      } else {
+        showSubscribeModal();
+      }
+    }
+
+    function showVideoModal() {
+      const overlay = document.getElementById('modal-overlay');
+      overlay.innerHTML = `
+        <div class="modal-content" style="text-align:center;">
+          <span class="modal-close" onclick="closeSubscribeModal()">✕</span>
+          <div style="font-size:40px;">🎬</div>
+          <h3>视频讲解</h3>
+          <div style="background:#000;border-radius:8px;margin:16px 0;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:48px;">▶️</span>
+          </div>
+          <p style="color:var(--text-hint);font-size:12px;">演示版视频播放器</p>
+        </div>
+      `;
+      overlay.style.display = 'flex';
+    }
+
+    // ============================================================
+    // Toast Notification
+    // ============================================================
+    function showToast(message) {
+      let toast = document.getElementById('toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.style.cssText = `
+          position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+          background: rgba(0,0,0,0.75); color: #fff; padding: 10px 20px;
+          border-radius: 20px; font-size: 13px; z-index: 300;
+          white-space: nowrap; transition: opacity 0.3s;
+        `;
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.style.opacity = '1';
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+    }
+
+    // ============================================================
+    // Initialization
+    // ============================================================
+    function init() {
+      renderPhotoGrid();
+      refreshHomeworkSelector();
+      renderHomeworkList();
+      populateReportSelector();
+      initErrorBook();
+      initProfile();
+    }
+
+    init();
+  </script>
+</body>
+</html>
