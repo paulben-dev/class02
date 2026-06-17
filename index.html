@@ -1559,11 +1559,10 @@
         <div class="photo-grid" id="photo-grid" style="margin-top:8px;"></div>
 
         <div style="display:flex;gap:8px;margin:8px 0;">
-          <button class="btn btn-outline" onclick="simulateTakePhoto()" style="flex:1;"><svg class="icon"><use href="#icon-camera"/></svg> 拍照</button>
           <button class="btn btn-outline" onclick="document.getElementById('file-input').click()" style="flex:1;"><svg class="icon"><use href="#icon-folder"/></svg> 上传</button>
           <button class="btn btn-outline" onclick="clearPhotos()" id="btn-clear-photos" style="display:none;"><svg class="icon"><use href="#icon-trash"/></svg></button>
         </div>
-        <p style="font-size:11px;color:var(--text-hint);text-align:center;margin:0 0 8px;">📷 支持拍照多张 · 📁 上传可多选文件</p>
+        <p style="font-size:11px;color:var(--text-hint);text-align:center;margin:0 0 8px;">📁 支持多选文件上传</p>
         <input type="file" id="file-input" accept="image/*" multiple style="display:none;" onchange="handleFileUpload(event)">
 
         <button class="btn btn-primary btn-block" onclick="submitGrading()" id="btn-submit-grading" disabled>
