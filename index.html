@@ -2571,24 +2571,28 @@
       const dateStr = parseInt(dp[1]) + '月' + parseInt(dp[2]) + '日';
 
       container.innerHTML = `
-        <div class="sheet-title">
-          <span class="hw-subject-badge" style="background:${subj ? subj.color : '#999'};font-size:11px;padding:3px 10px;">${subj ? subj.name : ''}</span>
-          ${hw.title}
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style="font-size:36px;margin-bottom:8px;"><svg class="icon" style="color:var(--success);width:36px;height:36px;"><use href="#icon-check-circle"/></svg></div>
+          <div style="font-weight:600;font-size:15px;margin-bottom:4px;">PDF 已生成</div>
         </div>
-        <div style="display:flex;gap:12px;justify-content:center;font-size:12px;color:var(--text-hint);margin-bottom:14px;">
-          <span><svg class="icon"><use href="#icon-teacher"/></svg> ${hw.teacher}</span>
-          <span><svg class="icon"><use href="#icon-calendar"/></svg> ${dateStr}</span>
-          <span><svg class="icon"><use href="#icon-edit"/></svg> ${hw.totalQuestions}题</span>
+        <div style="background:var(--bg);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:18px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span class="hw-subject-badge" style="background:${subj ? subj.color : '#999'};font-size:11px;padding:2px 8px;">${subj ? subj.name : ''}</span>
+            <span style="font-weight:600;font-size:14px;">${hw.title}</span>
+          </div>
+          <div style="display:flex;gap:14px;font-size:12px;color:var(--text-hint);">
+            <span><svg class="icon"><use href="#icon-teacher"/></svg> ${hw.teacher}</span>
+            <span><svg class="icon"><use href="#icon-calendar"/></svg> ${dateStr}</span>
+            <span><svg class="icon"><use href="#icon-edit"/></svg> ${hw.totalQuestions}题</span>
+          </div>
         </div>
-        <div style="display:flex;gap:8px;margin-bottom:0;">
-          <button class="sheet-btn sheet-btn-download" onclick="downloadPdf('${blobUrl}', '${fileName.replace(/'/g, "\\'")}')" style="flex:1;margin-bottom:0;">
-            <svg class="icon"><use href="#icon-download"/></svg> 下载
-          </button>
-          <button class="sheet-btn sheet-btn-wechat" id="btn-share-wechat" style="flex:1;margin-bottom:0;">
-            <svg class="icon"><use href="#icon-send"/></svg> 转发
-          </button>
-        </div>
-        <button class="sheet-btn sheet-btn-cancel" onclick="closePdfSheet()" style="margin-top:8px;margin-bottom:0;">
+        <button class="sheet-btn sheet-btn-download" onclick="downloadPdf('${blobUrl}', '${fileName.replace(/'/g, "\\'")}')" style="margin-bottom:8px;">
+          <svg class="icon"><use href="#icon-download"/></svg> 下载 PDF
+        </button>
+        <button class="sheet-btn sheet-btn-wechat" id="btn-share-wechat" style="margin-bottom:8px;">
+          <svg class="icon"><use href="#icon-send"/></svg> 转发微信好友
+        </button>
+        <button class="sheet-btn sheet-btn-cancel" onclick="closePdfSheet()" style="margin-bottom:0;">
           取消
         </button>
       `;
