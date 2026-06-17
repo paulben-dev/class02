@@ -2511,28 +2511,53 @@
     async function shareToWechat(blob, fileName) {
       const file = new File([blob], fileName, { type: 'application/pdf' });
 
-      // Try Web Share API (works on mobile browsers, WeChat included)
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      // 1) WeChat browser: use WeixinJSBridge to open share panel
+      if (typeof WeixinJSBridge !== 'undefined') {
         try {
-          await navigator.share({
-            files: [file],
+          WeixinJSBridge.invoke('sendAppMessage', {
             title: fileName,
+            desc: '作业PDF，请查收',
+            link: window.location.href,
+            img_url: '',
+            img_width: '',
+            img_height: '',
           });
-          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 已分享');
+          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 已唤起微信分享');
           closePdfSheet();
           return;
-        } catch (err) {
-          if (err.name === 'AbortError') return; // user cancelled
+        } catch (e) { /* fall through */ }
+      }
+
+      // WeixinJSBridge loads async in WeChat — retry once
+      if (typeof WeixinJSBridge === 'undefined' && /MicroMessenger/i.test(navigator.userAgent)) {
+        showToast('<svg class="icon"><use href="#icon-info"/></svg> 正在连接微信...');
+        await new Promise(function(resolve) {
+          if (typeof WeixinJSBridge !== 'undefined') { resolve(); return; }
+          document.addEventListener('WeixinJSBridgeReady', resolve, { once: true });
+          // timeout after 3s
+          setTimeout(resolve, 3000);
+        });
+        if (typeof WeixinJSBridge !== 'undefined') {
+          try {
+            WeixinJSBridge.invoke('sendAppMessage', {
+              title: fileName,
+              desc: '作业PDF，请查收',
+              link: window.location.href,
+              img_url: '',
+              img_width: '',
+              img_height: '',
+            });
+            showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 已唤起微信分享');
+            closePdfSheet();
+            return;
+          } catch (e) { /* fall through */ }
         }
       }
 
-      // Fallback: try share without files (some WeChat browsers)
-      if (navigator.share) {
+      // 2) Web Share API (mobile browsers, some WeChat versions)
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
-          await navigator.share({
-            title: fileName,
-            text: '作业PDF，请查收',
-          });
+          await navigator.share({ files: [file], title: fileName });
           showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 已分享');
           closePdfSheet();
           return;
@@ -2541,7 +2566,18 @@
         }
       }
 
-      // Desktop fallback: download + instructions
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: fileName, text: '作业PDF，请查收' });
+          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 已分享');
+          closePdfSheet();
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      // 3) Desktop fallback: download
       downloadPdf(URL.createObjectURL(blob), fileName);
       showToast('<svg class="icon"><use href="#icon-lightbulb"/></svg> 请将下载的 PDF 发送给微信好友');
     }
