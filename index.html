@@ -2453,7 +2453,7 @@
           <div class="hw-actions">
             <button class="btn btn-outline" onclick="printHomework(${hw.id})">打印</button>
             ${hw.status === 'graded'
-              ? '<button class="btn btn-primary" disabled style="opacity:0.4;cursor:not-allowed;" title="该作业已批改完成">已批改</button>'
+              ? '<button class="btn btn-outline" onclick="viewReport(' + hw.id + ')" style="color:var(--success);border-color:var(--success);">查看报告</button>'
               : '<button class="btn btn-primary" onclick="startGrading(' + hw.id + ')">去批改</button>'
             }
           </div>
@@ -2712,6 +2712,15 @@
       setTimeout(() => {
         document.getElementById('grading-hw-select').value = hwId;
         updateGradingHomework();
+      }, 50);
+    }
+
+    function viewReport(hwId) {
+      switchPage('report');
+      setTimeout(() => {
+        initReportTab();
+        document.getElementById('report-hw-select').value = hwId;
+        showReport();
       }, 50);
     }
 
