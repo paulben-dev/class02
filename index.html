@@ -2531,43 +2531,32 @@
       const todayParts = today.split('-');
       const todayStr = parseInt(todayParts[1]) + '月' + parseInt(todayParts[2]) + '日';
 
-      const questionsHtml = hw.questions.map((q, i) => {
-        const qType = q.type;
-        const typeLabel = qType === 'choice' ? '【选择题】' : qType === 'fill' ? '【填空题】' : qType === 'calc' ? '【计算题】' : qType === 'word' ? '【应用题】' : qType === 'translate' ? '【翻译题】' : qType === 'rewrite' ? '【改写题】' : '';
-        const answerSpace = qType === 'choice'
-          ? '<p style="margin:4px 0 0;font-size:13px;">A. ________  B. ________  C. ________  D. ________</p>'
-          : '<p style="margin:4px 0 0;font-size:13px;color:#999;">答：________________________________________</p>';
-        return `
-        <div style="padding:8px 0;border-bottom:1px dashed #e0e0e0;page-break-inside:avoid;">
-          <p style="margin:0 0 4px;font-size:13px;"><b>${i+1}. ${typeLabel}</b> ${q.stem}</p>
-          ${answerSpace}
-        </div>`;
-      }).join('');
-
       return `
-        <div style="font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:8px 16px;">
-          <!-- Header -->
-          <table style="width:100%;margin-bottom:6px;">
+        <div style="font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:16px 20px;">
+          <div style="text-align:center;margin-bottom:16px;">
+            <div style="display:inline-block;background:${subj ? subj.color : '#999'};color:#fff;padding:4px 14px;border-radius:4px;font-size:14px;font-weight:500;">${subjectName}</div>
+          </div>
+          <h2 style="text-align:center;margin:0 0 12px;font-size:20px;">${hw.title}</h2>
+          <table style="width:100%;margin-bottom:16px;font-size:13px;">
             <tr>
-              <td style="width:50%;font-size:12px;">姓名：______________</td>
-              <td style="width:50%;text-align:right;font-size:12px;">日期：${todayStr}</td>
+              <td style="padding:4px 0;">姓名：______________</td>
+              <td style="padding:4px 0;text-align:right;">日期：${todayStr}</td>
             </tr>
             <tr>
-              <td style="font-size:12px;">班级：______________</td>
-              <td style="text-align:right;font-size:12px;">${subjectName} · ${hw.teacher}</td>
+              <td style="padding:4px 0;">班级：______________</td>
+              <td style="padding:4px 0;text-align:right;">${hw.teacher} 老师</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0;">截止：${dateStr}</td>
+              <td style="padding:4px 0;text-align:right;">共 ${hw.totalQuestions} 题</td>
             </tr>
           </table>
-          <h2 style="text-align:center;margin:8px 0 4px;font-size:18px;">${hw.title}</h2>
-          <p style="text-align:center;color:#999;font-size:12px;margin:0 0 6px;">
-            截止日期：${dateStr} · 共 ${hw.totalQuestions} 题
-          </p>
-          <hr style="border:none;border-top:1.5px solid #333;margin:0 0 10px;">
-          ${questionsHtml}
-          <!-- Footer -->
+          <hr style="border:none;border-top:1.5px solid #333;margin:0 0 16px;">
+          <div style="min-height:300px;"></div>
           <table style="width:100%;margin-top:12px;">
             <tr>
               <td style="font-size:11px;color:#999;">— 作业批改助手生成 —</td>
-              <td style="text-align:right;font-size:11px;">得分：_______ / ${hw.totalQuestions}</td>
+              <td style="text-align:right;font-size:13px;font-weight:600;">得分：_______ / ${hw.totalQuestions}</td>
             </tr>
           </table>
         </div>
