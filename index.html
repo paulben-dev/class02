@@ -3588,7 +3588,8 @@
       });
       const subjHtml = Object.values(subjMap).map(function(s) {
         var avg = Math.round(s.totalScore / s.count);
-        return '<div class="report-stat-row"><span>' + s.name + '</span><span class="report-stat-val">' + s.count + '份 · 均分' + avg + '</span></div>';
+        var avgGrade = getGradeLetter(avg);
+        return '<div class="report-stat-row"><span>' + s.name + '</span><span class="report-stat-val">' + s.count + '份 · ' + avgGrade.letter + '</span></div>';
       }).join('');
 
       // Score bars
@@ -3631,7 +3632,9 @@
       const firstAvg = firstHalf.length > 0 ? Math.round(firstHalf.reduce(function(s,d) { return s+d.result.score; },0) / firstHalf.length) : 0;
       const secondAvg = secondHalf.length > 0 ? Math.round(secondHalf.reduce(function(s,d) { return s+d.result.score; },0) / secondHalf.length) : 0;
       const trendIcon = secondAvg > firstAvg ? '<svg class="icon"><use href="#icon-trending-up"/></svg>' : secondAvg < firstAvg ? '<svg class="icon"><use href="#icon-trending-down"/></svg>' : '<svg class="icon"><use href="#icon-arrow-right"/></svg>';
-      const trendText = secondAvg > firstAvg ? '上升' + (secondAvg-firstAvg) + '分，进步明显！' : secondAvg < firstAvg ? '下降' + (firstAvg-secondAvg) + '分，需要关注。' : '保持稳定。';
+      const firstGrade = getGradeLetter(firstAvg);
+      const secondGrade = getGradeLetter(secondAvg);
+      const trendText = secondAvg > firstAvg ? '上升 ' + firstGrade.letter + ' → ' + secondGrade.letter + '，进步明显！' : secondAvg < firstAvg ? '下降 ' + firstGrade.letter + ' → ' + secondGrade.letter + '，需要关注。' : '保持稳定（' + firstGrade.letter + '）';
 
       _shareData = {
         title: '每月学情报告 (' + monthLabel + ')',
@@ -4376,7 +4379,7 @@
         html += '<div class="menu-item" onclick="closeSubscribeModal();switchPage(\'report\');setTimeout(function(){document.getElementById(\'report-hw-select\').value=\'' + hw.id + '\';showReport();},100);" style="flex-direction:column;align-items:flex-start;gap:4px;">';
         html += '<div style="display:flex;justify-content:space-between;width:100%;">';
         html += '<span><span class="hw-subject-badge" style="background:' + (subj?subj.color:'#999') + ';font-size:10px;">' + (subj?subj.name:'') + '</span> ' + hw.title + '</span>';
-        html += '<span style="font-weight:700;color:var(--primary);">' + r.score + '分</span>';
+        html += '<span style="font-weight:700;color:var(--primary);">' + getGradeLetter(r.score).letter + '</span>';
         html += '</div>';
         html += '<span style="font-size:11px;color:var(--text-hint);"><svg class="icon"><use href="#icon-calendar"/></svg> ' + dateStr + ' · <svg class="icon"><use href="#icon-check-circle"/></svg>' + r.correctCount + ' <svg class="icon"><use href="#icon-x-circle"/></svg>' + (r.wrongCount||0) + ' <svg class="icon"><use href="#icon-alert-triangle"/></svg>' + (r.partialCount||0) + '</span>';
         html += '</div>';
