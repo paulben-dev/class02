@@ -1581,9 +1581,12 @@
         <!-- Section: Select Homework -->
         <div class="grading-section">
           <div class="grading-section-title"><svg class="icon"><use href="#icon-edit"/></svg> 选择作业</div>
-          <select id="grading-hw-select" class="field-select" onchange="updateGradingHomework()">
-            <option value="">-- 请选择作业 --</option>
-          </select>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <select id="grading-hw-select" class="field-select" onchange="updateGradingHomework()" style="flex:1;font-size:13px;">
+              <option value="">-- 请选择 --</option>
+            </select>
+            <button onclick="clearGradingSelection()" id="btn-clear-selection" style="display:none;background:none;border:none;color:var(--text-hint);font-size:18px;cursor:pointer;padding:4px;" title="清除选择">✕</button>
+          </div>
         </div>
 
         <!-- Section: Homework Info (hidden until selected) -->
@@ -2680,7 +2683,7 @@
     function refreshHomeworkSelector() {
       const sel = document.getElementById('grading-hw-select');
       const currentVal = sel.value;
-      sel.innerHTML = '<option value="">-- 请选择作业 --</option>';
+      sel.innerHTML = '<option value="">-- 请选择 --</option>';
 
       // Sort by deadline (closest first), then by status (pending first)
       var sorted = mockData.homework.slice().sort(function(a, b) {
@@ -2720,12 +2723,21 @@
       }
     }
 
+    function clearGradingSelection() {
+      const sel = document.getElementById('grading-hw-select');
+      sel.value = '';
+      updateGradingHomework();
+    }
+
     function updateGradingHomework() {
       const sel = document.getElementById('grading-hw-select');
+      const clearBtn = document.getElementById('btn-clear-selection');
       currentGradingHwId = sel.value ? parseInt(sel.value) : null;
       const hw = mockData.homework.find(h => h.id === currentGradingHwId);
       const card = document.getElementById('grading-hw-card');
       const status = document.getElementById('grading-status');
+
+      clearBtn.style.display = currentGradingHwId ? '' : 'none';
 
       if (hw) {
         card.style.display = 'block';
