@@ -2580,9 +2580,6 @@
           <span><svg class="icon"><use href="#icon-calendar"/></svg> ${dateStr}</span>
           <span><svg class="icon"><use href="#icon-edit"/></svg> ${hw.totalQuestions}题</span>
         </div>
-        <div class="pdf-preview-box" style="height:240px;">
-          <iframe src="${blobUrl}" title="PDF预览"></iframe>
-        </div>
         <div style="display:flex;gap:8px;margin-bottom:0;">
           <button class="sheet-btn sheet-btn-download" onclick="downloadPdf('${blobUrl}', '${fileName.replace(/'/g, "\\'")}')" style="flex:1;margin-bottom:0;">
             <svg class="icon"><use href="#icon-download"/></svg> 下载
