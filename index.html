@@ -2555,6 +2555,7 @@
           if (state.firstGradingDate) mockData.user.firstGradingDate = state.firstGradingDate;
           if (state.avatar) mockData.user.avatar = state.avatar;
           if (state.childAvatar) mockData.user.child.avatar = state.childAvatar;
+          if (state.printHistory) printHistory = state.printHistory;
         }
       } catch(e) { /* ignore */ }
     }
@@ -2567,6 +2568,7 @@
         firstGradingDate: mockData.user.firstGradingDate,
         avatar: mockData.user.avatar,
         childAvatar: mockData.user.child.avatar,
+        printHistory: printHistory,
       }));
     }
 
@@ -2706,6 +2708,7 @@
 
     let pdfBlobCache = null;
     let pdfBlobHwId = null;
+    let currentPrintMeta = null;
 
     function printHomework(hwId) {
       const hw = mockData.homework.find(h => h.id === hwId);
@@ -2813,6 +2816,14 @@
       const dp = hw.deadline.split('-');
       const dateStr = parseInt(dp[1]) + '月' + parseInt(dp[2]) + '日';
 
+      // Store print context for history recording
+      currentPrintMeta = {
+        hwId: hw.id,
+        subjectName: subj ? subj.name : '',
+        subjectColor: subj ? subj.color : '#999',
+        fileName: fileName
+      };
+
       container.innerHTML = `
         <div style="text-align:center;margin-bottom:20px;">
           <div style="font-size:36px;margin-bottom:8px;"><svg class="icon" style="color:var(--success);width:36px;height:36px;"><use href="#icon-check-circle"/></svg></div>
@@ -2854,7 +2865,8 @@
       a.click();
       document.body.removeChild(a);
       showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> PDF 已下载');
-      addPrintRecord(fileName, '作业打印');
+      addPrintRecord(fileName, '作业打印', currentPrintMeta);
+      currentPrintMeta = null;
       closePdfSheet();
     }
 
@@ -4333,28 +4345,81 @@
     // ============================================================
     let printHistory = [];
 
-    function addPrintRecord(title, type) {
+    function addPrintRecord(title, type, meta) {
       printHistory.unshift({
         title: title,
         type: type,
-        time: new Date().toLocaleString('zh-CN', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})
+        hwId: meta && meta.hwId ? meta.hwId : null,
+        subjectName: meta && meta.subjectName ? meta.subjectName : '',
+        subjectColor: meta && meta.subjectColor ? meta.subjectColor : '#999',
+        fileName: meta && meta.fileName ? meta.fileName : title,
+        time: new Date().toLocaleString('zh-CN', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}),
+        timestamp: Date.now()
       });
-      if (printHistory.length > 20) printHistory.pop();
+      if (printHistory.length > 50) printHistory.pop();
+      saveState();
     }
 
     function showPrintHistory() {
-      if (printHistory.length === 0) {
-        showToast('暂无打印记录');
-        return;
-      }
-      var html = '<div class="modal-content" style="max-height:70vh;"><span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span><h3 style="margin-bottom:12px;"><svg class="icon"><use href="#icon-printer"/></svg> 打印历史</h3>';
-      printHistory.forEach(function(r) {
-        html += '<div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;"><div><p style="font-size:14px;">' + r.title + '</p><p style="font-size:11px;color:var(--text-hint);">' + r.type + '</p></div><span style="font-size:12px;color:var(--text-hint);">' + r.time + '</span></div>';
-      });
-      html += '</div>';
       var overlay = document.getElementById('modal-overlay');
+      var html = '<div class="modal-content" style="max-height:70vh;display:flex;flex-direction:column;"><span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>';
+
+      // Header
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">';
+      html += '<h3 style="margin:0;"><svg class="icon"><use href="#icon-printer"/></svg> 打印历史</h3>';
+      if (printHistory.length > 0) {
+        html += '<button class="btn btn-outline btn-sm" onclick="clearPrintHistory()" style="color:var(--danger);border-color:var(--danger);"><svg class="icon"><use href="#icon-trash"/></svg> 清空</button>';
+      }
+      html += '</div>';
+
+      if (printHistory.length === 0) {
+        html += '<div style="text-align:center;padding:32px 0;color:var(--text-hint);">';
+        html += '<div style="font-size:48px;margin-bottom:12px;opacity:0.3;"><svg class="icon" style="width:48px;height:48px;"><use href="#icon-printer"/></svg></div>';
+        html += '<p>暂无打印记录</p><p style="font-size:12px;">打印作业或错题后，记录会出现在这里</p>';
+        html += '</div>';
+      } else {
+        html += '<p style="font-size:12px;color:var(--text-hint);margin-bottom:8px;">共 ' + printHistory.length + ' 次打印</p>';
+
+        // Type icons
+        var typeIcons = {
+          '作业打印': '<svg class="icon"><use href="#icon-file"/></svg>',
+          '错题打印': '<svg class="icon"><use href="#icon-edit"/></svg>',
+          '定制练习': '<svg class="icon"><use href="#icon-sparkles"/></svg>'
+        };
+
+        printHistory.forEach(function(r, idx) {
+          html += '<div style="padding:12px;margin-bottom:6px;background:var(--bg);border-radius:var(--radius-md);border:1px solid var(--border);' + (r.hwId ? 'cursor:pointer;' : '') + '"' + (r.hwId ? ' onclick="closeSubscribeModal();printHomework(' + r.hwId + ')"' : '') + '>';
+          html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;">';
+          html += '<div style="flex:1;min-width:0;">';
+          html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">';
+          if (r.subjectName) {
+            html += '<span class="hw-subject-badge" style="background:' + r.subjectColor + ';font-size:10px;padding:1px 6px;">' + r.subjectName + '</span>';
+          }
+          html += '<span style="font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + r.title + '</span>';
+          html += '</div>';
+          html += '<div style="display:flex;gap:10px;font-size:11px;color:var(--text-hint);">';
+          html += '<span>' + (typeIcons[r.type] || '') + ' ' + r.type + '</span>';
+          html += '<span><svg class="icon"><use href="#icon-calendar"/></svg> ' + r.time + '</span>';
+          html += '</div>';
+          html += '</div>';
+          if (r.hwId) {
+            html += '<span style="color:var(--primary);font-size:20px;flex-shrink:0;margin-left:8px;"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>';
+          }
+          html += '</div>';
+          html += '</div>';
+        });
+      }
+
+      html += '</div>';
       overlay.innerHTML = html;
       overlay.style.display = 'flex';
+    }
+
+    function clearPrintHistory() {
+      printHistory = [];
+      saveState();
+      showPrintHistory();
+      showToast('打印历史已清空');
     }
 
     function showGradingHistory() {
