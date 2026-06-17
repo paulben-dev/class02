@@ -3080,7 +3080,21 @@
         questionsHtml += '\n          <div class="result-question-card ' + statusCls[ans.status] + '">\n            <div class="result-q-header">\n              <span>' + statusIcon[ans.status] + ' 第' + (i+1) + '题 <span style="font-size:11px;color:var(--text-hint);">' + statusLabel[ans.status] + '</span></span>\n              <span style="font-size:11px;color:var(--text-hint);">' + q.knowledgePoint + (ans.errorCause ? ' · ' + ans.errorCause : '') + '</span>\n            </div>\n            <div class="result-q-stem">' + q.stem + '</div>\n            <div class="result-answers">\n              <span>你的答案：<span class="' + (ans.status === 'correct' ? 'correct-answer' : 'wrong-answer') + '">' + ans.userAnswer + '</span></span>\n              ' + (ans.status !== 'correct' ? '<span>正确答案：<span class="correct-answer">' + q.answer + '</span></span>' : '') + '\n            </div>\n            ' + analysisHtml + '\n          </div>\n        ';
       });
 
-      container.innerHTML = '\n        <div class="grading-score">\n          <div class="big-score">' + score + '<span style="font-size:24px;">分</span></div>\n          <div class="score-label">\n            <svg class="icon"><use href="#icon-check-circle"/></svg>' + correctCount + ' 正确 · <svg class="icon"><use href="#icon-alert-triangle"/></svg>' + partialCount + ' 部分正确 · <svg class="icon"><use href="#icon-x-circle"/></svg>' + wrongCount + ' 错误 · <svg class="icon"><use href="#icon-square"/></svg>' + unansweredCount + ' 未作答\n          </div>\n        </div>\n        ' + questionsHtml + '\n        <p style="text-align:center;margin:16px 0;color:var(--text-hint);font-size:var(--font-sm);">\n          <svg class="icon"><use href="#icon-edit"/></svg> 错题已自动归档到错题本\n        </p>\n        <button class="btn btn-primary btn-block" onclick="switchPage(\'report\')"><svg class="icon"><use href="#icon-chart"/></svg> 查看批改报告 →</button>\n      ';
+      // Grade levels
+      var gradeLevels = [
+        { min: 90, label: '优秀', icon: 'icon-party', color: '#27AE60', bg: '#F0F9F0' },
+        { min: 75, label: '良好', icon: 'icon-check-circle', color: '#2EAD77', bg: '#EDF9F3' },
+        { min: 60, label: '一般', icon: 'icon-trending-up', color: '#F39C12', bg: '#FFF8E1' },
+        { min: 0,  label: '需努力', icon: 'icon-lightbulb', color: '#E74C3C', bg: '#FFF0F0' }
+      ];
+      var grade = gradeLevels.find(g => correctRate >= g.min);
+      var starCount = correctRate >= 90 ? 3 : correctRate >= 75 ? 2 : correctRate >= 60 ? 1 : 0;
+      var starsHtml = '';
+      for (var s = 0; s < 3; s++) {
+        starsHtml += s < starCount ? '<svg class="icon" style="color:#F39C12;width:24px;height:24px;"><use href="#icon-party"/></svg>' : '<svg class="icon" style="color:#ddd;width:24px;height:24px;"><use href="#icon-party"/></svg>';
+      }
+
+      container.innerHTML = '\n        <div class="grading-score" style="padding:24px 0 16px;">\n          <div style="display:inline-block;padding:8px 24px;border-radius:24px;background:' + grade.bg + ';color:' + grade.color + ';font-size:20px;font-weight:700;margin-bottom:12px;">\n            <svg class="icon"><use href="#' + grade.icon + '"/></svg> ' + grade.label + '\n          </div>\n          <div style="margin-bottom:8px;">' + starsHtml + '</div>\n          <div style="font-size:13px;color:var(--text-secondary);">\n            <svg class="icon"><use href="#icon-check-circle"/></svg>' + correctCount + ' 正确 · <svg class="icon"><use href="#icon-alert-triangle"/></svg>' + partialCount + ' 部分正确 · <svg class="icon"><use href="#icon-x-circle"/></svg>' + wrongCount + ' 错误 · <svg class="icon"><use href="#icon-square"/></svg>' + unansweredCount + ' 未作答\n          </div>\n        </div>\n        ' + questionsHtml + '\n        <p style="text-align:center;margin:16px 0;color:var(--text-hint);font-size:var(--font-sm);">\n          <svg class="icon"><use href="#icon-edit"/></svg> 错题已自动归档到错题本\n        </p>\n        <button class="btn btn-primary btn-block" onclick="switchPage(\'report\')"><svg class="icon"><use href="#icon-chart"/></svg> 查看批改报告 →</button>\n      ';
       document.getElementById('btn-submit-grading').disabled = true;
 
       // Clean up photos after grading
