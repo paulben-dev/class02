@@ -2445,8 +2445,10 @@
           </div>
           <div class="hw-actions">
             <button class="btn btn-outline" onclick="printHomework(${hw.id})">打印</button>
-            <button class="btn btn-primary" onclick="startGrading(${hw.id})">去批改</button>
-          </div>
+            ${hw.status === 'graded'
+              ? '<button class="btn btn-primary" disabled style="opacity:0.4;cursor:not-allowed;" title="该作业已批改完成">已批改</button>'
+              : '<button class="btn btn-primary" onclick="startGrading(${hw.id})">去批改</button>'
+            }
         </div>`;
       }).join('');
     }
