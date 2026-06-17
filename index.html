@@ -1543,17 +1543,23 @@
 
       <!-- Tab 2: Grading -->
       <div id="page-grading" class="page">
-        <div style="display:flex;gap:8px;align-items:center;">
-          <select id="grading-hw-select" class="field-select" onchange="updateGradingHomework()" style="flex:1;">
-            <option value="">-- 请选择作业 --</option>
-          </select>
+        <div id="grading-hw-card" style="background:#fff;border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:10px;display:none;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <span id="grading-subject-badge" class="hw-subject-badge"></span>
+            <span id="grading-title" style="font-weight:600;font-size:15px;flex:1;"></span>
+            <span id="grading-status" style="font-size:11px;padding:2px 8px;border-radius:10px;"></span>
+          </div>
+          <div style="display:flex;gap:12px;font-size:12px;color:var(--text-hint);">
+            <span id="grading-teacher"><svg class="icon"><use href="#icon-teacher"/></svg></span>
+            <span id="grading-date"><svg class="icon"><use href="#icon-calendar"/></svg></span>
+            <span id="grading-questions"><svg class="icon"><use href="#icon-edit"/></svg></span>
+          </div>
         </div>
 
-        <div id="grading-info" class="grading-info" style="display:none;font-size:12px;color:var(--text-hint);padding:6px 0;">
-          <span id="grading-subject-badge" class="hw-subject-badge" style="margin-right:8px;"></span>
-          <span id="grading-teacher" style="margin-right:8px;"></span>
-          <span id="grading-date" style="margin-right:8px;"></span>
-          <span id="grading-questions"></span>
+        <div style="margin-bottom:10px;">
+          <select id="grading-hw-select" class="field-select" onchange="updateGradingHomework()">
+            <option value="">-- 请选择作业 --</option>
+          </select>
         </div>
 
         <div class="photo-grid" id="photo-grid" style="margin-top:8px;"></div>
@@ -2620,23 +2626,42 @@
       const sel = document.getElementById('grading-hw-select');
       const currentVal = sel.value;
       sel.innerHTML = '<option value="">-- 请选择作业 --</option>';
-      var allHw = mockData.homework.filter(function(h) { return h.status === 'pending'; });
-      // Also include graded ones that the user might want to re-submit
-      if (allHw.length === 0) {
-        allHw = mockData.homework.filter(function(h) { return h.status === 'graded'; });
-      }
-      allHw.forEach(function(hw) {
-        var opt = document.createElement('option');
-        opt.value = hw.id;
-        var subj = mockData.subjects.find(function(s) { return s.id === hw.subjectId; });
-        var dp = hw.deadline.split('-');
-        var dateStr = parseInt(dp[1]) + '/' + parseInt(dp[2]);
-        opt.textContent = '[' + subj.name + '] ' + hw.title + ' - ' + hw.teacher + ' ' + dateStr;
-        sel.appendChild(opt);
+
+      // Sort by deadline (closest first), then by status (pending first)
+      var sorted = mockData.homework.slice().sort(function(a, b) {
+        if (a.status !== b.status) return a.status === 'pending' ? -1 : 1;
+        return a.deadline.localeCompare(b.deadline);
       });
+
+      // Group by subject
+      var groups = {};
+      sorted.forEach(function(hw) {
+        if (!groups[hw.subjectId]) groups[hw.subjectId] = [];
+        groups[hw.subjectId].push(hw);
+      });
+
+      Object.keys(groups).forEach(function(sid) {
+        var subj = mockData.subjects.find(function(s) { return s.id === sid; });
+        var optgroup = document.createElement('optgroup');
+        optgroup.label = (subj ? subj.name : sid) + '  ▼';
+        groups[sid].forEach(function(hw) {
+          var opt = document.createElement('option');
+          opt.value = hw.id;
+          var dp = hw.deadline.split('-');
+          var dateStr = parseInt(dp[1]) + '/' + parseInt(dp[2]);
+          var tag = hw.status === 'pending' ? '🕐' : '✓';
+          opt.textContent = tag + ' ' + hw.title + ' · ' + hw.teacher + ' ' + dateStr;
+          if (hw.status === 'graded') opt.style.color = '#999';
+          optgroup.appendChild(opt);
+        });
+        sel.appendChild(optgroup);
+      });
+
+      // Restore previous selection
       if (currentVal) {
-        var found = allHw.find(function(h) { return String(h.id) === currentVal; });
-        if (found) sel.value = currentVal;
+        for (var i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value === currentVal) { sel.value = currentVal; break; }
+        }
       }
     }
 
@@ -2644,19 +2669,31 @@
       const sel = document.getElementById('grading-hw-select');
       currentGradingHwId = sel.value ? parseInt(sel.value) : null;
       const hw = mockData.homework.find(h => h.id === currentGradingHwId);
-      const info = document.getElementById('grading-info');
+      const card = document.getElementById('grading-hw-card');
+      const status = document.getElementById('grading-status');
 
       if (hw) {
-        info.style.display = 'block';
+        card.style.display = 'block';
         const subj = mockData.subjects.find(s => s.id === hw.subjectId);
-        document.getElementById('grading-subject-badge').innerHTML = subj.icon + ' ' + subj.name + ' ' + hw.title;
+        document.getElementById('grading-subject-badge').innerHTML = subj.icon + ' ' + subj.name;
         document.getElementById('grading-subject-badge').style.background = subj.color;
+        document.getElementById('grading-title').textContent = hw.title;
         document.getElementById('grading-teacher').innerHTML = '<svg class="icon"><use href="#icon-teacher"/></svg> ' + hw.teacher;
         var dp = hw.deadline.split('-');
-        document.getElementById('grading-date').innerHTML = '<svg class="icon"><use href="#icon-calendar"/></svg> ' + parseInt(dp[1]) + '月' + parseInt(dp[2]) + '日';
+        document.getElementById('grading-date').innerHTML = '<svg class="icon"><use href="#icon-calendar"/></svg> ' + parseInt(dp[1]) + '月' + parseInt(dp[2]) + '日 截止';
         document.getElementById('grading-questions').innerHTML = '<svg class="icon"><use href="#icon-edit"/></svg> ' + hw.totalQuestions + '题';
+
+        if (hw.status === 'graded') {
+          status.textContent = '已批改';
+          status.style.background = '#EDF9F3';
+          status.style.color = '#27AE60';
+        } else {
+          status.textContent = '待批改';
+          status.style.background = '#FFF5F0';
+          status.style.color = '#FF8C42';
+        }
       } else {
-        info.style.display = 'none';
+        card.style.display = 'none';
       }
       updateSubmitButton();
     }
