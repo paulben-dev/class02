@@ -1705,24 +1705,22 @@
             <img class="avatar-img" style="display:none;" alt="头像">
           </div>
           <div class="profile-info" style="flex:1;">
-            <h3 id="profile-name" onclick="editProfileField('parent-name')" style="cursor:pointer;" title="点击编辑"></h3>
+            <h3 id="profile-name" onclick="editProfileField('parent-name')" style="cursor:pointer;" title="点击编辑称呼"></h3>
             <p style="color:var(--text-hint);font-size:13px;">家长</p>
           </div>
-          <span style="color:var(--text-hint);cursor:pointer;" onclick="editProfileField('parent-name')" title="编辑"><svg class="icon" style="width:16px;height:16px;"><use href="#icon-edit"/></svg></span>
         </div>
 
         <div class="profile-card">
-          <div style="display:flex;align-items:center;gap:12px;flex:1;">
+          <div style="display:flex;align-items:center;gap:12px;">
             <div class="profile-avatar" id="child-avatar" onclick="document.getElementById('child-avatar-input').click()" style="cursor:pointer;width:42px;height:42px;" title="点击更换头像">
               <svg class="icon avatar-placeholder"><use href="#icon-user"/></svg>
               <img class="avatar-img" style="display:none;" alt="头像">
             </div>
             <div style="flex:1;">
-              <b id="child-name" onclick="editProfileField('child-name')" style="cursor:pointer;" title="点击编辑"></b>
-              <p style="color:var(--text-hint);font-size:12px;cursor:pointer;" id="child-info" onclick="editProfileField('child-info')" title="点击编辑"></p>
+              <b id="child-name" onclick="editProfileField('child-name')" style="cursor:pointer;" title="点击编辑姓名"></b>
+              <p style="color:var(--text-hint);font-size:12px;cursor:pointer;" id="child-info" onclick="editProfileField('child-info')" title="点击编辑年级班级"></p>
             </div>
           </div>
-          <span style="color:var(--text-hint);cursor:pointer;" onclick="editProfileField('child-name')" title="编辑"><svg class="icon" style="width:16px;height:16px;"><use href="#icon-edit"/></svg></span>
         </div>
 
         <input type="file" id="avatar-input" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event, 'parent')">
@@ -4444,19 +4442,56 @@
 
     function showSettings() {
       var overlay = document.getElementById('modal-overlay');
-      var html = '<div class="modal-content"><span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>';
+      var grades = ['一年级','二年级','三年级','四年级','五年级','六年级','初一','初二','初三','高一','高二','高三'];
+      var gradeOptions = grades.map(function(g) {
+        return '<option value="' + g + '"' + (mockData.user.child.grade === g ? ' selected' : '') + '>' + g + '</option>';
+      }).join('');
+
+      var html = '<div class="modal-content" style="max-height:80vh;"><span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>';
       html += '<h3 style="margin-bottom:16px;"><svg class="icon"><use href="#icon-settings"/></svg> 设置</h3>';
 
-      html += '<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">个人信息可在「我的」页面点击名称直接编辑</p>';
+      html += '<label class="field-label">家长称呼</label>';
+      html += '<input class="field-input" id="set-parent-name" value="' + mockData.user.name + '" placeholder="您的称呼" style="margin-bottom:12px;">';
 
-      html += '<div style="padding-top:16px;border-top:1px solid var(--border);">';
-      html += '<p style="font-size:12px;color:var(--text-hint);margin-bottom:8px;">清除所有数据，恢复初始状态</p>';
+      html += '<label class="field-label">孩子姓名</label>';
+      html += '<input class="field-input" id="set-child-name" value="' + mockData.user.child.name + '" placeholder="孩子姓名" style="margin-bottom:12px;">';
+
+      html += '<div style="display:flex;gap:8px;margin-bottom:16px;">';
+      html += '<div style="flex:1;"><label class="field-label">年级</label><select class="field-select" id="set-child-grade" style="width:100%;">' + gradeOptions + '</select></div>';
+      html += '<div style="flex:1;"><label class="field-label">班级</label><input class="field-input" id="set-child-class" value="' + mockData.user.child.className + '" placeholder="2班"></div>';
+      html += '</div>';
+
+      html += '<button class="btn btn-primary btn-block" onclick="saveSettings()"><svg class="icon"><use href="#icon-check"/></svg> 保存</button>';
+
+      html += '<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border);">';
       html += '<button class="btn btn-outline btn-block" onclick="resetAllData()" style="color:var(--danger);border-color:var(--danger);"><svg class="icon"><use href="#icon-trash"/></svg> 恢复出厂设置</button>';
       html += '</div>';
 
       html += '</div>';
       overlay.innerHTML = html;
       overlay.style.display = 'flex';
+    }
+
+    function saveSettings() {
+      var parentName = document.getElementById('set-parent-name').value.trim();
+      var childName = document.getElementById('set-child-name').value.trim();
+      var childGrade = document.getElementById('set-child-grade').value;
+      var childClass = document.getElementById('set-child-class').value.trim();
+
+      if (!parentName || !childName) {
+        showToast('请填写完整信息');
+        return;
+      }
+
+      mockData.user.name = parentName;
+      mockData.user.child.name = childName;
+      mockData.user.child.grade = childGrade;
+      mockData.user.child.className = childClass;
+
+      saveState();
+      closeSubscribeModal();
+      initProfile();
+      showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 设置已保存');
     }
 
     function resetAllData() {
