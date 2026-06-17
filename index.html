@@ -2566,19 +2566,32 @@
     function renderPdfSheet(container, hw, blob) {
       const blobUrl = URL.createObjectURL(blob);
       const fileName = `${hw.title}.pdf`;
+      const subj = mockData.subjects.find(s => s.id === hw.subjectId);
+      const dp = hw.deadline.split('-');
+      const dateStr = parseInt(dp[1]) + '月' + parseInt(dp[2]) + '日';
 
       container.innerHTML = `
-        <div class="sheet-title"><svg class="icon"><use href="#icon-file"/></svg> ${hw.title}</div>
-        <div class="pdf-preview-box">
+        <div class="sheet-title">
+          <span class="hw-subject-badge" style="background:${subj ? subj.color : '#999'};font-size:11px;padding:3px 10px;">${subj ? subj.name : ''}</span>
+          ${hw.title}
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;font-size:12px;color:var(--text-hint);margin-bottom:14px;">
+          <span><svg class="icon"><use href="#icon-teacher"/></svg> ${hw.teacher}</span>
+          <span><svg class="icon"><use href="#icon-calendar"/></svg> ${dateStr}</span>
+          <span><svg class="icon"><use href="#icon-edit"/></svg> ${hw.totalQuestions}题</span>
+        </div>
+        <div class="pdf-preview-box" style="height:240px;">
           <iframe src="${blobUrl}" title="PDF预览"></iframe>
         </div>
-        <button class="sheet-btn sheet-btn-download" onclick="downloadPdf('${blobUrl}', '${fileName.replace(/'/g, "\\'")}')">
-          <svg class="icon"><use href="#icon-download"/></svg> 下载 PDF
-        </button>
-        <button class="sheet-btn sheet-btn-wechat" id="btn-share-wechat">
-          <svg class="icon"><use href="#icon-heart"/></svg> 转发微信好友
-        </button>
-        <button class="sheet-btn sheet-btn-cancel" onclick="closePdfSheet()">
+        <div style="display:flex;gap:8px;margin-bottom:0;">
+          <button class="sheet-btn sheet-btn-download" onclick="downloadPdf('${blobUrl}', '${fileName.replace(/'/g, "\\'")}')" style="flex:1;margin-bottom:0;">
+            <svg class="icon"><use href="#icon-download"/></svg> 下载
+          </button>
+          <button class="sheet-btn sheet-btn-wechat" id="btn-share-wechat" style="flex:1;margin-bottom:0;">
+            <svg class="icon"><use href="#icon-send"/></svg> 转发
+          </button>
+        </div>
+        <button class="sheet-btn sheet-btn-cancel" onclick="closePdfSheet()" style="margin-top:8px;margin-bottom:0;">
           取消
         </button>
       `;
