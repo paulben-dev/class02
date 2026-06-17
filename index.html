@@ -1717,12 +1717,12 @@
         <input type="file" id="child-avatar-input" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event, 'child')">
 
         <div class="profile-card" id="subscription-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;">
+            <div style="flex:1;">
               <b id="sub-status-title">免费试用中</b>
               <p style="color:var(--text-hint);font-size:12px;margin:0;" id="sub-status-desc">订阅后可解锁全部功能</p>
             </div>
-            <button class="btn btn-accent btn-sm" onclick="showSubscribeModal()" id="btn-subscribe-top">立即订阅</button>
+            <button class="btn btn-accent btn-sm" onclick="showSubscribeModal()" id="btn-subscribe-top" style="flex-shrink:0;">立即订阅</button>
           </div>
         </div>
 
@@ -4510,7 +4510,7 @@
         var tierName = isPremium ? '高级会员' : '基础会员';
         statusTitle.innerHTML = '<svg class="icon"><use href="#icon-check-circle"/></svg> ' + tierName;
         statusDesc.textContent = '有效期至 ' + (mockData.user.subscriptionExpiry || '--');
-        btn.textContent = isPremium ? '管理' : '升级';
+        btn.textContent = isPremium ? '会员续费' : '升级';
         btn.classList.remove('btn-accent');
         btn.classList.add('btn-outline');
       } else {
