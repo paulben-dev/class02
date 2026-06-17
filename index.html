@@ -1558,9 +1558,8 @@
 
         <div class="photo-grid" id="photo-grid" style="margin-top:8px;"></div>
 
-        <div id="file-photo-grid" class="photo-grid" style="display:none;"></div>
-
         <div style="display:flex;gap:8px;margin:8px 0;">
+          <button class="btn btn-outline" onclick="simulateTakePhoto()" style="flex:1;"><svg class="icon"><use href="#icon-camera"/></svg> 拍照</button>
           <button class="btn btn-outline" onclick="document.getElementById('file-input').click()" style="flex:1;"><svg class="icon"><use href="#icon-folder"/></svg> 上传</button>
           <button class="btn btn-outline" onclick="clearPhotos()" id="btn-clear-photos" style="display:none;"><svg class="icon"><use href="#icon-trash"/></svg></button>
         </div>
@@ -2614,8 +2613,7 @@
     // ============================================================
     // Tab 2: Photo Upload and AI Grading Simulation
     // ============================================================
-    let cameraPhotos = [];
-    let filePhotos = [];
+    let allPhotos = [];
     let currentGradingHwId = null;
 
     function refreshHomeworkSelector() {
@@ -2666,33 +2664,30 @@
     function simulateTakePhoto() {
       const colors = ['#EDF9F3', '#FFF8E1', '#EBF3FC', '#FDE8E8', '#F3E8FF'];
       const color = colors[Math.floor(Math.random() * colors.length)];
-      cameraPhotos.push({ id: Date.now(), color, page: cameraPhotos.length + 1 });
+      allPhotos.push({ id: Date.now(), type: 'camera', color, page: allPhotos.length + 1 });
       renderPhotoGrid();
-      showToast('拍照成功！');
+      showToast('拍照成功！' + allPhotos.length + '张');
     }
 
     function removePhoto(id) {
-      cameraPhotos = cameraPhotos.filter(p => p.id !== id);
-      cameraPhotos.forEach((p, i) => p.page = i + 1);
+      allPhotos = allPhotos.filter(p => p.id !== id);
+      allPhotos.forEach((p, i) => p.page = i + 1);
       renderPhotoGrid();
     }
 
     function movePhoto(id, dir) {
-      const idx = cameraPhotos.findIndex(p => p.id === id);
+      const idx = allPhotos.findIndex(p => p.id === id);
       if (idx < 0) return;
       const targetIdx = idx + dir;
-      if (targetIdx < 0 || targetIdx >= cameraPhotos.length) return;
-      [cameraPhotos[idx], cameraPhotos[targetIdx]] = [cameraPhotos[targetIdx], cameraPhotos[idx]];
-      cameraPhotos.forEach((p, i) => p.page = i + 1);
+      if (targetIdx < 0 || targetIdx >= allPhotos.length) return;
+      [allPhotos[idx], allPhotos[targetIdx]] = [allPhotos[targetIdx], allPhotos[idx]];
+      allPhotos.forEach((p, i) => p.page = i + 1);
       renderPhotoGrid();
     }
 
     function clearPhotos() {
-      cameraPhotos = [];
-      filePhotos = [];
+      allPhotos = [];
       renderPhotoGrid();
-      document.getElementById('file-photo-grid').style.display = 'none';
-      document.getElementById('file-photo-grid').innerHTML = '';
       updateSubmitButton();
     }
 
@@ -2700,21 +2695,32 @@
       const grid = document.getElementById('photo-grid');
       const btnClear = document.getElementById('btn-clear-photos');
 
-      if (cameraPhotos.length === 0) {
-        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-hint);padding:12px;"><svg class="icon"><use href="#icon-camera"/></svg> 点击下方拍照或上传</div>';
+      if (allPhotos.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-hint);padding:12px;"><svg class="icon"><use href="#icon-camera"/></svg> 点击拍照或多选上传</div>';
         btnClear.style.display = 'none';
       } else {
-        grid.innerHTML = cameraPhotos.map((p, idx) => {
+        grid.innerHTML = allPhotos.map((p, idx) => {
           const isFirst = idx === 0;
-          const isLast = idx === cameraPhotos.length - 1;
-          return `
-          <div class="photo-item">
-            <div style="width:100%;height:100%;background:${p.color};display:flex;align-items:center;justify-content:center;font-size:24px;"><svg class="icon"><use href="#icon-edit"/></svg></div>
-            <span class="photo-page-num">第${p.page}页</span>
-            <button class="photo-del" onclick="removePhoto(${p.id})"><svg class="icon"><use href="#icon-x"/></svg></button>
-            ${!isFirst ? `<button class="photo-move-up" onclick="movePhoto(${p.id}, -1)"><svg class="icon"><use href="#icon-chevron-up"/></svg></button>` : ''}
-            ${!isLast ? `<button class="photo-move-down" onclick="movePhoto(${p.id}, 1)"><svg class="icon"><use href="#icon-chevron-down"/></svg></button>` : ''}
-          </div>`;
+          const isLast = idx === allPhotos.length - 1;
+          if (p.type === 'camera') {
+            return `
+            <div class="photo-item">
+              <div style="width:100%;height:100%;background:${p.color};display:flex;align-items:center;justify-content:center;font-size:24px;"><svg class="icon"><use href="#icon-camera"/></svg></div>
+              <span class="photo-page-num">第${p.page}页</span>
+              <button class="photo-del" onclick="removePhoto(${p.id})"><svg class="icon"><use href="#icon-x"/></svg></button>
+              ${!isFirst ? `<button class="photo-move-up" onclick="movePhoto(${p.id}, -1)"><svg class="icon"><use href="#icon-chevron-up"/></svg></button>` : ''}
+              ${!isLast ? `<button class="photo-move-down" onclick="movePhoto(${p.id}, 1)"><svg class="icon"><use href="#icon-chevron-down"/></svg></button>` : ''}
+            </div>`;
+          } else {
+            return `
+            <div class="photo-item">
+              <img src="${p.dataUrl}" alt="${p.name || '上传图片'}">
+              <span class="photo-page-num">第${p.page}页</span>
+              <button class="photo-del" onclick="removePhoto(${p.id})"><svg class="icon"><use href="#icon-x"/></svg></button>
+              ${!isFirst ? `<button class="photo-move-up" onclick="movePhoto(${p.id}, -1)"><svg class="icon"><use href="#icon-chevron-up"/></svg></button>` : ''}
+              ${!isLast ? `<button class="photo-move-down" onclick="movePhoto(${p.id}, 1)"><svg class="icon"><use href="#icon-chevron-down"/></svg></button>` : ''}
+            </div>`;
+          }
         }).join('');
         btnClear.style.display = 'inline-block';
       }
@@ -2723,64 +2729,30 @@
 
     function handleFileUpload(event) {
       const files = event.target.files;
-      const grid = document.getElementById('file-photo-grid');
-      grid.style.display = 'grid';
-      grid.innerHTML = '';
-      filePhotos = [];
+      let loaded = 0;
       for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
         reader.onload = (function(idx, file) {
           return function(e) {
-            filePhotos.push({ id: Date.now() + idx, dataUrl: e.target.result, page: idx + 1, name: file.name });
-            renderFilePhotoGrid();
-            updateSubmitButton();
+            allPhotos.push({ id: Date.now() + idx, type: 'file', dataUrl: e.target.result, page: allPhotos.length + 1, name: file.name });
+            loaded++;
+            if (loaded === files.length) {
+              renderPhotoGrid();
+              showToast('已添加' + loaded + '张图片');
+            }
           };
         })(i, files[i]);
         reader.readAsDataURL(files[i]);
       }
     }
 
-    function renderFilePhotoGrid() {
-      const grid = document.getElementById('file-photo-grid');
-      grid.style.display = 'grid';
-      grid.innerHTML = filePhotos.map((p, idx) => {
-        const isFirst = idx === 0;
-        const isLast = idx === filePhotos.length - 1;
-        return `
-        <div class="photo-item">
-          <img src="${p.dataUrl}" alt="${p.name}">
-          <span class="photo-page-num">第${p.page}页</span>
-          <button class="photo-del" onclick="removeFilePhoto(${p.id})"><svg class="icon"><use href="#icon-x"/></svg></button>
-          ${!isFirst ? `<button class="photo-move-up" onclick="moveFilePhoto(${p.id}, -1)"><svg class="icon"><use href="#icon-chevron-up"/></svg></button>` : ''}
-          ${!isLast ? `<button class="photo-move-down" onclick="moveFilePhoto(${p.id}, 1)"><svg class="icon"><use href="#icon-chevron-down"/></svg></button>` : ''}
-        </div>`;
-      }).join('');
-    }
-
-    function removeFilePhoto(id) {
-      filePhotos = filePhotos.filter(p => p.id !== id);
-      filePhotos.forEach((p, i) => p.page = i + 1);
-      renderFilePhotoGrid();
-      updateSubmitButton();
-    }
-
-    function moveFilePhoto(id, dir) {
-      const idx = filePhotos.findIndex(p => p.id === id);
-      if (idx < 0) return;
-      const targetIdx = idx + dir;
-      if (targetIdx < 0 || targetIdx >= filePhotos.length) return;
-      [filePhotos[idx], filePhotos[targetIdx]] = [filePhotos[targetIdx], filePhotos[idx]];
-      filePhotos.forEach((p, i) => p.page = i + 1);
-      renderFilePhotoGrid();
-    }
-
     function updateSubmitButton() {
       const btn = document.getElementById('btn-submit-grading');
-      btn.disabled = !currentGradingHwId || (cameraPhotos.length === 0 && filePhotos.length === 0);
+      btn.disabled = !currentGradingHwId || allPhotos.length === 0;
     }
 
     function submitGrading() {
-      if (!currentGradingHwId || (cameraPhotos.length === 0 && filePhotos.length === 0)) return;
+      if (!currentGradingHwId || allPhotos.length === 0) return;
 
       const hw = mockData.homework.find(h => h.id === currentGradingHwId);
       if (!hw) return;
@@ -2927,11 +2899,8 @@
       document.getElementById('btn-submit-grading').disabled = true;
 
       // Clean up photos after grading
-      cameraPhotos = [];
-      filePhotos = [];
+      allPhotos = [];
       renderPhotoGrid();
-      document.getElementById('file-photo-grid').innerHTML = '';
-
       saveState();
       refreshHomeworkSelector();
     }
