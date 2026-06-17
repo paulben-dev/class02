@@ -100,6 +100,27 @@
     .tab-icon { font-size: 20px; }
     .tab-label { font-size: 10px; }
 
+    /* SVG Icon System */
+    .icon {
+      width: 1.2em;
+      height: 1.2em;
+      vertical-align: -0.25em;
+      stroke: currentColor;
+      fill: none;
+      flex-shrink: 0;
+    }
+    .icon-fill {
+      fill: currentColor;
+      stroke: none;
+    }
+    .tab-icon .icon { width: 24px; height: 24px; vertical-align: middle; }
+    .search-icon .icon { width: 18px; height: 18px; }
+    .empty-icon .icon { width: 48px; height: 48px; }
+    .profile-avatar .icon { width: 32px; height: 32px; }
+    .hw-subject-badge .icon { width: 14px; height: 14px; vertical-align: -2px; }
+    .menu-item .icon { width: 1.3em; height: 1.3em; vertical-align: -0.3em; }
+    .btn .icon { width: 1.1em; height: 1.1em; vertical-align: -0.2em; }
+
     #page-area {
       padding-bottom: 60px;
     }
@@ -509,6 +530,240 @@
       align-items: center;
     }
 
+    /* Report Dashboard */
+    .report-dashboard {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 20px 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .report-stats {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .report-stat-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .report-stat-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .report-stat-val {
+      font-weight: 600;
+      margin-left: auto;
+    }
+
+    .report-grade-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .report-grade-a { background: #27AE60; }
+    .report-grade-b { background: #2EAD77; }
+    .report-grade-c { background: #F39C12; }
+    .report-grade-d { background: #E74C3C; }
+
+    /* Knowledge Bars */
+    .report-kp-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .report-kp-item:last-child { border-bottom: none; }
+
+    .report-kp-name {
+      flex: 0 0 80px;
+      font-size: 13px;
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .report-kp-bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .report-kp-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .report-kp-pct {
+      flex: 0 0 36px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .report-kp-icon {
+      flex: 0 0 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* Accordion for Error Groups */
+    .report-accordion {
+      background: #fff;
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .report-accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      user-select: none;
+    }
+
+    .report-accordion-header:active { background: #fafafa; }
+
+    .report-accordion-arrow {
+      font-size: 12px;
+      color: var(--text-hint);
+      transition: transform 0.2s;
+    }
+
+    .report-accordion.open .report-accordion-arrow {
+      transform: rotate(180deg);
+    }
+
+    .report-accordion-body {
+      display: none;
+      padding: 0 14px 14px;
+    }
+
+    .report-accordion.open .report-accordion-body {
+      display: block;
+    }
+
+    .report-accordion-badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      color: #fff;
+      margin-right: 6px;
+    }
+
+    /* Trend mini chart */
+    .report-trend-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 100px;
+      padding: 8px 0;
+    }
+
+    .report-trend-bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .report-trend-bar {
+      width: 100%;
+      max-width: 36px;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.4s ease;
+      min-height: 4px;
+    }
+
+    .report-trend-date {
+      font-size: 10px;
+      color: var(--text-hint);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    .report-trend-score {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .report-actions-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .report-actions-row .btn {
+      flex: 1;
+      padding: 10px;
+      font-size: 13px;
+    }
+
+    /* Cause distribution bars */
+    .report-cause-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .report-cause-label {
+      flex: 0 0 70px;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .report-bar-bg {
+      height: 10px;
+      background: #f0f0f0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .report-bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 0.5s ease;
+    }
+
+    .report-cause-pct {
+      flex: 0 0 36px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: right;
+    }
+
     .report-section {
       background: #fff;
       padding: 16px;
@@ -647,6 +902,55 @@
       border-radius: var(--radius-lg);
     }
 
+    /* Custom Practice Section */
+    .practice-header {
+      background: linear-gradient(135deg, #FFF5F0, #FFF0E6);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-top: 16px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .practice-header h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .practice-card {
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .practice-card .pq-stem {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .practice-card .pq-meta {
+      font-size: 11px;
+      color: var(--text-hint);
+      display: flex;
+      gap: 8px;
+    }
+
+    .practice-card .pq-blank {
+      margin-top: 6px;
+      padding: 4px 10px;
+      background: #fafafa;
+      border: 1px dashed #ddd;
+      border-radius: 4px;
+      min-height: 28px;
+      font-size: 13px;
+      color: var(--text-hint);
+    }
+
     .lock-overlay {
       position: absolute;
       top: 50%; left: 50%;
@@ -756,6 +1060,109 @@
 
     .sub-feature:last-child { border-bottom: none; }
 
+    /* Plan Grid */
+    .plan-grid {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .plan-card {
+      flex: 1;
+      text-align: center;
+      padding: 12px 8px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      background: #fff;
+    }
+
+    .plan-card.selected {
+      border-color: var(--accent);
+      background: #FFF5F0;
+    }
+
+    .plan-card:active { opacity: 0.8; }
+
+    .plan-tag {
+      position: absolute;
+      top: -8px;
+      right: -2px;
+      background: var(--danger);
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    /* Tier Cards */
+    .tier-card {
+      text-align: center;
+      padding: 14px 10px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      background: #fff;
+    }
+
+    .tier-card.selected {
+      border-color: var(--accent);
+      background: #FFF5F0;
+    }
+
+    .tier-card:active { opacity: 0.8; }
+
+    .tier-tag {
+      position: absolute;
+      top: -8px;
+      right: -2px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .tier-current {
+      position: absolute;
+      top: -8px;
+      right: -2px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    /* Duration Buttons */
+    .duration-btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      background: #fff;
+      transition: all 0.2s;
+    }
+
+    .duration-btn.selected {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .duration-btn:active { opacity: 0.8; }
+
     @media print {
       body { background: #fff; }
       #app-header, #tab-bar, .hw-actions, .search-bar, .sub-tabs,
@@ -764,9 +1171,351 @@
       .page { display: block !important; padding: 0; }
       .hw-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
     }
+
+    /* PDF Share Modal */
+    .pdf-share-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 250;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .pdf-share-sheet {
+      background: #fff;
+      border-radius: 16px 16px 0 0;
+      padding: 20px 16px;
+      width: 100%;
+      max-width: var(--max-width);
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .pdf-share-sheet .sheet-title {
+      text-align: center;
+      font-size: var(--font-md);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .pdf-preview-box {
+      width: 100%;
+      height: 200px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+    }
+
+    .pdf-preview-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .sheet-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      border: none;
+      font-size: var(--font-md);
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: opacity 0.2s;
+    }
+
+    .sheet-btn:active { opacity: 0.8; }
+
+    .sheet-btn-download {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .sheet-btn-wechat {
+      background: #07C160;
+      color: #fff;
+    }
+
+    .sheet-btn-cancel {
+      background: #f5f5f5;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+
+    .sheet-generating {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-hint);
+    }
+
+    .sheet-generating .spinner {
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 12px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
+  <!-- SVG Icon Sprite -->
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <!-- Tab Navigation -->
+      <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+        <line x1="8" y1="16" x2="13" y2="16"/>
+      </symbol>
+      <symbol id="icon-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+        <circle cx="12" cy="13" r="3"/>
+      </symbol>
+      <symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+        <line x1="15" y1="5" x2="19" y2="9"/>
+      </symbol>
+      <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </symbol>
+      <!-- Actions -->
+      <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </symbol>
+      <symbol id="icon-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/>
+      </symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h18"/>
+        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+        <line x1="10" y1="11" x2="10" y2="17"/>
+        <line x1="14" y1="11" x2="14" y2="17"/>
+      </symbol>
+      <symbol id="icon-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </symbol>
+      <symbol id="icon-printer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+        <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/>
+        <rect x="6" y="14" width="12" height="8" rx="1"/>
+      </symbol>
+      <symbol id="icon-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+        <line x1="10" y1="9" x2="8" y2="9"/>
+      </symbol>
+      <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="16" x2="12" y2="12"/>
+        <line x1="12" y1="8" x2="12.01" y2="8"/>
+      </symbol>
+      <!-- Status -->
+      <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </symbol>
+      <symbol id="icon-x-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="15" y1="9" x2="9" y2="15"/>
+        <line x1="9" y1="9" x2="15" y2="15"/>
+      </symbol>
+      <symbol id="icon-alert-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </symbol>
+      <symbol id="icon-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+      </symbol>
+      <!-- Report -->
+      <symbol id="icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </symbol>
+      <symbol id="icon-calendar-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+        <polyline points="9 16 11 18 15 14"/>
+      </symbol>
+      <symbol id="icon-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+        <polyline points="17 6 23 6 23 12"/>
+      </symbol>
+      <symbol id="icon-trending-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+        <polyline points="17 18 23 18 23 12"/>
+      </symbol>
+      <symbol id="icon-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18h6"/>
+        <path d="M10 22h4"/>
+        <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+      </symbol>
+      <symbol id="icon-party" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </symbol>
+      <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+      </symbol>
+      <!-- Content -->
+      <symbol id="icon-crown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/>
+        <path d="M2 17h20"/>
+      </symbol>
+      <symbol id="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </symbol>
+      <symbol id="icon-coins" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="8" cy="11" r="7"/>
+        <circle cx="16" cy="13" r="6"/>
+        <line x1="2" y1="11" x2="2" y2="15"/>
+        <line x1="14" y1="11" x2="14" y2="11"/>
+      </symbol>
+      <symbol id="icon-books" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        <line x1="9" y1="7" x2="15" y2="7"/>
+        <line x1="9" y1="11" x2="13" y2="11"/>
+      </symbol>
+      <symbol id="icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2H2v10l9.17 9.17a2 2 0 0 0 2.83 0l7-7a2 2 0 0 0 0-2.83L12 2z"/>
+        <path d="M7 7h.01"/>
+      </symbol>
+      <symbol id="icon-school" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 22V9l10-5 10 5v13"/>
+        <path d="M2 22h20"/>
+        <path d="M8 14v7"/>
+        <path d="M16 14v7"/>
+        <path d="M12 11v10"/>
+        <line x1="9" y1="22" x2="15" y2="22"/>
+      </symbol>
+      <symbol id="icon-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/>
+        <path d="M18 14l.75 2.25L21 17l-2.25.75L18 20l-.75-2.25L15 17l2.25-.75z"/>
+      </symbol>
+      <!-- UI Controls -->
+      <symbol id="icon-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"/>
+      </symbol>
+      <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </symbol>
+      <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </symbol>
+      <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"/>
+        <polyline points="12 5 19 12 12 19"/>
+      </symbol>
+      <!-- Subjects -->
+      <symbol id="icon-math" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20h16"/>
+        <path d="m4 20 8-16 8 16"/>
+        <line x1="8" y1="14" x2="16" y2="14"/>
+      </symbol>
+      <symbol id="icon-chinese" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        <line x1="9" y1="7" x2="15" y2="7"/>
+        <line x1="9" y1="11" x2="15" y2="11"/>
+        <line x1="9" y1="15" x2="12" y2="15"/>
+      </symbol>
+      <symbol id="icon-english" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </symbol>
+      <symbol id="icon-physics" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 2v4"/>
+        <path d="M12 18v4"/>
+        <path d="M4.93 4.93l2.83 2.83"/>
+        <path d="M16.24 16.24l2.83 2.83"/>
+        <path d="M2 12h4"/>
+        <path d="M18 12h4"/>
+        <path d="M4.93 19.07l2.83-2.83"/>
+        <path d="M16.24 7.76l2.83-2.83"/>
+      </symbol>
+      <symbol id="icon-chemistry" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 3h6"/>
+        <path d="M10 3v5.5L5 18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2l-5-9.5V3"/>
+        <line x1="8" y1="22" x2="16" y2="22"/>
+      </symbol>
+      <!-- People -->
+      <symbol id="icon-teacher" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </symbol>
+      <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </symbol>
+      <!-- Circles (solid fill) -->
+      <symbol id="icon-circle-green" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8" fill="#27AE60"/>
+      </symbol>
+      <symbol id="icon-circle-yellow" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8" fill="#F39C12"/>
+      </symbol>
+      <symbol id="icon-circle-red" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8" fill="#E74C3C"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <div id="app-container">
     <div id="app-header">
       <span class="header-title">作业批改助手</span>
@@ -776,8 +1525,8 @@
       <!-- Tab 1: Home / Homework -->
       <div id="page-home" class="page active">
         <div class="search-bar">
-          <span class="search-icon">🔍</span>
-          <input type="text" class="search-input" placeholder="搜索作业..." oninput="filterHomework()">
+          <span class="search-icon"><svg class="icon"><use href="#icon-search"/></svg></span>
+          <input type="text" class="search-input" placeholder="搜索历史作业..." oninput="filterHomework()">
         </div>
         <div class="sub-tabs">
           <div class="sub-tab active" data-hwtype="all" onclick="switchHwType('all', this)">全部</div>
@@ -786,62 +1535,40 @@
         </div>
         <div id="homework-list"></div>
         <div id="homework-empty" class="empty-state" style="display:none;">
-          <div class="empty-icon">📋</div>
-          <p>暂无作业</p>
+          <div class="empty-icon"><svg class="icon"><use href="#icon-home"/></svg></div>
+          <p>暂无进行中的作业</p>
+          <p style="color:var(--text-hint);font-size:12px;">搜索框可查找历史作业</p>
         </div>
       </div>
 
       <!-- Tab 2: Grading -->
       <div id="page-grading" class="page">
-        <div class="section">
-          <label class="field-label">选择作业</label>
-          <select id="grading-hw-select" class="field-select" onchange="updateGradingHomework()">
+        <div style="display:flex;gap:8px;align-items:center;">
+          <select id="grading-hw-select" class="field-select" onchange="updateGradingHomework()" style="flex:1;">
             <option value="">-- 请选择作业 --</option>
           </select>
         </div>
 
-        <div id="grading-info" class="grading-info" style="display:none;">
-          <div class="hw-card" style="margin-bottom:12px;">
-            <div class="hw-card-header">
-              <span id="grading-subject-badge" class="hw-subject-badge"></span>
-              <span id="grading-title" class="hw-title"></span>
-            </div>
-            <div class="hw-meta">
-              <span id="grading-teacher"></span>
-              <span id="grading-questions"></span>
-            </div>
-          </div>
+        <div id="grading-info" class="grading-info" style="display:none;font-size:12px;color:var(--text-hint);padding:6px 0;">
+          <span id="grading-subject-badge" class="hw-subject-badge" style="margin-right:8px;"></span>
+          <span id="grading-teacher" style="margin-right:8px;"></span>
+          <span id="grading-date" style="margin-right:8px;"></span>
+          <span id="grading-questions"></span>
         </div>
 
-        <div class="section">
-          <label class="field-label">上传方式</label>
-          <div class="upload-tabs">
-            <div class="upload-tab active" data-upload="camera" onclick="switchUploadMode('camera', this)">📸 拍照上传</div>
-            <div class="upload-tab" data-upload="file" onclick="switchUploadMode('file', this)">📁 文件上传</div>
-          </div>
-        </div>
+        <div class="photo-grid" id="photo-grid" style="margin-top:8px;"></div>
 
-        <div id="camera-area">
-          <div class="photo-grid" id="photo-grid"></div>
-          <div class="photo-actions">
-            <button class="btn btn-outline" onclick="simulateTakePhoto()">📸 拍照</button>
-            <button class="btn btn-outline" onclick="simulateAddPhoto()">➕ 添加模拟照片</button>
-            <button class="btn btn-outline" onclick="clearPhotos()" id="btn-clear-photos" style="display:none;">🗑️ 清空</button>
-          </div>
-        </div>
+        <div id="file-photo-grid" class="photo-grid" style="display:none;"></div>
 
-        <div id="file-area" style="display:none;">
-          <div class="file-upload-zone" onclick="document.getElementById('file-input').click()">
-            <span style="font-size:32px;">📁</span>
-            <p>点击选择图片文件</p>
-            <p style="font-size:11px;color:var(--text-hint);">支持 JPG、PNG 格式</p>
-          </div>
-          <input type="file" id="file-input" accept="image/*" multiple style="display:none;" onchange="handleFileUpload(event)">
-          <div class="photo-grid" id="file-photo-grid"></div>
+        <div style="display:flex;gap:8px;margin:8px 0;">
+          <button class="btn btn-outline" onclick="simulateTakePhoto()" style="flex:1;"><svg class="icon"><use href="#icon-camera"/></svg> 拍照</button>
+          <button class="btn btn-outline" onclick="document.getElementById('file-input').click()" style="flex:1;"><svg class="icon"><use href="#icon-folder"/></svg> 上传</button>
+          <button class="btn btn-outline" onclick="clearPhotos()" id="btn-clear-photos" style="display:none;"><svg class="icon"><use href="#icon-trash"/></svg></button>
         </div>
+        <input type="file" id="file-input" accept="image/*" multiple style="display:none;" onchange="handleFileUpload(event)">
 
         <button class="btn btn-primary btn-block" onclick="submitGrading()" id="btn-submit-grading" disabled>
-          📤 提交批改
+          <svg class="icon"><use href="#icon-send"/></svg> 提交批改
         </button>
 
         <div id="grading-progress" class="grading-progress" style="display:none;">
@@ -854,54 +1581,59 @@
 
       <!-- Tab 3: Report -->
       <div id="page-report" class="page">
-        <div id="report-select-area" class="section">
-          <label class="field-label">选择已批改的作业</label>
-          <select id="report-hw-select" class="field-select" onchange="showReport()">
-            <option value="">-- 请选择 --</option>
-          </select>
+        <div class="sub-tabs" style="margin-top:0;">
+          <div class="sub-tab active" data-rpt="single" onclick="switchReportTab('single', this)"><svg class="icon"><use href="#icon-home"/></svg> 单次报告</div>
+          <div class="sub-tab" data-rpt="weekly" onclick="switchReportTab('weekly', this)"><svg class="icon"><use href="#icon-calendar"/></svg> 每周报告</div>
+          <div class="sub-tab" data-rpt="monthly" onclick="switchReportTab('monthly', this)"><svg class="icon"><use href="#icon-calendar-check"/></svg> 每月报告</div>
         </div>
-        <div id="report-content"></div>
-        <div id="report-empty" class="empty-state">
-          <div class="empty-icon">📊</div>
-          <p>还没有批改记录</p>
+        <div id="report-single-area">
+          <div class="section">
+            <label class="field-label">选择已批改的作业</label>
+            <select id="report-hw-select" class="field-select" onchange="showReport()">
+              <option value="">-- 请选择 --</option>
+            </select>
+          </div>
+          <div id="report-content"></div>
+          <div id="report-empty" class="empty-state">
+            <div class="empty-icon"><svg class="icon"><use href="#icon-chart"/></svg></div>
+            <p>还没有批改记录</p>
+          </div>
         </div>
+        <div id="report-weekly-area" style="display:none;"></div>
+        <div id="report-monthly-area" style="display:none;"></div>
       </div>
 
       <!-- Tab 4: Error Book -->
       <div id="page-errors" class="page">
         <div class="section">
-          <label class="field-label">知识点筛选</label>
-          <div class="kp-filter" id="kp-filter">
-            <span class="kp-filter-tag active" onclick="filterErrors('all', this)">全部</span>
+          <label class="field-label">时间范围</label>
+          <div style="display:flex;gap:8px;">
+            <select id="error-time-filter" class="field-select" style="width:auto;" onchange="renderErrorBook()">
+              <option value="7">最近7天</option>
+              <option value="30">最近30天</option>
+              <option value="all">全部</option>
+            </select>
+            <button class="btn btn-outline btn-sm" onclick="printErrorBook()" id="btn-print-errors"><svg class="icon"><use href="#icon-printer"/></svg> 打印错题</button>
           </div>
         </div>
-        <div class="section" style="display:flex;gap:8px;justify-content:space-between;align-items:center;">
-          <label class="field-label" style="margin:0;">时间范围</label>
-          <select id="error-time-filter" class="field-select" style="width:auto;" onchange="renderErrorBook()">
-            <option value="7">最近7天</option>
-            <option value="30">最近30天</option>
-            <option value="all">全部</option>
-          </select>
+        <div class="section">
+          <label class="field-label">学科</label>
+          <div class="kp-filter" id="kp-filter">
+          </div>
         </div>
+        <div id="error-book-summary" style="display:none;font-size:12px;color:var(--text-hint);padding:0 0 4px;"></div>
         <div id="error-book-list"></div>
         <div id="error-book-empty" class="empty-state" style="display:none;">
-          <div class="empty-icon">📝</div>
+          <div class="empty-icon"><svg class="icon"><use href="#icon-edit"/></svg></div>
           <p>太棒了，还没有错题！</p>
         </div>
-        <div id="error-paywall" style="display:none;">
-          <div class="paywall-banner">
-            <div style="font-size:28px;">🔒</div>
-            <p><b>部分错题已超过7天</b></p>
-            <p style="font-size:12px;color:var(--text-hint);">订阅后可查看全部历史错题</p>
-            <button class="btn btn-accent" onclick="showSubscribeModal()">📝 订阅解锁全部</button>
-          </div>
-        </div>
+        <div id="custom-practice-area" style="display:none;"></div>
       </div>
 
       <!-- Tab 5: Profile -->
       <div id="page-profile" class="page">
         <div class="profile-card">
-          <div class="profile-avatar">👩</div>
+          <div class="profile-avatar"><svg class="icon"><use href="#icon-user"/></svg></div>
           <div class="profile-info">
             <h3 id="profile-name"></h3>
             <p style="color:var(--text-hint);font-size:13px;">家长</p>
@@ -910,7 +1642,7 @@
 
         <div class="profile-card">
           <div style="display:flex;align-items:center;gap:12px;">
-            <span style="font-size:28px;">👦</span>
+            <span style="font-size:28px;"><svg class="icon"><use href="#icon-user"/></svg></span>
             <div>
               <b id="child-name"></b>
               <p style="color:var(--text-hint);font-size:12px;" id="child-info"></p>
@@ -929,73 +1661,80 @@
         </div>
 
         <div class="menu-list">
-          <div class="menu-item" onclick="showToast('打印历史（演示功能）')">
-            <span>🖨️ 打印历史</span>
-            <span class="menu-arrow">›</span>
+          <div class="menu-item" onclick="showPrintHistory()">
+            <span><svg class="icon"><use href="#icon-printer"/></svg> 打印历史</span>
+            <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
-          <div class="menu-item" onclick="showToast('批改记录（演示功能）')">
-            <span>📷 批改记录</span>
-            <span class="menu-arrow">›</span>
+          <div class="menu-item" onclick="showGradingHistory()">
+            <span><svg class="icon"><use href="#icon-camera"/></svg> 批改记录</span>
+            <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
           <div class="menu-item" onclick="showToast('设置（演示功能）')">
-            <span>⚙️ 设置</span>
-            <span class="menu-arrow">›</span>
+            <span><svg class="icon"><use href="#icon-settings"/></svg> 设置</span>
+            <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
           <div class="menu-item" onclick="showToast('关于作业批改助手 v1.0')">
-            <span>ℹ️ 关于</span>
-            <span class="menu-arrow">›</span>
+            <span><svg class="icon"><use href="#icon-info"/></svg> 关于</span>
+            <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
         </div>
 
-        <p style="text-align:center;color:var(--text-hint);font-size:11px;margin-top:20px;">作业批改助手 v1.0 · 演示版</p>
+        <p style="text-align:center;color:var(--text-hint);font-size:11px;margin-top:20px;cursor:pointer;" onclick="localStorage.clear();location.reload();" title="点击重置演示数据">作业批改助手 v1.0 · 演示版</p>
       </div>
     </main>
 
     <nav id="tab-bar">
       <div class="tab-item active" data-tab="home" onclick="switchPage('home')">
-        <span class="tab-icon">📋</span>
+        <span class="tab-icon"><svg class="icon"><use href="#icon-home"/></svg></span>
         <span class="tab-label">作业</span>
       </div>
       <div class="tab-item" data-tab="grading" onclick="switchPage('grading')">
-        <span class="tab-icon">📷</span>
+        <span class="tab-icon"><svg class="icon"><use href="#icon-camera"/></svg></span>
         <span class="tab-label">批改</span>
       </div>
       <div class="tab-item" data-tab="report" onclick="switchPage('report')">
-        <span class="tab-icon">📊</span>
+        <span class="tab-icon"><svg class="icon"><use href="#icon-chart"/></svg></span>
         <span class="tab-label">报告</span>
       </div>
       <div class="tab-item" data-tab="errors" onclick="switchPage('errors')">
-        <span class="tab-icon">📝</span>
+        <span class="tab-icon"><svg class="icon"><use href="#icon-edit"/></svg></span>
         <span class="tab-label">错题本</span>
       </div>
       <div class="tab-item" data-tab="profile" onclick="switchPage('profile')">
-        <span class="tab-icon">👤</span>
+        <span class="tab-icon"><svg class="icon"><use href="#icon-user"/></svg></span>
         <span class="tab-label">我的</span>
       </div>
     </nav>
   </div>
 
+  <!-- PDF Share Overlay -->
+  <div id="pdf-share-overlay" class="pdf-share-overlay" style="display:none;" onclick="closePdfShare(event)">
+    <div class="pdf-share-sheet" onclick="event.stopPropagation()">
+      <div id="pdf-sheet-content"></div>
+    </div>
+  </div>
+
   <!-- Modal Overlay -->
   <div id="modal-overlay" class="modal-overlay" style="display:none;" onclick="closeModal(event)">
     <div class="modal-content" id="subscribe-modal" onclick="event.stopPropagation()">
-      <span class="modal-close" onclick="closeSubscribeModal()">✕</span>
+      <span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>
       <div style="text-align:center;margin-bottom:16px;">
-        <div style="font-size:40px;">👑</div>
+        <div style="font-size:40px;"><svg class="icon"><use href="#icon-crown"/></svg></div>
         <h3>解锁全部功能</h3>
         <p style="color:var(--text-hint);font-size:13px;margin-top:4px;">提升孩子学习效率</p>
       </div>
       <div class="sub-features">
-        <div class="sub-feature">✅ 无限错题回顾</div>
-        <div class="sub-feature">✅ 所有题目视频讲解</div>
-        <div class="sub-feature">✅ 详细思路点拨</div>
-        <div class="sub-feature">✅ 专属定制练习卷</div>
-        <div class="sub-feature">✅ AI 薄弱点精准分析</div>
+        <div class="sub-feature"><svg class="icon"><use href="#icon-check-circle"/></svg> 无限错题回顾</div>
+        <div class="sub-feature"></div>
+        <div class="sub-feature"><svg class="icon"><use href="#icon-check-circle"/></svg> 详细思路点拨</div>
+        <div class="sub-feature"><svg class="icon"><use href="#icon-check-circle"/></svg> 专属定制练习卷</div>
+        <div class="sub-feature"><svg class="icon"><use href="#icon-check-circle"/></svg> AI 薄弱点精准分析</div>
       </div>
       <div style="text-align:center;margin:16px 0;">
         <span style="font-size:36px;font-weight:700;color:var(--accent);">¥9.9</span>
         <span style="color:var(--text-hint);">/月</span>
       </div>
-      <button class="btn btn-accent btn-block" onclick="doSubscribe()">💰 立即订阅</button>
+      <button class="btn btn-accent btn-block" onclick="doSubscribe()"><svg class="icon"><use href="#icon-coins"/></svg> 立即订阅</button>
       <p style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:8px;">演示版：点击即模拟支付成功</p>
     </div>
   </div>
@@ -1028,17 +1767,20 @@
     const mockData = {
       user: {
         name: '张妈妈',
-        avatar: '👩',
+        avatar: '<svg class="icon"><use href="#icon-user"/></svg>',
         child: { name: '小明', grade: '三年级', className: '2班' },
         isSubscribed: false,
+        subscriptionTier: 0,
         subscriptionExpiry: null,
         firstGradingDate: null,
       },
 
       subjects: [
-        { id: 'math', name: '数学', color: '#4A90D9', icon: '📐' },
-        { id: 'chinese', name: '语文', color: '#E67E22', icon: '📖' },
-        { id: 'english', name: '英语', color: '#9B59B6', icon: '🌍' },
+        { id: 'math', name: '数学', color: '#4A90D9', icon: '<svg class="icon"><use href="#icon-math"/></svg>' },
+        { id: 'chinese', name: '语文', color: '#E67E22', icon: '<svg class="icon"><use href="#icon-chinese"/></svg>' },
+        { id: 'english', name: '英语', color: '#9B59B6', icon: '<svg class="icon"><use href="#icon-english"/></svg>' },
+        { id: 'physics', name: '物理', color: '#1ABC9C', icon: '<svg class="icon"><use href="#icon-physics"/></svg>' },
+        { id: 'chemistry', name: '化学', color: '#E74C3C', icon: '<svg class="icon"><use href="#icon-chemistry"/></svg>' },
       ],
 
       homework: [
@@ -1062,7 +1804,7 @@
         {
           id: 2, subjectId: 'math', title: '乘法口诀应用练习',
           teacher: '王老师', deadline: '2026-06-14', type: 'school',
-          totalQuestions: 8, submitted: 0, totalStudents: 42, status: 'pending',
+          totalQuestions: 8, submitted: 38, totalStudents: 42, status: 'graded',
           questions: [
             { id: 1, type: 'calc', stem: '6 × 7 = ?', answer: '42', knowledgePoint: '乘法口诀' },
             { id: 2, type: 'calc', stem: '8 × 9 = ?', answer: '72', knowledgePoint: '乘法口诀' },
@@ -1092,7 +1834,7 @@
         {
           id: 4, subjectId: 'chinese', title: '句式转换专项练习',
           teacher: '李老师', deadline: '2026-06-15', type: 'school',
-          totalQuestions: 8, submitted: 0, totalStudents: 42, status: 'pending',
+          totalQuestions: 8, submitted: 38, totalStudents: 42, status: 'graded',
           questions: [
             { id: 1, type: 'rewrite', stem: '把"他完成了作业"改为"把"字句', answer: '他把作业完成了', knowledgePoint: '把字句' },
             { id: 2, type: 'rewrite', stem: '把"风吹落了树叶"改为"被"字句', answer: '树叶被风吹落了', knowledgePoint: '被字句' },
@@ -1124,7 +1866,7 @@
         {
           id: 6, subjectId: 'math', title: '面积与周长计算',
           teacher: '王老师', deadline: '2026-06-16', type: 'custom',
-          totalQuestions: 8, submitted: 0, totalStudents: 42, status: 'pending',
+          totalQuestions: 8, submitted: 38, totalStudents: 42, status: 'graded',
           questions: [
             { id: 1, type: 'calc', stem: '长方形长8cm，宽5cm，周长是多少？', answer: '26cm', knowledgePoint: '长方形周长' },
             { id: 2, type: 'calc', stem: '长方形长8cm，宽5cm，面积是多少？', answer: '40cm²', knowledgePoint: '长方形面积' },
@@ -1154,7 +1896,7 @@
         {
           id: 8, subjectId: 'chinese', title: '阅读理解《春》节选',
           teacher: '李老师', deadline: '2026-06-18', type: 'custom',
-          totalQuestions: 5, submitted: 0, totalStudents: 42, status: 'pending',
+          totalQuestions: 5, submitted: 30, totalStudents: 42, status: 'graded',
           questions: [
             { id: 1, type: 'choice', stem: '文中描写的是哪个季节？A.春 B.夏 C.秋', answer: 'A', knowledgePoint: '文章理解' },
             { id: 2, type: 'choice', stem: '作者的心情是怎样的？A.忧伤 B.喜悦 C.平静', answer: 'B', knowledgePoint: '情感体会' },
@@ -1234,6 +1976,90 @@
             { name: '水果类单词', mastery: 'strong' },
           ]
         },
+        // --- Historical data for 7-day / 30-day / all filter testing ---
+        2: {
+          score: 68, correctCount: 3, partialCount: 2, wrongCount: 2, unansweredCount: 1, totalCount: 8, correctRate: 50,
+          gradedAt: '2026-05-28',
+          answers: {
+            1: { status:'correct', correct:true, partial:false, userAnswer:'42', errorCause:null, analysis:null },
+            2: { status:'wrong', correct:false, partial:false, userAnswer:'68', errorCause:'计算操作', analysis:'8×9=72，不是68。建议重新背诵乘法口诀表，多做口算练习。' },
+            3: { status:'correct', correct:true, partial:false, userAnswer:'56', errorCause:null, analysis:null },
+            4: { status:'partial', correct:false, partial:true, userAnswer:'52', errorCause:'概念原理', analysis:'9×6=54。乘数顺序不影响结果，但计算时注意进位。' },
+            5: { status:'wrong', correct:false, partial:false, userAnswer:'54', errorCause:'审题逻辑', analysis:'每排8棵×7排=56棵。你可能用了9×6=54，混淆了题目数据。' },
+            6: { status:'correct', correct:true, partial:false, userAnswer:'54', errorCause:null, analysis:null },
+            7: { status:'unanswered', correct:false, partial:false, userAnswer:'（未作答）', errorCause:'未作答', analysis:'12×5=60。两位数乘法可拆分为10×5+2×5=50+10=60。' },
+            8: { status:'wrong', correct:false, partial:false, userAnswer:'48', errorCause:'方法策略', analysis:'5本×12元=60元。你可能用了错误的运算方法，注意区分乘法和加法。' }
+          },
+          classmatesWrong: { 2:20, 4:14, 5:18, 7:10, 8:15 },
+          weakPoints: [
+            { name:'乘法口诀', rate:0.5, correct:1, total:2, mastery:'medium' },
+            { name:'乘法应用', rate:0.33, correct:1, total:3, mastery:'weak' },
+            { name:'两位数乘法', rate:0, correct:0, total:1, mastery:'weak' }
+          ]
+        },
+        4: {
+          score: 55, correctCount: 3, partialCount: 1, wrongCount: 3, unansweredCount: 1, totalCount: 8, correctRate: 44,
+          gradedAt: '2026-05-20',
+          answers: {
+            1: { status:'correct', correct:true, partial:false, userAnswer:'他把作业完成了', errorCause:null, analysis:null },
+            2: { status:'wrong', correct:false, partial:false, userAnswer:'风被树叶吹落了', errorCause:'概念原理', analysis:'被字句格式：受事者+被+施事者+动词。正确为"树叶被风吹落了"，风是施事者，树叶是受事者。' },
+            3: { status:'partial', correct:false, partial:true, userAnswer:'他看完了这本书', errorCause:'审题逻辑', analysis:'把字句转换需注意：原句"这本书被他看完了"→"他把这本书看完了"，遗漏了"把"字。' },
+            4: { status:'correct', correct:true, partial:false, userAnswer:'难道你不应该好好学习吗？', errorCause:null, analysis:null },
+            5: { status:'correct', correct:true, partial:false, userAnswer:'这是事实', errorCause:null, analysis:null },
+            6: { status:'wrong', correct:false, partial:false, userAnswer:'妈妈被饭做好了', errorCause:'概念原理', analysis:'被字句：受事者+被+施事者+动词。"饭被妈妈做好了"，妈妈是施事者在前，饭是受事者在后。' },
+            7: { status:'wrong', correct:false, partial:false, userAnswer:'小鸟在天空飞', errorCause:'书写/粗心', analysis:'扩写需要添加修饰词。如"可爱的小鸟在蓝蓝的天空中自由地飞翔"，多想想形容词和副词。' },
+            8: { status:'unanswered', correct:false, partial:false, userAnswer:'（未作答）', errorCause:'未作答', analysis:'缩句保留主干：小鸟飞。删去"美丽的""在天空中""自由地"等修饰成分。' }
+          },
+          classmatesWrong: { 2:16, 3:20, 6:12, 7:8, 8:10 },
+          weakPoints: [
+            { name:'把字句', rate:0.5, correct:1, total:2, mastery:'medium' },
+            { name:'被字句', rate:0, correct:0, total:2, mastery:'weak' },
+            { name:'句式转换', rate:1, correct:2, total:2, mastery:'strong' },
+            { name:'扩写句子', rate:0, correct:0, total:1, mastery:'weak' },
+            { name:'缩写句子', rate:0, correct:0, total:1, mastery:'weak' }
+          ]
+        },
+        6: {
+          score: 72, correctCount: 4, partialCount: 1, wrongCount: 2, unansweredCount: 1, totalCount: 8, correctRate: 56,
+          gradedAt: '2026-05-15',
+          answers: {
+            1: { status:'correct', correct:true, partial:false, userAnswer:'26cm', errorCause:null, analysis:null },
+            2: { status:'partial', correct:false, partial:true, userAnswer:'40平方厘米', errorCause:'书写/粗心', analysis:'答案正确但单位写成了中文，应写作40cm²。注意数学符号的规范书写。' },
+            3: { status:'correct', correct:true, partial:false, userAnswer:'24cm', errorCause:null, analysis:null },
+            4: { status:'wrong', correct:false, partial:false, userAnswer:'24cm²', errorCause:'概念原理', analysis:'正方形面积=边长×边长=6×6=36cm²。你把面积和周长公式混淆了，24cm²是错误结果。' },
+            5: { status:'correct', correct:true, partial:false, userAnswer:'4cm', errorCause:null, analysis:null },
+            6: { status:'wrong', correct:false, partial:false, userAnswer:'100', errorCause:'计算操作', analysis:'教室面积=10×8=80m²，80÷1=80块。你可能把长宽看成了10×10。' },
+            7: { status:'correct', correct:true, partial:false, userAnswer:'400', errorCause:null, analysis:null },
+            8: { status:'unanswered', correct:false, partial:false, userAnswer:'（未作答）', errorCause:'未作答', analysis:'面积÷长=宽，即48÷12=4cm。逆运算公式：宽=面积÷长。' }
+          },
+          classmatesWrong: { 2:10, 4:22, 6:15, 8:18 },
+          weakPoints: [
+            { name:'长方形周长', rate:1, correct:1, total:1, mastery:'strong' },
+            { name:'长方形面积', rate:0.5, correct:1, total:2, mastery:'medium' },
+            { name:'正方形周长', rate:1, correct:1, total:1, mastery:'strong' },
+            { name:'正方形面积', rate:0, correct:0, total:1, mastery:'weak' },
+            { name:'面积应用', rate:0, correct:0, total:1, mastery:'weak' },
+            { name:'面积逆运算', rate:0, correct:0, total:1, mastery:'weak' }
+          ]
+        },
+        8: {
+          score: 45, correctCount: 2, partialCount: 0, wrongCount: 2, unansweredCount: 1, totalCount: 5, correctRate: 40,
+          gradedAt: '2026-04-28',
+          answers: {
+            1: { status:'correct', correct:true, partial:false, userAnswer:'A', errorCause:null, analysis:null },
+            2: { status:'wrong', correct:false, partial:false, userAnswer:'C', errorCause:'审题逻辑', analysis:'描写春天万物复苏的景象，作者心情应是喜悦的。选择"平静"说明没有体会到文中表达的情感。' },
+            3: { status:'correct', correct:true, partial:false, userAnswer:'小草、花朵', errorCause:null, analysis:null },
+            4: { status:'wrong', correct:false, partial:false, userAnswer:'A', errorCause:'概念原理', analysis:'《春》是朱自清的散文名篇，体裁为散文而非说明文。散文以抒情写景为主，说明文以介绍说明为主。' },
+            5: { status:'unanswered', correct:false, partial:false, userAnswer:'（未作答）', errorCause:'未作答', analysis:'概括要点：描写了春天万物复苏、生机勃勃的景象。先总结再提炼关键描写对象。' }
+          },
+          classmatesWrong: { 2:12, 4:25, 5:20 },
+          weakPoints: [
+            { name:'文章理解', rate:1, correct:1, total:1, mastery:'strong' },
+            { name:'情感体会', rate:0, correct:0, total:1, mastery:'weak' },
+            { name:'文体知识', rate:0, correct:0, total:1, mastery:'weak' },
+            { name:'概括能力', rate:0, correct:0, total:1, mastery:'weak' }
+          ]
+        },
         7: {
           score: 50, correctCount: 4, totalCount: 8,
           gradedAt: '2026-06-09',
@@ -1309,6 +2135,7 @@
         if (saved) {
           const state = JSON.parse(saved);
           if (state.isSubscribed !== undefined) mockData.user.isSubscribed = state.isSubscribed;
+          if (state.subscriptionTier !== undefined) mockData.user.subscriptionTier = state.subscriptionTier;
           if (state.subscriptionExpiry) mockData.user.subscriptionExpiry = state.subscriptionExpiry;
           if (state.firstGradingDate) mockData.user.firstGradingDate = state.firstGradingDate;
         }
@@ -1318,6 +2145,7 @@
     function saveState() {
       localStorage.setItem('hwa_state', JSON.stringify({
         isSubscribed: mockData.user.isSubscribed,
+        subscriptionTier: mockData.user.subscriptionTier,
         subscriptionExpiry: mockData.user.subscriptionExpiry,
         firstGradingDate: mockData.user.firstGradingDate,
       }));
@@ -1332,18 +2160,51 @@
     let currentHwSearch = '';
 
     function getFilteredHomework() {
+      var today = new Date().toISOString().split('T')[0];
+      var isSearching = currentHwSearch.length > 0;
       return mockData.homework.filter(hw => {
         if (currentHwType !== 'all' && hw.type !== currentHwType) return false;
         if (currentHwSearch && !hw.title.includes(currentHwSearch) && !hw.teacher.includes(currentHwSearch)) return false;
+        // When not searching, only show upcoming homework (deadline >= today)
+        if (!isSearching && hw.deadline < today) return false;
         return true;
+      }).sort(function(a, b) {
+        // Sort by deadline nearest first
+        return a.deadline.localeCompare(b.deadline);
       });
     }
 
     function switchHwType(type, el) {
+      if (type === 'custom' && mockData.user.subscriptionTier < 2) {
+        currentHwType = type;
+        document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        showCustomPaywall();
+        return;
+      }
       currentHwType = type;
       document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
       el.classList.add('active');
       renderHomeworkList();
+    }
+
+    function showCustomPaywall() {
+      const list = document.getElementById('homework-list');
+      const empty = document.getElementById('homework-empty');
+      empty.style.display = 'none';
+      var isBasic = mockData.user.isSubscribed && mockData.user.subscriptionTier === 1;
+      list.innerHTML = `
+        <div class="paywall-banner">
+          <div style="font-size:48px;"><svg class="icon"><use href="#icon-lock"/></svg></div>
+          <h3 style="margin:8px 0;">专属定制内容</h3>
+          <p style="color:var(--text-hint);font-size:13px;margin-bottom:12px;">
+            ${isBasic ? '当前为基础会员，升级高级会员后解锁专属定制练习卷' : '订阅高级会员后解锁专属定制练习卷，由AI根据薄弱点智能组卷'}
+          </p>
+          <button class="btn btn-accent" onclick="showSubscribeModal()">
+            <svg class="icon"><use href="#icon-coins"/></svg> ${isBasic ? '升级高级会员 ¥19.9/月' : '立即订阅 ¥19.9/月'}
+          </button>
+        </div>
+      `;
     }
 
     function filterHomework() {
@@ -1366,8 +2227,10 @@
       list.innerHTML = hws.map(hw => {
         const subj = mockData.subjects.find(s => s.id === hw.subjectId);
         const statusLabel = hw.status === 'graded'
-          ? '<span style="color:var(--success);font-size:11px;">✓ 已批改</span>'
+          ? '<span style="color:var(--success);font-size:11px;"><svg class="icon"><use href="#icon-check"/></svg> 已批改</span>'
           : '<span style="color:var(--text-hint);font-size:11px;">待提交</span>';
+        const dateParts = hw.deadline.split('-');
+        const dateStr = parseInt(dateParts[1]) + '月' + parseInt(dateParts[2]) + '日';
         return `
         <div class="hw-card" data-hwid="${hw.id}">
           <div class="hw-card-header">
@@ -1375,9 +2238,9 @@
             <span class="hw-title">${hw.title}</span>
           </div>
           <div class="hw-meta">
-            <span>👨‍🏫 ${hw.teacher}</span>
-            <span>📅 ${hw.deadline}</span>
-            <span>📝 ${hw.totalQuestions}题</span>
+            <span><svg class="icon"><use href="#icon-teacher"/></svg> ${hw.teacher}</span>
+            <span><svg class="icon"><use href="#icon-calendar"/></svg> ${dateStr}</span>
+            <span><svg class="icon"><use href="#icon-edit"/></svg> ${hw.totalQuestions}题</span>
             ${statusLabel}
           </div>
           <div class="hw-actions">
@@ -1388,40 +2251,183 @@
       }).join('');
     }
 
+    let pdfBlobCache = null;
+    let pdfBlobHwId = null;
+
     function printHomework(hwId) {
       const hw = mockData.homework.find(h => h.id === hwId);
       if (!hw) return;
+      const subj = mockData.subjects.find(s => s.id === hw.subjectId);
 
-      // Hide all cards except the target one
-      const allCards = document.querySelectorAll('.hw-card');
-      let targetCard = null;
-      allCards.forEach(c => {
-        if (parseInt(c.dataset.hwid) === hwId) {
-          targetCard = c;
-        } else {
-          c.style.display = 'none';
-        }
+      const overlay = document.getElementById('pdf-share-overlay');
+      const content = document.getElementById('pdf-sheet-content');
+
+      // Show generating state
+      overlay.style.display = 'flex';
+      content.innerHTML = `
+        <div class="sheet-generating">
+          <div class="spinner"></div>
+          <p>正在生成 PDF...</p>
+        </div>
+      `;
+
+      // Use cached blob if same homework
+      if (pdfBlobCache && pdfBlobHwId === hwId) {
+        renderPdfSheet(content, hw, pdfBlobCache);
+        return;
+      }
+
+      // Build the printable HTML template
+      const pdfHtml = buildPdfTemplate(hw, subj);
+
+      // Load html2pdf.js dynamically then generate
+      loadHtml2Pdf(() => {
+        const opt = {
+          margin: [10, 12, 10, 12],
+          filename: `${subj.name}_${hw.title}.pdf`,
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        };
+
+        html2pdf().set(opt).from(pdfHtml).toPdf().output('blob').then(function(blob) {
+          pdfBlobCache = blob;
+          pdfBlobHwId = hwId;
+          renderPdfSheet(content, hw, blob);
+        }).catch(function() {
+          // Fallback: use window.print for PDF generation
+          content.innerHTML = `
+            <div class="sheet-title"><svg class="icon"><use href="#icon-file"/></svg> ${hw.title}</div>
+            <p style="text-align:center;color:var(--text-hint);margin-bottom:16px;font-size:13px;">
+              请在打印对话框中选择「另存为PDF」保存文件
+            </p>
+            <button class="sheet-btn sheet-btn-download" onclick="window.print();closePdfSheet();">
+              <svg class="icon"><use href="#icon-download"/></svg> 打开打印对话框
+            </button>
+            <button class="sheet-btn sheet-btn-cancel" onclick="closePdfSheet();">
+              取消
+            </button>
+          `;
+        });
       });
+    }
 
-      if (!targetCard) return;
-
-      // Append printable questions
+    function buildPdfTemplate(hw, subj) {
       const questionsHtml = hw.questions.map((q, i) => `
-        <div class="print-q" style="page-break-inside:avoid;padding:10px 0;border-bottom:1px dashed #ddd;">
-          <p><b>${i+1}.</b> ${q.stem}</p>
-          <p style="color:#999;min-height:24px;">答：__________</p>
+        <div style="padding:10px 0;border-bottom:1px dashed #ddd;page-break-inside:avoid;">
+          <p style="margin:0 0 6px;font-size:14px;"><b>${i+1}.</b> ${q.stem}</p>
+          <p style="margin:0;color:#999;min-height:22px;font-size:13px;">答：__________</p>
         </div>
       `).join('');
-      targetCard.insertAdjacentHTML('beforeend', `<div class="print-questions">${questionsHtml}</div>`);
 
-      window.print();
+      return `
+        <div style="font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:10px;">
+          <h2 style="text-align:center;margin:0 0 4px;font-size:18px;">${hw.title}</h2>
+          <p style="text-align:center;color:#666;font-size:12px;margin:0 0 8px;">
+            ${subj.icon} ${subj.name} · <svg class="icon"><use href="#icon-teacher"/></svg> ${hw.teacher} · <svg class="icon"><use href="#icon-calendar"/></svg> ${hw.deadline} · <svg class="icon"><use href="#icon-edit"/></svg> ${hw.totalQuestions}题
+          </p>
+          <hr style="border:none;border-top:1px solid #ddd;margin:0 0 8px;">
+          ${questionsHtml}
+          <p style="text-align:center;color:#bbb;font-size:11px;margin-top:12px;">— 作业批改助手生成 —</p>
+        </div>
+      `;
+    }
 
-      // Restore after print dialog
-      setTimeout(() => {
-        allCards.forEach(c => { c.style.display = ''; });
-        document.querySelectorAll('.print-questions').forEach(q => q.remove());
-        showToast('✅ 打印已发送');
-      }, 500);
+    function renderPdfSheet(container, hw, blob) {
+      const blobUrl = URL.createObjectURL(blob);
+      const fileName = `${hw.title}.pdf`;
+
+      container.innerHTML = `
+        <div class="sheet-title"><svg class="icon"><use href="#icon-file"/></svg> ${hw.title}</div>
+        <div class="pdf-preview-box">
+          <iframe src="${blobUrl}" title="PDF预览"></iframe>
+        </div>
+        <button class="sheet-btn sheet-btn-download" onclick="downloadPdf('${blobUrl}', '${fileName.replace(/'/g, "\\'")}')">
+          <svg class="icon"><use href="#icon-download"/></svg> 下载 PDF
+        </button>
+        <button class="sheet-btn sheet-btn-wechat" id="btn-share-wechat">
+          <svg class="icon"><use href="#icon-heart"/></svg> 转发微信好友
+        </button>
+        <button class="sheet-btn sheet-btn-cancel" onclick="closePdfSheet()">
+          取消
+        </button>
+      `;
+
+      // Bind WeChat share button
+      document.getElementById('btn-share-wechat').onclick = function() {
+        shareToWechat(blob, fileName);
+      };
+    }
+
+    function downloadPdf(blobUrl, fileName) {
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> PDF 已下载');
+      addPrintRecord(fileName, '作业打印');
+      closePdfSheet();
+    }
+
+    async function shareToWechat(blob, fileName) {
+      const file = new File([blob], fileName, { type: 'application/pdf' });
+
+      // Try Web Share API (works on mobile browsers, WeChat included)
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: fileName,
+          });
+          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 已分享');
+          closePdfSheet();
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return; // user cancelled
+        }
+      }
+
+      // Fallback: try share without files (some WeChat browsers)
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: fileName,
+            text: '作业PDF，请查收',
+          });
+          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 已分享');
+          closePdfSheet();
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      // Desktop fallback: download + instructions
+      downloadPdf(URL.createObjectURL(blob), fileName);
+      showToast('<svg class="icon"><use href="#icon-lightbulb"/></svg> 请将下载的 PDF 发送给微信好友');
+    }
+
+    function closePdfSheet() {
+      document.getElementById('pdf-share-overlay').style.display = 'none';
+    }
+
+    function closePdfShare(event) {
+      if (event.target === document.getElementById('pdf-share-overlay')) {
+        closePdfSheet();
+      }
+    }
+
+    function loadHtml2Pdf(callback) {
+      if (typeof html2pdf !== 'undefined') { callback(); return; }
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      script.onload = callback;
+      script.onerror = function() {
+        showToast('<svg class="icon"><use href="#icon-alert-triangle"/></svg> PDF 库加载失败，使用浏览器打印');
+      };
+      document.head.appendChild(script);
     }
 
     function startGrading(hwId) {
@@ -1435,7 +2441,6 @@
     // ============================================================
     // Tab 2: Photo Upload and AI Grading Simulation
     // ============================================================
-    let uploadMode = 'camera';
     let cameraPhotos = [];
     let filePhotos = [];
     let currentGradingHwId = null;
@@ -1444,18 +2449,23 @@
       const sel = document.getElementById('grading-hw-select');
       const currentVal = sel.value;
       sel.innerHTML = '<option value="">-- 请选择作业 --</option>';
-      const pending = mockData.homework.filter(h => h.status === 'pending');
-      pending.forEach(hw => {
-        const opt = document.createElement('option');
+      var allHw = mockData.homework.filter(function(h) { return h.status === 'pending'; });
+      // Also include graded ones that the user might want to re-submit
+      if (allHw.length === 0) {
+        allHw = mockData.homework.filter(function(h) { return h.status === 'graded'; });
+      }
+      allHw.forEach(function(hw) {
+        var opt = document.createElement('option');
         opt.value = hw.id;
-        const subj = mockData.subjects.find(s => s.id === hw.subjectId);
-        opt.textContent = `[${subj.name}] ${hw.title}`;
+        var subj = mockData.subjects.find(function(s) { return s.id === hw.subjectId; });
+        var dp = hw.deadline.split('-');
+        var dateStr = parseInt(dp[1]) + '/' + parseInt(dp[2]);
+        opt.textContent = '[' + subj.name + '] ' + hw.title + ' - ' + hw.teacher + ' ' + dateStr;
         sel.appendChild(opt);
       });
-      // Restore previous selection if still valid
       if (currentVal) {
-        const stillPending = pending.find(h => String(h.id) === currentVal);
-        if (stillPending) sel.value = currentVal;
+        var found = allHw.find(function(h) { return String(h.id) === currentVal; });
+        if (found) sel.value = currentVal;
       }
     }
 
@@ -1468,23 +2478,16 @@
       if (hw) {
         info.style.display = 'block';
         const subj = mockData.subjects.find(s => s.id === hw.subjectId);
-        document.getElementById('grading-subject-badge').textContent = subj.icon + ' ' + subj.name;
+        document.getElementById('grading-subject-badge').innerHTML = subj.icon + ' ' + subj.name + ' ' + hw.title;
         document.getElementById('grading-subject-badge').style.background = subj.color;
-        document.getElementById('grading-title').textContent = hw.title;
-        document.getElementById('grading-teacher').textContent = '👨‍🏫 ' + hw.teacher;
-        document.getElementById('grading-questions').textContent = '📝 ' + hw.totalQuestions + '题';
+        document.getElementById('grading-teacher').innerHTML = '<svg class="icon"><use href="#icon-teacher"/></svg> ' + hw.teacher;
+        var dp = hw.deadline.split('-');
+        document.getElementById('grading-date').innerHTML = '<svg class="icon"><use href="#icon-calendar"/></svg> ' + parseInt(dp[1]) + '月' + parseInt(dp[2]) + '日';
+        document.getElementById('grading-questions').innerHTML = '<svg class="icon"><use href="#icon-edit"/></svg> ' + hw.totalQuestions + '题';
       } else {
         info.style.display = 'none';
       }
       updateSubmitButton();
-    }
-
-    function switchUploadMode(mode, el) {
-      uploadMode = mode;
-      document.querySelectorAll('.upload-tab').forEach(t => t.classList.remove('active'));
-      el.classList.add('active');
-      document.getElementById('camera-area').style.display = mode === 'camera' ? 'block' : 'none';
-      document.getElementById('file-area').style.display = mode === 'file' ? 'block' : 'none';
     }
 
     function simulateTakePhoto() {
@@ -1493,10 +2496,6 @@
       cameraPhotos.push({ id: Date.now(), color, page: cameraPhotos.length + 1 });
       renderPhotoGrid();
       showToast('拍照成功！');
-    }
-
-    function simulateAddPhoto() {
-      simulateTakePhoto();
     }
 
     function removePhoto(id) {
@@ -1518,8 +2517,9 @@
     function clearPhotos() {
       cameraPhotos = [];
       filePhotos = [];
-      document.getElementById('file-photo-grid').innerHTML = '';
       renderPhotoGrid();
+      document.getElementById('file-photo-grid').style.display = 'none';
+      document.getElementById('file-photo-grid').innerHTML = '';
       updateSubmitButton();
     }
 
@@ -1528,7 +2528,7 @@
       const btnClear = document.getElementById('btn-clear-photos');
 
       if (cameraPhotos.length === 0) {
-        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-hint);padding:20px;">📷 还没有拍照，点击下方按钮添加</div>';
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-hint);padding:12px;"><svg class="icon"><use href="#icon-camera"/></svg> 点击下方拍照或上传</div>';
         btnClear.style.display = 'none';
       } else {
         grid.innerHTML = cameraPhotos.map((p, idx) => {
@@ -1536,11 +2536,11 @@
           const isLast = idx === cameraPhotos.length - 1;
           return `
           <div class="photo-item">
-            <div style="width:100%;height:100%;background:${p.color};display:flex;align-items:center;justify-content:center;font-size:24px;">📝</div>
+            <div style="width:100%;height:100%;background:${p.color};display:flex;align-items:center;justify-content:center;font-size:24px;"><svg class="icon"><use href="#icon-edit"/></svg></div>
             <span class="photo-page-num">第${p.page}页</span>
-            <button class="photo-del" onclick="removePhoto(${p.id})">✕</button>
-            ${!isFirst ? `<button class="photo-move-up" onclick="movePhoto(${p.id}, -1)" title="上移">▲</button>` : ''}
-            ${!isLast ? `<button class="photo-move-down" onclick="movePhoto(${p.id}, 1)" title="下移">▼</button>` : ''}
+            <button class="photo-del" onclick="removePhoto(${p.id})"><svg class="icon"><use href="#icon-x"/></svg></button>
+            ${!isFirst ? `<button class="photo-move-up" onclick="movePhoto(${p.id}, -1)"><svg class="icon"><use href="#icon-chevron-up"/></svg></button>` : ''}
+            ${!isLast ? `<button class="photo-move-down" onclick="movePhoto(${p.id}, 1)"><svg class="icon"><use href="#icon-chevron-down"/></svg></button>` : ''}
           </div>`;
         }).join('');
         btnClear.style.display = 'inline-block';
@@ -1551,6 +2551,7 @@
     function handleFileUpload(event) {
       const files = event.target.files;
       const grid = document.getElementById('file-photo-grid');
+      grid.style.display = 'grid';
       grid.innerHTML = '';
       filePhotos = [];
       for (let i = 0; i < files.length; i++) {
@@ -1568,6 +2569,7 @@
 
     function renderFilePhotoGrid() {
       const grid = document.getElementById('file-photo-grid');
+      grid.style.display = 'grid';
       grid.innerHTML = filePhotos.map((p, idx) => {
         const isFirst = idx === 0;
         const isLast = idx === filePhotos.length - 1;
@@ -1575,9 +2577,9 @@
         <div class="photo-item">
           <img src="${p.dataUrl}" alt="${p.name}">
           <span class="photo-page-num">第${p.page}页</span>
-          <button class="photo-del" onclick="removeFilePhoto(${p.id})">✕</button>
-          ${!isFirst ? `<button class="photo-move-up" onclick="moveFilePhoto(${p.id}, -1)" title="上移">▲</button>` : ''}
-          ${!isLast ? `<button class="photo-move-down" onclick="moveFilePhoto(${p.id}, 1)" title="下移">▼</button>` : ''}
+          <button class="photo-del" onclick="removeFilePhoto(${p.id})"><svg class="icon"><use href="#icon-x"/></svg></button>
+          ${!isFirst ? `<button class="photo-move-up" onclick="moveFilePhoto(${p.id}, -1)"><svg class="icon"><use href="#icon-chevron-up"/></svg></button>` : ''}
+          ${!isLast ? `<button class="photo-move-down" onclick="moveFilePhoto(${p.id}, 1)"><svg class="icon"><use href="#icon-chevron-down"/></svg></button>` : ''}
         </div>`;
       }).join('');
     }
@@ -1599,17 +2601,13 @@
       renderFilePhotoGrid();
     }
 
-    function getActivePhotos() {
-      return uploadMode === 'camera' ? cameraPhotos : filePhotos;
-    }
-
     function updateSubmitButton() {
       const btn = document.getElementById('btn-submit-grading');
-      btn.disabled = !currentGradingHwId || getActivePhotos().length === 0;
+      btn.disabled = !currentGradingHwId || (cameraPhotos.length === 0 && filePhotos.length === 0);
     }
 
     function submitGrading() {
-      if (!currentGradingHwId || getActivePhotos().length === 0) return;
+      if (!currentGradingHwId || (cameraPhotos.length === 0 && filePhotos.length === 0)) return;
 
       const hw = mockData.homework.find(h => h.id === currentGradingHwId);
       if (!hw) return;
@@ -1630,7 +2628,7 @@
           progress = 100;
           clearInterval(interval);
           progressFill.style.width = '100%';
-          progressText.textContent = '✅ 批改完成！';
+          progressText.innerHTML = '<svg class="icon"><use href="#icon-check-circle"/></svg> 批改完成！';
 
           setTimeout(() => {
             document.getElementById('grading-progress').style.display = 'none';
@@ -1649,58 +2647,86 @@
       hw.questions.forEach(q => {
         if (!kpMap[q.knowledgePoint]) kpMap[q.knowledgePoint] = { correct: 0, total: 0 };
         kpMap[q.knowledgePoint].total++;
-        if (answers[q.id] && answers[q.id].correct) kpMap[q.knowledgePoint].correct++;
+        if (answers[q.id] && answers[q.id].status === 'correct') kpMap[q.knowledgePoint].correct++;
+        else if (answers[q.id] && answers[q.id].status === 'partial') kpMap[q.knowledgePoint].correct += 0.5;
       });
       return Object.entries(kpMap).map(([name, stats]) => {
         const rate = stats.correct / stats.total;
-        return { name, mastery: rate >= 0.8 ? 'strong' : rate >= 0.5 ? 'medium' : 'weak' };
+        return { name, rate, correct: stats.correct, total: stats.total,
+          mastery: rate >= 0.8 ? 'strong' : rate >= 0.5 ? 'medium' : 'weak' };
       });
     }
 
     function showGradingResult(hw) {
       const seed = hw.id * 137;
-      const correctPattern = [true, true, false, true, false, true, true, false, true, false];
+      const errorCauses = ['概念原理', '计算操作', '方法策略', '审题逻辑', '未作答', '书写/粗心'];
       const answers = {};
-      let correctCount = 0;
+      let correctCount = 0, partialCount = 0, wrongCount = 0, unansweredCount = 0;
       const classmatesWrong = {};
 
       hw.questions.forEach((q, i) => {
-        const isCorrect = correctPattern[i % correctPattern.length] || (seed % (i + 2) === 0);
-        if (isCorrect) correctCount++;
+        const r = (seed * (i + 1)) % 100;
+        let status, userAnswer;
 
-        let userAnswer;
-        if (isCorrect) {
+        if (r < 55) {
+          status = 'correct';
           userAnswer = q.answer;
-        } else {
+          correctCount++;
+        } else if (r < 70) {
+          status = 'partial';
+          userAnswer = q.type === 'choice' ? q.answer : q.answer.replace(/[0-9]+/g, function(m) { return String(parseInt(m) + (seed % 3) - 1); });
+          partialCount++;
+        } else if (r < 90) {
+          status = 'wrong';
           if (q.type === 'choice') {
-            const options = ['A', 'B', 'C'];
-            userAnswer = options.find(o => o !== q.answer) || 'A';
-          } else if (q.type === 'calc') {
-            userAnswer = (parseInt(q.answer) + seed % 5 + 1).toString();
+            var opts = ['A', 'B', 'C'];
+            userAnswer = opts.find(function(o) { return o !== q.answer; }) || 'A';
           } else {
-            userAnswer = '（手写识别结果：' + q.answer.substring(0, 2) + '...识别有误）';
+            userAnswer = String(parseInt((q.answer.match(/[0-9]+/) || ['5'])[0]) + (seed % 5) + 1);
           }
+          wrongCount++;
+        } else {
+          status = 'unanswered';
+          userAnswer = '（未作答）';
+          unansweredCount++;
         }
 
+        var errorCause = status === 'correct' ? null : errorCauses[Math.floor((seed * (i + 3)) % 100 / 100 * errorCauses.length) % errorCauses.length];
+
+        var causeMsgs = {
+          '概念原理': '对「' + q.knowledgePoint + '」的核心概念理解不到位，建议回归课本定义，弄清概念本质后再做题。',
+          '计算操作': '解题思路基本正确，但在计算环节出现错误。建议分步书写计算过程，每步验算。',
+          '方法策略': '解题方法选择不当。本题考察' + q.knowledgePoint + '，建议先分析题目条件，选择合适解法。',
+          '审题逻辑': '审题不够仔细，对题目条件理解有偏差。建议逐字读题，圈画关键信息。',
+          '未作答': '未作答，可能是时间不够或缺乏思路。建议从已知条件出发，尝试写出能想到的步骤。',
+          '书写/粗心': '因书写不规范或粗心导致失分。建议答题后快速检查关键步骤和最终答案。'
+        };
+        var analysis = status === 'correct' ? null : (causeMsgs[errorCause] || '请认真复习该知识点，加强练习。');
+
         answers[q.id] = {
-          correct: isCorrect,
-          userAnswer,
-          analysis: isCorrect ? null : '本题考察' + q.knowledgePoint + '。正确答案应为"' + q.answer + '"，你的答案"' + userAnswer + '"有误，请检查审题和计算过程。',
+          status: status,
+          correct: status === 'correct',
+          partial: status === 'partial',
+          userAnswer: userAnswer,
+          errorCause: errorCause,
+          analysis: analysis
         };
 
-        if (!isCorrect) {
+        if (status !== 'correct') {
           classmatesWrong[q.id] = Math.floor(Math.random() * 20) + 3;
         }
       });
 
-      const score = Math.round((correctCount / hw.totalQuestions) * 100);
+      var total = correctCount + partialCount + wrongCount + unansweredCount;
+      var score = Math.round(((correctCount + partialCount * 0.5) / total) * 100);
+      var correctRate = Math.round(((correctCount + partialCount * 0.5) / total) * 100);
 
       mockData.gradingResults[hw.id] = {
-        score, correctCount, totalCount: hw.totalQuestions,
-        gradedAt: new Date().toISOString().split('T')[0],
-        answers,
-        classmatesWrong,
-        weakPoints: computeWeakPoints(hw, answers),
+        score: score, correctCount: correctCount, partialCount: partialCount,
+        wrongCount: wrongCount, unansweredCount: unansweredCount, totalCount: total,
+        correctRate: correctRate, gradedAt: new Date().toISOString().split('T')[0],
+        answers: answers, classmatesWrong: classmatesWrong,
+        weakPoints: computeWeakPoints(hw, answers)
       };
 
       if (!mockData.user.firstGradingDate) {
@@ -1712,42 +2738,19 @@
       hw.submitted = Math.min(hw.submitted + 1, hw.totalStudents);
 
       const container = document.getElementById('grading-result');
-      const correctRate = Math.round((correctCount / hw.totalQuestions) * 100);
 
       let questionsHtml = '';
       hw.questions.forEach((q, i) => {
         const ans = answers[q.id];
-        const cls = ans.correct ? '' : 'wrong';
-        const icon = ans.correct ? '✅' : '❌';
-        const analysisHtml = ans.analysis ? `<div class="result-analysis">💡 ${ans.analysis}</div>` : '';
-        questionsHtml += `
-          <div class="result-question-card ${cls}">
-            <div class="result-q-header">
-              <span>${icon} 第${i+1}题</span>
-              <span style="font-size:11px;color:var(--text-hint);">${q.knowledgePoint}</span>
-            </div>
-            <div class="result-q-stem">${q.stem}</div>
-            <div class="result-answers">
-              <span>你的答案：<span class="${ans.correct ? 'correct-answer' : 'wrong-answer'}">${ans.userAnswer}</span></span>
-              <span>正确答案：<span class="correct-answer">${q.answer}</span></span>
-            </div>
-            ${analysisHtml}
-          </div>
-        `;
+        const statusIcon = { correct: '<svg class="icon"><use href="#icon-check-circle"/></svg>', partial: '<svg class="icon"><use href="#icon-alert-triangle"/></svg>', wrong: '<svg class="icon"><use href="#icon-x-circle"/></svg>', unanswered: '<svg class="icon"><use href="#icon-square"/></svg>' };
+        const statusCls = { correct: '', partial: 'wrong', wrong: 'wrong', unanswered: 'wrong' };
+        const statusLabel = { correct: '正确', partial: '部分正确', wrong: '错误', unanswered: '未作答' };
+        const analysisHtml = ans.analysis ? '<div class="result-analysis"><svg class="icon"><use href="#icon-lightbulb"/></svg> ' + ans.analysis + '</div>' : '';
+
+        questionsHtml += '\n          <div class="result-question-card ' + statusCls[ans.status] + '">\n            <div class="result-q-header">\n              <span>' + statusIcon[ans.status] + ' 第' + (i+1) + '题 <span style="font-size:11px;color:var(--text-hint);">' + statusLabel[ans.status] + '</span></span>\n              <span style="font-size:11px;color:var(--text-hint);">' + q.knowledgePoint + (ans.errorCause ? ' · ' + ans.errorCause : '') + '</span>\n            </div>\n            <div class="result-q-stem">' + q.stem + '</div>\n            <div class="result-answers">\n              <span>你的答案：<span class="' + (ans.status === 'correct' ? 'correct-answer' : 'wrong-answer') + '">' + ans.userAnswer + '</span></span>\n              ' + (ans.status !== 'correct' ? '<span>正确答案：<span class="correct-answer">' + q.answer + '</span></span>' : '') + '\n            </div>\n            ' + analysisHtml + '\n          </div>\n        ';
       });
 
-      container.innerHTML = `
-        <div class="grading-score">
-          <div class="big-score">${score}<span style="font-size:24px;">分</span></div>
-          <div class="score-label">正确 ${correctCount}/${hw.totalQuestions} · 正确率 ${correctRate}%</div>
-        </div>
-        ${questionsHtml}
-        <p style="text-align:center;margin:16px 0;color:var(--text-hint);font-size:var(--font-sm);">
-          📝 错题已自动归档到错题本
-        </p>
-        <button class="btn btn-primary btn-block" onclick="switchPage('report')">📊 查看完整报告 →</button>
-      `;
-      container.style.display = 'block';
+      container.innerHTML = '\n        <div class="grading-score">\n          <div class="big-score">' + score + '<span style="font-size:24px;">分</span></div>\n          <div class="score-label">\n            <svg class="icon"><use href="#icon-check-circle"/></svg>' + correctCount + ' 正确 · <svg class="icon"><use href="#icon-alert-triangle"/></svg>' + partialCount + ' 部分正确 · <svg class="icon"><use href="#icon-x-circle"/></svg>' + wrongCount + ' 错误 · <svg class="icon"><use href="#icon-square"/></svg>' + unansweredCount + ' 未作答\n          </div>\n        </div>\n        ' + questionsHtml + '\n        <p style="text-align:center;margin:16px 0;color:var(--text-hint);font-size:var(--font-sm);">\n          <svg class="icon"><use href="#icon-edit"/></svg> 错题已自动归档到错题本\n        </p>\n        <button class="btn btn-primary btn-block" onclick="switchPage(\'report\')"><svg class="icon"><use href="#icon-chart"/></svg> 查看批改报告 →</button>\n      ';
       document.getElementById('btn-submit-grading').disabled = true;
 
       // Clean up photos after grading
@@ -1761,8 +2764,15 @@
     }
 
     // ============================================================
-    // Tab 3: Grading Report with Donut Chart
+    // Tab 3: Grading Report (Redesigned)
     // ============================================================
+    function getGradeLetter(score) {
+      if (score >= 90) return { letter: 'A', cls: 'report-grade-a', label: '优秀' };
+      if (score >= 75) return { letter: 'B', cls: 'report-grade-b', label: '良好' };
+      if (score >= 60) return { letter: 'C', cls: 'report-grade-c', label: '及格' };
+      return { letter: 'D', cls: 'report-grade-d', label: '待提高' };
+    }
+
     function createDonutChart(percentage, size = 140) {
       const strokeWidth = 12;
       const radius = (size - strokeWidth) / 2;
@@ -1770,21 +2780,15 @@
       const filled = (percentage / 100) * circumference;
       const center = size / 2;
 
-      return `
-        <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
-          <circle cx="${center}" cy="${center}" r="${radius}" fill="none"
-            stroke="#E8E8E8" stroke-width="${strokeWidth}"/>
-          <circle cx="${center}" cy="${center}" r="${radius}" fill="none"
-            stroke="${percentage >= 80 ? '#27AE60' : percentage >= 60 ? '#F39C12' : '#E74C3C'}"
-            stroke-width="${strokeWidth}"
-            stroke-dasharray="${filled} ${circumference - filled}"
-            stroke-dashoffset="0"
-            stroke-linecap="round"
-            transform="rotate(-90 ${center} ${center})"/>
-          <text x="${center}" y="${center}" text-anchor="middle" dy="0.35em"
-            font-size="28" font-weight="700" fill="#333">${percentage}%</text>
-        </svg>
-      `;
+      return '\n        <svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">\n          <circle cx="' + center + '" cy="' + center + '" r="' + radius + '" fill="none"\n            stroke="#E8E8E8" stroke-width="' + strokeWidth + '"/>\n          <circle cx="' + center + '" cy="' + center + '" r="' + radius + '" fill="none"\n            stroke="' + (percentage >= 80 ? '#27AE60' : percentage >= 60 ? '#F39C12' : '#E74C3C') + '"\n            stroke-width="' + strokeWidth + '"\n            stroke-dasharray="' + filled + ' ' + (circumference - filled) + '"\n            stroke-dashoffset="0"\n            stroke-linecap="round"\n            transform="rotate(-90 ' + center + ' ' + center + ')"/>\n          <text x="' + center + '" y="' + center + '" text-anchor="middle" dy="0.35em"\n            font-size="28" font-weight="700" fill="#333">' + percentage + '%</text>\n        </svg>\n      ';
+    }
+
+    function reportBar(pct, color) {
+      return '<div class="report-bar-bg"><div class="report-bar-fill" style="width:' + pct + '%;background:' + color + ';"></div></div>';
+    }
+
+    function toggleAccordion(header) {
+      header.parentElement.classList.toggle('open');
     }
 
     function populateReportSelector() {
@@ -1795,7 +2799,7 @@
         const opt = document.createElement('option');
         opt.value = hw.id;
         const subj = mockData.subjects.find(s => s.id === hw.subjectId);
-        opt.textContent = `[${subj.name}] ${hw.title}`;
+        opt.textContent = '[' + subj.name + '] ' + hw.title;
         sel.appendChild(opt);
       });
       if (graded.length === 0) {
@@ -1806,6 +2810,291 @@
 
     function initReportTab() {
       populateReportSelector();
+      // Auto-select most recent graded homework
+      var graded = mockData.homework.filter(function(h) {
+        return h.status === 'graded' && mockData.gradingResults[h.id];
+      }).sort(function(a, b) {
+        return new Date(mockData.gradingResults[b.id].gradedAt) - new Date(mockData.gradingResults[a.id].gradedAt);
+      });
+      if (graded.length > 0) {
+        document.getElementById('report-hw-select').value = graded[0].id;
+        showReport();
+      }
+    }
+
+    let currentReportTab = 'single';
+
+    function switchReportTab(type, el) {
+      currentReportTab = type;
+      document.querySelectorAll('#page-report .sub-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('report-single-area').style.display = type === 'single' ? 'block' : 'none';
+      document.getElementById('report-weekly-area').style.display = type === 'weekly' ? 'block' : 'none';
+      document.getElementById('report-monthly-area').style.display = type === 'monthly' ? 'block' : 'none';
+      if (type === 'weekly') showWeeklyReport();
+      if (type === 'monthly') showMonthlyReport();
+    }
+
+    function getGradedResults() {
+      return mockData.homework
+        .filter(h => h.status === 'graded' && mockData.gradingResults[h.id])
+        .map(h => ({ hw: h, result: mockData.gradingResults[h.id] }))
+        .sort((a, b) => new Date(b.result.gradedAt) - new Date(a.result.gradedAt));
+    }
+
+    function getPeriodData(days) {
+      const now = new Date();
+      const cutoff = new Date(now);
+      cutoff.setDate(cutoff.getDate() - days);
+      return getGradedResults().filter(d => new Date(d.result.gradedAt) >= cutoff);
+    }
+
+    function getWeekRange() {
+      const now = new Date();
+      const day = now.getDay();
+      const monday = new Date(now);
+      monday.setDate(now.getDate() - (day === 0 ? 6 : day - 1));
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+      var fmt = function(d) { return (d.getMonth()+1) + '/' + d.getDate(); };
+      return fmt(monday) + ' - ' + fmt(sunday);
+    }
+
+    function getMonthLabel() {
+      const now = new Date();
+      return (now.getMonth()+1) + '月' + now.getFullYear();
+    }
+
+    function createMiniBarChart(scores, maxH) {
+      maxH = maxH || 80;
+      if (scores.length === 0) return '<p style="color:var(--text-hint);font-size:12px;text-align:center;">暂无数据</p>';
+      var parts = ['<div class="report-trend-bars" style="height:' + (maxH + 30) + 'px;">'];
+      scores.forEach(function(s) {
+        var h = Math.max(6, (s.score / 100) * maxH);
+        var color = s.score >= 80 ? '#27AE60' : s.score >= 60 ? '#F39C12' : '#E74C3C';
+        var lbl = s.label.substring(s.label.length - 5);
+        parts.push('<div class="report-trend-bar-wrap">');
+        parts.push('<span class="report-trend-score">' + s.score + '</span>');
+        parts.push('<div class="report-trend-bar" style="height:' + h + 'px;background:' + color + ';" title="' + s.label + ': ' + s.score + '&#20998;"></div>');
+        parts.push('<span class="report-trend-date">' + lbl + '</span>');
+        parts.push('</div>');
+      });
+      parts.push('</div>');
+      return parts.join('');
+    }
+
+    function aggregateCauses(data) {
+      const cm = {};
+      let total = 0;
+      data.forEach(d => {
+        const hw = d.hw;
+        const result = d.result;
+        hw.questions.forEach(q => {
+          const ans = result.answers[q.id];
+          if (ans && ans.errorCause) {
+            if (!cm[ans.errorCause]) cm[ans.errorCause] = 0;
+            cm[ans.errorCause]++;
+            total++;
+          }
+        });
+      });
+      return { map: cm, total: total };
+    }
+
+    function aggregateKnowledge(data) {
+      const km = {};
+      data.forEach(d => {
+        d.result.weakPoints.forEach(wp => {
+          if (!km[wp.name]) km[wp.name] = { correct: 0, total: 0 };
+          km[wp.name].correct += wp.correct;
+          km[wp.name].total += wp.total;
+        });
+      });
+      return Object.entries(km).map(function(e) {
+        var name = e[0], stats = e[1];
+        var rate = stats.correct / stats.total;
+        return { name: name, rate: rate, pct: Math.round(rate * 100), correct: stats.correct, total: stats.total };
+      }).sort(function(a, b) { return a.rate - b.rate; });
+    }
+
+    function showWeeklyReport() {
+      const container = document.getElementById('report-weekly-area');
+      if (mockData.user.subscriptionTier < 1) {
+        container.innerHTML = '<div class="paywall-banner"><div style="font-size:48px;"><svg class="icon"><use href="#icon-lock"/></svg></div><h3 style="margin:8px 0;">每周学情报告</h3><p style="color:var(--text-hint);font-size:13px;margin-bottom:12px;">订阅基础会员后解锁每周学习数据汇总与分析</p><button class="btn btn-accent" onclick="showSubscribeModal()"><svg class="icon"><use href="#icon-coins"/></svg> 立即订阅 ¥9.9/月</button></div>';
+        return;
+      }
+      const data = getPeriodData(7);
+      const weekRange = getWeekRange();
+
+      if (data.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg class="icon"><use href="#icon-calendar"/></svg></div><p>本周暂无批改记录</p><p style="color:var(--text-hint);font-size:12px;">去批改一份作业吧！</p></div>';
+        return;
+      }
+
+      // AI thinking simulation
+      var tips = ['正在汇总本周作业数据...', '正在分析错因分布...', '正在评估知识点掌握度...', '正在生成学习建议...'];
+      var tipIdx = 0;
+      container.innerHTML = '<div class="sheet-generating"><div class="spinner"></div><p id="ai-tip-weekly">' + tips[0] + '</p></div>';
+      var tipInterval = setInterval(function() {
+        tipIdx = (tipIdx + 1) % tips.length;
+        var el = document.getElementById('ai-tip-weekly');
+        if (el) el.textContent = tips[tipIdx];
+      }, 400);
+
+      setTimeout(function() {
+        clearInterval(tipInterval);
+
+      const avgScore = Math.round(data.reduce(function(s, d) { return s + d.result.score; }, 0) / data.length);
+      const totalDone = data.length;
+      const totalCorrect = data.reduce(function(s, d) { return s + (d.result.correctCount||0); }, 0);
+      const totalQuestions = data.reduce(function(s, d) { return s + d.result.totalCount; }, 0);
+      const overallRate = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
+      const grade = getGradeLetter(avgScore);
+
+      // Score bars for each homework this week
+      const scores = data.slice().reverse().map(function(d) {
+        return { score: d.result.score, label: d.hw.title };
+      });
+
+      // Aggregate causes
+      const causeData = aggregateCauses(data);
+      const causeColors = {
+        '概念原理': '#E74C3C', '计算操作': '#F39C12', '方法策略': '#E67E22',
+        '审题逻辑': '#9B59B6', '未作答': '#95A5A6', '书写/粗心': '#3498DB'
+      };
+      const causeBarsHtml = causeData.total > 0
+        ? Object.entries(causeData.map).sort(function(a, b) { return b[1] - a[1]; }).map(function(e) {
+            var cause = e[0], count = e[1];
+            var pct = Math.round((count / causeData.total) * 100);
+            return '<div class="report-cause-row"><span class="report-cause-label">' + cause + '</span><div class="report-bar-bg" style="flex:1;"><div class="report-bar-fill" style="width:' + pct + '%;background:' + (causeColors[cause]||'#999') + ';"></div></div><span class="report-cause-pct">' + pct + '%</span></div>';
+          }).join('')
+        : '<p style="color:var(--text-hint);text-align:center;"><svg class="icon"><use href="#icon-party"/></svg> 没有错题</p>';
+
+      // Aggregate knowledge
+      const allKp = aggregateKnowledge(data);
+      const strong = allKp.filter(function(k) { return k.pct >= 80; });
+      const medium = allKp.filter(function(k) { return k.pct >= 21 && k.pct < 80; });
+      const weak = allKp.filter(function(k) { return k.pct <= 20; });
+
+      var renderTier = function(items, icon) {
+        if (items.length === 0) return '<p style="color:var(--text-hint);font-size:12px;">暂无</p>';
+        return items.map(function(k) {
+          var c = k.pct >= 80 ? '#27AE60' : k.pct >= 50 ? '#F39C12' : '#E74C3C';
+          return '<span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;background:' + (k.pct >= 80 ? '#F0F9F0' : k.pct >= 50 ? '#FFF8E1' : '#FDE8E8') + ';color:' + c + ';margin:3px;">' + k.name + ' ' + k.pct + '%</span>';
+        }).join('');
+      };
+
+      _shareData = {
+        title: '每周学情报告 (' + weekRange + ')',
+        text: '均分' + avgScore + '分 · ' + grade.label + ' · 完成' + totalDone + '份作业 · 正确率' + overallRate + '%'
+      };
+      container.innerHTML = '\n        <div class="report-section" style="text-align:center;">\n          <h3 style="margin-bottom:4px;"><svg class="icon"><use href="#icon-calendar"/></svg> 每周学情报告</h3>\n          <p style="color:var(--text-hint);font-size:12px;">' + weekRange + '</p>\n        </div>\n\n        <div class="report-dashboard">\n          ' + createDonutChart(overallRate, 100) + '\n          <div class="report-stats">\n            <div style="display:flex;align-items:center;gap:8px;">\n              <span style="font-size:28px;font-weight:700;">' + avgScore + '<span style="font-size:14px;">分</span></span>\n              <span class="report-grade-badge ' + grade.cls + '">' + grade.letter + ' · ' + grade.label + '</span>\n            </div>\n            <div class="report-stat-row"><span><svg class="icon"><use href="#icon-edit"/></svg> 完成作业</span><span class="report-stat-val">' + totalDone + ' 份</span></div>\n            <div class="report-stat-row"><span><svg class="icon"><use href="#icon-check-circle"/></svg> 答对题数</span><span class="report-stat-val" style="color:var(--success);">' + totalCorrect + '/' + totalQuestions + '</span></div>\n            <div class="report-stat-row"><span><svg class="icon"><use href="#icon-chart"/></svg> 正确率</span><span class="report-stat-val" style="color:var(--primary);">' + overallRate + '%</span></div>\n          </div>\n        </div>\n\n        <div class="report-section">\n          <h4 class="report-section-title"><svg class="icon"><use href="#icon-trending-up"/></svg> 本周成绩</h4>\n          ' + createMiniBarChart(scores) + '\n        </div>\n\n        <div class="report-section">\n          <h4 class="report-section-title"><svg class="icon"><use href="#icon-search"/></svg> 错因分布</h4>\n          ' + causeBarsHtml + '\n        </div>\n\n        <div class="report-section">\n          <h4 class="report-section-title"><svg class="icon"><use href="#icon-chart"/></svg> 知识点掌握</h4>\n          <p style="font-size:13px;font-weight:600;color:#27AE60;margin-bottom:4px;"><svg class="icon icon-fill"><use href="#icon-circle-green"/></svg> 掌握较好</p>\n          <div style="margin-bottom:8px;">' + renderTier(strong, '<svg class="icon icon-fill"><use href="#icon-circle-green"/></svg>') + '</div>\n          <p style="font-size:13px;font-weight:600;color:#F39C12;margin-bottom:4px;"><svg class="icon icon-fill"><use href="#icon-circle-yellow"/></svg> 掌握波动</p>\n          <div style="margin-bottom:8px;">' + renderTier(medium, '<svg class="icon icon-fill"><use href="#icon-circle-yellow"/></svg>') + '</div>\n          <p style="font-size:13px;font-weight:600;color:#E74C3C;margin-bottom:4px;"><svg class="icon icon-fill"><use href="#icon-circle-red"/></svg> 掌握薄弱</p>\n          <div>' + renderTier(weak, '<svg class="icon icon-fill"><use href="#icon-circle-red"/></svg>') + '</div>\n        </div>\n\n        <div class="report-section">\n          <h4 class="report-section-title"><svg class="icon"><use href="#icon-lightbulb"/></svg> 本周建议</h4>\n          <div style="background:#FFF8E1;padding:12px;border-radius:8px;">\n            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;">' + (weak.length > 0 ? '重点关注：' + weak.map(function(k) { return k.name; }).join('、') + '。' : '') + '本周完成' + totalDone + '份作业，' + (avgScore >= 80 ? '表现优秀，继续保持！' : avgScore >= 60 ? '还有提升空间，加强薄弱知识点练习。' : '需要重点加强，建议每天额外练习30分钟。') + '</p>\n          </div>\n        </div>\n\n        <!-- Quick Actions -->\n        <div class="report-actions-row">\n          <button class="btn btn-primary" onclick="shareReport()"><svg class="icon"><use href="#icon-send"/></svg> 分享</button>\n        </div>\n      ';
+
+      }, 1600);
+    }
+
+    function showMonthlyReport() {
+      const container = document.getElementById('report-monthly-area');
+      if (mockData.user.subscriptionTier < 1) {
+        container.innerHTML = '<div class="paywall-banner"><div style="font-size:48px;"><svg class="icon"><use href="#icon-lock"/></svg></div><h3 style="margin:8px 0;">每月学情报告</h3><p style="color:var(--text-hint);font-size:13px;margin-bottom:12px;">订阅基础会员后解锁月度学习趋势与深度分析</p><button class="btn btn-accent" onclick="showSubscribeModal()"><svg class="icon"><use href="#icon-coins"/></svg> 立即订阅 ¥9.9/月</button></div>';
+        return;
+      }
+      const data = getPeriodData(30);
+      const monthLabel = getMonthLabel();
+
+      if (data.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg class="icon"><use href="#icon-calendar-check"/></svg></div><p>本月暂无批改记录</p><p style="color:var(--text-hint);font-size:12px;">去批改一份作业吧！</p></div>';
+        return;
+      }
+
+      // AI thinking simulation
+      var tips = ['正在汇总本月作业数据...', '正在分析各科表现...', '正在评估知识点趋势...', '正在生成月度建议...'];
+      var tipIdx = 0;
+      container.innerHTML = '<div class="sheet-generating"><div class="spinner"></div><p id="ai-tip-monthly">' + tips[0] + '</p></div>';
+      var tipInterval = setInterval(function() {
+        tipIdx = (tipIdx + 1) % tips.length;
+        var el = document.getElementById('ai-tip-monthly');
+        if (el) el.textContent = tips[tipIdx];
+      }, 400);
+
+      setTimeout(function() {
+        clearInterval(tipInterval);
+
+      const avgScore = Math.round(data.reduce(function(s, d) { return s + d.result.score; }, 0) / data.length);
+      const totalDone = data.length;
+      const totalCorrect = data.reduce(function(s, d) { return s + (d.result.correctCount||0); }, 0);
+      const totalQuestions = data.reduce(function(s, d) { return s + d.result.totalCount; }, 0);
+      const overallRate = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
+      const grade = getGradeLetter(avgScore);
+
+      // Subjects breakdown
+      const subjMap = {};
+      data.forEach(function(d) {
+        const sid = d.hw.subjectId;
+        if (!subjMap[sid]) subjMap[sid] = { count: 0, totalScore: 0, name: (mockData.subjects.find(function(s) { return s.id === sid; }) || {}).name || sid };
+        subjMap[sid].count++;
+        subjMap[sid].totalScore += d.result.score;
+      });
+      const subjHtml = Object.values(subjMap).map(function(s) {
+        var avg = Math.round(s.totalScore / s.count);
+        return '<div class="report-stat-row"><span>' + s.name + '</span><span class="report-stat-val">' + s.count + '份 · 均分' + avg + '</span></div>';
+      }).join('');
+
+      // Score bars
+      const scores = data.slice(0, 10).reverse().map(function(d) {
+        return { score: d.result.score, label: d.hw.title };
+      });
+
+      // Cause distribution
+      const causeData = aggregateCauses(data);
+      const causeColors = {
+        '概念原理': '#E74C3C', '计算操作': '#F39C12', '方法策略': '#E67E22',
+        '审题逻辑': '#9B59B6', '未作答': '#95A5A6', '书写/粗心': '#3498DB'
+      };
+      const causeBarsHtml = causeData.total > 0
+        ? Object.entries(causeData.map).sort(function(a, b) { return b[1] - a[1]; }).map(function(e) {
+            var cause = e[0], count = e[1];
+            var pct = Math.round((count / causeData.total) * 100);
+            return '<div class="report-cause-row"><span class="report-cause-label">' + cause + '</span><div class="report-bar-bg" style="flex:1;"><div class="report-bar-fill" style="width:' + pct + '%;background:' + (causeColors[cause]||'#999') + ';"></div></div><span class="report-cause-pct">' + pct + '%</span></div>';
+          }).join('')
+        : '<p style="color:var(--text-hint);text-align:center;"><svg class="icon"><use href="#icon-party"/></svg> 没有错题</p>';
+
+      // Knowledge
+      const allKp = aggregateKnowledge(data);
+      const strong = allKp.filter(function(k) { return k.pct >= 80; });
+      const medium = allKp.filter(function(k) { return k.pct >= 21 && k.pct < 80; });
+      const weak = allKp.filter(function(k) { return k.pct <= 20; });
+
+      var renderTier = function(items, icon) {
+        if (items.length === 0) return '<p style="color:var(--text-hint);font-size:12px;">暂无</p>';
+        return items.map(function(k) {
+          var c = k.pct >= 80 ? '#27AE60' : k.pct >= 50 ? '#F39C12' : '#E74C3C';
+          return '<span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;background:' + (k.pct >= 80 ? '#F0F9F0' : k.pct >= 50 ? '#FFF8E1' : '#FDE8E8') + ';color:' + c + ';margin:3px;">' + k.name + ' ' + k.pct + '%</span>';
+        }).join('');
+      };
+
+      // Trend: first half vs second half
+      const mid = Math.ceil(data.length / 2);
+      const firstHalf = data.slice(mid);
+      const secondHalf = data.slice(0, mid);
+      const firstAvg = firstHalf.length > 0 ? Math.round(firstHalf.reduce(function(s,d) { return s+d.result.score; },0) / firstHalf.length) : 0;
+      const secondAvg = secondHalf.length > 0 ? Math.round(secondHalf.reduce(function(s,d) { return s+d.result.score; },0) / secondHalf.length) : 0;
+      const trendIcon = secondAvg > firstAvg ? '<svg class="icon"><use href="#icon-trending-up"/></svg>' : secondAvg < firstAvg ? '<svg class="icon"><use href="#icon-trending-down"/></svg>' : '<svg class="icon"><use href="#icon-arrow-right"/></svg>';
+      const trendText = secondAvg > firstAvg ? '上升' + (secondAvg-firstAvg) + '分，进步明显！' : secondAvg < firstAvg ? '下降' + (firstAvg-secondAvg) + '分，需要关注。' : '保持稳定。';
+
+      _shareData = {
+        title: '每月学情报告 (' + monthLabel + ')',
+        text: '均分' + avgScore + '分 · ' + grade.label + ' · 完成' + totalDone + '份作业 · 正确率' + overallRate + '%'
+      };
+      container.innerHTML = '\n        <div class="report-section" style="text-align:center;">\n          <h3 style="margin-bottom:4px;"><svg class="icon"><use href="#icon-calendar-check"/></svg> 每月学情报告</h3>\n          <p style="color:var(--text-hint);font-size:12px;">' + monthLabel + '</p>\n        </div>\n\n        <div class="report-dashboard">\n          ' + createDonutChart(overallRate, 100) + '\n          <div class="report-stats">\n            <div style="display:flex;align-items:center;gap:8px;">\n              <span style="font-size:28px;font-weight:700;">' + avgScore + '<span style="font-size:14px;">分</span></span>\n              <span class="report-grade-badge ' + grade.cls + '">' + grade.letter + ' · ' + grade.label + '</span>\n            </div>\n            <div class="report-stat-row"><span><svg class="icon"><use href="#icon-edit"/></svg> 完成作业</span><span class="report-stat-val">' + totalDone + ' 份</span></div>\n            <div class="report-stat-row"><span><svg class="icon"><use href="#icon-check-circle"/></svg> 总正确率</span><span class="report-stat-val" style="color:var(--primary);">' + overallRate + '%</span></div>\n            <div class="report-stat-row"><span>' + trendIcon + ' 趋势</span><span class="report-stat-val">' + trendText + '</span></div>\n          </div>\n        </div>\n\n        <div class="report-section">\n          <h4 class="report-section-title"><svg class="icon"><use href="#icon-books"/></svg> 各科情况</h4>\n          ' + subjHtml + '\n        </div>\n\n        <div class="report-section">\n          <h4 class="report-section-title"><svg class="icon"><use href="#icon-trending-up"/></svg> 成绩走势（最近10次）</h4>\n          ' + createMiniBarChart(scores, 90) + '\n        </div>\n\n        <div class="report-section">\n          <h4 class="report-section-title"><svg class="icon"><use href="#icon-search"/></svg> 错因分布（本月）</h4>\n          ' + causeBarsHtml + '\n        </div>\n\n        <div class="report-section">\n          <h4 class="report-section-title"><svg class="icon"><use href="#icon-chart"/></svg> 知识点掌握</h4>\n          <p style="font-size:13px;font-weight:600;color:#27AE60;margin-bottom:4px;"><svg class="icon icon-fill"><use href="#icon-circle-green"/></svg> 掌握较好</p>\n          <div style="margin-bottom:8px;">' + renderTier(strong, '<svg class="icon icon-fill"><use href="#icon-circle-green"/></svg>') + '</div>\n          <p style="font-size:13px;font-weight:600;color:#F39C12;margin-bottom:4px;"><svg class="icon icon-fill"><use href="#icon-circle-yellow"/></svg> 掌握波动</p>\n          <div style="margin-bottom:8px;">' + renderTier(medium, '<svg class="icon icon-fill"><use href="#icon-circle-yellow"/></svg>') + '</div>\n          <p style="font-size:13px;font-weight:600;color:#E74C3C;margin-bottom:4px;"><svg class="icon icon-fill"><use href="#icon-circle-red"/></svg> 掌握薄弱</p>\n          <div>' + renderTier(weak, '<svg class="icon icon-fill"><use href="#icon-circle-red"/></svg>') + '</div>\n        </div>\n\n        <div class="report-section">\n          <h4 class="report-section-title"><svg class="icon"><use href="#icon-lightbulb"/></svg> 月度建议</h4>\n          <div style="background:#FFF8E1;padding:12px;border-radius:8px;">\n            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;">本月共完成' + totalDone + '份作业，均分' + avgScore + '。' + (weak.length > 0 ? '薄弱点：' + weak.map(function(k) { return k.name; }).join('、') + '，建议重点突破。' : '知识点掌握较全面。') + ' 趋势' + trendText + ' 保持每日1-2道练习，巩固已掌握内容，攻克薄弱环节。</p>\n          </div>\n        </div>\n\n        <!-- Quick Actions -->\n        <div class="report-actions-row">\n          <button class="btn btn-primary" onclick="shareReport()"><svg class="icon"><use href="#icon-send"/></svg> 分享</button>\n        </div>\n      ';
+
+      }, 1800);
+    }
+
+    function fmtDate(iso) {
+      if (!iso) return '';
+      var parts = iso.split('-');
+      return parts[0] + '年' + parseInt(parts[1]) + '月' + parseInt(parts[2]) + '日';
     }
 
     function showReport() {
@@ -1823,92 +3112,111 @@
 
       document.getElementById('report-empty').style.display = 'none';
       const container = document.getElementById('report-content');
-      const correctRate = Math.round((result.correctCount / result.totalCount) * 100);
+      const grade = getGradeLetter(result.score);
+      const gradedDate = fmtDate(result.gradedAt);
 
-      const weakPointsHtml = result.weakPoints.map(wp => {
-        const color = wp.mastery === 'strong' ? 'var(--success)' : wp.mastery === 'medium' ? 'var(--warning)' : 'var(--danger)';
-        const bg = wp.mastery === 'strong' ? '#F0F9F0' : wp.mastery === 'medium' ? '#FFF8E1' : '#FDE8E8';
-        const label = wp.mastery === 'strong' ? '掌握 ✓' : wp.mastery === 'medium' ? '一般 △' : '薄弱 ✗';
-        return `<span style="display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;background:${bg};color:${color};margin:4px;">${wp.name} · ${label}</span>`;
-      }).join('');
-
-      const errorQuestions = hw.questions.filter(q => {
+      // --- Error cause aggregation ---
+      const causeMap = {};
+      const causeColors = {
+        '概念原理': '#E74C3C', '计算操作': '#F39C12', '方法策略': '#E67E22',
+        '审题逻辑': '#9B59B6', '未作答': '#95A5A6', '书写/粗心': '#3498DB'
+      };
+      let totalErrors = 0;
+      hw.questions.forEach(q => {
         const ans = result.answers[q.id];
-        return ans && !ans.correct;
+        if (ans && ans.errorCause) {
+          if (!causeMap[ans.errorCause]) causeMap[ans.errorCause] = 0;
+          causeMap[ans.errorCause]++;
+          totalErrors++;
+        }
+      });
+      const causeBarsHtml = totalErrors > 0
+        ? Object.entries(causeMap).sort((a, b) => b[1] - a[1]).map(([cause, count]) => {
+            const pct = Math.round((count / totalErrors) * 100);
+            const color = causeColors[cause] || '#999';
+            return '\n            <div class="report-cause-row">\n              <span class="report-cause-label">' + cause + '</span>\n              <div class="report-bar-bg" style="flex:1;">\n                <div class="report-bar-fill" style="width:' + pct + '%;background:' + color + ';"></div>\n              </div>\n              <span class="report-cause-pct">' + pct + '%</span>\n            </div>\n          ';
+          }).join('')
+        : '<p style="color:var(--text-hint);text-align:center;"><svg class="icon"><use href="#icon-party"/></svg> 没有错题</p>';
+
+      // --- Knowledge point three-tier grouping ---
+      const strong = [], medium = [], weak = [];
+      result.weakPoints.forEach(wp => {
+        const pct = Math.round(wp.rate * 100);
+        const item = { name: wp.name, pct: pct, correct: Math.round(wp.correct), total: wp.total };
+        if (pct >= 80) strong.push(item);
+        else if (pct >= 21) medium.push(item);
+        else weak.push(item);
+      });
+      [strong, medium, weak].forEach(arr => arr.sort((a, b) => b.pct - a.pct));
+
+      const renderKpTier = function(items, color, bg, icon) {
+        if (items.length === 0) return '<p style="color:var(--text-hint);font-size:12px;">暂无</p>';
+        return items.map(kp => {
+          const barColor = kp.pct >= 80 ? '#27AE60' : kp.pct >= 50 ? '#F39C12' : '#E74C3C';
+          return '\n              <div class="report-cause-row" style="margin-bottom:6px;">\n                <span class="report-cause-label" style="width:100px;">' + icon + ' ' + kp.name + '</span>\n                <div class="report-bar-bg" style="flex:1;">\n                  <div class="report-bar-fill" style="width:' + kp.pct + '%;background:' + barColor + ';"></div>\n                </div>\n                <span class="report-cause-pct" style="color:' + barColor + ';">' + kp.pct + '%</span>\n              </div>\n            ';
+        }).join('');
+      };
+
+      const strongHtml = renderKpTier(strong, '#27AE60', '#F0F9F0', '<svg class="icon icon-fill"><use href="#icon-circle-green"/></svg>');
+      const mediumHtml = renderKpTier(medium, '#F39C12', '#FFF8E1', '<svg class="icon icon-fill"><use href="#icon-circle-yellow"/></svg>');
+      const weakHtml = renderKpTier(weak, '#E74C3C', '#FDE8E8', '<svg class="icon icon-fill"><use href="#icon-circle-red"/></svg>');
+
+      // --- Typical error analysis ---
+      const errorGroups = {};
+      hw.questions.forEach(q => {
+        const ans = result.answers[q.id];
+        if (!ans || ans.status === 'correct') return;
+        const kp = q.knowledgePoint;
+        if (!errorGroups[kp]) errorGroups[kp] = { name: kp, questions: [], causes: {} };
+        errorGroups[kp].questions.push({ question: q, answer: ans });
+        const c = ans.errorCause || '其他';
+        errorGroups[kp].causes[c] = (errorGroups[kp].causes[c] || 0) + 1;
       });
 
-      const errorsHtml = errorQuestions.map((q, i) => {
-        const ans = result.answers[q.id];
-        const cw = (result.classmatesWrong || {})[q.id] || 0;
-        return `
-          <div class="error-card">
-            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:6px;">
-              <b>❌ 错题${i+1}：${q.knowledgePoint}</b>
-              <span style="font-size:11px;color:var(--accent);white-space:nowrap;">👥 ${cw}人同错</span>
-            </div>
-            <p style="margin-bottom:6px;">${q.stem}</p>
-            <p style="font-size:12px;"><span style="color:var(--danger);text-decoration:line-through;">✗ ${ans.userAnswer}</span> → <span style="color:var(--success);">✓ ${q.answer}</span></p>
-            <div class="report-actions">
-              <button class="btn btn-outline btn-sm" onclick="toggleAnswer(this, '${q.answer.replace(/'/g, "\\'")}')">📋 标准答案</button>
-              <button class="btn btn-outline btn-sm" onclick="toggleHint(this, '${q.knowledgePoint.replace(/'/g, "\\'")}')">💡 思路点拨</button>
-              <button class="btn btn-outline btn-sm" onclick="triggerVideoPaywall()">🎬 视频讲解</button>
-            </div>
-            <div class="report-expand" style="display:none;"></div>
-          </div>
-        `;
-      }).join('');
+      const typicalErrorsHtml = Object.keys(errorGroups).length === 0
+        ? '<p style="color:var(--text-hint);text-align:center;padding:20px;"><svg class="icon"><use href="#icon-party"/></svg> 全对！继续保持！</p>'
+        : Object.values(errorGroups).map(g => {
+            const qs = g.questions;
+            const causeStr = Object.entries(g.causes).map(([c, n]) => c + '×' + n).join('、');
+            return '\n            <div class="report-accordion">\n              <div class="report-accordion-header" onclick="toggleAccordion(this)">\n                <span>\n                  <span class="report-accordion-badge" style="background:' + subj.color + ';">' + g.name + '</span>\n                  <span style="font-size:12px;color:var(--danger);">错' + qs.length + '题 · ' + causeStr + '</span>\n                </span>\n                <span class="report-accordion-arrow"><svg class="icon"><use href="#icon-chevron-down"/></svg></span>\n              </div>\n              <div class="report-accordion-body">\n                ' + qs.map(({ question: q, answer: ans }) => '\n                  <div class="error-card">\n                    <p style="margin-bottom:6px;font-size:13px;"><b>' + q.stem + '</b></p>\n                    <p style="font-size:12px;margin-bottom:6px;">\n                      <span style="color:var(--danger);text-decoration:line-through;"><svg class="icon"><use href="#icon-x"/></svg> ' + ans.userAnswer + '</span>\n                      → <span style="color:var(--success);"><svg class="icon"><use href="#icon-check"/></svg> ' + q.answer + '</span>\n                    </p>\n                    ' + (ans.analysis ? '<div class="result-analysis" style="margin:0;"><svg class="icon"><use href="#icon-lightbulb"/></svg> ' + ans.analysis + '</div>' : '') + '\n                    <div class="report-actions" style="margin-top:6px;">\n                      <button class="btn btn-outline btn-sm" data-answer="' + q.answer.replace(/"/g, '&quot;') + '" onclick="toggleAnswerEl(this)"><svg class="icon"><use href="#icon-home"/></svg> 标准答案</button>\n                      <button class="btn btn-outline btn-sm" data-kp="' + q.knowledgePoint.replace(/"/g, '&quot;') + '" onclick="toggleHintEl(this)"><svg class="icon"><use href="#icon-lightbulb"/></svg> 思路点拨</button>\n                      \n                    </div>\n                    <div class="report-expand" style="display:none;"></div>\n                  </div>\n                ').join('') + '\n              </div>\n            </div>\n          ';
+          }).join('');
 
-      container.innerHTML = `
-        <div class="report-header-card">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <span class="hw-subject-badge" style="background:${subj.color}">${subj.icon} ${subj.name}</span>
-            <span style="font-weight:600;">${hw.title}</span>
-          </div>
-          <div style="font-size:12px;color:var(--text-hint);margin-top:8px;">
-            👨‍🏫 ${hw.teacher} · 已上交 ${hw.submitted}/${hw.totalStudents} 人
-          </div>
-        </div>
+      // --- Strengths & suggestions ---
+      const strongKps = strong.map(k => k.name);
+      const weakKps = weak.map(k => k.name);
+      const mediumKps = medium.map(k => k.name);
 
-        <div class="report-score-section">
-          <div style="text-align:center;">
-            <div style="font-size:48px;font-weight:700;color:var(--primary);">${result.score}<span style="font-size:18px;">分</span></div>
-            <div style="font-size:12px;color:var(--text-hint);">正确 ${result.correctCount}/${result.totalCount} 题</div>
-          </div>
-          <div style="text-align:center;">
-            ${createDonutChart(correctRate)}
-            <div style="font-size:12px;color:var(--text-hint);margin-top:4px;">正确率</div>
-          </div>
-        </div>
+      const strengthsList = strongKps.length > 0
+        ? strongKps.slice(0, 3).map(k => '「' + k + '」').join('、') + '基础扎实'
+        : '基础概念掌握较好';
+      const improveAreas = weakKps.concat(mediumKps).slice(0, 3);
 
-        <div class="report-section">
-          <h4 class="report-section-title">薄弱知识点</h4>
-          <div>${weakPointsHtml}</div>
-        </div>
-
-        <div class="report-section">
-          <h4 class="report-section-title">错题详情 (${errorQuestions.length}道)</h4>
-          ${errorsHtml || '<p style="color:var(--text-hint);text-align:center;padding:20px;">🎉 全对！没有错题</p>'}
-        </div>
-
-        <div class="report-section">
-          <h4 class="report-section-title">历史报告</h4>
-          <div id="history-reports"></div>
-        </div>
-      `;
+      _shareData = {
+        title: subj.name + ' - ' + hw.title + ' 批改报告',
+        text: '得分' + result.score + '分 · ' + grade.label + ' · 正确率' + (result.correctRate || 0) + '%'
+      };
+      container.innerHTML = '\n        <!-- Summary Header -->\n        <div class="report-section" style="text-align:center;">\n          <h3 style="margin-bottom:4px;"><svg class="icon"><use href="#icon-chart"/></svg> 批改报告</h3>\n          <p style="color:var(--text-hint);font-size:12px;">' + subj.icon + ' ' + subj.name + ' · ' + hw.title + ' · ' + hw.teacher + '</p>\n          <div style="display:flex;justify-content:center;gap:12px;margin-top:6px;font-size:12px;color:var(--text-hint);">\n            <span><svg class="icon"><use href="#icon-calendar"/></svg> ' + gradedDate + '</span>\n            <span><svg class="icon"><use href="#icon-edit"/></svg> 共' + result.totalCount + '道题</span>\n          </div>\n        </div>\n\n        <!-- Score Dashboard -->\n        <div class="report-dashboard">\n          ' + createDonutChart(result.correctRate || 0, 110) + '\n          <div class="report-stats">\n            <div style="display:flex;align-items:center;gap:8px;">\n              <span style="font-size:32px;font-weight:700;color:var(--text);">' + result.score + '<span style="font-size:16px;">分</span></span>\n              <span class="report-grade-badge ' + grade.cls + '">' + grade.letter + ' · ' + grade.label + '</span>\n            </div>\n            <div class="report-stat-row">\n              <span><svg class="icon"><use href="#icon-check-circle"/></svg> 正确</span><span class="report-stat-val" style="color:var(--success);">' + (result.correctCount || 0) + ' 题</span>\n            </div>\n            <div class="report-stat-row">\n              <span><svg class="icon"><use href="#icon-alert-triangle"/></svg> 部分正确</span><span class="report-stat-val" style="color:var(--warning);">' + (result.partialCount || 0) + ' 题</span>\n            </div>\n            <div class="report-stat-row">\n              <span><svg class="icon"><use href="#icon-x-circle"/></svg> 错误</span><span class="report-stat-val" style="color:var(--danger);">' + (result.wrongCount || 0) + ' 题</span>\n            </div>\n            <div class="report-stat-row">\n              <span><svg class="icon"><use href="#icon-square"/></svg> 未作答</span><span class="report-stat-val" style="color:var(--text-hint);">' + (result.unansweredCount || 0) + ' 题</span>\n            </div>\n          </div>\n        </div>\n\n        <!-- Error Cause Distribution -->\n        <div class="report-section">\n          <h4 class="report-section-title">一、错因分布</h4>\n          ' + causeBarsHtml + '\n        </div>\n\n        <!-- Knowledge Points Three Tiers -->\n        <div class="report-section">\n          <h4 class="report-section-title">二、知识点掌握情况</h4>\n          <div style="margin-bottom:10px;">\n            <p style="font-size:13px;font-weight:600;color:#27AE60;margin-bottom:6px;"><svg class="icon icon-fill"><use href="#icon-circle-green"/></svg> 掌握较好（≥80%）</p>\n            ' + strongHtml + '\n          </div>\n          <div style="margin-bottom:10px;">\n            <p style="font-size:13px;font-weight:600;color:#F39C12;margin-bottom:6px;"><svg class="icon icon-fill"><use href="#icon-circle-yellow"/></svg> 掌握波动（21%-79%）</p>\n            ' + mediumHtml + '\n          </div>\n          <div style="margin-bottom:10px;">\n            <p style="font-size:13px;font-weight:600;color:#E74C3C;margin-bottom:6px;"><svg class="icon icon-fill"><use href="#icon-circle-red"/></svg> 掌握薄弱（≤20%）</p>\n            ' + weakHtml + '\n          </div>\n        </div>\n\n        <!-- Typical Error Analysis -->\n        <div class="report-section">\n          <h4 class="report-section-title">三、典型错题分析</h4>\n          ' + typicalErrorsHtml + '\n        </div>\n\n        <!-- Strengths & Suggestions -->\n        <div class="report-section">\n          <h4 class="report-section-title">四、学习优势与提升建议</h4>\n          <div style="background:#F0F9F0;padding:12px;border-radius:8px;margin-bottom:10px;">\n            <p style="font-size:13px;font-weight:600;color:#27AE60;margin-bottom:4px;"><svg class="icon"><use href="#icon-check-circle"/></svg> 学习优势</p>\n            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;">' + strengthsList + '，答题表达规范，空间想象能力较好。能从已知条件出发进行合理推导。</p>\n          </div>\n          <div style="background:#FFF8E1;padding:12px;border-radius:8px;">\n            <p style="font-size:13px;font-weight:600;color:#E67E22;margin-bottom:4px;"><svg class="icon"><use href="#icon-trending-up"/></svg> 提升建议</p>\n            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;">主攻' + (improveAreas.length > 0 ? improveAreas.join('、') : '薄弱知识点') + '等内容；每日练习2-3道针对性题目，重点强化概念理解与解题方法；建立错题本定期回顾。</p>\n          </div>\n        </div>\n\n        <!-- Quick Actions -->\n        <div class="report-actions-row">\n          <button class="btn btn-primary" onclick="shareReport()"><svg class="icon"><use href="#icon-send"/></svg> 分享</button>\n        </div>\n      ';
       container.style.display = 'block';
+    }
 
-      renderHistoryReports();
+    function toggleAnswerEl(btn) {
+      const answer = btn.getAttribute('data-answer').replace(/&quot;/g, '"');
+      toggleAnswer(btn, answer);
+    }
+    function toggleHintEl(btn) {
+      const kp = btn.getAttribute('data-kp').replace(/&quot;/g, '"');
+      toggleHint(btn, kp);
     }
 
     function toggleAnswer(btn, answer) {
       const expand = btn.parentElement.nextElementSibling;
       if (expand.style.display === 'none') {
         expand.style.display = 'block';
-        expand.innerHTML = `<div style="padding:8px;background:#EDF9F3;border-radius:4px;margin-top:6px;font-size:13px;"><b>标准答案：</b>${answer}</div>`;
-        btn.textContent = '📋 收起答案';
+        expand.innerHTML = '<div style="padding:8px;background:#EDF9F3;border-radius:4px;margin-top:6px;font-size:13px;"><b>标准答案：</b>' + answer + '</div>';
+        btn.innerHTML = '<svg class="icon"><use href="#icon-home"/></svg> 收起答案';
       } else {
         expand.style.display = 'none';
-        btn.textContent = '📋 标准答案';
+        btn.innerHTML = '<svg class="icon"><use href="#icon-home"/></svg> 标准答案';
       }
     }
 
@@ -1925,32 +3233,37 @@
         '文学常识': '记住作者、朝代和作品之间的关系，可以制作知识卡片来巩固。',
         '动词have': '注意主语的人称：I/You/We/They用have，He/She/It用has。',
         '三单形式': '主语是第三人称单数时，动词要加-s或-es。注意特殊变化。',
+        '乘法口诀': '熟记乘法口诀表，做题时快速准确调用。',
+        '乘法应用': '理清数量关系，确定用乘法还是除法，注意单位。',
+        '两位数乘法': '用竖式计算，注意进位。分解成一位数乘法再相加可简化。',
+        '长方形周长': '周长 = (长+宽) × 2，注意单位要统一。',
+        '长方形面积': '面积 = 长 × 宽，注意与周长公式区别。',
+        '正方形周长': '周长 = 边长 × 4。',
+        '正方形面积': '面积 = 边长 × 边长。',
+        '周长逆运算': '已知周长求边长：边长 = 周长 ÷ 4（正方形），或先算长+宽=周长÷2再求单项。',
+        '面积逆运算': '已知面积求边长：正方形边长 = √面积；长方形需知一边求另一边。',
+        '面积应用': '仔细读题，明确是求面积还是周长，注意实际应用中的单位。',
+        '周长应用': '圈数×周长=总距离。注意跑道形状，有时需先算单圈周长。',
+        '现在进行时': '结构为 be + V-ing。be动词随主语变化：I用am，He/She/It用is，We/You/They用are。',
+        '把字句': '把+受事者+动词+其他。主语通过动作使受事者发生变化。',
+        '被字句': '受事者+被+施事者+动词+其他。强调受事者承受了动作。',
+        '句式转换': '注意保持原意不变，调整语序和关键词。反问句多"难道""吗"等词。',
+        '扩写句子': '在名词前加修饰语，在动词前加状语。不要改变原句结构。',
+        '缩写句子': '保留主干（主谓宾），删去修饰成分，确保意思不丢失。',
+        '文章理解': '先通读全文把握主题，再逐题分析。注意文中的关键词句。',
+        '情感体会': '关注文中表达情感的词语、句式，结合上下文体会作者心境。',
+        '信息提取': '带着问题读文章，圈画关键信息，按题目要求组织答案。',
+        '文体知识': '掌握常见文体特征：记叙文（叙事写人）、说明文（说明事物）、议论文（论证观点）、散文（抒情写景）。',
+        '概括能力': '用简洁语言概括主要内容，把握时间、地点、人物、事件要素。'
       };
       if (expand.style.display === 'none') {
         expand.style.display = 'block';
-        expand.innerHTML = `<div style="padding:8px;background:#FFF8E1;border-radius:4px;margin-top:6px;font-size:13px;"><b>💡 思路点拨：</b>${hints[knowledgePoint] || '请仔细审题，理清解题思路，注意容易出错的地方。'}</div>`;
-        btn.textContent = '💡 收起点拨';
+        expand.innerHTML = '<div style="padding:8px;background:#FFF8E1;border-radius:4px;margin-top:6px;font-size:13px;"><b><svg class="icon"><use href="#icon-lightbulb"/></svg> 思路点拨：</b>' + (hints[knowledgePoint] || '请仔细审题，理清解题思路，注意容易出错的地方。') + '</div>';
+        btn.innerHTML = '<svg class="icon"><use href="#icon-lightbulb"/></svg> 收起点拨';
       } else {
         expand.style.display = 'none';
-        btn.textContent = '💡 思路点拨';
+        btn.innerHTML = '<svg class="icon"><use href="#icon-lightbulb"/></svg> 思路点拨';
       }
-    }
-
-    function renderHistoryReports() {
-      const container = document.getElementById('history-reports');
-      if (!container) return;
-      const graded = mockData.homework.filter(h => h.status === 'graded' && mockData.gradingResults[h.id]);
-      if (graded.length <= 1) {
-        container.innerHTML = '<p style="color:var(--text-hint);font-size:12px;">暂无更多历史记录</p>';
-        return;
-      }
-      container.innerHTML = graded.slice(0, -1).map(hw => {
-        const r = mockData.gradingResults[hw.id];
-        return `<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;display:flex;justify-content:space-between;">
-          <span>📅 ${r.gradedAt} · ${hw.title}</span>
-          <span style="color:var(--primary);font-weight:600;">${r.score}分</span>
-        </div>`;
-      }).join('');
     }
 
     // ============================================================
@@ -1959,19 +3272,31 @@
     let errorFilterKp = 'all';
 
     function initErrorBook() {
-      const kps = new Set();
-      mockData.errorBook.forEach(e => kps.add(e.knowledgePoint));
-      const container = document.getElementById('kp-filter');
-      container.innerHTML = '<span class="kp-filter-tag active" onclick="filterErrors(\'all\', this)">全部</span>';
-      kps.forEach(kp => {
-        container.innerHTML += `<span class="kp-filter-tag" onclick="filterErrors('${kp.replace(/'/g, "\\'")}', this)">${kp}</span>`;
+      var subjects = new Set();
+      mockData.errorBook.forEach(function(e) { subjects.add(e.subjectId); });
+      var container = document.getElementById('kp-filter');
+      container.innerHTML = '';
+      var firstSid = null;
+      subjects.forEach(function(sid) {
+        if (!firstSid) firstSid = sid;
+        var subj = mockData.subjects.find(function(s) { return s.id === sid; });
+        var span = document.createElement('span');
+        span.className = 'kp-filter-tag';
+        span.innerHTML = (subj ? subj.icon + ' ' + subj.name : sid);
+        span.onclick = function() { filterErrors(sid, span); };
+        container.appendChild(span);
       });
+      if (firstSid) {
+        errorFilterKp = firstSid;
+        var firstTag = container.querySelector('.kp-filter-tag');
+        if (firstTag) firstTag.classList.add('active');
+      }
       renderErrorBook();
     }
 
-    function filterErrors(kp, el) {
-      errorFilterKp = kp;
-      document.querySelectorAll('.kp-filter-tag').forEach(t => t.classList.remove('active'));
+    function filterErrors(subjId, el) {
+      errorFilterKp = subjId;
+      document.querySelectorAll('.kp-filter-tag').forEach(function(t) { t.classList.remove('active'); });
       el.classList.add('active');
       renderErrorBook();
     }
@@ -1980,88 +3305,537 @@
       const timeFilter = document.getElementById('error-time-filter').value;
       const list = document.getElementById('error-book-list');
       const empty = document.getElementById('error-book-empty');
-      const paywall = document.getElementById('error-paywall');
+      const summary = document.getElementById('error-book-summary');
 
       let errors = mockData.errorBook;
       if (errorFilterKp !== 'all') {
-        errors = errors.filter(e => e.knowledgePoint === errorFilterKp);
+        errors = errors.filter(function(e) { return e.subjectId === errorFilterKp; });
       }
 
-      const now = new Date();
+      var now = new Date();
       if (timeFilter !== 'all') {
-        const days = parseInt(timeFilter);
-        errors = errors.filter(e => {
-          const d = new Date(e.date);
-          return (now - d) / (1000 * 60 * 60 * 24) <= days;
+        var days = parseInt(timeFilter);
+        errors = errors.filter(function(e) {
+          return (now - new Date(e.date)) / (1000 * 60 * 60 * 24) <= days;
         });
       }
 
       if (errors.length === 0) {
         list.innerHTML = '';
-        paywall.style.display = 'none';
+        summary.style.display = 'none';
         empty.style.display = 'block';
+        renderCustomPractice();
         return;
       }
       empty.style.display = 'none';
 
-      const firstGradingDate = mockData.user.firstGradingDate;
-      const daysSinceFirst = firstGradingDate
-        ? Math.floor((now - new Date(firstGradingDate)) / (1000 * 60 * 60 * 24))
-        : 0;
-      const isLocked = !mockData.user.isSubscribed && daysSinceFirst > 7;
-      const cutoffDate = new Date(now);
+      // Paywall logic
+      var firstGradingDate = mockData.user.firstGradingDate;
+      var daysSinceFirst = firstGradingDate ? Math.floor((now - new Date(firstGradingDate)) / (1000 * 60 * 60 * 24)) : 0;
+      var isLocked = mockData.user.subscriptionTier < 1 && daysSinceFirst > 7;
+      var cutoffDate = new Date(now);
       cutoffDate.setDate(cutoffDate.getDate() - 7);
 
-      let visibleErrors = errors;
-      let lockedErrors = [];
+      var visibleErrors = errors;
+      var lockedErrors = [];
       if (isLocked) {
-        visibleErrors = errors.filter(e => new Date(e.date) >= cutoffDate);
-        lockedErrors = errors.filter(e => new Date(e.date) < cutoffDate);
+        visibleErrors = errors.filter(function(e) { return new Date(e.date) >= cutoffDate; });
+        lockedErrors = errors.filter(function(e) { return new Date(e.date) < cutoffDate; });
       }
 
-      let html = visibleErrors.map(e => {
-        const subj = mockData.subjects.find(s => s.id === e.subjectId);
-        return `
-        <div class="error-book-card">
-          <span class="eb-subject" style="background:${subj.color}">${subj.name}</span>
-          <div class="eb-question">${e.question}</div>
-          <div class="eb-answers">
-            <span style="color:var(--danger);text-decoration:line-through;">✗ ${e.wrongAnswer}</span>
-            <span style="color:var(--success);">✓ ${e.correctAnswer}</span>
-          </div>
-          <div class="eb-analysis">💡 ${e.analysis}</div>
-          <div class="eb-footer">
-            <span>🏷️ ${e.knowledgePoint}</span>
-            <span>📅 ${e.date} · 👥 ${e.classmatesWrong}人同错</span>
-          </div>
-        </div>`;
-      }).join('');
+      // Summary
+      var kps = new Set();
+      visibleErrors.forEach(function(e) { kps.add(e.knowledgePoint); });
+      summary.style.display = 'block';
+      summary.innerHTML = '<svg class="icon"><use href="#icon-edit"/></svg> 共<b>' + visibleErrors.length + '</b>道错题 · <b>' + kps.size + '</b>个知识点' + (lockedErrors.length > 0 ? ' · <svg class="icon"><use href="#icon-lock"/></svg><b>' + lockedErrors.length + '</b>道已锁定' : '');
 
+      // Group by subject
+      var subjGroups = {};
+      visibleErrors.forEach(function(e) {
+        if (!subjGroups[e.subjectId]) subjGroups[e.subjectId] = [];
+        subjGroups[e.subjectId].push(e);
+      });
+
+      var html = '';
+      Object.keys(subjGroups).forEach(function(sid) {
+        var errs = subjGroups[sid];
+        var subj = mockData.subjects.find(function(s) { return s.id === sid; });
+        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:4px;">';
+        html += '<span class="hw-subject-badge" style="background:' + (subj?subj.color:'#999') + ';">' + (subj?subj.icon:'') + ' ' + (subj?subj.name:sid) + '</span>';
+        html += '<span style="font-size:11px;color:var(--text-hint);">' + errs.length + '道错题</span>';
+        html += '</div>';
+        errs.forEach(function(e) {
+          html += '<div class="error-book-card">';
+          html += '<div class="eb-question">' + e.question + '</div>';
+          html += '<div class="eb-answers"><span style="color:var(--danger);text-decoration:line-through;"><svg class="icon"><use href="#icon-x"/></svg> ' + e.wrongAnswer + '</span> <span style="color:var(--success);"><svg class="icon"><use href="#icon-check"/></svg> ' + e.correctAnswer + '</span></div>';
+          html += '<div class="eb-analysis"><svg class="icon"><use href="#icon-lightbulb"/></svg> ' + e.analysis + '</div>';
+          html += '<div class="eb-footer"><span><svg class="icon"><use href="#icon-tag"/></svg> ' + e.knowledgePoint + '</span><span><svg class="icon"><use href="#icon-calendar"/></svg> ' + e.date + ' · <svg class="icon"><use href="#icon-users"/></svg>' + (42 - (e.classmatesWrong||0)) + '人答对</span></div>';
+          html += '</div>';
+        });
+      });
+
+      // Locked errors
       if (lockedErrors.length > 0) {
-        html += lockedErrors.map(e => `
-        <div class="error-book-card locked">
-          <div class="lock-overlay">
-            <div style="font-size:24px;">🔒</div>
-            <p style="font-size:12px;margin:4px 0;">超过7天</p>
-            <button class="btn btn-accent btn-sm" onclick="showSubscribeModal()">订阅查看</button>
-          </div>
-          <span class="eb-subject" style="background:#ccc;">...</span>
-          <div class="eb-question">${e.question.substring(0, 15)}...</div>
-          <div class="eb-answers"><span>...</span></div>
-          <div class="eb-footer"><span>📅 ${e.date}</span></div>
-        </div>`).join('');
-        paywall.style.display = 'block';
-        paywall.querySelector('p b').textContent = `${lockedErrors.length}道历史错题已超过7天`;
-      } else {
-        paywall.style.display = 'none';
+        html += '<div class="paywall-banner" style="margin-top:12px;">';
+        html += '<div style="font-size:24px;"><svg class="icon"><use href="#icon-lock"/></svg></div>';
+        html += '<p><b>' + lockedErrors.length + '道历史错题已超过7天</b></p>';
+        html += '<p style="font-size:12px;color:var(--text-hint);">订阅后可查看全部历史错题</p>';
+        html += '<button class="btn btn-accent btn-sm" onclick="showSubscribeModal()"><svg class="icon"><use href="#icon-edit"/></svg> 订阅解锁全部</button>';
+        html += '</div>';
       }
 
       list.innerHTML = html;
+      renderCustomPractice();
+    }
+
+    function renderCustomPractice() {
+      var area = document.getElementById('custom-practice-area');
+      if (!area) return;
+
+      // Collect current error book items (same filter logic)
+      var errors = mockData.errorBook;
+      if (errorFilterKp !== 'all') {
+        errors = errors.filter(function(e) { return e.subjectId === errorFilterKp; });
+      }
+      var timeFilter = document.getElementById('error-time-filter').value;
+      var now = new Date();
+      if (timeFilter !== 'all') {
+        var days = parseInt(timeFilter);
+        errors = errors.filter(function(e) {
+          return (now - new Date(e.date)) / (1000 * 60 * 60 * 24) <= days;
+        });
+      }
+
+      area.style.display = 'block';
+
+      if (errors.length === 0) {
+        area.innerHTML = ''
+          + '<div class="practice-header">'
+          + '  <h4><svg class="icon"><use href="#icon-sparkles"/></svg> 专属定制练习卷</h4>'
+          + '  <p style="color:var(--text-hint);font-size:12px;">去批改作业、积累错题后，AI 将为你智能生成针对性练习</p>'
+          + '</div>';
+        return;
+      }
+
+      if (mockData.user.subscriptionTier < 2) {
+        var tier = mockData.user.subscriptionTier;
+        var title = '专属定制练习卷';
+        var desc = 'AI根据' + errors.length + '道错题智能生成针对性练习，精准攻克薄弱点';
+        var btnHtml = '';
+        if (tier === 0) {
+          title = '解锁完整错题本 & 专属定制';
+          desc = '当前免费试用中，订阅会员后可解锁完整错题回顾、每周/每月学情报告，高级会员更可解锁AI智能组卷专属定制练习';
+          btnHtml = '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">'
+            + '<button class="btn btn-accent btn-sm" onclick="showSubscribeModal()"><svg class="icon"><use href="#icon-crown"/></svg> 查看会员方案</button>'
+            + '</div>';
+        } else if (tier === 1) {
+          desc = '当前为基础会员，升级高级会员后 AI 将根据' + errors.length + '道错题为你智能生成针对性练习卷';
+          btnHtml = '<button class="btn btn-accent" onclick="showSubscribeModal()"><svg class="icon"><use href="#icon-crown"/></svg> 升级高级会员 ¥19.9/月</button>';
+        }
+        area.innerHTML = ''
+          + '<div class="practice-header">'
+          + '  <h4><svg class="icon"><use href="#icon-sparkles"/></svg> ' + title + '</h4>'
+          + '  <p style="color:var(--text-hint);font-size:12px;margin-bottom:10px;">' + desc + '</p>'
+          +   btnHtml
+          + '</div>';
+        return;
+      }
+
+      // Generate practice questions from error patterns
+      var practiceQs = generateCustomPractice(errors);
+      if (practiceQs.length === 0) {
+        area.style.display = 'none';
+        return;
+      }
+
+      var qsHtml = practiceQs.map(function(q, i) {
+        return ''
+        + '<div class="practice-card">'
+        + '  <div class="pq-stem"><b>' + (i+1) + '.</b> ' + q.stem + '</div>'
+        + '  <div class="pq-blank">答：__________</div>'
+        + '  <div class="pq-meta">'
+        + '    <span><svg class="icon"><use href="#icon-tag"/></svg> ' + q.knowledgePoint + '</span>'
+        + '    <span style="color:' + (q.subjectColor||'#999') + ';">' + (q.subjectName||'') + '</span>'
+        + '  </div>'
+        + '</div>';
+      }).join('');
+
+      area.innerHTML = ''
+        + '<div class="practice-header">'
+        + '  <h4><svg class="icon"><use href="#icon-sparkles"/></svg> 专属定制练习卷</h4>'
+        + '  <p style="color:var(--text-hint);font-size:12px;margin-bottom:4px;">AI根据' + errors.length + '道错题生成了' + practiceQs.length + '道针对性练习</p>'
+        + '  <p style="color:var(--text-hint);font-size:11px;margin-bottom:10px;">覆盖薄弱知识点，打印后可反复练习</p>'
+        + '  <div style="display:flex;gap:8px;justify-content:center;">'
+        + '    <button class="btn btn-outline btn-sm" onclick="regeneratePractice()"><svg class="icon"><use href="#icon-search"/></svg> 换一批</button>'
+        + '    <button class="btn btn-primary btn-sm" onclick="printCustomPractice()"><svg class="icon"><use href="#icon-printer"/></svg> 打印练习卷</button>'
+        + '  </div>'
+        + '</div>'
+        + '<div id="practice-questions">' + qsHtml + '</div>';
+    }
+
+    function generateCustomPractice(errors) {
+      // Group errors by knowledge point
+      var kpMap = {};
+      errors.forEach(function(e) {
+        if (!kpMap[e.knowledgePoint]) kpMap[e.knowledgePoint] = { count: 0, subjectId: e.subjectId };
+        kpMap[e.knowledgePoint].count++;
+      });
+
+      // Sort by error count (most errors first)
+      var sorted = Object.keys(kpMap).sort(function(a, b) {
+        return kpMap[b].count - kpMap[a].count;
+      });
+
+      // Generate practice questions for top weak points
+      var templates = {
+        '同分母分数加法': [
+          { stem: '2/5 + 1/5 = ?', answer: '3/5' },
+          { stem: '3/7 + 2/7 = ?', answer: '5/7' },
+          { stem: '1/6 + 4/6 = ?', answer: '5/6' },
+        ],
+        '同分母分数减法': [
+          { stem: '4/5 - 1/5 = ?', answer: '3/5' },
+          { stem: '7/8 - 3/8 = ?', answer: '1/2' },
+          { stem: '5/6 - 1/6 = ?', answer: '2/3' },
+        ],
+        '异分母分数加法': [
+          { stem: '1/2 + 1/3 = ?', answer: '5/6' },
+          { stem: '1/4 + 1/6 = ?', answer: '5/12' },
+          { stem: '2/5 + 1/3 = ?', answer: '11/15' },
+        ],
+        '异分母分数减法': [
+          { stem: '3/4 - 1/3 = ?', answer: '5/12' },
+          { stem: '5/6 - 1/4 = ?', answer: '7/12' },
+          { stem: '2/3 - 1/5 = ?', answer: '7/15' },
+        ],
+        '分数应用题': [
+          { stem: '小明吃了1/4个蛋糕，小红吃了1/3个，一共吃了多少？', answer: '7/12' },
+          { stem: '一桶水5/8升，用去1/4升，还剩多少？', answer: '3/8升' },
+        ],
+        '乘法口诀': [
+          { stem: '7 × 9 = ?', answer: '63' },
+          { stem: '6 × 8 = ?', answer: '48' },
+          { stem: '9 × 5 = ?', answer: '45' },
+        ],
+        '乘法应用': [
+          { stem: '每盒装8个乒乓球，买了6盒，一共多少个？', answer: '48' },
+          { stem: '一本书9元，买7本需要多少钱？', answer: '63元' },
+        ],
+        '两位数乘法': [
+          { stem: '15 × 6 = ?', answer: '90' },
+          { stem: '23 × 4 = ?', answer: '92' },
+        ],
+        '长方形周长': [
+          { stem: '长方形长10cm，宽6cm，周长是多少？', answer: '32cm' },
+          { stem: '长方形长12m，宽5m，周长是多少？', answer: '34m' },
+        ],
+        '长方形面积': [
+          { stem: '长方形长9cm，宽4cm，面积是多少？', answer: '36cm²' },
+          { stem: '长方形长15m，宽8m，面积是多少？', answer: '120m²' },
+        ],
+        '正方形周长': [
+          { stem: '正方形边长7cm，周长是多少？', answer: '28cm' },
+        ],
+        '正方形面积': [
+          { stem: '正方形边长8cm，面积是多少？', answer: '64cm²' },
+          { stem: '正方形边长5m，面积是多少？', answer: '25m²' },
+        ],
+        '面积应用': [
+          { stem: '房间长6米宽5米，铺地砖每块0.5平方米，需多少块？', answer: '60' },
+        ],
+        '周长应用': [
+          { stem: '操场长80米，小明跑了3圈，共多少米？', answer: '240' },
+        ],
+        '古诗默写': [
+          { stem: '举头望明月，__________。', answer: '低头思故乡' },
+          { stem: '白日依山尽，__________。', answer: '黄河入海流' },
+        ],
+        '字词理解': [
+          { stem: '"疑是银河落九天"中"疑"的意思是？A.怀疑 B.好像 C.疑问', answer: 'B' },
+        ],
+        '文学常识': [
+          { stem: '《静夜思》的作者是？A.李白 B.杜甫 C.白居易', answer: 'A' },
+          { stem: '《登鹳雀楼》的作者是？A.李白 B.王之涣 C.杜甫', answer: 'B' },
+        ],
+        '把字句': [
+          { stem: '把"风吹走了落叶"改为"把"字句（已含"把"请重新组织）', answer: '风把落叶吹走了' },
+        ],
+        '被字句': [
+          { stem: '把"他修好了电脑"改为"被"字句', answer: '电脑被他修好了' },
+        ],
+        '句式转换': [
+          { stem: '陈述句→反问句：你应该努力学习', answer: '难道你不应该努力学习吗？' },
+        ],
+        '现在进行时': [
+          { stem: 'She ___ (dance) in the room now.', answer: 'is dancing' },
+          { stem: 'They ___ (swim) at the pool.', answer: 'are swimming' },
+        ],
+        '动词have': [
+          { stem: 'My brother ___ (have) a new bike.', answer: 'has' },
+          { stem: 'We ___ (have) three cats.', answer: 'have' },
+        ],
+        '三单形式': [
+          { stem: 'He ___ (go) to school by bus.', answer: 'goes' },
+          { stem: 'She ___ (watch) TV every evening.', answer: 'watches' },
+        ],
+        '一般疑问句': [
+          { stem: '___ she like coffee? A. Do B. Does C. Is', answer: 'B' },
+        ],
+        '水果类单词': [
+          { stem: '"草莓"的英文是？', answer: 'strawberry' },
+          { stem: 'watermelon 的中文意思是？', answer: '西瓜' },
+        ],
+      };
+
+      var questions = [];
+      var totalTarget = Math.min(errors.length + 3, 15);
+
+      // Shuffle KPs so each call produces different question picks
+      var shuffledKps = sorted.slice();
+      for (var s = shuffledKps.length - 1; s > 0; s--) {
+        var j = Math.floor(Math.random() * (s + 1));
+        var tmp = shuffledKps[s]; shuffledKps[s] = shuffledKps[j]; shuffledKps[j] = tmp;
+      }
+
+      shuffledKps.forEach(function(kp) {
+        if (questions.length >= totalTarget) return;
+        var t = templates[kp] || [
+          { stem: '请复习「' + kp + '」相关知识点并完成练习', answer: '（自主练习）' }
+        ];
+        // Shuffle templates for variety
+        var shuffledT = t.slice();
+        for (var s2 = shuffledT.length - 1; s2 > 0; s2--) {
+          var j2 = Math.floor(Math.random() * (s2 + 1));
+          var tmp2 = shuffledT[s2]; shuffledT[s2] = shuffledT[j2]; shuffledT[j2] = tmp2;
+        }
+        // Take up to 2 questions per knowledge point
+        var count = Math.min(2, totalTarget - questions.length);
+        for (var i = 0; i < count && i < shuffledT.length; i++) {
+          var subj = mockData.subjects.find(function(s) {
+            return s.id === (kpMap[kp] ? kpMap[kp].subjectId : 'math');
+          });
+          questions.push({
+            stem: shuffledT[i].stem,
+            answer: shuffledT[i].answer,
+            knowledgePoint: kp,
+            subjectName: subj ? subj.name : '',
+            subjectColor: subj ? subj.color : '#999',
+          });
+        }
+      });
+
+      return questions;
+    }
+
+    function regeneratePractice() {
+      var errors = mockData.errorBook;
+      if (errorFilterKp !== 'all') {
+        errors = errors.filter(function(e) { return e.subjectId === errorFilterKp; });
+      }
+      var timeFilter = document.getElementById('error-time-filter').value;
+      var now = new Date();
+      if (timeFilter !== 'all') {
+        var days = parseInt(timeFilter);
+        errors = errors.filter(function(e) {
+          return (now - new Date(e.date)) / (1000 * 60 * 60 * 24) <= days;
+        });
+      }
+      var practiceQs = generateCustomPractice(errors);
+      var container = document.getElementById('practice-questions');
+      if (container && practiceQs.length > 0) {
+        container.innerHTML = practiceQs.map(function(q, i) {
+          return ''
+          + '<div class="practice-card">'
+          + '  <div class="pq-stem"><b>' + (i+1) + '.</b> ' + q.stem + '</div>'
+          + '  <div class="pq-blank">答：__________</div>'
+          + '  <div class="pq-meta">'
+          + '    <span><svg class="icon"><use href="#icon-tag"/></svg> ' + q.knowledgePoint + '</span>'
+          + '    <span style="color:' + (q.subjectColor||'#999') + ';">' + (q.subjectName||'') + '</span>'
+          + '  </div>'
+          + '</div>';
+        }).join('');
+      }
+      showToast('<svg class="icon"><use href="#icon-sparkles"/></svg> 已生成新一批练习');
+    }
+
+    function printCustomPractice() {
+      var qs = document.querySelectorAll('.practice-card');
+      if (qs.length === 0) return;
+
+      var bodyHtml = '';
+      qs.forEach(function(card, i) {
+        var stem = card.querySelector('.pq-stem') ? card.querySelector('.pq-stem').textContent : '';
+        bodyHtml += ''
+          + '<div style="padding:10px 0;border-bottom:1px dashed #ddd;page-break-inside:avoid;">'
+          + '  <p style="margin:0 0 8px;font-size:14px;">' + stem + '</p>'
+          + '  <p style="margin:0;color:#999;min-height:28px;font-size:13px;">答：__________________</p>'
+          + '</div>';
+      });
+
+      var pdfHtml = ''
+        + '<div style="font-family:-apple-system,\'PingFang SC\',\'Microsoft YaHei\',sans-serif;padding:10px;">'
+        + '  <h2 style="text-align:center;margin:0 0 4px;">专属定制练习卷</h2>'
+        + '  <p style="text-align:center;color:#666;font-size:12px;margin:0 0 10px;">共' + qs.length + '道题 · ' + new Date().toISOString().split('T')[0] + '</p>'
+        + '  <hr style="border:none;border-top:1px solid #ddd;">'
+        + bodyHtml
+        + '</div>';
+
+      loadHtml2Pdf(function() {
+        var opt = {
+          margin: [10, 12, 10, 12],
+          filename: '专属定制练习卷.pdf',
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(pdfHtml).toPdf().output('blob').then(function(blob) {
+          var blobUrl = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = '专属定制练习卷.pdf';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 练习卷PDF已下载');
+          addPrintRecord('专属定制练习卷', '定制练习');
+        }).catch(function() {
+          showToast('<svg class="icon"><use href="#icon-alert-triangle"/></svg> PDF生成失败，请重试');
+        });
+      });
+    }
+
+    function printErrorBook() {
+      if (mockData.user.subscriptionTier < 1) {
+        showSubscribeModal();
+        return;
+      }
+
+      var errors = mockData.errorBook;
+      if (errorFilterKp !== 'all') {
+        errors = errors.filter(function(e) { return e.subjectId === errorFilterKp; });
+      }
+      var timeFilter = document.getElementById('error-time-filter').value;
+      var now = new Date();
+      if (timeFilter !== 'all') {
+        var days = parseInt(timeFilter);
+        errors = errors.filter(function(e) {
+          return (now - new Date(e.date)) / (1000 * 60 * 60 * 24) <= days;
+        });
+      }
+
+      if (errors.length === 0) {
+        showToast('没有可打印的错题');
+        return;
+      }
+
+      // Group errors by homework for original question format
+      var hwGroups = {};
+      errors.forEach(function(e) {
+        if (!hwGroups[e.homeworkId]) hwGroups[e.homeworkId] = [];
+        hwGroups[e.homeworkId].push(e);
+      });
+
+      var bodyHtml = '';
+      var qNum = 0;
+      Object.keys(hwGroups).forEach(function(hwId) {
+        var errs = hwGroups[hwId];
+        var hw = mockData.homework.find(function(h) { return h.id === parseInt(hwId); });
+        var subj = mockData.subjects.find(function(s) { return s.id === errs[0].subjectId; });
+        bodyHtml += '\n          <h3 style="margin:12px 0 4px;font-size:15px;">' + (subj?subj.icon:'') + ' ' + (hw?hw.title:'错题') + '</h3>\n          <p style="margin:0 0 6px;font-size:11px;color:#666;">' + (subj?subj.name:'') + ' · ' + (hw?hw.teacher:'') + ' · ' + errs[0].date + '</p>\n        ';
+        errs.forEach(function(e) {
+          qNum++;
+          bodyHtml += '\n          <div style="padding:10px 0;border-bottom:1px dashed #ddd;page-break-inside:avoid;">\n            <p style="margin:0 0 4px;font-size:14px;"><b>' + qNum + '.</b> ' + e.question + '</p>\n            <p style="margin:0;color:#ccc;min-height:28px;font-size:13px;">答：__________________</p>\n          </div>\n        ';
+        });
+      });
+
+      var pdfHtml = '\n        <div style="font-family:-apple-system,\'PingFang SC\',\'Microsoft YaHei\',sans-serif;padding:10px;">\n          <h2 style="text-align:center;margin:0 0 4px;"><svg class="icon"><use href="#icon-edit"/></svg> 错题重练</h2>\n          <p style="text-align:center;color:#666;font-size:12px;margin:0 0 10px;">共' + errors.length + '道题 · ' + Object.keys(hwGroups).length + '份作业 · ' + new Date().toISOString().split('T')[0] + '</p>\n          <hr style="border:none;border-top:1px solid #ddd;">\n          ' + bodyHtml + '\n        </div>\n      ';
+
+      loadHtml2Pdf(function() {
+        var opt = {
+          margin: [10, 12, 10, 12],
+          filename: '错题重练.pdf',
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(pdfHtml).toPdf().output('blob').then(function(blob) {
+          var blobUrl = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = '错题本.pdf';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 错题本PDF已下载');
+          addPrintRecord('错题本', '错题打印');
+        }).catch(function() {
+          showToast('<svg class="icon"><use href="#icon-alert-triangle"/></svg> PDF生成失败，请重试');
+        });
+      });
     }
 
     // ============================================================
     // Tab 5: Profile and Subscription Modal
     // ============================================================
+    let printHistory = [];
+
+    function addPrintRecord(title, type) {
+      printHistory.unshift({
+        title: title,
+        type: type,
+        time: new Date().toLocaleString('zh-CN', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})
+      });
+      if (printHistory.length > 20) printHistory.pop();
+    }
+
+    function showPrintHistory() {
+      if (printHistory.length === 0) {
+        showToast('暂无打印记录');
+        return;
+      }
+      var html = '<div class="modal-content" style="max-height:70vh;"><span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span><h3 style="margin-bottom:12px;"><svg class="icon"><use href="#icon-printer"/></svg> 打印历史</h3>';
+      printHistory.forEach(function(r) {
+        html += '<div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;"><div><p style="font-size:14px;">' + r.title + '</p><p style="font-size:11px;color:var(--text-hint);">' + r.type + '</p></div><span style="font-size:12px;color:var(--text-hint);">' + r.time + '</span></div>';
+      });
+      html += '</div>';
+      var overlay = document.getElementById('modal-overlay');
+      overlay.innerHTML = html;
+      overlay.style.display = 'flex';
+    }
+
+    function showGradingHistory() {
+      var graded = mockData.homework.filter(function(h) {
+        return h.status === 'graded' && mockData.gradingResults[h.id];
+      }).sort(function(a, b) {
+        return new Date(mockData.gradingResults[b.id].gradedAt) - new Date(mockData.gradingResults[a.id].gradedAt);
+      });
+
+      if (graded.length === 0) {
+        showToast('暂无批改记录');
+        return;
+      }
+
+      var html = '<div class="modal-content" style="max-height:70vh;"><span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span><h3 style="margin-bottom:12px;"><svg class="icon"><use href="#icon-camera"/></svg> 批改记录</h3>';
+      html += '<p style="font-size:12px;color:var(--text-hint);margin-bottom:8px;">共' + graded.length + '次批改</p>';
+      graded.forEach(function(hw) {
+        var r = mockData.gradingResults[hw.id];
+        var subj = mockData.subjects.find(function(s) { return s.id === hw.subjectId; });
+        var dp = r.gradedAt.split('-');
+        var dateStr = parseInt(dp[1]) + '月' + parseInt(dp[2]) + '日';
+        html += '<div class="menu-item" onclick="closeSubscribeModal();switchPage(\'report\');setTimeout(function(){document.getElementById(\'report-hw-select\').value=\'' + hw.id + '\';showReport();},100);" style="flex-direction:column;align-items:flex-start;gap:4px;">';
+        html += '<div style="display:flex;justify-content:space-between;width:100%;">';
+        html += '<span><span class="hw-subject-badge" style="background:' + (subj?subj.color:'#999') + ';font-size:10px;">' + (subj?subj.name:'') + '</span> ' + hw.title + '</span>';
+        html += '<span style="font-weight:700;color:var(--primary);">' + r.score + '分</span>';
+        html += '</div>';
+        html += '<span style="font-size:11px;color:var(--text-hint);"><svg class="icon"><use href="#icon-calendar"/></svg> ' + dateStr + ' · <svg class="icon"><use href="#icon-check-circle"/></svg>' + r.correctCount + ' <svg class="icon"><use href="#icon-x-circle"/></svg>' + (r.wrongCount||0) + ' <svg class="icon"><use href="#icon-alert-triangle"/></svg>' + (r.partialCount||0) + '</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+      var overlay = document.getElementById('modal-overlay');
+      overlay.innerHTML = html;
+      overlay.style.display = 'flex';
+    }
+
     function initProfile() {
       document.getElementById('profile-name').textContent = mockData.user.name;
       document.getElementById('child-name').textContent = mockData.user.child.name;
@@ -2078,14 +3852,15 @@
       if (!statusTitle) return;
 
       if (mockData.user.isSubscribed) {
-        statusTitle.textContent = '✅ VIP会员';
+        var tierName = mockData.user.subscriptionTier === 2 ? '高级会员' : '基础会员';
+        statusTitle.innerHTML = '<svg class="icon"><use href="#icon-check-circle"/></svg> ' + tierName;
         statusDesc.textContent = '有效期至 ' + (mockData.user.subscriptionExpiry || '--');
-        btn.textContent = '续费';
+        btn.textContent = mockData.user.subscriptionTier === 2 ? '续费/升级' : '升级/续费';
         btn.classList.remove('btn-accent');
         btn.classList.add('btn-outline');
       } else {
         statusTitle.textContent = '免费试用中';
-        statusDesc.textContent = '订阅后可解锁全部功能';
+        statusDesc.textContent = '基础会员 ¥9.9/月 · 高级会员 ¥19.9/月';
         btn.textContent = '立即订阅';
         btn.classList.remove('btn-outline');
         btn.classList.add('btn-accent');
@@ -2096,32 +3871,187 @@
     // Subscription Modal & Paywall
     // ============================================================
     function showSubscribeModal() {
-      // Always rebuild the subscribe modal content to ensure it's fresh
-      const overlay = document.getElementById('modal-overlay');
-      overlay.innerHTML = `
-        <div class="modal-content" id="subscribe-modal" onclick="event.stopPropagation()">
-          <span class="modal-close" onclick="closeSubscribeModal()">✕</span>
-          <div style="text-align:center;margin-bottom:16px;">
-            <div style="font-size:40px;">👑</div>
-            <h3>解锁全部功能</h3>
-            <p style="color:var(--text-hint);font-size:13px;margin-top:4px;">提升孩子学习效率</p>
-          </div>
-          <div class="sub-features">
-            <div class="sub-feature">✅ 无限错题回顾</div>
-            <div class="sub-feature">✅ 所有题目视频讲解</div>
-            <div class="sub-feature">✅ 详细思路点拨</div>
-            <div class="sub-feature">✅ 专属定制练习卷</div>
-            <div class="sub-feature">✅ AI 薄弱点精准分析</div>
-          </div>
-          <div style="text-align:center;margin:16px 0;">
-            <span style="font-size:36px;font-weight:700;color:var(--accent);">¥9.9</span>
-            <span style="color:var(--text-hint);">/月</span>
-          </div>
-          <button class="btn btn-accent btn-block" onclick="doSubscribe()">💰 立即订阅</button>
-          <p style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:8px;">演示版：点击即模拟支付成功</p>
-        </div>
-      `;
+      var overlay = document.getElementById('modal-overlay');
+      if (!overlay) { console.error('modal-overlay not found'); return; }
+      var isRenewal = mockData.user.isSubscribed;
+      var currentTier = mockData.user.subscriptionTier || 0;
+      var currentExpiry = mockData.user.subscriptionExpiry || '';
+
+      // Shared feature list with per-tier inclusion
+      var allFeatures = [
+        { text: '无限错题回顾', basic: true, premium: true },
+        { text: '详细思路点拨', basic: true, premium: true },
+        { text: 'AI 薄弱点精准分析', basic: true, premium: true },
+        { text: '每周/每月学情报告', basic: true, premium: true },
+        { text: '专属定制练习卷', basic: false, premium: true },
+        { text: 'AI智能组卷', basic: false, premium: true },
+      ];
+
+      var renderTierFeatures = function(included) {
+        return allFeatures.map(function(f) {
+          var icon = f[included]
+            ? '<svg class="icon" style="color:var(--success);"><use href="#icon-check"/></svg>'
+            : '<svg class="icon" style="color:#ccc;"><use href="#icon-x"/></svg>';
+          var cls = f[included] ? '' : ' style="color:#bbb;"';
+          return '<div class="sub-feature"' + cls + '>' + icon + ' ' + f.text + '</div>';
+        }).join('');
+      };
+
+      var isUpgrade = isRenewal && currentTier === 1;
+      var upgradePrice = isUpgrade ? '10.0' : '0'; // diff between ¥19.9 and ¥9.9
+
+      var tierLabel = isRenewal
+        ? (currentTier === 2 ? '当前为高级会员' : '当前为基础会员 · 可升级高级会员解锁专属定制')
+        : '';
+
+      var htmlParts = [];
+      htmlParts.push('<div class="modal-content" id="subscribe-modal" onclick="event.stopPropagation()">');
+      htmlParts.push('<span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>');
+      htmlParts.push('<div style="text-align:center;margin-bottom:16px;">');
+      htmlParts.push('<div style="font-size:40px;"><svg class="icon"><use href="#icon-crown"/></svg></div>');
+      htmlParts.push('<h3>' + (isUpgrade ? '升级高级会员' : isRenewal ? '续费会员' : '解锁全部功能') + '</h3>');
+      htmlParts.push('<p style="color:var(--text-hint);font-size:13px;margin-top:4px;">' + (isRenewal ? tierLabel + ' · 有效期至 ' + currentExpiry : '提升孩子学习效率') + '</p>');
+      if (isUpgrade) htmlParts.push('<p style="color:var(--accent);font-size:12px;margin-top:4px;font-weight:500;">升级仅需补差价，原基础会员剩余时长保留</p>');
+      htmlParts.push('</div>');
+      htmlParts.push('<div style="display:flex;gap:10px;">');
+      // Basic tier
+      htmlParts.push('<div class="tier-card" id="tier-basic" onclick="selectTier(1)" style="flex:1;">');
+      if (currentTier === 1) htmlParts.push('<span class="tier-current">当前</span>');
+      htmlParts.push('<div style="font-size:15px;font-weight:600;margin-bottom:4px;">基础会员</div>');
+      htmlParts.push('<div style="font-size:28px;font-weight:700;color:var(--primary);">¥9.9<span style="font-size:13px;color:var(--text-hint);">/月</span></div>');
+      htmlParts.push('<div class="sub-features" style="margin-top:8px;background:transparent;padding:0;">');
+      htmlParts.push(renderTierFeatures('basic'));
+      htmlParts.push('</div></div>');
+      // Premium tier
+      htmlParts.push('<div class="tier-card" id="tier-premium" onclick="selectTier(2)" style="flex:1;">');
+      if (currentTier === 2) htmlParts.push('<span class="tier-current">当前</span>');
+      else if (isUpgrade) htmlParts.push('<span class="tier-tag">升级</span>');
+      else htmlParts.push('<span class="tier-tag">推荐</span>');
+      htmlParts.push('<div style="font-size:15px;font-weight:600;margin-bottom:4px;">高级会员</div>');
+      htmlParts.push('<div style="font-size:28px;font-weight:700;color:var(--accent);">¥19.9<span style="font-size:13px;color:var(--text-hint);">/月</span></div>');
+      htmlParts.push('<div class="sub-features" style="margin-top:8px;background:transparent;padding:0;">');
+      htmlParts.push(renderTierFeatures('premium'));
+      htmlParts.push('</div></div>');
+      htmlParts.push('</div>');
+      htmlParts.push('<div style="display:flex;gap:8px;margin-top:12px;" id="duration-row">');
+      htmlParts.push('<div class="duration-btn selected" data-dur="1" onclick="selectDuration(this, 1)">月度</div>');
+      htmlParts.push('<div class="duration-btn" data-dur="3" onclick="selectDuration(this, 3)">季度 <span class="dur-saving" style="font-size:10px;color:var(--success);"></span></div>');
+      htmlParts.push('<div class="duration-btn" data-dur="12" onclick="selectDuration(this, 12)">年度 <span class="dur-saving" style="font-size:10px;color:var(--success);"></span></div>');
+      htmlParts.push('</div>');
+      htmlParts.push('<button class="btn btn-accent btn-block" id="btn-do-subscribe" onclick="doSubscribe()" style="margin-top:12px;">');
+      htmlParts.push('<svg class="icon"><use href="#icon-coins"/></svg> ' + (isUpgrade ? '确认升级' : isRenewal ? '确认续费' : '立即订阅'));
+      htmlParts.push('</button>');
+      htmlParts.push('<p style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:8px;">演示版：点击即模拟支付成功</p>');
+      if (isRenewal) htmlParts.push('<p style="text-align:center;margin-top:8px;"><span style="color:var(--danger);cursor:pointer;font-size:12px;" onclick="cancelSubscribe()">取消自动续费</span></p>');
+      htmlParts.push('</div>');
+      overlay.innerHTML = htmlParts.join('');
+
       overlay.style.display = 'flex';
+
+      // Default: free→basic, basic→premium (encourage upgrade), premium→premium
+      window._selectedTier = currentTier === 2 ? 2 : (currentTier === 1 ? 2 : 1);
+      window._selectedMonths = 1;
+      setTimeout(function() {
+        selectTier(window._selectedTier);
+        updatePriceButton();
+      }, 50);
+    }
+
+    // Price table: [tier][months] = total price
+    var PRICE_TABLE = {
+      1: { 1: 9.9,  3: 22.9, 12: 69 },
+      2: { 1: 19.9, 3: 45.9, 12: 149 },
+    };
+
+    function getPlanPrice(tier, months) {
+      return PRICE_TABLE[tier] ? (PRICE_TABLE[tier][months] || 0) : 0;
+    }
+
+    function selectTier(tier) {
+      window._selectedTier = tier;
+      document.querySelectorAll('.tier-card').forEach(function(c) { c.classList.remove('selected'); });
+      var el = document.getElementById(tier === 2 ? 'tier-premium' : 'tier-basic');
+      if (el) el.classList.add('selected');
+      updatePriceButton();
+      updateDurationSavings();
+    }
+
+    function selectDuration(el, months) {
+      document.querySelectorAll('.duration-btn').forEach(function(d) { d.classList.remove('selected'); });
+      el.classList.add('selected');
+      window._selectedMonths = months;
+      updatePriceButton();
+    }
+
+    function updatePriceButton() {
+      var btn = document.getElementById('btn-do-subscribe');
+      if (!btn) return;
+      var tier = window._selectedTier || 1;
+      var months = window._selectedMonths || 1;
+      var total = getPlanPrice(tier, months);
+      var tierName = tier === 2 ? '高级' : '基础';
+      if (months === 1) {
+        btn.innerHTML = '<svg class="icon"><use href="#icon-coins"/></svg> ¥' + total.toFixed(1) + ' / 月 · ' + tierName;
+      } else {
+        var unitPrice = (total / months).toFixed(1);
+        btn.innerHTML = '<svg class="icon"><use href="#icon-coins"/></svg> ¥' + total.toFixed(1) + ' / ' + months + '个月（约¥' + unitPrice + '/月）· ' + tierName;
+      }
+    }
+
+    function updateDurationSavings() {
+      var tier = window._selectedTier || 1;
+      var monthlyPrice = getPlanPrice(tier, 1);
+      var btns = document.querySelectorAll('.duration-btn');
+      btns.forEach(function(b) {
+        var m = parseInt(b.getAttribute('data-dur'));
+        if (m === 1) return;
+        var planTotal = getPlanPrice(tier, m);
+        var regularTotal = monthlyPrice * m;
+        var saving = regularTotal - planTotal;
+        var savingEl = b.querySelector('.dur-saving');
+        if (savingEl) {
+          savingEl.textContent = '省¥' + saving.toFixed(1);
+        }
+      });
+    }
+
+    function doSubscribe() {
+      var months = window._selectedMonths || 1;
+      var tier = window._selectedTier || 1;
+      var wasSubscribed = mockData.user.isSubscribed;
+      var oldTier = mockData.user.subscriptionTier;
+
+      mockData.user.isSubscribed = true;
+      mockData.user.subscriptionTier = tier;
+      var expiry = new Date();
+      if (wasSubscribed && mockData.user.subscriptionExpiry) {
+        expiry = new Date(mockData.user.subscriptionExpiry);
+      }
+      expiry.setMonth(expiry.getMonth() + months);
+      mockData.user.subscriptionExpiry = expiry.toISOString().split('T')[0];
+      saveState();
+      closeSubscribeModal();
+      updateSubscriptionUI();
+      renderErrorBook();
+      if (currentHwType === 'custom') renderHomeworkList();
+      // Auto-refresh the current report tab after subscribe
+      if (currentReportTab === 'weekly') showWeeklyReport();
+      if (currentReportTab === 'monthly') showMonthlyReport();
+      var customTab = document.querySelector('[data-hwtype="custom"]');
+      if (customTab) {
+        customTab.innerHTML = tier === 2
+          ? '<svg class="icon"><use href="#icon-sparkles"/></svg> 专属定制'
+          : '专属定制';
+      }
+
+      if (wasSubscribed && tier > oldTier) {
+        showToast('<svg class="icon"><use href="#icon-party"/></svg> 已升级为高级会员！');
+      } else if (wasSubscribed) {
+        showToast('<svg class="icon"><use href="#icon-party"/></svg> 续费成功！有效期延长至 ' + mockData.user.subscriptionExpiry);
+      } else {
+        var tierName = tier === 2 ? '高级' : '基础';
+        showToast('<svg class="icon"><use href="#icon-party"/></svg> ' + tierName + '会员订阅成功！');
+      }
     }
 
     function closeSubscribeModal() {
@@ -2134,41 +4064,22 @@
       }
     }
 
-    function doSubscribe() {
-      mockData.user.isSubscribed = true;
-      const expiry = new Date();
-      expiry.setMonth(expiry.getMonth() + 1);
-      mockData.user.subscriptionExpiry = expiry.toISOString().split('T')[0];
-      saveState();
-      closeSubscribeModal();
-      updateSubscriptionUI();
-      renderErrorBook();
-      showToast('🎉 订阅成功！全部功能已解锁');
-    }
-
-    function triggerVideoPaywall() {
-      if (mockData.user.isSubscribed) {
-        showVideoModal();
-      } else {
-        showSubscribeModal();
+    function cancelSubscribe() {
+      if (confirm('确定取消自动续费吗？到期后将恢复免费试用状态。')) {
+        mockData.user.isSubscribed = false;
+        mockData.user.subscriptionTier = 0;
+        mockData.user.subscriptionExpiry = null;
+        saveState();
+        closeSubscribeModal();
+        updateSubscriptionUI();
+        renderErrorBook();
+        if (currentHwType === 'custom') renderHomeworkList();
+        var customTab = document.querySelector('[data-hwtype="custom"]');
+        if (customTab) customTab.textContent = '专属定制';
+        showToast('<svg class="icon"><use href="#icon-info"/></svg> 已取消续费');
       }
     }
 
-    function showVideoModal() {
-      const overlay = document.getElementById('modal-overlay');
-      overlay.innerHTML = `
-        <div class="modal-content" style="text-align:center;">
-          <span class="modal-close" onclick="closeSubscribeModal()">✕</span>
-          <div style="font-size:40px;">🎬</div>
-          <h3>视频讲解</h3>
-          <div style="background:#000;border-radius:8px;margin:16px 0;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
-            <span style="font-size:48px;">▶️</span>
-          </div>
-          <p style="color:var(--text-hint);font-size:12px;">演示版视频播放器</p>
-        </div>
-      `;
-      overlay.style.display = 'flex';
-    }
 
     // ============================================================
     // Toast Notification
@@ -2186,10 +4097,43 @@
         `;
         document.body.appendChild(toast);
       }
-      toast.textContent = message;
+      toast.innerHTML = message;
       toast.style.opacity = '1';
       clearTimeout(toast._timeout);
       toast._timeout = setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+    }
+
+    // ============================================================
+    // Share Function
+    // ============================================================
+    var _shareData = null;
+
+    async function shareReport() {
+      if (!_shareData) return;
+      var data = _shareData;
+
+      // Try Web Share API (works in WeChat, mobile browsers)
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: data.title,
+            text: data.text,
+            url: window.location.href,
+          });
+          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 已分享');
+          return;
+        } catch (e) {
+          if (e.name === 'AbortError') return;
+        }
+      }
+
+      // Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(data.title + '\n' + data.text);
+        showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 已复制到剪贴板');
+      } catch (e) {
+        showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 请截图分享给好友');
+      }
     }
 
     // ============================================================
