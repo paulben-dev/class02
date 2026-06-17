@@ -421,8 +421,6 @@
       cursor: not-allowed;
     }
 
-    .grading-info { margin-bottom: 12px; }
-
     .grading-section {
       background: #fff;
       border-radius: var(--radius-lg);
@@ -1616,9 +1614,11 @@
         </div>
 
         <!-- Submit -->
-        <button class="btn btn-primary btn-block" onclick="submitGrading()" id="btn-submit-grading" disabled>
-          <svg class="icon"><use href="#icon-send"/></svg> 提交批改
-        </button>
+        <div class="grading-section" style="text-align:center;">
+          <button class="btn btn-primary btn-block" onclick="submitGrading()" id="btn-submit-grading" disabled style="margin-top:0;">
+            <svg class="icon"><use href="#icon-send"/></svg> 提交批改
+          </button>
+        </div>
 
         <div id="grading-progress" class="grading-progress" style="display:none;">
           <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
