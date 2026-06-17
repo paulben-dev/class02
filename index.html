@@ -1923,8 +1923,8 @@
         },
         {
           id: 6, subjectId: 'math', title: '面积与周长计算',
-          teacher: '王老师', deadline: '2026-06-16', type: 'custom',
-          totalQuestions: 8, submitted: 38, totalStudents: 42, status: 'graded',
+          teacher: '王老师', deadline: '2026-06-24', type: 'custom',
+          totalQuestions: 8, submitted: 30, totalStudents: 42, status: 'pending',
           questions: [
             { id: 1, type: 'calc', stem: '长方形长8cm，宽5cm，周长是多少？', answer: '26cm', knowledgePoint: '长方形周长' },
             { id: 2, type: 'calc', stem: '长方形长8cm，宽5cm，面积是多少？', answer: '40cm²', knowledgePoint: '长方形面积' },
@@ -1953,8 +1953,8 @@
         },
         {
           id: 8, subjectId: 'chinese', title: '阅读理解《春》节选',
-          teacher: '李老师', deadline: '2026-06-18', type: 'custom',
-          totalQuestions: 5, submitted: 30, totalStudents: 42, status: 'graded',
+          teacher: '李老师', deadline: '2026-06-25', type: 'custom',
+          totalQuestions: 5, submitted: 25, totalStudents: 42, status: 'pending',
           questions: [
             { id: 1, type: 'choice', stem: '文中描写的是哪个季节？A.春 B.夏 C.秋', answer: 'A', knowledgePoint: '文章理解' },
             { id: 2, type: 'choice', stem: '作者的心情是怎样的？A.忧伤 B.喜悦 C.平静', answer: 'B', knowledgePoint: '情感体会' },
@@ -1980,8 +1980,8 @@
         },
         {
           id: 10, subjectId: 'physics', title: '电路基础练习',
-          teacher: '刘老师', deadline: '2026-06-19', type: 'school',
-          totalQuestions: 8, submitted: 34, totalStudents: 42, status: 'graded',
+          teacher: '刘老师', deadline: '2026-06-20', type: 'school',
+          totalQuestions: 8, submitted: 30, totalStudents: 42, status: 'pending',
           questions: [
             { id: 1, type: 'choice', stem: '下列哪个是导体？A.橡胶 B.铜丝 C.玻璃', answer: 'B', knowledgePoint: '串联电路' },
             { id: 2, type: 'fill', stem: '串联电路中，电流处处___。', answer: '相等', knowledgePoint: '串联电路' },
@@ -2010,8 +2010,8 @@
         },
         {
           id: 12, subjectId: 'chemistry', title: '溶液与浓度',
-          teacher: '陈老师', deadline: '2026-06-20', type: 'school',
-          totalQuestions: 8, submitted: 33, totalStudents: 42, status: 'graded',
+          teacher: '陈老师', deadline: '2026-06-21', type: 'school',
+          totalQuestions: 8, submitted: 28, totalStudents: 42, status: 'pending',
           questions: [
             { id: 1, type: 'choice', stem: '下列属于溶液的是？A.牛奶 B.糖水 C.泥水', answer: 'B', knowledgePoint: '溶解度' },
             { id: 2, type: 'fill', stem: '在一定温度下，某物质在100g溶剂中达到___时所溶解的质量叫溶解度。', answer: '饱和', knowledgePoint: '溶解度' },
@@ -2685,11 +2685,9 @@
       const currentVal = sel.value;
       sel.innerHTML = '<option value="">-- 请选择 --</option>';
 
-      // Sort by deadline (closest first), then by status (pending first)
-      var sorted = mockData.homework.slice().sort(function(a, b) {
-        if (a.status !== b.status) return a.status === 'pending' ? -1 : 1;
-        return a.deadline.localeCompare(b.deadline);
-      });
+      // Only show pending homework, sorted by deadline (closest first)
+      var sorted = mockData.homework.filter(function(h) { return h.status === 'pending'; })
+        .sort(function(a, b) { return a.deadline.localeCompare(b.deadline); });
 
       // Group by subject
       var groups = {};
@@ -2707,9 +2705,7 @@
           opt.value = hw.id;
           var dp = hw.deadline.split('-');
           var dateStr = parseInt(dp[1]) + '/' + parseInt(dp[2]);
-          var tag = hw.status === 'pending' ? '🕐' : '✓';
-          opt.textContent = tag + ' ' + hw.title + ' · ' + hw.teacher + ' ' + dateStr;
-          if (hw.status === 'graded') opt.style.color = '#999';
+          opt.textContent = hw.title + ' · ' + hw.teacher + ' ' + dateStr;
           optgroup.appendChild(opt);
         });
         sel.appendChild(optgroup);
