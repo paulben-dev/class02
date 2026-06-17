@@ -1564,9 +1564,10 @@
     <main id="page-area">
       <!-- Tab 1: Home / Homework -->
       <div id="page-home" class="page active">
-        <div class="search-bar">
+        <div class="search-bar" style="position:relative;">
           <span class="search-icon"><svg class="icon"><use href="#icon-search"/></svg></span>
-          <input type="text" class="search-input" placeholder="搜索历史作业..." oninput="filterHomework()">
+          <input type="text" class="search-input" id="search-input" placeholder="搜索作业、老师、学科..." oninput="filterHomework()">
+          <button id="btn-search-clear" onclick="clearSearch()" style="display:none;background:none;border:none;color:var(--text-hint);font-size:16px;cursor:pointer;padding:2px 4px;flex-shrink:0;">✕</button>
         </div>
         <div class="sub-tabs">
           <div class="sub-tab active" data-hwtype="all" onclick="switchHwType('all', this)">全部</div>
@@ -2369,16 +2370,36 @@
     function getFilteredHomework() {
       var today = new Date().toISOString().split('T')[0];
       var isSearching = currentHwSearch.length > 0;
+      var kw = currentHwSearch.toLowerCase();
       return mockData.homework.filter(hw => {
         if (currentHwType !== 'all' && hw.type !== currentHwType) return false;
-        if (currentHwSearch && !hw.title.includes(currentHwSearch) && !hw.teacher.includes(currentHwSearch)) return false;
-        // When not searching, only show upcoming homework (deadline >= today)
-        if (!isSearching && hw.deadline < today) return false;
+        if (isSearching) {
+          var subj = mockData.subjects.find(s => s.id === hw.subjectId);
+          var subjName = subj ? subj.name : '';
+          if (!hw.title.toLowerCase().includes(kw) && !hw.teacher.toLowerCase().includes(kw) && !subjName.includes(kw)) return false;
+        } else if (hw.deadline < today) {
+          return false;
+        }
         return true;
       }).sort(function(a, b) {
-        // Sort by deadline nearest first
         return a.deadline.localeCompare(b.deadline);
       });
+    }
+
+    function clearSearch() {
+      var input = document.getElementById('search-input');
+      input.value = '';
+      currentHwSearch = '';
+      filterHomework();
+      input.focus();
+    }
+
+    function filterHomework() {
+      var input = document.getElementById('search-input');
+      currentHwSearch = input.value.trim();
+      var clearBtn = document.getElementById('btn-search-clear');
+      clearBtn.style.display = currentHwSearch ? '' : 'none';
+      renderHomeworkList();
     }
 
     function switchHwType(type, el) {
@@ -2427,11 +2448,22 @@
       if (hws.length === 0) {
         list.innerHTML = '';
         empty.style.display = 'block';
+        if (currentHwSearch) {
+          empty.innerHTML = '<div class="empty-icon"><svg class="icon"><use href="#icon-search"/></svg></div><p>未找到「' + currentHwSearch + '」相关作业</p><p style="color:var(--text-hint);font-size:12px;">试试其他关键词或学科名</p>';
+        } else {
+          empty.innerHTML = '<div class="empty-icon"><svg class="icon"><use href="#icon-home"/></svg></div><p>暂无作业</p><p style="color:var(--text-hint);font-size:12px;">搜索框可查找历史作业</p>';
+        }
         return;
       }
       empty.style.display = 'none';
 
-      list.innerHTML = hws.map(hw => {
+      // Show result count when searching
+      var countHtml = '';
+      if (currentHwSearch) {
+        countHtml = '<div style="font-size:12px;color:var(--text-hint);margin-bottom:8px;">找到 ' + hws.length + ' 份匹配作业</div>';
+      }
+
+      list.innerHTML = countHtml + hws.map(hw => {
         const subj = mockData.subjects.find(s => s.id === hw.subjectId);
         const statusLabel = hw.status === 'graded'
           ? '<span style="color:var(--success);font-size:11px;"><svg class="icon"><use href="#icon-check"/></svg> 已批改</span>'
