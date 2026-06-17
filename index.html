@@ -1176,22 +1176,19 @@
 
     /* Duration Buttons */
     .duration-btn {
-      flex: 1;
-      text-align: center;
-      padding: 8px 10px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
+      border-radius: 6px;
+      border: none;
       cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      background: #fff;
       transition: all 0.2s;
+      background: transparent;
+      color: var(--text-secondary);
     }
 
     .duration-btn.selected {
-      border-color: var(--primary);
+      background: #fff;
       color: var(--primary);
-      background: var(--primary-light);
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
     .duration-btn:active { opacity: 0.8; }
@@ -1716,14 +1713,20 @@
         <input type="file" id="avatar-input" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event, 'parent')">
         <input type="file" id="child-avatar-input" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event, 'child')">
 
-        <div class="profile-card" id="subscription-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <b id="sub-status-title">免费试用中</b>
-              <p style="color:var(--text-hint);font-size:12px;" id="sub-status-desc">订阅后可解锁全部功能</p>
+        <div class="profile-card" id="subscription-card" style="background:linear-gradient(135deg,#FFF5F0,#FFF0E8);border:1px solid #FDDCC8;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="font-size:28px;line-height:1;"><svg class="icon" style="color:var(--accent);"><use href="#icon-crown"/></svg></div>
+            <div style="flex:1;">
+              <b id="sub-status-title" style="font-size:15px;">免费试用中</b>
+              <p style="color:var(--text-hint);font-size:12px;margin:0;" id="sub-status-desc">订阅后可解锁全部功能</p>
             </div>
-            <button class="btn btn-accent" onclick="showSubscribeModal()" id="btn-subscribe-top">立即订阅</button>
           </div>
+          <div style="display:flex;gap:8px;">
+            <span style="font-size:11px;padding:2px 8px;border-radius:10px;background:#E8F5E9;color:#27AE60;"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-check"/></svg> 错题回顾</span>
+            <span style="font-size:11px;padding:2px 8px;border-radius:10px;background:#E8F5E9;color:#27AE60;"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-check"/></svg> 学情报告</span>
+            <span style="font-size:11px;padding:2px 8px;border-radius:10px;background:#FFF3E0;color:#F39C12;"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-lock"/></svg> 定制练习</span>
+          </div>
+          <button class="btn btn-accent" onclick="showSubscribeModal()" id="btn-subscribe-top" style="margin-top:10px;width:100%;">立即订阅</button>
         </div>
 
         <div class="menu-list">
@@ -4503,21 +4506,33 @@
       const statusTitle = document.getElementById('sub-status-title');
       const statusDesc = document.getElementById('sub-status-desc');
       const btn = document.getElementById('btn-subscribe-top');
+      const card = document.getElementById('subscription-card');
       if (!statusTitle) return;
 
       if (mockData.user.isSubscribed) {
-        var tierName = mockData.user.subscriptionTier === 2 ? '高级会员' : '基础会员';
+        var isPremium = mockData.user.subscriptionTier === 2;
+        var tierName = isPremium ? '高级会员' : '基础会员';
         statusTitle.innerHTML = '<svg class="icon"><use href="#icon-check-circle"/></svg> ' + tierName;
+        statusTitle.style.color = isPremium ? '#E67E22' : 'var(--primary)';
         statusDesc.textContent = '有效期至 ' + (mockData.user.subscriptionExpiry || '--');
-        btn.textContent = mockData.user.subscriptionTier === 2 ? '续费/升级' : '升级/续费';
+        btn.textContent = isPremium ? '续费 / 管理' : '升级高级会员';
         btn.classList.remove('btn-accent');
         btn.classList.add('btn-outline');
+        if (card) {
+          card.style.background = isPremium ? 'linear-gradient(135deg,#FFF8E1,#FFECB3)' : 'linear-gradient(135deg,#F0F9FF,#E3F2FD)';
+          card.style.border = isPremium ? '1px solid #FFE082' : '1px solid #BBDEFB';
+        }
       } else {
         statusTitle.textContent = '免费试用中';
+        statusTitle.style.color = '';
         statusDesc.textContent = '基础会员 ¥9.9/月 · 高级会员 ¥19.9/月';
         btn.textContent = '立即订阅';
         btn.classList.remove('btn-outline');
         btn.classList.add('btn-accent');
+        if (card) {
+          card.style.background = 'linear-gradient(135deg,#FFF5F0,#FFF0E8)';
+          card.style.border = '1px solid #FDDCC8';
+        }
       }
     }
 
@@ -4567,32 +4582,36 @@
       htmlParts.push('<p style="color:var(--text-hint);font-size:13px;margin-top:4px;">' + (isRenewal ? tierLabel + ' · 有效期至 ' + currentExpiry : '提升孩子学习效率') + '</p>');
       if (isUpgrade) htmlParts.push('<p style="color:var(--accent);font-size:12px;margin-top:4px;font-weight:500;">升级仅需补差价，原基础会员剩余时长保留</p>');
       htmlParts.push('</div>');
-      htmlParts.push('<div style="display:flex;gap:10px;">');
+      htmlParts.push('<div style="display:flex;gap:10px;margin-bottom:14px;">');
       // Basic tier
-      htmlParts.push('<div class="tier-card" id="tier-basic" onclick="selectTier(1)" style="flex:1;">');
+      htmlParts.push('<div class="tier-card" id="tier-basic" onclick="selectTier(1)" style="flex:1;padding:16px 12px;">');
       if (currentTier === 1) htmlParts.push('<span class="tier-current">当前</span>');
-      htmlParts.push('<div style="font-size:15px;font-weight:600;margin-bottom:4px;">基础会员</div>');
-      htmlParts.push('<div style="font-size:28px;font-weight:700;color:var(--primary);">¥9.9<span style="font-size:13px;color:var(--text-hint);">/月</span></div>');
-      htmlParts.push('<div class="sub-features" style="margin-top:8px;background:transparent;padding:0;">');
+      htmlParts.push('<div style="margin-bottom:8px;"><svg class="icon" style="width:24px;height:24px;color:var(--primary);"><use href="#icon-school"/></svg></div>');
+      htmlParts.push('<div style="font-size:15px;font-weight:600;margin-bottom:2px;">基础会员</div>');
+      htmlParts.push('<div style="font-size:12px;color:var(--text-hint);margin-bottom:8px;">日常学习好帮手</div>');
+      htmlParts.push('<div style="font-size:24px;font-weight:700;color:var(--primary);margin-bottom:10px;">¥9.9<span style="font-size:12px;color:var(--text-hint);font-weight:400;">/月</span></div>');
+      htmlParts.push('<div class="sub-features" style="margin-top:0;background:transparent;padding:0;font-size:13px;">');
       htmlParts.push(renderTierFeatures('basic'));
       htmlParts.push('</div></div>');
       // Premium tier
-      htmlParts.push('<div class="tier-card" id="tier-premium" onclick="selectTier(2)" style="flex:1;">');
-      if (currentTier === 2) htmlParts.push('<span class="tier-current">当前</span>');
+      htmlParts.push('<div class="tier-card" id="tier-premium" onclick="selectTier(2)" style="flex:1;padding:16px 12px;border-color:var(--accent);box-shadow:0 2px 12px rgba(230,126,34,0.15);background:linear-gradient(180deg,#FFFBF5,#FFF5F0);">');
+      if (currentTier === 2) htmlParts.push('<span class="tier-current" style="background:var(--accent);">当前</span>');
       else if (isUpgrade) htmlParts.push('<span class="tier-tag">升级</span>');
       else htmlParts.push('<span class="tier-tag">推荐</span>');
-      htmlParts.push('<div style="font-size:15px;font-weight:600;margin-bottom:4px;">高级会员</div>');
-      htmlParts.push('<div style="font-size:28px;font-weight:700;color:var(--accent);">¥19.9<span style="font-size:13px;color:var(--text-hint);">/月</span></div>');
-      htmlParts.push('<div class="sub-features" style="margin-top:8px;background:transparent;padding:0;">');
+      htmlParts.push('<div style="margin-bottom:8px;"><svg class="icon" style="width:24px;height:24px;color:var(--accent);"><use href="#icon-crown"/></svg></div>');
+      htmlParts.push('<div style="font-size:15px;font-weight:600;margin-bottom:2px;">高级会员</div>');
+      htmlParts.push('<div style="font-size:12px;color:var(--text-hint);margin-bottom:8px;">AI 智能精准提分</div>');
+      htmlParts.push('<div style="font-size:24px;font-weight:700;color:var(--accent);margin-bottom:10px;">¥19.9<span style="font-size:12px;color:var(--text-hint);font-weight:400;">/月</span></div>');
+      htmlParts.push('<div class="sub-features" style="margin-top:0;background:transparent;padding:0;font-size:13px;">');
       htmlParts.push(renderTierFeatures('premium'));
       htmlParts.push('</div></div>');
       htmlParts.push('</div>');
-      htmlParts.push('<div style="display:flex;gap:8px;margin-top:12px;" id="duration-row">');
-      htmlParts.push('<div class="duration-btn selected" data-dur="1" onclick="selectDuration(this, 1)">月度</div>');
-      htmlParts.push('<div class="duration-btn" data-dur="3" onclick="selectDuration(this, 3)">季度 <span class="dur-saving" style="font-size:10px;color:var(--success);"></span></div>');
-      htmlParts.push('<div class="duration-btn" data-dur="12" onclick="selectDuration(this, 12)">年度 <span class="dur-saving" style="font-size:10px;color:var(--success);"></span></div>');
+      htmlParts.push('<div style="background:var(--bg);border-radius:var(--radius-md);padding:4px;display:flex;gap:4px;margin-top:14px;" id="duration-row">');
+      htmlParts.push('<div class="duration-btn selected" data-dur="1" onclick="selectDuration(this, 1)" style="flex:1;text-align:center;padding:10px 0;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;">月度</div>');
+      htmlParts.push('<div class="duration-btn" data-dur="3" onclick="selectDuration(this, 3)" style="flex:1;text-align:center;padding:10px 0;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;">季度<span class="dur-saving" style="font-size:10px;color:var(--success);display:block;"></span></div>');
+      htmlParts.push('<div class="duration-btn" data-dur="12" onclick="selectDuration(this, 12)" style="flex:1;text-align:center;padding:10px 0;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;">年度<span class="dur-saving" style="font-size:10px;color:var(--success);display:block;"></span></div>');
       htmlParts.push('</div>');
-      htmlParts.push('<button class="btn btn-accent btn-block" id="btn-do-subscribe" onclick="doSubscribe()" style="margin-top:12px;">');
+      htmlParts.push('<button class="btn btn-accent btn-block" id="btn-do-subscribe" onclick="doSubscribe()" style="margin-top:14px;padding:14px;font-size:15px;font-weight:600;">');
       htmlParts.push('<svg class="icon"><use href="#icon-coins"/></svg> ' + (isUpgrade ? '确认升级' : isRenewal ? '确认续费' : '立即订阅'));
       htmlParts.push('</button>');
       htmlParts.push('<p style="text-align:center;font-size:11px;color:var(--text-hint);margin-top:8px;">演示版：点击即模拟支付成功</p>');
