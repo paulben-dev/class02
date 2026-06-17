@@ -996,6 +996,24 @@
       align-items: center;
       justify-content: center;
       font-size: 28px;
+      overflow: hidden;
+      position: relative;
+      transition: opacity 0.2s;
+    }
+
+    .profile-avatar:hover { opacity: 0.85; }
+
+    .profile-avatar .avatar-placeholder {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .profile-avatar .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
 
     .profile-info { flex: 1; }
@@ -1661,7 +1679,10 @@
       <!-- Tab 5: Profile -->
       <div id="page-profile" class="page">
         <div class="profile-card">
-          <div class="profile-avatar"><svg class="icon"><use href="#icon-user"/></svg></div>
+          <div class="profile-avatar" id="parent-avatar" onclick="document.getElementById('avatar-input').click()" style="cursor:pointer;" title="点击更换头像">
+            <svg class="icon avatar-placeholder"><use href="#icon-user"/></svg>
+            <img class="avatar-img" style="display:none;" alt="头像">
+          </div>
           <div class="profile-info">
             <h3 id="profile-name"></h3>
             <p style="color:var(--text-hint);font-size:13px;">家长</p>
@@ -1670,13 +1691,19 @@
 
         <div class="profile-card">
           <div style="display:flex;align-items:center;gap:12px;">
-            <span style="font-size:28px;"><svg class="icon"><use href="#icon-user"/></svg></span>
+            <div class="profile-avatar" id="child-avatar" onclick="document.getElementById('child-avatar-input').click()" style="cursor:pointer;width:42px;height:42px;" title="点击更换头像">
+              <svg class="icon avatar-placeholder"><use href="#icon-user"/></svg>
+              <img class="avatar-img" style="display:none;" alt="头像">
+            </div>
             <div>
               <b id="child-name"></b>
               <p style="color:var(--text-hint);font-size:12px;" id="child-info"></p>
             </div>
           </div>
         </div>
+
+        <input type="file" id="avatar-input" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event, 'parent')">
+        <input type="file" id="child-avatar-input" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event, 'child')">
 
         <div class="profile-card" id="subscription-card">
           <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -1795,8 +1822,8 @@
     const mockData = {
       user: {
         name: '张妈妈',
-        avatar: '<svg class="icon"><use href="#icon-user"/></svg>',
-        child: { name: '小明', grade: '三年级', className: '2班' },
+        avatar: '',
+        child: { name: '小明', grade: '三年级', className: '2班', avatar: '' },
         isSubscribed: false,
         subscriptionTier: 0,
         subscriptionExpiry: null,
@@ -2304,6 +2331,8 @@
           if (state.subscriptionTier !== undefined) mockData.user.subscriptionTier = state.subscriptionTier;
           if (state.subscriptionExpiry) mockData.user.subscriptionExpiry = state.subscriptionExpiry;
           if (state.firstGradingDate) mockData.user.firstGradingDate = state.firstGradingDate;
+          if (state.avatar) mockData.user.avatar = state.avatar;
+          if (state.childAvatar) mockData.user.child.avatar = state.childAvatar;
         }
       } catch(e) { /* ignore */ }
     }
@@ -2314,6 +2343,8 @@
         subscriptionTier: mockData.user.subscriptionTier,
         subscriptionExpiry: mockData.user.subscriptionExpiry,
         firstGradingDate: mockData.user.firstGradingDate,
+        avatar: mockData.user.avatar,
+        childAvatar: mockData.user.child.avatar,
       }));
     }
 
@@ -4039,11 +4070,46 @@
       overlay.style.display = 'flex';
     }
 
+    function handleAvatarUpload(event, who) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        if (who === 'parent') {
+          mockData.user.avatar = dataUrl;
+        } else {
+          mockData.user.child.avatar = dataUrl;
+        }
+        renderAvatar(who, dataUrl);
+        saveState();
+        showToast('头像已更新');
+      };
+      reader.readAsDataURL(file);
+      event.target.value = '';
+    }
+
+    function renderAvatar(who, dataUrl) {
+      const container = document.getElementById(who === 'parent' ? 'parent-avatar' : 'child-avatar');
+      const placeholder = container.querySelector('.avatar-placeholder');
+      const img = container.querySelector('.avatar-img');
+      if (dataUrl) {
+        placeholder.style.display = 'none';
+        img.src = dataUrl;
+        img.style.display = 'block';
+      } else {
+        placeholder.style.display = '';
+        img.style.display = 'none';
+      }
+    }
+
     function initProfile() {
       document.getElementById('profile-name').textContent = mockData.user.name;
+      renderAvatar('parent', mockData.user.avatar);
       document.getElementById('child-name').textContent = mockData.user.child.name;
       document.getElementById('child-info').textContent =
         mockData.user.child.grade + ' · ' + mockData.user.child.className;
+      renderAvatar('child', mockData.user.child.avatar);
 
       updateSubscriptionUI();
     }
