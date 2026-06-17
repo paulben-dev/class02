@@ -260,6 +260,16 @@
       font-weight: 500;
     }
 
+    .field-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-md);
+      background: #fff;
+      box-sizing: border-box;
+    }
+
     .field-select {
       width: 100%;
       padding: 10px 12px;
@@ -1735,7 +1745,7 @@
             <span><svg class="icon"><use href="#icon-camera"/></svg> 批改记录</span>
             <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
-          <div class="menu-item" onclick="showToast('设置（演示功能）')">
+          <div class="menu-item" onclick="showSettings()">
             <span><svg class="icon"><use href="#icon-settings"/></svg> 设置</span>
             <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
@@ -2556,6 +2566,10 @@
           if (state.avatar) mockData.user.avatar = state.avatar;
           if (state.childAvatar) mockData.user.child.avatar = state.childAvatar;
           if (state.printHistory) printHistory = state.printHistory;
+          if (state.parentName) mockData.user.name = state.parentName;
+          if (state.childName) mockData.user.child.name = state.childName;
+          if (state.childGrade) mockData.user.child.grade = state.childGrade;
+          if (state.childClass) mockData.user.child.className = state.childClass;
         }
       } catch(e) { /* ignore */ }
     }
@@ -2569,6 +2583,10 @@
         avatar: mockData.user.avatar,
         childAvatar: mockData.user.child.avatar,
         printHistory: printHistory,
+        parentName: mockData.user.name,
+        childName: mockData.user.child.name,
+        childGrade: mockData.user.child.grade,
+        childClass: mockData.user.child.className,
       }));
     }
 
@@ -4420,6 +4438,71 @@
       saveState();
       showPrintHistory();
       showToast('打印历史已清空');
+    }
+
+    function showSettings() {
+      var overlay = document.getElementById('modal-overlay');
+      var grades = ['一年级','二年级','三年级','四年级','五年级','六年级','初一','初二','初三','高一','高二','高三'];
+      var gradeOptions = grades.map(function(g) {
+        return '<option value="' + g + '"' + (mockData.user.child.grade === g ? ' selected' : '') + '>' + g + '</option>';
+      }).join('');
+
+      var html = '<div class="modal-content" style="max-height:80vh;"><span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>';
+      html += '<h3 style="margin-bottom:16px;"><svg class="icon"><use href="#icon-settings"/></svg> 设置</h3>';
+
+      // Parent info
+      html += '<label class="field-label">家长称呼</label>';
+      html += '<input class="field-input" id="set-parent-name" value="' + mockData.user.name + '" placeholder="您的称呼" style="margin-bottom:12px;">';
+
+      // Child info
+      html += '<label class="field-label">孩子姓名</label>';
+      html += '<input class="field-input" id="set-child-name" value="' + mockData.user.child.name + '" placeholder="孩子姓名" style="margin-bottom:12px;">';
+
+      html += '<div style="display:flex;gap:8px;margin-bottom:12px;">';
+      html += '<div style="flex:1;"><label class="field-label">年级</label><select class="field-select" id="set-child-grade" style="width:100%;">' + gradeOptions + '</select></div>';
+      html += '<div style="flex:1;"><label class="field-label">班级</label><input class="field-input" id="set-child-class" value="' + mockData.user.child.className + '" placeholder="如：2班"></div>';
+      html += '</div>';
+
+      html += '<button class="btn btn-primary btn-block" onclick="saveSettings()" style="margin-bottom:8px;"><svg class="icon"><use href="#icon-check"/></svg> 保存</button>';
+
+      // Reset
+      html += '<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">';
+      html += '<p style="font-size:12px;color:var(--text-hint);margin-bottom:8px;">重置所有数据（不可恢复）</p>';
+      html += '<button class="btn btn-outline btn-block" onclick="resetAllData()" style="color:var(--danger);border-color:var(--danger);"><svg class="icon"><use href="#icon-trash"/></svg> 恢复出厂设置</button>';
+      html += '</div>';
+
+      html += '</div>';
+      overlay.innerHTML = html;
+      overlay.style.display = 'flex';
+    }
+
+    function saveSettings() {
+      var parentName = document.getElementById('set-parent-name').value.trim();
+      var childName = document.getElementById('set-child-name').value.trim();
+      var childGrade = document.getElementById('set-child-grade').value;
+      var childClass = document.getElementById('set-child-class').value.trim();
+
+      if (!parentName || !childName) {
+        showToast('请填写完整信息');
+        return;
+      }
+
+      mockData.user.name = parentName;
+      mockData.user.child.name = childName;
+      mockData.user.child.grade = childGrade;
+      mockData.user.child.className = childClass;
+
+      saveState();
+      closeSubscribeModal();
+      initProfile();
+      showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 设置已保存');
+    }
+
+    function resetAllData() {
+      if (confirm('确定要清除所有数据吗？此操作不可恢复。')) {
+        localStorage.clear();
+        location.reload();
+      }
     }
 
     function showGradingHistory() {
