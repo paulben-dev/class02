@@ -1026,77 +1026,6 @@
 
     .profile-info { flex: 1; }
 
-    .profile-field {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-      border-radius: var(--radius-sm);
-      padding: 2px 4px;
-      margin: -2px -4px;
-      transition: background 0.15s;
-      position: relative;
-    }
-    .profile-field:hover { background: var(--primary-light); }
-
-    .profile-edit-icon {
-      opacity: 0;
-      font-size: 14px;
-      color: var(--primary);
-      transition: opacity 0.15s;
-      flex-shrink: 0;
-    }
-    .profile-field:hover .profile-edit-icon { opacity: 1; }
-
-    .profile-inline-form {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .profile-inline-input {
-      font-size: inherit;
-      font-weight: inherit;
-      color: inherit;
-      border: none;
-      border-bottom: 2px solid var(--primary);
-      background: transparent;
-      padding: 2px 0;
-      outline: none;
-      font-family: inherit;
-      min-width: 60px;
-    }
-    .profile-inline-select {
-      font-size: 12px;
-      color: var(--text-secondary);
-      border: 1px solid var(--primary);
-      border-radius: var(--radius-sm);
-      padding: 2px 6px;
-      outline: none;
-      background: #fff;
-      font-family: inherit;
-    }
-    .profile-inline-btn {
-      width: 20px; height: 20px;
-      border: none;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 12px;
-      flex-shrink: 0;
-      transition: opacity 0.15s;
-    }
-    .profile-inline-btn.confirm {
-      background: var(--primary);
-      color: #fff;
-    }
-    .profile-inline-btn.cancel {
-      background: #ddd;
-      color: #666;
-    }
-    .profile-inline-btn:active { opacity: 0.7; }
-
     .profile-child-detail {
       display: flex;
       align-items: center;
@@ -1105,6 +1034,24 @@
       font-size: 12px;
     }
     .profile-child-detail .sep { color: #ccc; }
+
+    .profile-edit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--primary);
+      cursor: pointer;
+      padding: 4px 10px;
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      background: #fff;
+      transition: all 0.15s;
+    }
+    .profile-edit-btn:hover {
+      background: var(--primary-light);
+    }
+    .profile-edit-btn .icon { width: 13px; height: 13px; }
 
     .menu-list {
       background: #fff;
@@ -1780,18 +1727,18 @@
       <!-- Tab 5: Profile -->
       <div id="page-profile" class="page">
         <div class="profile-card">
-          <div class="profile-avatar" id="parent-avatar" onclick="document.getElementById('avatar-input').click()" style="cursor:pointer;" title="点击更换头像">
-            <svg class="icon avatar-placeholder"><use href="#icon-user"/></svg>
-            <img class="avatar-img" style="display:none;" alt="头像">
-          </div>
-          <div class="profile-info">
-            <div style="display:flex;align-items:center;gap:4px;">
-              <span class="profile-field" id="field-parent-name" onclick="editProfileInline('parent-name')" title="点击编辑称呼">
-                <h3 style="margin:0;font-size:16px;" id="profile-name"></h3>
-                <span class="profile-edit-icon" id="edit-icon-parent-name"><svg class="icon" style="width:14px;height:14px;"><use href="#icon-edit"/></svg></span>
-              </span>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="profile-avatar" id="parent-avatar" onclick="document.getElementById('avatar-input').click()" style="cursor:pointer;" title="点击更换头像">
+              <svg class="icon avatar-placeholder"><use href="#icon-user"/></svg>
+              <img class="avatar-img" style="display:none;" alt="头像">
             </div>
-            <p style="color:var(--text-hint);font-size:13px;">家长</p>
+            <div class="profile-info">
+              <h3 style="margin:0;font-size:16px;" id="profile-name"></h3>
+              <p style="color:var(--text-hint);font-size:13px;">家长</p>
+            </div>
+            <span class="profile-edit-btn" onclick="showEditProfileModal()">
+              <svg class="icon"><use href="#icon-edit"/></svg> 编辑
+            </span>
           </div>
         </div>
 
@@ -1802,22 +1749,11 @@
               <img class="avatar-img" style="display:none;" alt="头像">
             </div>
             <div style="flex:1;">
-              <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;">
-                <span class="profile-field" id="field-child-name" onclick="editProfileInline('child-name')" title="点击编辑姓名">
-                  <b id="child-name"></b>
-                  <span class="profile-edit-icon" id="edit-icon-child-name"><svg class="icon" style="width:14px;height:14px;"><use href="#icon-edit"/></svg></span>
-                </span>
-              </div>
+              <b id="child-name" style="display:block;margin-bottom:2px;"></b>
               <div class="profile-child-detail">
-                <span class="profile-field" id="field-child-grade" onclick="editProfileInline('child-grade')" title="点击编辑年级">
-                  <span id="child-grade-text"></span>
-                  <span class="profile-edit-icon" id="edit-icon-child-grade"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-edit"/></svg></span>
-                </span>
+                <span id="child-grade-text"></span>
                 <span class="sep">·</span>
-                <span class="profile-field" id="field-child-class" onclick="editProfileInline('child-class')" title="点击编辑班级">
-                  <span id="child-class-text"></span>
-                  <span class="profile-edit-icon" id="edit-icon-child-class"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-edit"/></svg></span>
-                </span>
+                <span id="child-class-text"></span>
               </div>
             </div>
           </div>
@@ -1855,7 +1791,7 @@
           </div>
         </div>
 
-        <p style="text-align:center;color:var(--text-hint);font-size:11px;margin-top:20px;">作业批改助手 v1.0 · 演示版</p>
+        <p style="text-align:center;color:var(--text-hint);font-size:11px;margin-top:20px;" id="version-text">作业批改助手 v1.0 · 演示版</p>
       </div>
     </main>
 
@@ -3423,12 +3359,15 @@
 
       // Chinese school letter grades
       var gradeLevels = [
-        { min: 90, letter: 'A+', label: '优秀', color: '#27AE60', bg: '#F0F9F0' },
-        { min: 85, letter: 'A',  label: '优秀', color: '#27AE60', bg: '#F0F9F0' },
+        { min: 95, letter: 'A+', label: '优秀', color: '#27AE60', bg: '#F0F9F0' },
+        { min: 90, letter: 'A',  label: '优秀', color: '#27AE60', bg: '#F0F9F0' },
+        { min: 85, letter: 'A-', label: '优秀', color: '#27AE60', bg: '#F0F9F0' },
         { min: 80, letter: 'B+', label: '良好', color: '#2EAD77', bg: '#EDF9F3' },
         { min: 75, letter: 'B',  label: '良好', color: '#2EAD77', bg: '#EDF9F3' },
-        { min: 70, letter: 'C+', label: '中等', color: '#F39C12', bg: '#FFF8E1' },
+        { min: 70, letter: 'B-', label: '良好', color: '#2EAD77', bg: '#EDF9F3' },
+        { min: 65, letter: 'C+', label: '中等', color: '#F39C12', bg: '#FFF8E1' },
         { min: 60, letter: 'C',  label: '及格', color: '#F39C12', bg: '#FFF8E1' },
+        { min: 55, letter: 'C-', label: '及格', color: '#F39C12', bg: '#FFF8E1' },
         { min: 0,  letter: 'D',  label: '不及格', color: '#E74C3C', bg: '#FFF0F0' }
       ];
       var grade = gradeLevels.find(g => correctRate >= g.min);
@@ -3447,9 +3386,15 @@
     // Tab 3: Grading Report (Redesigned)
     // ============================================================
     function getGradeLetter(score) {
-      if (score >= 90) return { letter: 'A', cls: 'report-grade-a', label: '优秀', color: '#27AE60' };
-      if (score >= 75) return { letter: 'B', cls: 'report-grade-b', label: '良好', color: '#2EAD77' };
-      if (score >= 60) return { letter: 'C', cls: 'report-grade-c', label: '及格', color: '#F39C12' };
+      if (score >= 95) return { letter: 'A+', cls: 'report-grade-a', label: '优秀', color: '#27AE60' };
+      if (score >= 90) return { letter: 'A',  cls: 'report-grade-a', label: '优秀', color: '#27AE60' };
+      if (score >= 85) return { letter: 'A-', cls: 'report-grade-a', label: '优秀', color: '#27AE60' };
+      if (score >= 80) return { letter: 'B+', cls: 'report-grade-b', label: '良好', color: '#2EAD77' };
+      if (score >= 75) return { letter: 'B',  cls: 'report-grade-b', label: '良好', color: '#2EAD77' };
+      if (score >= 70) return { letter: 'B-', cls: 'report-grade-b', label: '良好', color: '#2EAD77' };
+      if (score >= 65) return { letter: 'C+', cls: 'report-grade-c', label: '中等', color: '#F39C12' };
+      if (score >= 60) return { letter: 'C',  cls: 'report-grade-c', label: '及格', color: '#F39C12' };
+      if (score >= 55) return { letter: 'C-', cls: 'report-grade-c', label: '及格', color: '#F39C12' };
       return { letter: 'D', cls: 'report-grade-d', label: '待提高', color: '#E74C3C' };
     }
 
@@ -4547,6 +4492,29 @@
       }
     }
 
+    // Hidden debug: rapid-click version text 5 times to reset membership only
+    (function() {
+      var count = 0, timer = null;
+      var vt = document.getElementById('version-text');
+      if (!vt) return;
+      vt.style.cursor = 'default';
+      vt.addEventListener('click', function() {
+        count++;
+        clearTimeout(timer);
+        if (count >= 2) {
+          count = 0;
+          mockData.user.isSubscribed = false;
+          mockData.user.subscriptionTier = 0;
+          mockData.user.subscriptionExpiry = '';
+          saveState();
+          updateSubscriptionUI();
+          showToast('🔧 会员状态已重置（调试）');
+        } else {
+          timer = setTimeout(function() { count = 0; }, 2000);
+        }
+      });
+    })();
+
     function showGradingHistory() {
       var graded = mockData.homework.filter(function(h) {
         return h.status === 'graded' && mockData.gradingResults[h.id];
@@ -4625,124 +4593,65 @@
     }
 
     var GRADES = ['一年级','二年级','三年级','四年级','五年级','六年级','初一','初二','初三','高一','高二','高三'];
-    var _activeEditField = null;
 
-    function cancelAllEdits() {
-      if (_activeEditField) {
-        initProfile();
-        _activeEditField = null;
-      }
-    }
+    function showEditProfileModal() {
+      var overlay = document.getElementById('modal-overlay');
 
-    function editProfileInline(field) {
-      // If another field is being edited, commit it first
-      if (_activeEditField && _activeEditField !== field) {
-        commitEdit(_activeEditField);
-      }
-      _activeEditField = field;
+      var gradeOptions = GRADES.map(function(g) {
+        return '<option value="' + g + '"' + (mockData.user.child.grade === g ? ' selected' : '') + '>' + g + '</option>';
+      }).join('');
 
-      var fieldEl, containerId;
-      if (field === 'parent-name') {
-        containerId = 'field-parent-name';
-      } else if (field === 'child-name') {
-        containerId = 'field-child-name';
-      } else if (field === 'child-grade') {
-        containerId = 'field-child-grade';
-      } else if (field === 'child-class') {
-        containerId = 'field-child-class';
-      }
-      fieldEl = document.getElementById(containerId);
-      if (!fieldEl) return;
+      var html = '';
+      html += '<div class="modal-content" onclick="event.stopPropagation()">';
+      html += '<span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>';
+      html += '<h3 style="margin-bottom:16px;text-align:center;"><svg class="icon"><use href="#icon-edit"/></svg> 编辑资料</h3>';
 
-      // Hide edit icon during edit
-      var editIcon = document.getElementById('edit-icon-' + field);
-      if (editIcon) editIcon.style.display = 'none';
+      html += '<label class="field-label">家长称呼</label>';
+      html += '<input class="field-input" id="edit-parent-name" value="' + mockData.user.name + '" placeholder="您的称呼">';
 
-      var currentVal;
-      if (field === 'parent-name') {
-        currentVal = mockData.user.name;
-      } else if (field === 'child-name') {
-        currentVal = mockData.user.child.name;
-      } else if (field === 'child-grade') {
-        currentVal = mockData.user.child.grade;
-      } else if (field === 'child-class') {
-        currentVal = mockData.user.child.className;
-      }
+      html += '<label class="field-label" style="margin-top:12px;">孩子姓名</label>';
+      html += '<input class="field-input" id="edit-child-name" value="' + mockData.user.child.name + '" placeholder="孩子姓名">';
 
-      var formHtml = '';
-      if (field === 'child-grade') {
-        formHtml += '<span class="profile-inline-form">';
-        formHtml += '<select class="profile-inline-select" id="inline-input-' + field + '">';
-        GRADES.forEach(function(g) {
-          formHtml += '<option value="' + g + '"' + (g === currentVal ? ' selected' : '') + '>' + g + '</option>';
-        });
-        formHtml += '</select>';
-        formHtml += '<button class="profile-inline-btn confirm" onclick="event.stopPropagation();commitEdit(\'' + field + '\')"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-check"/></svg></button>';
-        formHtml += '<button class="profile-inline-btn cancel" onclick="event.stopPropagation();cancelEdit(\'' + field + '\')"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-x"/></svg></button>';
-        formHtml += '</span>';
-      } else {
-        formHtml += '<span class="profile-inline-form">';
-        formHtml += '<input class="profile-inline-input" id="inline-input-' + field + '" type="text" value="' + currentVal.replace(/"/g, '&quot;') + '" style="width:' + Math.max(currentVal.length * 1.1, 4) + 'ch;min-width:60px;">';
-        formHtml += '<button class="profile-inline-btn confirm" onclick="event.stopPropagation();commitEdit(\'' + field + '\')"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-check"/></svg></button>';
-        formHtml += '<button class="profile-inline-btn cancel" onclick="event.stopPropagation();cancelEdit(\'' + field + '\')"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-x"/></svg></button>';
-        formHtml += '</span>';
-      }
+      html += '<div style="display:flex;gap:10px;margin-top:12px;">';
+      html += '<div style="flex:1;"><label class="field-label">年级</label><select class="field-select" id="edit-child-grade" style="width:100%;">' + gradeOptions + '</select></div>';
+      html += '<div style="flex:1;"><label class="field-label">班级</label><input class="field-input" id="edit-child-class" value="' + mockData.user.child.className + '" placeholder="如 2班"></div>';
+      html += '</div>';
 
-      fieldEl.innerHTML = formHtml;
+      html += '<div style="display:flex;gap:10px;margin-top:16px;">';
+      html += '<button class="btn btn-outline" onclick="closeSubscribeModal()" style="flex:1;">取消</button>';
+      html += '<button class="btn btn-primary" onclick="saveProfile()" style="flex:1;"><svg class="icon"><use href="#icon-check"/></svg> 保存</button>';
+      html += '</div>';
 
-      var input = document.getElementById('inline-input-' + field);
-      if (input) {
-        input.focus();
-        if (input.tagName === 'INPUT') input.select();
-        input.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter') { e.preventDefault(); commitEdit(field); }
-          if (e.key === 'Escape') { e.preventDefault(); cancelEdit(field); }
-        });
-      }
+      html += '</div>';
+      overlay.innerHTML = html;
+      overlay.style.display = 'flex';
 
-      // Close on click outside
+      // Focus first input
       setTimeout(function() {
-        document.addEventListener('click', outsideClickHandler);
-      }, 0);
+        var firstInput = document.getElementById('edit-parent-name');
+        if (firstInput) { firstInput.focus(); firstInput.select(); }
+      }, 100);
     }
 
-    function outsideClickHandler(e) {
-      if (_activeEditField) {
-        var container = document.getElementById('field-' + _activeEditField);
-        if (container && !container.contains(e.target)) {
-          commitEdit(_activeEditField);
-        }
-      }
-    }
+    function saveProfile() {
+      var parentName = document.getElementById('edit-parent-name').value.trim();
+      var childName = document.getElementById('edit-child-name').value.trim();
+      var childGrade = document.getElementById('edit-child-grade').value;
+      var childClass = document.getElementById('edit-child-class').value.trim();
 
-    function commitEdit(field) {
-      document.removeEventListener('click', outsideClickHandler);
-      var input = document.getElementById('inline-input-' + field);
-      if (!input) { cancelEdit(field); return; }
+      if (!parentName) { showToast('请填写家长称呼'); return; }
+      if (!childName) { showToast('请填写孩子姓名'); return; }
+      if (!childClass) { showToast('请填写班级'); return; }
 
-      var v = input.value.trim();
-      if (!v) { cancelEdit(field); return; }
-
-      if (field === 'parent-name') {
-        mockData.user.name = v;
-      } else if (field === 'child-name') {
-        mockData.user.child.name = v;
-      } else if (field === 'child-grade') {
-        mockData.user.child.grade = v;
-      } else if (field === 'child-class') {
-        mockData.user.child.className = v;
-      }
+      mockData.user.name = parentName;
+      mockData.user.child.name = childName;
+      mockData.user.child.grade = childGrade;
+      mockData.user.child.className = childClass;
 
       saveState();
-      _activeEditField = null;
+      closeSubscribeModal();
       initProfile();
-      showToast('已更新');
-    }
-
-    function cancelEdit(field) {
-      document.removeEventListener('click', outsideClickHandler);
-      _activeEditField = null;
-      initProfile();
+      showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 资料已保存');
     }
 
     function updateSubscriptionUI() {
