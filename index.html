@@ -1035,24 +1035,6 @@
     }
     .profile-child-detail .sep { color: #ccc; }
 
-    .profile-edit-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-      color: var(--primary);
-      cursor: pointer;
-      padding: 4px 10px;
-      border: 1px solid var(--primary);
-      border-radius: 16px;
-      background: #fff;
-      transition: all 0.15s;
-    }
-    .profile-edit-btn:hover {
-      background: var(--primary-light);
-    }
-    .profile-edit-btn .icon { width: 13px; height: 13px; }
-
     .menu-list {
       background: #fff;
       border-radius: var(--radius-lg);
@@ -1086,13 +1068,13 @@
       background: rgba(0,0,0,0.5);
       z-index: 200;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
     }
 
     .modal-content {
       background: #fff;
-      border-radius: 16px 16px 0 0;
+      border-radius: 16px;
       padding: 20px 16px;
       width: 100%;
       max-width: var(--max-width);
@@ -1733,12 +1715,9 @@
               <img class="avatar-img" style="display:none;" alt="头像">
             </div>
             <div class="profile-info">
-              <h3 style="margin:0;font-size:16px;" id="profile-name"></h3>
+              <h3 style="margin:0;font-size:16px;cursor:pointer;border-bottom:1px dashed transparent;transition:border-color 0.15s;" id="profile-name" onclick="editName('parent')" title="点击编辑"></h3>
               <p style="color:var(--text-hint);font-size:13px;">家长</p>
             </div>
-            <span class="profile-edit-btn" onclick="showEditProfileModal()">
-              <svg class="icon"><use href="#icon-edit"/></svg> 编辑
-            </span>
           </div>
         </div>
 
@@ -1749,11 +1728,11 @@
               <img class="avatar-img" style="display:none;" alt="头像">
             </div>
             <div style="flex:1;">
-              <b id="child-name" style="display:block;margin-bottom:2px;"></b>
+              <b id="child-name" style="display:block;margin-bottom:2px;cursor:pointer;border-bottom:1px dashed transparent;transition:border-color 0.15s;" onclick="editName('child')" title="点击编辑"></b>
               <div class="profile-child-detail">
-                <span id="child-grade-text"></span>
+                <span id="child-grade-text" style="cursor:pointer;border-bottom:1px dashed transparent;transition:border-color 0.15s;" onclick="editChildGrade()" title="点击编辑"></span>
                 <span class="sep">·</span>
-                <span id="child-class-text"></span>
+                <span id="child-class-text" style="cursor:pointer;border-bottom:1px dashed transparent;transition:border-color 0.15s;" onclick="editChildClass()" title="点击编辑"></span>
               </div>
             </div>
           </div>
@@ -4594,64 +4573,62 @@
 
     var GRADES = ['一年级','二年级','三年级','四年级','五年级','六年级','初一','初二','初三','高一','高二','高三'];
 
-    function showEditProfileModal() {
+    // Popup editing: click name/grade/class to edit via modal popup
+    function _popupEdit(title, currentVal, onSave, opts) {
+      opts = opts || {};
       var overlay = document.getElementById('modal-overlay');
+      var inputHtml;
+      if (opts.type === 'select') {
+        inputHtml = '<select class="field-select" id="popup-input" style="width:100%;">' +
+          GRADES.map(function(g) {
+            return '<option value="' + g + '"' + (g === currentVal ? ' selected' : '') + '>' + g + '</option>';
+          }).join('') + '</select>';
+      } else {
+        inputHtml = '<input class="field-input" id="popup-input" value="' + currentVal + '" placeholder="' + (opts.placeholder || '') + '" style="width:100%;">';
+      }
 
-      var gradeOptions = GRADES.map(function(g) {
-        return '<option value="' + g + '"' + (mockData.user.child.grade === g ? ' selected' : '') + '>' + g + '</option>';
-      }).join('');
-
-      var html = '';
-      html += '<div class="modal-content" onclick="event.stopPropagation()">';
+      var html = '<div class="modal-content" onclick="event.stopPropagation()" style="max-width:300px;">';
       html += '<span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>';
-      html += '<h3 style="margin-bottom:16px;text-align:center;"><svg class="icon"><use href="#icon-edit"/></svg> 编辑资料</h3>';
-
-      html += '<label class="field-label">家长称呼</label>';
-      html += '<input class="field-input" id="edit-parent-name" value="' + mockData.user.name + '" placeholder="您的称呼">';
-
-      html += '<label class="field-label" style="margin-top:12px;">孩子姓名</label>';
-      html += '<input class="field-input" id="edit-child-name" value="' + mockData.user.child.name + '" placeholder="孩子姓名">';
-
-      html += '<div style="display:flex;gap:10px;margin-top:12px;">';
-      html += '<div style="flex:1;"><label class="field-label">年级</label><select class="field-select" id="edit-child-grade" style="width:100%;">' + gradeOptions + '</select></div>';
-      html += '<div style="flex:1;"><label class="field-label">班级</label><input class="field-input" id="edit-child-class" value="' + mockData.user.child.className + '" placeholder="如 2班"></div>';
-      html += '</div>';
-
-      html += '<div style="display:flex;gap:10px;margin-top:16px;">';
+      html += '<h3 style="margin-bottom:14px;text-align:center;font-size:16px;">' + title + '</h3>';
+      html += inputHtml;
+      html += '<div style="display:flex;gap:10px;margin-top:14px;">';
       html += '<button class="btn btn-outline" onclick="closeSubscribeModal()" style="flex:1;">取消</button>';
-      html += '<button class="btn btn-primary" onclick="saveProfile()" style="flex:1;"><svg class="icon"><use href="#icon-check"/></svg> 保存</button>';
-      html += '</div>';
-
-      html += '</div>';
+      html += '<button class="btn btn-primary" onclick="closeSubscribeModal();var v=document.getElementById(\'popup-input\').value.trim();if(v)onSave(v);" style="flex:1;">保存</button>';
+      html += '</div></div>';
       overlay.innerHTML = html;
       overlay.style.display = 'flex';
 
-      // Focus first input
       setTimeout(function() {
-        var firstInput = document.getElementById('edit-parent-name');
-        if (firstInput) { firstInput.focus(); firstInput.select(); }
+        var inp = document.getElementById('popup-input');
+        if (inp) { inp.focus(); if (inp.tagName !== 'SELECT') inp.select(); }
       }, 100);
     }
 
-    function saveProfile() {
-      var parentName = document.getElementById('edit-parent-name').value.trim();
-      var childName = document.getElementById('edit-child-name').value.trim();
-      var childGrade = document.getElementById('edit-child-grade').value;
-      var childClass = document.getElementById('edit-child-class').value.trim();
+    function editName(who) {
+      var currentVal = who === 'parent' ? mockData.user.name : mockData.user.child.name;
+      var title = who === 'parent' ? '编辑家长称呼' : '编辑孩子姓名';
+      _popupEdit(title, currentVal, function(v) {
+        if (who === 'parent') mockData.user.name = v;
+        else mockData.user.child.name = v;
+        saveState();
+        initProfile();
+      });
+    }
 
-      if (!parentName) { showToast('请填写家长称呼'); return; }
-      if (!childName) { showToast('请填写孩子姓名'); return; }
-      if (!childClass) { showToast('请填写班级'); return; }
+    function editChildGrade() {
+      _popupEdit('选择年级', mockData.user.child.grade, function(v) {
+        mockData.user.child.grade = v;
+        saveState();
+        initProfile();
+      }, { type: 'select' });
+    }
 
-      mockData.user.name = parentName;
-      mockData.user.child.name = childName;
-      mockData.user.child.grade = childGrade;
-      mockData.user.child.className = childClass;
-
-      saveState();
-      closeSubscribeModal();
-      initProfile();
-      showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 资料已保存');
+    function editChildClass() {
+      _popupEdit('编辑班级', mockData.user.child.className, function(v) {
+        mockData.user.child.className = v;
+        saveState();
+        initProfile();
+      }, { placeholder: '如 2班' });
     }
 
     function updateSubscriptionUI() {
