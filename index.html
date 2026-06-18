@@ -1026,6 +1026,86 @@
 
     .profile-info { flex: 1; }
 
+    .profile-field {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      padding: 2px 4px;
+      margin: -2px -4px;
+      transition: background 0.15s;
+      position: relative;
+    }
+    .profile-field:hover { background: var(--primary-light); }
+
+    .profile-edit-icon {
+      opacity: 0;
+      font-size: 14px;
+      color: var(--primary);
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+    .profile-field:hover .profile-edit-icon { opacity: 1; }
+
+    .profile-inline-form {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .profile-inline-input {
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+      border: none;
+      border-bottom: 2px solid var(--primary);
+      background: transparent;
+      padding: 2px 0;
+      outline: none;
+      font-family: inherit;
+      min-width: 60px;
+    }
+    .profile-inline-select {
+      font-size: 12px;
+      color: var(--text-secondary);
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 2px 6px;
+      outline: none;
+      background: #fff;
+      font-family: inherit;
+    }
+    .profile-inline-btn {
+      width: 20px; height: 20px;
+      border: none;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      flex-shrink: 0;
+      transition: opacity 0.15s;
+    }
+    .profile-inline-btn.confirm {
+      background: var(--primary);
+      color: #fff;
+    }
+    .profile-inline-btn.cancel {
+      background: #ddd;
+      color: #666;
+    }
+    .profile-inline-btn:active { opacity: 0.7; }
+
+    .profile-child-detail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-hint);
+      font-size: 12px;
+    }
+    .profile-child-detail .sep { color: #ccc; }
+
     .menu-list {
       background: #fff;
       border-radius: var(--radius-lg);
@@ -1704,8 +1784,13 @@
             <svg class="icon avatar-placeholder"><use href="#icon-user"/></svg>
             <img class="avatar-img" style="display:none;" alt="头像">
           </div>
-          <div class="profile-info" style="flex:1;">
-            <h3 id="profile-name" onclick="editProfileField('parent-name')" style="cursor:pointer;" title="点击编辑称呼"></h3>
+          <div class="profile-info">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span class="profile-field" id="field-parent-name" onclick="editProfileInline('parent-name')" title="点击编辑称呼">
+                <h3 style="margin:0;font-size:16px;" id="profile-name"></h3>
+                <span class="profile-edit-icon" id="edit-icon-parent-name"><svg class="icon" style="width:14px;height:14px;"><use href="#icon-edit"/></svg></span>
+              </span>
+            </div>
             <p style="color:var(--text-hint);font-size:13px;">家长</p>
           </div>
         </div>
@@ -1717,8 +1802,23 @@
               <img class="avatar-img" style="display:none;" alt="头像">
             </div>
             <div style="flex:1;">
-              <b id="child-name" onclick="editProfileField('child-name')" style="cursor:pointer;" title="点击编辑姓名"></b>
-              <p style="color:var(--text-hint);font-size:12px;cursor:pointer;" id="child-info" onclick="editProfileField('child-info')" title="点击编辑年级班级"></p>
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;">
+                <span class="profile-field" id="field-child-name" onclick="editProfileInline('child-name')" title="点击编辑姓名">
+                  <b id="child-name"></b>
+                  <span class="profile-edit-icon" id="edit-icon-child-name"><svg class="icon" style="width:14px;height:14px;"><use href="#icon-edit"/></svg></span>
+                </span>
+              </div>
+              <div class="profile-child-detail">
+                <span class="profile-field" id="field-child-grade" onclick="editProfileInline('child-grade')" title="点击编辑年级">
+                  <span id="child-grade-text"></span>
+                  <span class="profile-edit-icon" id="edit-icon-child-grade"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-edit"/></svg></span>
+                </span>
+                <span class="sep">·</span>
+                <span class="profile-field" id="field-child-class" onclick="editProfileInline('child-class')" title="点击编辑班级">
+                  <span id="child-class-text"></span>
+                  <span class="profile-edit-icon" id="edit-icon-child-class"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-edit"/></svg></span>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -1745,8 +1845,8 @@
             <span><svg class="icon"><use href="#icon-camera"/></svg> 批改记录</span>
             <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
-          <div class="menu-item" onclick="showSettings()">
-            <span><svg class="icon"><use href="#icon-settings"/></svg> 设置</span>
+          <div class="menu-item" onclick="resetAllData()">
+            <span><svg class="icon"><use href="#icon-trash"/></svg> 恢复出厂设置</span>
             <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
           <div class="menu-item" onclick="showToast('关于作业批改助手 v1.0')">
@@ -1755,7 +1855,7 @@
           </div>
         </div>
 
-        <p style="text-align:center;color:var(--text-hint);font-size:11px;margin-top:20px;cursor:pointer;" onclick="localStorage.clear();location.reload();" title="点击重置演示数据">作业批改助手 v1.0 · 演示版</p>
+        <p style="text-align:center;color:var(--text-hint);font-size:11px;margin-top:20px;">作业批改助手 v1.0 · 演示版</p>
       </div>
     </main>
 
@@ -4440,60 +4540,6 @@
       showToast('打印历史已清空');
     }
 
-    function showSettings() {
-      var overlay = document.getElementById('modal-overlay');
-      var grades = ['一年级','二年级','三年级','四年级','五年级','六年级','初一','初二','初三','高一','高二','高三'];
-      var gradeOptions = grades.map(function(g) {
-        return '<option value="' + g + '"' + (mockData.user.child.grade === g ? ' selected' : '') + '>' + g + '</option>';
-      }).join('');
-
-      var html = '<div class="modal-content" style="max-height:80vh;"><span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>';
-      html += '<h3 style="margin-bottom:16px;"><svg class="icon"><use href="#icon-settings"/></svg> 设置</h3>';
-
-      html += '<label class="field-label">家长称呼</label>';
-      html += '<input class="field-input" id="set-parent-name" value="' + mockData.user.name + '" placeholder="您的称呼" style="margin-bottom:12px;">';
-
-      html += '<label class="field-label">孩子姓名</label>';
-      html += '<input class="field-input" id="set-child-name" value="' + mockData.user.child.name + '" placeholder="孩子姓名" style="margin-bottom:12px;">';
-
-      html += '<div style="display:flex;gap:8px;margin-bottom:16px;">';
-      html += '<div style="flex:1;"><label class="field-label">年级</label><select class="field-select" id="set-child-grade" style="width:100%;">' + gradeOptions + '</select></div>';
-      html += '<div style="flex:1;"><label class="field-label">班级</label><input class="field-input" id="set-child-class" value="' + mockData.user.child.className + '" placeholder="2班"></div>';
-      html += '</div>';
-
-      html += '<button class="btn btn-primary btn-block" onclick="saveSettings()"><svg class="icon"><use href="#icon-check"/></svg> 保存</button>';
-
-      html += '<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border);">';
-      html += '<button class="btn btn-outline btn-block" onclick="resetAllData()" style="color:var(--danger);border-color:var(--danger);"><svg class="icon"><use href="#icon-trash"/></svg> 恢复出厂设置</button>';
-      html += '</div>';
-
-      html += '</div>';
-      overlay.innerHTML = html;
-      overlay.style.display = 'flex';
-    }
-
-    function saveSettings() {
-      var parentName = document.getElementById('set-parent-name').value.trim();
-      var childName = document.getElementById('set-child-name').value.trim();
-      var childGrade = document.getElementById('set-child-grade').value;
-      var childClass = document.getElementById('set-child-class').value.trim();
-
-      if (!parentName || !childName) {
-        showToast('请填写完整信息');
-        return;
-      }
-
-      mockData.user.name = parentName;
-      mockData.user.child.name = childName;
-      mockData.user.child.grade = childGrade;
-      mockData.user.child.className = childClass;
-
-      saveState();
-      closeSubscribeModal();
-      initProfile();
-      showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 设置已保存');
-    }
-
     function resetAllData() {
       if (confirm('确定要清除所有数据吗？此操作不可恢复。')) {
         localStorage.clear();
@@ -4571,57 +4617,132 @@
       document.getElementById('profile-name').textContent = mockData.user.name;
       renderAvatar('parent', mockData.user.avatar);
       document.getElementById('child-name').textContent = mockData.user.child.name;
-      document.getElementById('child-info').textContent =
-        mockData.user.child.grade + ' · ' + mockData.user.child.className;
+      document.getElementById('child-grade-text').textContent = mockData.user.child.grade;
+      document.getElementById('child-class-text').textContent = mockData.user.child.className;
       renderAvatar('child', mockData.user.child.avatar);
 
       updateSubscriptionUI();
     }
 
-    function editProfileField(field) {
-      var el, currentVal;
+    var GRADES = ['一年级','二年级','三年级','四年级','五年级','六年级','初一','初二','初三','高一','高二','高三'];
+    var _activeEditField = null;
+
+    function cancelAllEdits() {
+      if (_activeEditField) {
+        initProfile();
+        _activeEditField = null;
+      }
+    }
+
+    function editProfileInline(field) {
+      // If another field is being edited, commit it first
+      if (_activeEditField && _activeEditField !== field) {
+        commitEdit(_activeEditField);
+      }
+      _activeEditField = field;
+
+      var fieldEl, containerId;
       if (field === 'parent-name') {
-        el = document.getElementById('profile-name');
+        containerId = 'field-parent-name';
+      } else if (field === 'child-name') {
+        containerId = 'field-child-name';
+      } else if (field === 'child-grade') {
+        containerId = 'field-child-grade';
+      } else if (field === 'child-class') {
+        containerId = 'field-child-class';
+      }
+      fieldEl = document.getElementById(containerId);
+      if (!fieldEl) return;
+
+      // Hide edit icon during edit
+      var editIcon = document.getElementById('edit-icon-' + field);
+      if (editIcon) editIcon.style.display = 'none';
+
+      var currentVal;
+      if (field === 'parent-name') {
         currentVal = mockData.user.name;
       } else if (field === 'child-name') {
-        el = document.getElementById('child-name');
         currentVal = mockData.user.child.name;
-      } else if (field === 'child-info') {
-        el = document.getElementById('child-info');
-        currentVal = mockData.user.child.grade + ' · ' + mockData.user.child.className;
+      } else if (field === 'child-grade') {
+        currentVal = mockData.user.child.grade;
+      } else if (field === 'child-class') {
+        currentVal = mockData.user.child.className;
       }
 
-      var input = document.createElement('input');
-      input.type = 'text';
-      input.value = currentVal;
-      input.style.cssText = 'font-size:' + (field === 'child-info' ? '12px' : 'inherit') + ';font-weight:' + (field === 'child-info' ? 'normal' : 'bold') + ';border:none;border-bottom:2px solid var(--primary);background:transparent;padding:2px 0;width:100%;outline:none;color:inherit;';
-      el.innerHTML = '';
-      el.appendChild(input);
-      input.focus();
-      input.select();
+      var formHtml = '';
+      if (field === 'child-grade') {
+        formHtml += '<span class="profile-inline-form">';
+        formHtml += '<select class="profile-inline-select" id="inline-input-' + field + '">';
+        GRADES.forEach(function(g) {
+          formHtml += '<option value="' + g + '"' + (g === currentVal ? ' selected' : '') + '>' + g + '</option>';
+        });
+        formHtml += '</select>';
+        formHtml += '<button class="profile-inline-btn confirm" onclick="event.stopPropagation();commitEdit(\'' + field + '\')"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-check"/></svg></button>';
+        formHtml += '<button class="profile-inline-btn cancel" onclick="event.stopPropagation();cancelEdit(\'' + field + '\')"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-x"/></svg></button>';
+        formHtml += '</span>';
+      } else {
+        formHtml += '<span class="profile-inline-form">';
+        formHtml += '<input class="profile-inline-input" id="inline-input-' + field + '" type="text" value="' + currentVal.replace(/"/g, '&quot;') + '" style="width:' + Math.max(currentVal.length * 1.1, 4) + 'ch;min-width:60px;">';
+        formHtml += '<button class="profile-inline-btn confirm" onclick="event.stopPropagation();commitEdit(\'' + field + '\')"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-check"/></svg></button>';
+        formHtml += '<button class="profile-inline-btn cancel" onclick="event.stopPropagation();cancelEdit(\'' + field + '\')"><svg class="icon" style="width:12px;height:12px;"><use href="#icon-x"/></svg></button>';
+        formHtml += '</span>';
+      }
 
-      var save = function() {
-        var v = input.value.trim();
-        if (!v) { initProfile(); return; }
+      fieldEl.innerHTML = formHtml;
 
-        if (field === 'parent-name') {
-          mockData.user.name = v;
-        } else if (field === 'child-name') {
-          mockData.user.child.name = v;
-        } else if (field === 'child-info') {
-          var parts = v.split('·').map(function(s) { return s.trim(); });
-          if (parts.length >= 1) mockData.user.child.grade = parts[0];
-          if (parts.length >= 2) mockData.user.child.className = parts[1];
+      var input = document.getElementById('inline-input-' + field);
+      if (input) {
+        input.focus();
+        if (input.tagName === 'INPUT') input.select();
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') { e.preventDefault(); commitEdit(field); }
+          if (e.key === 'Escape') { e.preventDefault(); cancelEdit(field); }
+        });
+      }
+
+      // Close on click outside
+      setTimeout(function() {
+        document.addEventListener('click', outsideClickHandler);
+      }, 0);
+    }
+
+    function outsideClickHandler(e) {
+      if (_activeEditField) {
+        var container = document.getElementById('field-' + _activeEditField);
+        if (container && !container.contains(e.target)) {
+          commitEdit(_activeEditField);
         }
-        saveState();
-        initProfile();
-        showToast('已更新');
-      };
+      }
+    }
 
-      input.addEventListener('blur', save);
-      input.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') { input.blur(); }
-      });
+    function commitEdit(field) {
+      document.removeEventListener('click', outsideClickHandler);
+      var input = document.getElementById('inline-input-' + field);
+      if (!input) { cancelEdit(field); return; }
+
+      var v = input.value.trim();
+      if (!v) { cancelEdit(field); return; }
+
+      if (field === 'parent-name') {
+        mockData.user.name = v;
+      } else if (field === 'child-name') {
+        mockData.user.child.name = v;
+      } else if (field === 'child-grade') {
+        mockData.user.child.grade = v;
+      } else if (field === 'child-class') {
+        mockData.user.child.className = v;
+      }
+
+      saveState();
+      _activeEditField = null;
+      initProfile();
+      showToast('已更新');
+    }
+
+    function cancelEdit(field) {
+      document.removeEventListener('click', outsideClickHandler);
+      _activeEditField = null;
+      initProfile();
     }
 
     function updateSubscriptionUI() {
