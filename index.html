@@ -4574,8 +4574,11 @@
     var GRADES = ['一年级','二年级','三年级','四年级','五年级','六年级','初一','初二','初三','高一','高二','高三'];
 
     // Popup editing: click name/grade/class to edit via modal popup
+    var _popupOnSave = null;
+
     function _popupEdit(title, currentVal, onSave, opts) {
       opts = opts || {};
+      _popupOnSave = onSave;
       var overlay = document.getElementById('modal-overlay');
       var inputHtml;
       if (opts.type === 'select') {
@@ -4593,7 +4596,7 @@
       html += inputHtml;
       html += '<div style="display:flex;gap:10px;margin-top:14px;">';
       html += '<button class="btn btn-outline" onclick="closeSubscribeModal()" style="flex:1;">取消</button>';
-      html += '<button class="btn btn-primary" onclick="closeSubscribeModal();var v=document.getElementById(\'popup-input\').value.trim();if(v)onSave(v);" style="flex:1;">保存</button>';
+      html += '<button class="btn btn-primary" onclick="\n        var v = document.getElementById(\'popup-input\').value.trim();\n        if (v) _popupOnSave(v);\n        closeSubscribeModal();\n      " style="flex:1;">保存</button>';
       html += '</div></div>';
       overlay.innerHTML = html;
       overlay.style.display = 'flex';
