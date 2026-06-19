@@ -2650,6 +2650,10 @@
           if (state.childGrade) mockData.user.child.grade = state.childGrade;
           if (state.childClass) mockData.user.child.className = state.childClass;
           if (state.fontSize) mockData.fontSize = state.fontSize;
+          if (state.homework) mockData.homework = state.homework;
+          if (state.gradingResults) mockData.gradingResults = state.gradingResults;
+          if (state.knowledgePoints) mockData.knowledgePoints = state.knowledgePoints;
+          if (state.subjects) mockData.subjects = state.subjects;
         }
       } catch(e) { /* ignore */ }
     }
@@ -2668,6 +2672,10 @@
         childGrade: mockData.user.child.grade,
         childClass: mockData.user.child.className,
         fontSize: mockData.fontSize || 'medium',
+        homework: mockData.homework,
+        gradingResults: mockData.gradingResults,
+        knowledgePoints: mockData.knowledgePoints,
+        subjects: mockData.subjects,
       }));
     }
 
