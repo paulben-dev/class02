@@ -28,6 +28,11 @@
       --max-width: 414px;
     }
 
+    /* Font size tiers */
+    html[data-font-size="small"]  { --font-lg: 13px; --font-md: 12px; --font-sm: 10px; }
+    html[data-font-size="large"]  { --font-lg: 19px; --font-md: 16px; --font-sm: 14px; }
+    /* medium = default (16/14/12), no override needed */
+
     *, *::before, *::after {
       margin: 0;
       padding: 0;
