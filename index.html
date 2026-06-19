@@ -4738,6 +4738,15 @@
       }
     }
 
+    function applyFontSize() {
+      var size = mockData.fontSize || 'medium';
+      document.documentElement.setAttribute('data-font-size', size);
+      var label = document.getElementById('font-size-label');
+      if (label) {
+        label.textContent = { small: '小', medium: '标准', large: '大' }[size] || '标准';
+      }
+    }
+
     function initProfile() {
       document.getElementById('profile-name').textContent = mockData.user.name;
       renderAvatar('parent', mockData.user.avatar);
@@ -5108,6 +5117,7 @@
     // Initialization
     // ============================================================
     function init() {
+      applyFontSize();
       renderPhotoGrid();
       refreshHomeworkSelector();
       renderHomeworkList();
