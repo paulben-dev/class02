@@ -4794,6 +4794,46 @@
       }, 100);
     }
 
+    function showFontSizePicker() {
+      var current = mockData.fontSize || 'medium';
+      var options = [
+        { value: 'small',  label: '小',  desc: '13px / 12px / 10px' },
+        { value: 'medium', label: '标准', desc: '16px / 14px / 12px' },
+        { value: 'large',  label: '大',  desc: '19px / 16px / 14px' },
+      ];
+
+      var cardsHtml = options.map(function(o) {
+        var isActive = o.value === current;
+        return '<div class="font-size-option' + (isActive ? ' active' : '') + '"'
+          + ' onclick="selectFontSize(\'' + o.value + '\')"'
+          + ' style="'
+          + 'flex:1;text-align:center;padding:16px 8px;border-radius:12px;'
+          + 'border:2px solid ' + (isActive ? 'var(--primary)' : 'var(--border)') + ';'
+          + 'cursor:pointer;transition:all 0.2s;'
+          + '">'
+          + '<div style="font-size:22px;font-weight:700;margin-bottom:6px;">' + o.label + '</div>'
+          + '<div style="font-size:11px;color:var(--text-hint);">' + o.desc + '</div>'
+          + (isActive ? '<div style="color:var(--primary);margin-top:6px;font-size:12px;">✓ 当前</div>' : '')
+          + '</div>';
+      }).join('');
+
+      var overlay = document.getElementById('modal-overlay');
+      var html = '<div class="modal-content" onclick="event.stopPropagation()" style="max-width:370px;">'
+        + '<span class="modal-close" onclick="closeSubscribeModal()"><svg class="icon"><use href="#icon-x"/></svg></span>'
+        + '<h3 style="margin-bottom:16px;text-align:center;">字体大小</h3>'
+        + '<div style="display:flex;gap:10px;">' + cardsHtml + '</div>'
+        + '</div>';
+      overlay.innerHTML = html;
+      overlay.style.display = 'flex';
+    }
+
+    function selectFontSize(size) {
+      mockData.fontSize = size;
+      saveState();
+      applyFontSize();
+      closeSubscribeModal();
+    }
+
     function editName(who) {
       var currentVal = who === 'parent' ? mockData.user.name : mockData.user.child.name;
       var title = who === 'parent' ? '编辑家长称呼' : '编辑孩子姓名';
