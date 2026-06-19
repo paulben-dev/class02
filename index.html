@@ -2649,6 +2649,7 @@
           if (state.childName) mockData.user.child.name = state.childName;
           if (state.childGrade) mockData.user.child.grade = state.childGrade;
           if (state.childClass) mockData.user.child.className = state.childClass;
+          if (state.fontSize) mockData.fontSize = state.fontSize;
         }
       } catch(e) { /* ignore */ }
     }
@@ -2666,6 +2667,7 @@
         childName: mockData.user.child.name,
         childGrade: mockData.user.child.grade,
         childClass: mockData.user.child.className,
+        fontSize: mockData.fontSize || 'medium',
       }));
     }
 
