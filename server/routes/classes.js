@@ -8,8 +8,9 @@ router.get('/', authMiddleware, async (req, res) => {
   try {
     let sql, params;
     if (req.user.role === 'teacher') {
-      sql = 'SELECT c.id, c.name, c.grade_level, s.name as school_name FROM classes c LEFT JOIN schools s ON c.school_id = s.id WHERE c.teacher_id = ? ORDER BY c.grade_level, c.name';
-      params = [req.user.id];
+      // Teachers can teach multiple classes — show all classes
+      sql = 'SELECT c.id, c.name, c.grade_level, s.name as school_name FROM classes c LEFT JOIN schools s ON c.school_id = s.id ORDER BY c.grade_level, c.name';
+      params = [];
     } else if (req.user.role === 'parent') {
       // Parents see classes their children are in
       sql = 'SELECT DISTINCT c.id, c.name, c.grade_level, s.name as school_name FROM classes c JOIN students st ON c.id = st.class_id LEFT JOIN schools s ON c.school_id = s.id WHERE st.parent_id = ? ORDER BY c.grade_level, c.name';
