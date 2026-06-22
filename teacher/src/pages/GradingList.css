@@ -1,0 +1,177 @@
+.grading-list {
+  padding: 32px;
+  max-width: 900px;
+}
+
+.gl-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 24px;
+}
+
+/* States */
+.gl-loading {
+  padding: 48px 0;
+  text-align: center;
+  font-size: 15px;
+  color: #999;
+}
+
+.gl-error {
+  background: #fff0f0;
+  color: #d93025;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 14px;
+}
+
+.gl-empty {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  padding: 64px 24px;
+  text-align: center;
+  color: #bbb;
+  font-size: 15px;
+}
+
+.gl-empty-hint {
+  font-size: 13px;
+  color: #ccc;
+  margin-top: 8px;
+}
+
+/* List */
+.gl-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Card */
+.gl-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.gl-card:hover {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.gl-card-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gl-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gl-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gl-card-meta {
+  font-size: 12px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.gl-meta-sep {
+  color: #ddd;
+}
+
+/* Card progress */
+.gl-card-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gl-progress-bar {
+  flex: 0 0 120px;
+  height: 6px;
+  background: #eef1f5;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.gl-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4A90D9, #6db3f2);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.gl-progress-text {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.gl-progress-loading {
+  font-size: 12px;
+  color: #bbb;
+}
+
+/* Card arrow */
+.gl-card-arrow {
+  font-size: 28px;
+  color: #ccc;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.gl-card:hover .gl-card-arrow {
+  color: #4A90D9;
+}
+
+/* Badges */
+.gl-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.gl-badge-active {
+  background: #e6f0ff;
+  color: #4A90D9;
+}
+
+.gl-badge-closed {
+  background: #e6f9e6;
+  color: #389e0d;
+}
+
+.gl-badge-draft {
+  background: #f5f5f5;
+  color: #999;
+}
