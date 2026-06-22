@@ -1,20 +1,76 @@
-import { useAuth } from '../context/AuthContext';
+import { useState, useEffect } from 'react';
+import { getHomeworkList } from '../api/client';
 import { Link } from 'react-router-dom';
+import './Dashboard.css';
 
 export default function Dashboard() {
-  const { user, logout } = useAuth();
+  const [homework, setHomework] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getHomeworkList({})
+      .then(res => {
+        setHomework(res.data.data || []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return <div className="dashboard-loading">加载中...</div>;
+  }
+
+  const active = homework.filter(h => h.status === 'active');
+  const closed = homework.filter(h => h.status === 'closed');
+
+  const statusBadge = (status) => {
+    if (status === 'active') return <span className="hw-badge hw-badge-active">进行中</span>;
+    if (status === 'closed') return <span className="hw-badge hw-badge-closed">已完成</span>;
+    return <span className="hw-badge hw-badge-draft">草稿</span>;
+  };
 
   return (
-    <div style={{ maxWidth: 800, margin: '40px auto', padding: 24 }}>
-      <h1>Dashboard</h1>
-      <p>Welcome, {user?.username || 'Teacher'}</p>
-      <nav style={{ display: 'flex', gap: 16, marginTop: 16 }}>
-        <Link to="/assign">Assign Homework</Link>
-        <Link to="/grading">Grading List</Link>
-      </nav>
-      <button onClick={logout} style={{ marginTop: 24, padding: '8px 16px' }}>
-        Logout
-      </button>
+    <div className="dashboard">
+      <h1 className="dashboard-title">工作台</h1>
+
+      <div className="stats-cards">
+        <div className="stat-card stat-card-active">
+          <span className="stat-num">{active.length}</span>
+          <span className="stat-label">进行中作业</span>
+        </div>
+        <div className="stat-card stat-card-closed">
+          <span className="stat-num">{closed.length}</span>
+          <span className="stat-label">已完成</span>
+        </div>
+        <div className="stat-card stat-card-total">
+          <span className="stat-num">{homework.length}</span>
+          <span className="stat-label">全部作业</span>
+        </div>
+      </div>
+
+      <div className="dashboard-section">
+        <h2 className="section-title">最近作业</h2>
+        {homework.length === 0 ? (
+          <div className="empty-state">暂无作业</div>
+        ) : (
+          <div className="hw-list">
+            {homework.slice(0, 10).map(hw => (
+              <div key={hw.id} className="hw-card">
+                <div className="hw-card-info">
+                  <strong className="hw-title">{hw.title}</strong>
+                  <span className="hw-meta">
+                    {hw.class_name} · {hw.teacher_name} · {hw.deadline}
+                  </span>
+                </div>
+                <div className="hw-card-actions">
+                  {statusBadge(hw.status)}
+                  <Link to={`/grading/${hw.id}`} className="hw-view-link">查看</Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

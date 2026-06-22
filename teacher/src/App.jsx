@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import Layout from './components/Layout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import AssignHomework from './pages/AssignHomework';
@@ -11,16 +12,28 @@ function PrivateRoute({ children }) {
   return user ? children : <Navigate to="/login" />;
 }
 
+function AuthenticatedLayout() {
+  return (
+    <PrivateRoute>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/assign" element={<AssignHomework />} />
+          <Route path="/grading" element={<GradingList />} />
+          <Route path="/grading/:id" element={<GradingDetail />} />
+        </Routes>
+      </Layout>
+    </PrivateRoute>
+  );
+}
+
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/assign" element={<PrivateRoute><AssignHomework /></PrivateRoute>} />
-          <Route path="/grading" element={<PrivateRoute><GradingList /></PrivateRoute>} />
-          <Route path="/grading/:id" element={<PrivateRoute><GradingDetail /></PrivateRoute>} />
+          <Route path="/*" element={<AuthenticatedLayout />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
