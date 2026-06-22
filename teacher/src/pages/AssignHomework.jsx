@@ -87,7 +87,7 @@ export default function AssignHomework() {
   // Step 1: Basic info
   const [title, setTitle] = useState('');
   const [subjectId, setSubjectId] = useState('math');
-  const [classId, setClassId] = useState(null);
+  const [classId, setClassId] = useState('');
   const [classes, setClasses] = useState([]);
   const [type, setType] = useState('school');
   const [deadline, setDeadline] = useState('');
