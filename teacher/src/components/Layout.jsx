@@ -2,12 +2,25 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Layout.css';
 
+import { useState, useEffect } from 'react';
+import { getClasses } from '../api/client';
+
 export default function Layout({ children }) {
   const { user, logout } = useAuth();
   const { pathname } = useLocation();
+  const [schoolName, setSchoolName] = useState('');
 
   const SUBJECT_LABELS = { math: '数学', chinese: '语文', english: '英语', physics: '物理', chemistry: '化学' };
   const teacherSubjectLabel = SUBJECT_LABELS[user?.subject] || user?.subject || '';
+
+  useEffect(() => {
+    getClasses().then(res => {
+      const list = res.data.data || [];
+      if (list.length > 0 && list[0].school_name) {
+        setSchoolName(list[0].school_name);
+      }
+    }).catch(() => {});
+  }, []);
 
   const navLinks = [
     { to: '/', label: '工作台', icon: '📋' },
@@ -21,6 +34,7 @@ export default function Layout({ children }) {
         <div className="sidebar-header">
           <h2 className="sidebar-app-name">徽乐宝</h2>
           <span className="sidebar-role">教师端</span>
+          {schoolName && <span className="sidebar-school">{schoolName}</span>}
         </div>
         <nav className="sidebar-nav">
           {navLinks.map(link => (

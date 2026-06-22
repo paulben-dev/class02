@@ -8,14 +8,14 @@ router.get('/', authMiddleware, async (req, res) => {
   try {
     let sql, params;
     if (req.user.role === 'teacher') {
-      sql = 'SELECT id, name, grade_level FROM classes WHERE teacher_id = ? ORDER BY grade_level, name';
+      sql = 'SELECT c.id, c.name, c.grade_level, s.name as school_name FROM classes c LEFT JOIN schools s ON c.school_id = s.id WHERE c.teacher_id = ? ORDER BY c.grade_level, c.name';
       params = [req.user.id];
     } else if (req.user.role === 'parent') {
       // Parents see classes their children are in
-      sql = 'SELECT DISTINCT c.id, c.name, c.grade_level FROM classes c JOIN students s ON c.id = s.class_id WHERE s.parent_id = ? ORDER BY c.grade_level, c.name';
+      sql = 'SELECT DISTINCT c.id, c.name, c.grade_level, s.name as school_name FROM classes c JOIN students st ON c.id = st.class_id LEFT JOIN schools s ON c.school_id = s.id WHERE st.parent_id = ? ORDER BY c.grade_level, c.name';
       params = [req.user.id];
     } else {
-      sql = 'SELECT id, name, grade_level FROM classes ORDER BY grade_level, name';
+      sql = 'SELECT c.id, c.name, c.grade_level, s.name as school_name FROM classes c LEFT JOIN schools s ON c.school_id = s.id ORDER BY c.grade_level, c.name';
       params = [];
     }
     const [rows] = await pool.query(sql, params);

@@ -115,3 +115,10 @@ CREATE INDEX idx_submissions_homework ON homework_submissions(homework_id);
 CREATE INDEX idx_submissions_student ON homework_submissions(student_id);
 CREATE INDEX idx_questions_subject ON questions(subject_id);
 CREATE INDEX idx_questions_kp ON questions(knowledge_point);
+
+-- Schools (added via migration)
+CREATE TABLE IF NOT EXISTS schools (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
