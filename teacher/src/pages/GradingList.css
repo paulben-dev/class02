@@ -43,6 +43,56 @@
   margin-top: 8px;
 }
 
+/* Class filter */
+.gl-class-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.gl-filter-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+}
+
+.gl-filter-select {
+  padding: 8px 14px;
+  font-size: 13px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+  min-width: 160px;
+}
+
+.gl-filter-select:focus {
+  border-color: #4A90D9;
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.1);
+}
+
+/* Class groups */
+.gl-class-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.gl-class-group {
+  /* Each class is a section */
+}
+
+.gl-class-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #4A90D9;
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #eef1f5;
+}
+
 /* List */
 .gl-list {
   display: flex;
