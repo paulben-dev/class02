@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getQuestions, createHomework, getClasses } from '../api/client';
+import { useAuth } from '../context/AuthContext';
 import './AssignHomework.css';
 
 const SUBJECTS = [
@@ -80,13 +81,15 @@ const DIFFICULTY_LABELS = ['', '★', '★★', '★★★', '★★★★', '�
 
 export default function AssignHomework() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const teacherSubject = user?.subject || 'math';
 
   // Step state
   const [step, setStep] = useState(1);
 
   // Step 1: Basic info
   const [title, setTitle] = useState('');
-  const [subjectId, setSubjectId] = useState('math');
+  const [subjectId, setSubjectId] = useState(teacherSubject);
   const [classId, setClassId] = useState('');
   const [classes, setClasses] = useState([]);
   const [type, setType] = useState('school');
@@ -98,7 +101,7 @@ export default function AssignHomework() {
   const [questionsError, setQuestionsError] = useState('');
   const [selectedIds, setSelectedIds] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [filterSubject, setFilterSubject] = useState('math');
+  const [filterSubject, setFilterSubject] = useState(teacherSubject);
   const [filterKp, setFilterKp] = useState('');
   const [filterDifficulty, setFilterDifficulty] = useState(0);
   const [showAnswer, setShowAnswer] = useState({});
@@ -227,7 +230,7 @@ export default function AssignHomework() {
               <div className="ah-field ah-field-half">
                 <label className="ah-label">科目</label>
                 <div className="ah-subject-tabs">
-                  {SUBJECTS.map(s => (
+                  {SUBJECTS.filter(s => s.id === teacherSubject).map(s => (
                     <button
                       key={s.id}
                       className={`ah-subject-tab ${subjectId === s.id ? 'active' : ''}`}
@@ -307,9 +310,9 @@ export default function AssignHomework() {
                 onChange={e => setSearchKeyword(e.target.value)}
               />
             </div>
-            <div className="ah-filter-row">
+              <div className="ah-filter-row">
               <div className="ah-subject-tabs">
-                {SUBJECTS.map(s => (
+                {SUBJECTS.filter(s => s.id === teacherSubject).map(s => (
                   <button
                     key={s.id}
                     className={`ah-subject-tab ${filterSubject === s.id ? 'active' : ''}`}
