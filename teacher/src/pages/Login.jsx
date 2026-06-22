@@ -17,7 +17,7 @@ export default function Login() {
     setLoading(true);
     try {
       await login(username, password);
-      navigate('/');
+      window.location.href = '/';
     } catch (err) {
       setError(err.response?.data?.error || '登录失败');
     } finally {
