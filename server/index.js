@@ -12,6 +12,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use('/uploads', express.static('uploads'));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/classes', require('./routes/classes'));
 app.use('/api/homework', homeworkRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/submissions', submissionRoutes);

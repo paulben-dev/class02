@@ -34,6 +34,10 @@ export const getHomeworkStats = (id) => api.get(`/homework/${id}/stats`);
 export const getQuestions = (params) => api.get('/questions', { params });
 export const createQuestion = (data) => api.post('/questions', data);
 
+// Classes
+export const getClasses = () => api.get('/classes');
+export const getClassStudents = (id) => api.get(`/classes/${id}/students`);
+
 // Submissions
 export const getSubmissions = (homework_id) => api.get('/submissions', { params: { homework_id } });
 export const getSubmissionDetail = (id) => api.get(`/submissions/${id}`);

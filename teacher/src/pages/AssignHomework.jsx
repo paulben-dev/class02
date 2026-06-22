@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getQuestions, createHomework } from '../api/client';
+import { getQuestions, createHomework, getClasses } from '../api/client';
 import './AssignHomework.css';
 
 const SUBJECTS = [
@@ -11,14 +11,7 @@ const SUBJECTS = [
   { id: 'chemistry', label: '化学' },
 ];
 
-const CLASSES = [
-  { id: 1, name: '三年级1班' },
-  { id: 2, name: '三年级2班' },
-  { id: 3, name: '四年级1班' },
-];
-
 const SUBJECT_NAMES = Object.fromEntries(SUBJECTS.map(s => [s.id, s.label]));
-const CLASS_NAMES = Object.fromEntries(CLASSES.map(c => [c.id, c.name]));
 
 const KNOWLEDGE_POINTS = {
   math: [
@@ -94,7 +87,8 @@ export default function AssignHomework() {
   // Step 1: Basic info
   const [title, setTitle] = useState('');
   const [subjectId, setSubjectId] = useState('math');
-  const [classId, setClassId] = useState(1);
+  const [classId, setClassId] = useState(null);
+  const [classes, setClasses] = useState([]);
   const [type, setType] = useState('school');
   const [deadline, setDeadline] = useState('');
 
@@ -134,6 +128,17 @@ export default function AssignHomework() {
         setQuestionsLoading(false);
       });
   }, [step, filterSubject, filterKp, filterDifficulty, searchKeyword]);
+
+  // Load teacher's classes
+  useEffect(() => {
+    getClasses()
+      .then(res => {
+        const list = res.data.data || [];
+        setClasses(list);
+        if (list.length > 0 && !classId) setClassId(list[0].id);
+      })
+      .catch(() => {});
+  }, []);
 
   const toggleQuestion = (id) => {
     setSelectedIds(prev =>
@@ -240,7 +245,7 @@ export default function AssignHomework() {
                   value={classId}
                   onChange={e => setClassId(parseInt(e.target.value))}
                 >
-                  {CLASSES.map(c => (
+                  {classes.map(c => (
                     <option key={c.id} value={c.id}>{c.name}</option>
                   ))}
                 </select>

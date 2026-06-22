@@ -3,12 +3,19 @@ const pool = require('../db/connection');
 const { authMiddleware } = require('../middleware/auth');
 const router = express.Router();
 
-// List homework
+// List homework — teachers only see their own classes by default
 router.get('/', authMiddleware, async (req, res) => {
   try {
-    const { class_id, status, type } = req.query;
-    let sql = 'SELECT h.*, c.name as class_name, u.display_name as teacher_name FROM homework h JOIN classes c ON h.class_id = c.id JOIN users u ON h.teacher_id = u.id WHERE 1=1';
+    const { class_id, status, type, teacher_id, all } = req.query;
+    let sql = 'SELECT h.*, c.name as class_name, c.grade_level, u.display_name as teacher_name, u.subject as teacher_subject FROM homework h JOIN classes c ON h.class_id = c.id JOIN users u ON h.teacher_id = u.id WHERE 1=1';
     const params = [];
+
+    // Teachers only see their own homework by default (unless all=1 is passed)
+    if (req.user.role === 'teacher' && all !== '1') {
+      sql += ' AND h.teacher_id = ?';
+      params.push(req.user.id);
+    }
+    if (teacher_id) { sql += ' AND h.teacher_id = ?'; params.push(parseInt(teacher_id)); }
     if (class_id) { sql += ' AND h.class_id = ?'; params.push(parseInt(class_id)); }
     if (status) { sql += ' AND h.status = ?'; params.push(status); }
     if (type) { sql += ' AND h.type = ?'; params.push(type); }
