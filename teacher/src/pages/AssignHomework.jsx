@@ -138,7 +138,7 @@ export default function AssignHomework() {
       .then(res => {
         const list = res.data.data || [];
         setClasses(list);
-        if (list.length > 0 && !classId) setClassId(list[0].id);
+        if (list.length > 0) setClassId(list[0].id);
       })
       .catch(() => {});
   }, []);
@@ -248,6 +248,7 @@ export default function AssignHomework() {
                   value={classId}
                   onChange={e => setClassId(parseInt(e.target.value))}
                 >
+                  {classes.length === 0 && <option value="">加载中...</option>}
                   {classes.map(c => (
                     <option key={c.id} value={c.id}>{c.name}</option>
                   ))}
@@ -433,7 +434,7 @@ export default function AssignHomework() {
             </div>
             <div className="ah-summary-row">
               <span className="ah-summary-label">班级</span>
-              <span className="ah-summary-value">{CLASS_NAMES[classId]}</span>
+              <span className="ah-summary-value">{classes.find(c => c.id === classId)?.name || classId}</span>
             </div>
             <div className="ah-summary-row">
               <span className="ah-summary-label">类型</span>
