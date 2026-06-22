@@ -20,11 +20,11 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- Users (5 teachers, one per subject)
 -- ============================================================
 INSERT INTO users (id, username, password_hash, role, display_name, subject) VALUES
-(1, 'wang', '$2b$10$demo.wangteacher1234567890abcdef', 'teacher', '王老师', 'math'),
-(2, 'li',   '$2b$10$demo.liteacher1234567890abcdefg', 'teacher', '李老师', 'chinese'),
-(3, 'zhang','$2b$10$demo.zhangteacher1234567890abcd', 'teacher', '张老师', 'english'),
-(4, 'liu',  '$2b$10$demo.liuteacher1234567890abcdef', 'teacher', '刘老师', 'physics'),
-(5, 'chen', '$2b$10$demo.chenteacher1234567890abcdef', 'teacher', '陈老师', 'chemistry');
+(1, 'wang',  '$2b$10$QHJpiVWsAcg1WLudCyQ5.Oek1PUUobqaIzMGaFuB1zC2hhEuBESCG', 'teacher', '王老师', 'math'),
+(2, 'li',    '$2b$10$QHJpiVWsAcg1WLudCyQ5.Oek1PUUobqaIzMGaFuB1zC2hhEuBESCG', 'teacher', '李老师', 'chinese'),
+(3, 'zhang', '$2b$10$QHJpiVWsAcg1WLudCyQ5.Oek1PUUobqaIzMGaFuB1zC2hhEuBESCG', 'teacher', '张老师', 'english'),
+(4, 'liu',   '$2b$10$QHJpiVWsAcg1WLudCyQ5.Oek1PUUobqaIzMGaFuB1zC2hhEuBESCG', 'teacher', '刘老师', 'physics'),
+(5, 'chen',  '$2b$10$QHJpiVWsAcg1WLudCyQ5.Oek1PUUobqaIzMGaFuB1zC2hhEuBESCG', 'teacher', '陈老师', 'chemistry');
 
 -- ============================================================
 -- Classes (3 classes)
