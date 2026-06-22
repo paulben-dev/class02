@@ -1,22 +1,26 @@
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'class2-dev-secret-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET || 'class2-dev-secret';
 
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ error: 'Unauthorized' });
+function authMiddleware(req, res, next) {
+  const header = req.headers.authorization;
+  if (!header || !header.startsWith('Bearer ')) {
+    return res.status(401).json({ success: false, error: '未登录' });
   }
-
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) {
-      return res.status(403).json({ error: 'Forbidden' });
-    }
-    req.user = user;
+  try {
+    req.user = jwt.verify(header.slice(7), JWT_SECRET);
     next();
-  });
+  } catch (e) {
+    return res.status(401).json({ success: false, error: '登录已过期' });
+  }
 }
 
-module.exports = { authenticateToken, JWT_SECRET };
+function optionalAuth(req, res, next) {
+  const header = req.headers.authorization;
+  if (header && header.startsWith('Bearer ')) {
+    try { req.user = jwt.verify(header.slice(7), JWT_SECRET); } catch (e) {}
+  }
+  next();
+}
+
+module.exports = { authMiddleware, optionalAuth, JWT_SECRET };
