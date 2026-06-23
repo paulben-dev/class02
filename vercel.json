@@ -1,5 +1,6 @@
 {
   "buildCommand": "cd teacher && npm install && npm run build",
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" },
     { "source": "/teacher/(.*)", "destination": "/teacher/dist/$1" }
