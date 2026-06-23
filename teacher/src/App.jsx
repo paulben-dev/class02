@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import AssignHomework from './pages/AssignHomework';
 import GradingList from './pages/GradingList';
 import GradingDetail from './pages/GradingDetail';
+import Settings from './pages/Settings';
 
 function PrivateRoute({ children }) {
   const { user } = useAuth();
@@ -21,6 +22,7 @@ function AuthenticatedLayout() {
           <Route path="/assign" element={<AssignHomework />} />
           <Route path="/grading" element={<GradingList />} />
           <Route path="/grading/:id" element={<GradingDetail />} />
+              <Route path="/settings" element={<Settings />} />
         </Routes>
       </Layout>
     </PrivateRoute>

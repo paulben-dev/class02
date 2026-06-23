@@ -26,6 +26,7 @@ export default function Layout({ children }) {
     { to: '/', label: '工作台', icon: '📋' },
     { to: '/assign', label: '布置作业', icon: '📝' },
     { to: '/grading', label: '批改作业', icon: '✅' },
+    { to: '/settings', label: '设置', icon: '⚙️' },
   ];
 
   return (
