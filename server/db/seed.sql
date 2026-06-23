@@ -12,6 +12,7 @@ TRUNCATE TABLE homework_questions;
 TRUNCATE TABLE homework;
 TRUNCATE TABLE questions;
 TRUNCATE TABLE students;
+TRUNCATE TABLE teacher_classes;
 TRUNCATE TABLE classes;
 TRUNCATE TABLE users;
 SET FOREIGN_KEY_CHECKS = 1;
@@ -33,6 +34,16 @@ INSERT INTO classes (id, name, grade_level, teacher_id) VALUES
 (1, '三年级1班', '三年级', 1),
 (2, '三年级2班', '三年级', 2),
 (3, '四年级1班', '四年级', 4);
+
+-- ============================================================
+-- Teacher-Class assignments (migrated from classes.teacher_id)
+-- ============================================================
+INSERT INTO teacher_classes (teacher_id, class_id) VALUES
+(1, 1),   -- 王老师(math) teaches 三年级1班
+(2, 2),   -- 李老师(chinese) teaches 三年级2班
+(3, 2),   -- 张老师(english) teaches 三年级2班 (shares class 2 with 李老师)
+(4, 3),   -- 刘老师(physics) teaches 四年级1班
+(1, 3);   -- 王老师(math) also teaches 四年级1班
 
 -- ============================================================
 -- Students (15 students, 5 per class)

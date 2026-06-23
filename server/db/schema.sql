@@ -19,6 +19,14 @@ CREATE TABLE classes (
   FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+CREATE TABLE teacher_classes (
+  teacher_id INT NOT NULL,
+  class_id INT NOT NULL,
+  PRIMARY KEY (teacher_id, class_id),
+  FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 CREATE TABLE students (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
