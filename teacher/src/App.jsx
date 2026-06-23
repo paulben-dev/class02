@@ -32,7 +32,7 @@ function AuthenticatedLayout() {
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/teacher">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<AuthenticatedLayout />} />
