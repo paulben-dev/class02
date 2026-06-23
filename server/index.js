@@ -16,6 +16,8 @@ app.use('/api/classes', require('./routes/classes'));
 app.use('/api/homework', homeworkRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/submissions', submissionRoutes);
+app.use('/api/teacher', require('./routes/teacher'));
+app.use('/api/parent', require('./routes/parent'));
 
 app.get('/api/health', (req, res) => res.json({ success: true }));
 
