@@ -1,4 +1,4 @@
-require('dotenv').config();
+try { require('dotenv').config(); } catch (e) { /* dotenv not available on Vercel */ }
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');

@@ -1,0 +1,33 @@
+{
+  "name": "class2",
+  "version": "1.0.0",
+  "description": "纯静态网站，模拟微信小程序中的家长端作业批改功能。",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulben-dev/class02.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulben-dev/class02/issues"
+  },
+  "homepage": "https://github.com/paulben-dev/class02#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "mysql2": "^3.22.5",
+    "playwright": "^1.61.0"
+  }
+}
