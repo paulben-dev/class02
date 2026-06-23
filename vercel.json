@@ -4,6 +4,7 @@
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" },
-    { "source": "/teacher/(.*)", "destination": "/teacher/dist/$1" }
+    { "source": "/teacher/assets/(.*)", "destination": "/teacher/dist/assets/$1" },
+    { "source": "/teacher/(.*)", "destination": "/teacher/dist/index.html" }
   ]
 }
