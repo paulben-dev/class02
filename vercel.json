@@ -1,6 +1,6 @@
 {
   "installCommand": "npm install && cd teacher && npm install",
-  "buildCommand": "cd teacher && npm run build",
+  "buildCommand": "cd teacher && npm run build && rm -f index.html",
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" },
