@@ -35,8 +35,12 @@ export const getQuestions = (params) => api.get('/questions', { params });
 export const createQuestion = (data) => api.post('/questions', data);
 
 // Classes
-export const getClasses = () => api.get('/classes');
+export const getClasses = (params) => api.get('/classes', { params });
 export const getClassStudents = (id) => api.get(`/classes/${id}/students`);
+
+// Teacher settings
+export const getTeacherClasses = () => api.get('/teacher/classes');
+export const updateTeacherClasses = (classIds) => api.put('/teacher/classes', { class_ids: classIds });
 
 // Submissions
 export const getSubmissions = (homework_id) => api.get('/submissions', { params: { homework_id } });
