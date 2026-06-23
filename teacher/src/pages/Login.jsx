@@ -51,7 +51,7 @@ export default function Login() {
               required
             />
           </div>
-          <button type="submit" disabled={loading} className="login-btn" onClick={handleSubmit}>
+          <button type="submit" disabled={loading} className="login-btn">
             {loading ? '登录中...' : '登录'}
           </button>
         </form>
