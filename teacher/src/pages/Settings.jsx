@@ -8,6 +8,7 @@ export default function Settings() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState('');
+  const [toastError, setToastError] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -33,9 +34,11 @@ export default function Settings() {
     try {
       await updateTeacherClasses(selectedIds);
       setToast('设置已保存');
+      setToastError(false);
       setTimeout(() => setToast(''), 2000);
     } catch (e) {
       setToast('保存失败，请重试');
+      setToastError(true);
       setTimeout(() => setToast(''), 2000);
     } finally {
       setSaving(false);
@@ -59,7 +62,7 @@ export default function Settings() {
       <h1 className="settings-title">设置</h1>
       <p className="settings-subtitle">选择您任课的班级，设置后工作台、布置作业和批改作业将只显示所选班级。</p>
 
-      {toast && <div className="settings-toast">{toast}</div>}
+      {toast && <div className={`settings-toast ${toastError ? 'settings-toast-error' : ''}`}>{toast}</div>}
 
       <div className="settings-card">
         <h2 className="settings-card-title">任课班级</h2>

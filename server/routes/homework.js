@@ -45,38 +45,62 @@ router.get('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// Create homework
+// Create homework (supports multi-class: class_ids array)
 router.post('/', authMiddleware, async (req, res) => {
   const conn = await pool.getConnection();
   try {
     await conn.beginTransaction();
-    const { title, subject_id, class_id, deadline, type, question_ids } = req.body;
-    if (!title || !subject_id || !class_id || !deadline || !question_ids || !question_ids.length) {
+    const { title, subject_id, class_ids, deadline, type, question_ids } = req.body;
+
+    // Support both single class_id (legacy) and class_ids array
+    const ids = class_ids && class_ids.length ? class_ids : (req.body.class_id ? [req.body.class_id] : []);
+    if (!title || !subject_id || !ids.length || !deadline || !question_ids || !question_ids.length) {
       return res.status(400).json({ success: false, error: '缺少必填字段' });
     }
-    // Create homework
-    const [result] = await conn.query(
-      'INSERT INTO homework (title, subject_id, teacher_id, class_id, deadline, type) VALUES (?, ?, ?, ?, ?, ?)',
-      [title, subject_id, req.user.id, class_id, deadline, type || 'school']
-    );
-    const hwId = result.insertId;
-    // Attach questions
-    for (let i = 0; i < question_ids.length; i++) {
-      await conn.query(
-        'INSERT INTO homework_questions (homework_id, question_id, sort_order) VALUES (?, ?, ?)',
-        [hwId, question_ids[i], i + 1]
+
+    // Verify teacher is assigned to all requested classes
+    if (req.user.role === 'teacher') {
+      const [allowed] = await conn.query(
+        'SELECT class_id FROM teacher_classes WHERE teacher_id = ? AND class_id IN (?)',
+        [req.user.id, ids]
       );
+      const allowedIds = allowed.map(r => r.class_id);
+      const denied = ids.filter(id => !allowedIds.includes(id));
+      if (denied.length > 0) {
+        return res.status(403).json({ success: false, error: `您不是以下班级的任课老师: ${denied.join(', ')}` });
+      }
     }
-    // Create submissions for all students in class
-    const [students] = await conn.query('SELECT id FROM students WHERE class_id = ?', [class_id]);
-    for (const s of students) {
-      await conn.query(
-        'INSERT INTO homework_submissions (homework_id, student_id, status) VALUES (?, ?, ?)',
-        [hwId, s.id, 'pending']
+
+    const createdIds = [];
+    for (const cid of ids) {
+      // Create one homework per class
+      const [result] = await conn.query(
+        'INSERT INTO homework (title, subject_id, teacher_id, class_id, deadline, type) VALUES (?, ?, ?, ?, ?, ?)',
+        [title, subject_id, req.user.id, cid, deadline, type || 'school']
       );
+      const hwId = result.insertId;
+      createdIds.push(hwId);
+
+      // Attach questions
+      for (let i = 0; i < question_ids.length; i++) {
+        await conn.query(
+          'INSERT INTO homework_questions (homework_id, question_id, sort_order) VALUES (?, ?, ?)',
+          [hwId, question_ids[i], i + 1]
+        );
+      }
+
+      // Create submissions for all students in this class
+      const [students] = await conn.query('SELECT id FROM students WHERE class_id = ?', [cid]);
+      for (const s of students) {
+        await conn.query(
+          'INSERT INTO homework_submissions (homework_id, student_id, status) VALUES (?, ?, ?)',
+          [hwId, s.id, 'pending']
+        );
+      }
     }
+
     await conn.commit();
-    res.json({ success: true, data: { id: hwId } });
+    res.json({ success: true, data: { ids: createdIds, count: createdIds.length } });
   } catch (e) {
     await conn.rollback();
     res.status(500).json({ success: false, error: e.message });

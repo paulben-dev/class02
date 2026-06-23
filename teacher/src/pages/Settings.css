@@ -123,6 +123,10 @@
   animation: settings-toast-in 0.3s ease;
 }
 
+.settings-toast.settings-toast-error {
+  background: #e74c3c;
+}
+
 @keyframes settings-toast-in {
   from { opacity: 0; transform: translateX(-50%) translateY(-12px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
