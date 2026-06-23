@@ -20,5 +20,8 @@ app.use('/api/teacher', require('./routes/teacher'));
 
 app.get('/api/health', (req, res) => res.json({ success: true }));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`API running on :${PORT}`));
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`API running on :${PORT}`));
+}
+module.exports = app;
