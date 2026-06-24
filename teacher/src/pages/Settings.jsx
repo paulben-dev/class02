@@ -9,6 +9,7 @@ export default function Settings() {
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState('');
   const [toastError, setToastError] = useState(false);
+  const [activeGrade, setActiveGrade] = useState('');
 
   useEffect(() => {
     Promise.all([
@@ -17,16 +18,44 @@ export default function Settings() {
     ])
       .then(([classRes, tcRes]) => {
         setAllClasses(classRes.data.data || []);
-        setSelectedIds(tcRes.data.data?.class_ids || []);
+        const ids = tcRes.data.data?.class_ids || [];
+        setSelectedIds(ids);
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, []);
 
+  // Group classes by grade level
+  const gradeMap = {};
+  allClasses.forEach(cls => {
+    const key = cls.grade_level || '其他';
+    if (!gradeMap[key]) gradeMap[key] = [];
+    gradeMap[key].push(cls);
+  });
+  const grades = Object.keys(gradeMap).sort();
+  const currentClasses = gradeMap[activeGrade] || [];
+
+  // Auto-select first grade
+  useEffect(() => {
+    if (grades.length > 0 && !activeGrade) {
+      setActiveGrade(grades[0]);
+    }
+  }, [grades, activeGrade]);
+
   const toggleClass = (id) => {
     setSelectedIds(prev =>
       prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
     );
+  };
+
+  const selectAllCurrent = () => {
+    const currentIds = currentClasses.map(c => c.id);
+    setSelectedIds(prev => [...new Set([...prev, ...currentIds])]);
+  };
+
+  const clearCurrent = () => {
+    const currentIds = new Set(currentClasses.map(c => c.id));
+    setSelectedIds(prev => prev.filter(id => !currentIds.has(id)));
   };
 
   const handleSave = async () => {
@@ -45,17 +74,18 @@ export default function Settings() {
     }
   };
 
+  // Build summary of selected classes
+  const selectedSummary = {};
+  allClasses.forEach(cls => {
+    if (selectedIds.includes(cls.id)) {
+      if (!selectedSummary[cls.grade_level]) selectedSummary[cls.grade_level] = [];
+      selectedSummary[cls.grade_level].push(cls.name.replace(cls.grade_level, '') + '班');
+    }
+  });
+
   if (loading) {
     return <div className="settings-loading">加载中...</div>;
   }
-
-  // Group classes by grade level
-  const grouped = {};
-  allClasses.forEach(cls => {
-    const key = cls.grade_level || '其他';
-    if (!grouped[key]) grouped[key] = [];
-    grouped[key].push(cls);
-  });
 
   return (
     <div className="settings">
@@ -66,31 +96,65 @@ export default function Settings() {
 
       <div className="settings-card">
         <h2 className="settings-card-title">任课班级</h2>
-        {Object.keys(grouped).length === 0 ? (
+        {grades.length === 0 ? (
           <div className="settings-empty">暂无可用班级</div>
         ) : (
-          <div className="settings-class-list">
-            {Object.entries(grouped).map(([grade, classes]) => (
-              <div key={grade}>
-                <div style={{ fontSize: '12px', color: '#aaa', padding: '8px 16px 4px', fontWeight: 600 }}>
-                  {grade}
-                </div>
-                {classes.map(cls => (
-                  <label key={cls.id} className="settings-class-item">
-                    <input
-                      type="checkbox"
-                      checked={selectedIds.includes(cls.id)}
-                      onChange={() => toggleClass(cls.id)}
-                    />
-                    <div className="settings-class-info">
-                      <span className="settings-class-name">{cls.name}</span>
-                      <span className="settings-class-grade">{cls.school_name || ''}</span>
-                    </div>
-                  </label>
+          <>
+            {/* Grade tabs */}
+            <div className="grade-tabs">
+              {grades.map(grade => {
+                const count = (gradeMap[grade] || []).filter(c => selectedIds.includes(c.id)).length;
+                return (
+                  <button
+                    key={grade}
+                    className={`grade-tab ${grade === activeGrade ? 'grade-tab-active' : ''}`}
+                    onClick={() => setActiveGrade(grade)}
+                  >
+                    {grade}
+                    {count > 0 && <span className="grade-tab-badge">{count}</span>}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Action bar */}
+            <div className="grade-actions">
+              <span className="grade-actions-info">
+                {activeGrade} · 已选 {currentClasses.filter(c => selectedIds.includes(c.id)).length} 个班级
+              </span>
+              <div className="grade-actions-btns">
+                <button className="grade-action-link" onClick={selectAllCurrent}>全选</button>
+                <button className="grade-action-link grade-action-clear" onClick={clearCurrent}>清空</button>
+              </div>
+            </div>
+
+            {/* Class number buttons */}
+            <div className="class-buttons">
+              {currentClasses.map(cls => {
+                const selected = selectedIds.includes(cls.id);
+                const label = cls.name.replace(cls.grade_level, '');
+                return (
+                  <button
+                    key={cls.id}
+                    className={`class-btn ${selected ? 'class-btn-selected' : ''}`}
+                    onClick={() => toggleClass(cls.id)}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Selected summary */}
+            {Object.keys(selectedSummary).length > 0 && (
+              <div className="selected-summary">
+                <strong>当前已选班级：</strong>
+                {Object.entries(selectedSummary).map(([grade, classes]) => (
+                  <span key={grade}>{grade} · {classes.join('、')}</span>
                 ))}
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
 
