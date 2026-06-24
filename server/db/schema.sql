@@ -11,12 +11,20 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS schools (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
 CREATE TABLE classes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   grade_level VARCHAR(20) NOT NULL,
   teacher_id INT NOT NULL,
-  FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE
+  school_id INT NULL,
+  FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE teacher_classes (
@@ -123,10 +131,3 @@ CREATE INDEX idx_submissions_homework ON homework_submissions(homework_id);
 CREATE INDEX idx_submissions_student ON homework_submissions(student_id);
 CREATE INDEX idx_questions_subject ON questions(subject_id);
 CREATE INDEX idx_questions_kp ON questions(knowledge_point);
-
--- Schools (added via migration)
-CREATE TABLE IF NOT EXISTS schools (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
