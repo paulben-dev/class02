@@ -40,7 +40,7 @@ export default function Settings() {
     if (grades.length > 0 && !activeGrade) {
       setActiveGrade(grades[0]);
     }
-  }, [grades, activeGrade]);
+  }, [grades.length, activeGrade]);
 
   const toggleClass = (id) => {
     setSelectedIds(prev =>
@@ -79,7 +79,7 @@ export default function Settings() {
   allClasses.forEach(cls => {
     if (selectedIds.includes(cls.id)) {
       if (!selectedSummary[cls.grade_level]) selectedSummary[cls.grade_level] = [];
-      selectedSummary[cls.grade_level].push(cls.name.replace(cls.grade_level, '') + '班');
+      selectedSummary[cls.grade_level].push(cls.name.replace(cls.grade_level, ''));
     }
   });
 
