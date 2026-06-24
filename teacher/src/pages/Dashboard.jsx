@@ -46,6 +46,11 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <h1 className="dashboard-title">工作台</h1>
+      {classes.length > 0 && (
+        <p className="dashboard-classes-info">
+          您的任课班级：{classes.map(c => c.name).join('、')}
+        </p>
+      )}
 
       <div className="stats-cards">
         <div className="stat-card stat-card-active">
