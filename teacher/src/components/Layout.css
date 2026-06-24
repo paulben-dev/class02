@@ -24,11 +24,14 @@
 }
 
 .sidebar-app-name {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
   color: #fff;
   margin: 0;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sidebar-role {

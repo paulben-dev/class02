@@ -33,7 +33,7 @@ export default function Layout({ children }) {
     <div className="layout">
       <aside className="sidebar">
         <div className="sidebar-header">
-          <h2 className="sidebar-app-name">徽乐宝</h2>
+          <h2 className="sidebar-app-name">徽乐宝教学辅助系统</h2>
           <span className="sidebar-role">教师端</span>
           {schoolName && <span className="sidebar-school">{schoolName}</span>}
         </div>

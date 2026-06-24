@@ -28,7 +28,7 @@ export default function Login() {
   return (
     <div className="login-page">
       <div className="login-card">
-        <h1 className="login-app-name">徽乐宝</h1>
+        <h1 className="login-app-name">徽乐宝教学辅助系统</h1>
         <h2 className="login-subtitle">教师端</h2>
         <form onSubmit={handleSubmit} className="login-form">
           {error && <div className="login-error">{error}</div>}
