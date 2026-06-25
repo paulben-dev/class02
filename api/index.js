@@ -14,18 +14,24 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
+// Health check BEFORE routes so it works even if route loading fails
+app.get('/api/health', (req, res) => res.json({ success: true }));
+
 // Load routes from ../server/routes/
 const serverDir = path.join(__dirname, '..', 'server');
 
-app.use('/api/auth', require(path.join(serverDir, 'routes/auth')));
-app.use('/api/classes', require(path.join(serverDir, 'routes/classes')));
-app.use('/api/homework', require(path.join(serverDir, 'routes/homework')));
-app.use('/api/questions', require(path.join(serverDir, 'routes/questions')));
-app.use('/api/submissions', require(path.join(serverDir, 'routes/submissions')));
-app.use('/api/teacher', require(path.join(serverDir, 'routes/teacher')));
-app.use('/api/parent', require(path.join(serverDir, 'routes/parent')));
-app.post('/api/cron/grading', require(path.join(serverDir, 'routes/grading-cron')));
-
-app.get('/api/health', (req, res) => res.json({ success: true }));
+try {
+  app.use('/api/auth', require(path.join(serverDir, 'routes/auth')));
+  app.use('/api/classes', require(path.join(serverDir, 'routes/classes')));
+  app.use('/api/homework', require(path.join(serverDir, 'routes/homework')));
+  app.use('/api/questions', require(path.join(serverDir, 'routes/questions')));
+  app.use('/api/submissions', require(path.join(serverDir, 'routes/submissions')));
+  app.use('/api/teacher', require(path.join(serverDir, 'routes/teacher')));
+  app.use('/api/parent', require(path.join(serverDir, 'routes/parent')));
+  app.post('/api/cron/grading', require(path.join(serverDir, 'routes/grading-cron')));
+} catch (e) {
+  console.error('Route loading error:', e.message);
+  app.get('/api/health', (req, res) => res.json({ success: false, error: e.message }));
+}
 
 module.exports = app;
