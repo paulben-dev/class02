@@ -3950,8 +3950,8 @@
       const currentVal = sel.value;
       sel.innerHTML = '<option value="">-- 请选择 --</option>';
 
-      // Only show pending homework, sorted by deadline (closest first)
-      var sorted = mockData.homework.filter(function(h) { return h.status === 'pending'; })
+      // Show non-graded homework (pending/active), sorted by deadline (closest first)
+      var sorted = mockData.homework.filter(function(h) { return h.status !== 'graded'; })
         .sort(function(a, b) { return a.deadline.localeCompare(b.deadline); });
 
       // Group by subject
