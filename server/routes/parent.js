@@ -291,6 +291,25 @@ router.get('/report/:submissionId', async (req, res) => {
       [sub.homework_id]
     );
 
+    // Get class stats: how many students got each question right
+    const [submissionCount] = await pool.query(
+      'SELECT COUNT(*) as total FROM homework_submissions WHERE homework_id = ?',
+      [sub.homework_id]
+    );
+    const totalSubmissions = submissionCount[0].total || 0;
+    const [classStats] = await pool.query(
+      `SELECT hs.answers FROM homework_submissions hs WHERE hs.homework_id = ? AND hs.status = 'graded'`,
+      [sub.homework_id]
+    );
+    const classmatesRight = {};
+    questions.forEach(q => { classmatesRight[q.id] = 0; });
+    classStats.forEach(s => {
+      const ans = s.answers ? (typeof s.answers === 'string' ? JSON.parse(s.answers) : s.answers) : {};
+      Object.entries(ans).forEach(([qId, a]) => {
+        if (a.correct || a.status === 'correct') classmatesRight[parseInt(qId)] = (classmatesRight[parseInt(qId)] || 0) + 1;
+      });
+    });
+
     // Build response
     const answers = sub.answers ? (typeof sub.answers === 'string' ? JSON.parse(sub.answers) : sub.answers) : {};
     const perQuestionDetail = questions.map(q => {
@@ -308,6 +327,8 @@ router.get('/report/:submissionId', async (req, res) => {
         status: a.status || (a.correct ? 'correct' : 'unanswered'),
         errorCause: a.errorCause || null,
         analysis: a.analysis || '',
+        classmatesRight: classmatesRight[q.id] || 0,
+        totalSubmissions: totalSubmissions,
       };
     });
 
