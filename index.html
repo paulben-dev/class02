@@ -3840,9 +3840,14 @@
     }
 
     function viewReport(hwId) {
-      switchPage('report');
+      // Switch to report tab manually to avoid initReportTab auto-calling showReport
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+      document.getElementById('page-report').classList.add('active');
+      document.querySelector('[data-tab="report"]').classList.add('active');
+      document.getElementById('page-area').scrollTop = 0;
+      populateReportSelector();
       setTimeout(() => {
-        populateReportSelector();
         document.getElementById('report-hw-select').value = hwId;
         showReport();
       }, 50);
@@ -5107,7 +5112,11 @@
       `;
     }
 
+    let _reportLoading = false;
     async function showReport() {
+      if (_reportLoading) return;
+      _reportLoading = true;
+      try {
       const hwId = parseInt(document.getElementById('report-hw-select').value);
       if (!hwId) {
         document.getElementById('report-content').style.display = 'none';
@@ -5247,7 +5256,7 @@
       };
       container.innerHTML = '\n        <!-- Summary Header -->\n        <div class="report-section" style="text-align:center;">\n          <h3 style="margin-bottom:4px;"><svg class="icon"><use href="#icon-chart"/></svg> 批改报告</h3>\n          <p style="color:var(--text-hint);font-size:12px;">' + subj.icon + ' ' + subj.name + ' · ' + hw.title + ' · ' + hw.teacher + '</p>\n          <div style="display:flex;justify-content:center;gap:12px;margin-top:6px;font-size:12px;color:var(--text-hint);">\n            <span><svg class="icon"><use href="#icon-calendar"/></svg> ' + gradedDate + '</span>\n            <span><svg class="icon"><use href="#icon-edit"/></svg> 共' + result.totalCount + '道题</span>\n          </div>\n        </div>\n\n        <!-- Score Dashboard -->\n        <div class="report-dashboard">\n          ' + createDonutChart(result.correctRate || 0, 110) + '\n          <div class="report-stats">\n            <div style="text-align:center;margin-bottom:4px;">\n              <span style="font-size:36px;font-weight:700;color:var(--text);">' + grade.letter + '</span>\n              <span style="margin-left:6px;font-size:16px;color:var(--text-secondary);">' + grade.label + '</span>\n            </div>\n            <div class="report-stat-row">\n              <span><svg class="icon"><use href="#icon-check-circle"/></svg> 正确</span><span class="report-stat-val" style="color:var(--success);">' + (result.correctCount || 0) + ' 题</span>\n            </div>\n            <div class="report-stat-row">\n              <span><svg class="icon"><use href="#icon-alert-triangle"/></svg> 部分正确</span><span class="report-stat-val" style="color:var(--warning);">' + (result.partialCount || 0) + ' 题</span>\n            </div>\n            <div class="report-stat-row">\n              <span><svg class="icon"><use href="#icon-x-circle"/></svg> 错误</span><span class="report-stat-val" style="color:var(--danger);">' + (result.wrongCount || 0) + ' 题</span>\n            </div>\n            <div class="report-stat-row">\n              <span><svg class="icon"><use href="#icon-square"/></svg> 未作答</span><span class="report-stat-val" style="color:var(--text-hint);">' + (result.unansweredCount || 0) + ' 题</span>\n            </div>\n          </div>\n        </div>\n\n        <!-- Per-Question Detail -->\n        <div class=\"report-section\">\n          <h4 class=\"report-section-title\">逐题详情</h4>\n          ' + perQuestionHtml + '\n        </div>\n\n        <!-- Error Cause Distribution -->\n        <div class="report-section">\n          <h4 class="report-section-title">一、错因分布</h4>\n          ' + causeBarsHtml + '\n        </div>\n\n        <!-- Knowledge Points Three Tiers -->\n        <div class="report-section">\n          <h4 class="report-section-title">二、知识点掌握情况</h4>\n          <div style="margin-bottom:10px;">\n            <p style="font-size:13px;font-weight:600;color:#27AE60;margin-bottom:6px;"><svg class="icon icon-fill"><use href="#icon-circle-green"/></svg> 掌握较好（≥80%）</p>\n            ' + strongHtml + '\n          </div>\n          <div style="margin-bottom:10px;">\n            <p style="font-size:13px;font-weight:600;color:#F39C12;margin-bottom:6px;"><svg class="icon icon-fill"><use href="#icon-circle-yellow"/></svg> 掌握波动（21%-79%）</p>\n            ' + mediumHtml + '\n          </div>\n          <div style="margin-bottom:10px;">\n            <p style="font-size:13px;font-weight:600;color:#E74C3C;margin-bottom:6px;"><svg class="icon icon-fill"><use href="#icon-circle-red"/></svg> 掌握薄弱（≤20%）</p>\n            ' + weakHtml + '\n          </div>\n        </div>\n\n        <!-- Typical Error Analysis -->\n        <div class="report-section">\n          <h4 class="report-section-title">三、典型错题分析</h4>\n          ' + typicalErrorsHtml + '\n        </div>\n\n        <!-- Strengths & Suggestions -->\n        <div class="report-section">\n          <h4 class="report-section-title">四、学习优势与提升建议</h4>\n          <div style="background:#F0F9F0;padding:12px;border-radius:8px;margin-bottom:10px;">\n            <p style="font-size:13px;font-weight:600;color:#27AE60;margin-bottom:4px;"><svg class="icon"><use href="#icon-check-circle"/></svg> 学习优势</p>\n            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;">' + strengthsList + '，答题表达规范，空间想象能力较好。能从已知条件出发进行合理推导。</p>\n          </div>\n          <div style="background:#FFF8E1;padding:12px;border-radius:8px;">\n            <p style="font-size:13px;font-weight:600;color:#E67E22;margin-bottom:4px;"><svg class="icon"><use href="#icon-trending-up"/></svg> 提升建议</p>\n            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;">主攻' + (improveAreas.length > 0 ? improveAreas.join('、') : '薄弱知识点') + '等内容；每日练习2-3道针对性题目，重点强化概念理解与解题方法；建立错题本定期回顾。</p>\n          </div>\n        </div>\n\n        <!-- Quick Actions -->\n        <div class="report-actions-row">\n          <button class="btn btn-primary" onclick="shareReport()"><svg class="icon"><use href="#icon-send"/></svg> 分享</button>\n        </div>\n      ';
       container.style.display = 'block';
-    }
+    } finally { _reportLoading = false; } }
 
     function toggleAnswerEl(btn) {
       const answer = btn.getAttribute('data-answer').replace(/&quot;/g, '"');
