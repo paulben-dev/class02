@@ -5073,7 +5073,7 @@
         const total = q.totalSubmissions || 0;
         const right = q.classmatesRight || 0;
         const peerInfo = (!q.correct && total > 0)
-          ? `<div style="font-size:11px;color:#999;margin-top:4px;">📊 全班${total}人，${right}人做对</div>`
+          ? `<div style="font-size:11px;color:#999;margin-top:4px;">📊 ${right}人做对</div>`
           : '';
         questionsHtml += `
         <div class="result-item" style="padding:14px;margin-bottom:8px;background:#fff;border-radius:8px;border-left:4px solid ${q.correct ? '#4caf50' : '#f44336'};">
@@ -5210,7 +5210,7 @@
           const classmatesWrong = result.classmatesWrong[q.id];
           const totalStudents = hw.totalStudents || 42;
           const classmatesRight = Math.max(0, totalStudents - classmatesWrong - 1);
-          return '<span style="font-size:11px;color:var(--text-hint);">📊 全班' + totalStudents + '人，' + classmatesRight + '人做对</span>';
+          return '<span style="font-size:11px;color:var(--text-hint);">📊 ' + classmatesRight + '人做对</span>';
         })() : '';
         return '\n            <div class="result-item" style="padding:14px;margin-bottom:8px;background:#fff;border-radius:8px;border-left:4px solid ' + statusColor + ';">\n              <div style="font-size:14px;font-weight:600;margin-bottom:6px;">' + icon + ' 第' + (i+1) + '题 · <span style="color:' + statusColor + ';">' + statusLabel + '</span><span style="font-size:11px;color:var(--text-hint);margin-left:8px;">' + (q.knowledgePoint || '') + '</span></div>\n              <div style="font-size:13px;color:#333;margin-bottom:6px;">' + q.stem + '</div>\n              <div style="font-size:12px;">你的答案：<span style="color:' + statusColor + ';">' + userAns + '</span></div>\n              ' + (!isCorrect ? '<div style="font-size:12px;color:#999;">正确答案：<span style="color:var(--success);">' + q.answer + '</span></div>' : '') + '\n              ' + (ans && ans.analysis ? '<div style="font-size:12px;color:#e8933c;margin-top:4px;background:#fff8f0;padding:6px 10px;border-radius:4px;">💡 ' + ans.analysis + '</div>' : '') + '\n              ' + peerInfo + '\n            </div>\n          ';
       }).join('') : '<p style="color:var(--text-hint);text-align:center;">暂无题目数据</p>';
