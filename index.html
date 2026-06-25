@@ -2404,7 +2404,14 @@
       if (name === 'report') initReportTab();
       if (name === 'errors') initErrorBook();
       if (name === 'profile') initProfile();
-      if (name === 'grading') refreshHomeworkSelector();
+      if (name === 'grading') {
+        refreshHomeworkSelector();
+        // Clear previous grading state
+        document.getElementById('grading-result').style.display = 'none';
+        document.getElementById('grading-progress').style.display = 'none';
+        allPhotos = [];
+        renderPhotoGrid();
+      }
     }
 
     // ============================================================
@@ -3822,6 +3829,10 @@
 
     function startGrading(hwId) {
       switchPage('grading');
+      // Clear any previous grading result
+      document.getElementById('grading-result').style.display = 'none';
+      allPhotos = [];
+      renderPhotoGrid();
       setTimeout(() => {
         document.getElementById('grading-hw-select').value = hwId;
         updateGradingHomework();
@@ -3977,6 +3988,10 @@
       const sel = document.getElementById('grading-hw-select');
       sel.value = '';
       updateGradingHomework();
+      document.getElementById('grading-result').style.display = 'none';
+      document.getElementById('grading-progress').style.display = 'none';
+      allPhotos = [];
+      renderPhotoGrid();
     }
 
     function updateGradingHomework() {
