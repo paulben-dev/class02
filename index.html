@@ -3867,28 +3867,9 @@
       }
     }
 
-    // API-aware report: loads submission detail from API
+    // API-aware report: delegate to viewReport which handles API loading in showReport
     async function viewApiReport(hwId) {
-      if (!apiConnected) {
-        viewReport(hwId);
-        return;
-      }
-      const hw = mockData.homework.find(h => h.id === hwId);
-      if (!hw || !hw.submissionId) {
-        viewReport(hwId);
-        return;
-      }
-      try {
-        const sub = await getSubmissionDetail(hw.submissionId);
-        if (sub && sub.answers && sub.score != null) {
-          showApiGradingResult(hw, sub);
-        } else {
-          viewReport(hwId);
-        }
-      } catch (e) {
-        console.warn('加载批改结果失败, 回退到本地:', e.message);
-        viewReport(hwId);
-      }
+      viewReport(hwId);
     }
 
     // Show grading result from API data
