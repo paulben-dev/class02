@@ -2,8 +2,13 @@
 server/node_modules/
 
 # Prevent teacher source from being served as static
+teacher/index.html
 teacher/src/
 teacher/node_modules/
+teacher/package.json
+teacher/package-lock.json
+teacher/vite.config.js
+teacher/eslint.config.js
 teacher/.eslintrc*
 teacher/public/
 
