@@ -17,7 +17,10 @@ app.use(express.json({ limit: '10mb' }));
 // Health check BEFORE routes so it works even if route loading fails
 app.get('/api/health', (req, res) => res.json({ success: true }));
 
-// Load routes from ../server/routes/
+// Debug: log all requests
+app.use('/api', (req, res) => {
+  res.json({ path: req.path, url: req.url, originalUrl: req.originalUrl, method: req.method });
+});
 const serverDir = path.join(__dirname, '..', 'server');
 
 try {
