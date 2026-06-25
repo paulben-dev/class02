@@ -3830,13 +3830,8 @@
 
     function viewReport(hwId) {
       switchPage('report');
-      setTimeout(async () => {
-        // Ensure questions are loaded (API mode may have only metadata)
-        const hw = mockData.homework.find(h => h.id === hwId);
-        if (apiConnected && hw && (!hw.questions || !hw.questions.length)) {
-          try { await loadHomeworkDetail(hwId); } catch(e) {}
-        }
-        initReportTab();
+      setTimeout(() => {
+        populateReportSelector();
         document.getElementById('report-hw-select').value = hwId;
         showReport();
       }, 50);
@@ -5107,6 +5102,12 @@
 
       const hw = mockData.homework.find(h => h.id === hwId);
       if (!hw) return;
+
+      // Ensure questions are loaded (API mode may only have metadata)
+      if (apiConnected && (!hw.questions || !hw.questions.length)) {
+        try { await loadHomeworkDetail(hwId); } catch(e) {}
+      }
+
       const subj = mockData.subjects.find(s => s.id === hw.subjectId);
 
       // Try API first when connected
