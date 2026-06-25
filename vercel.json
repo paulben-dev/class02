@@ -1,5 +1,10 @@
 {
   "outputDirectory": ".",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "server/**, node_modules/**"
+    }
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" },
     { "source": "/teacher/assets/(.*)", "destination": "/teacher/dist/assets/$1" },
