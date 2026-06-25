@@ -1,5 +1,4 @@
 {
-  "installCommand": "npm install && cd api && npm install",
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" },
