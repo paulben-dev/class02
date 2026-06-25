@@ -1,13 +1,20 @@
 // Self-contained Express API for Vercel serverless deployment
+// Explicit top-level requires so Vercel's bundler can statically detect all dependencies
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
+const bcryptjs = require('bcryptjs');
+const jsonwebtoken = require('jsonwebtoken');
+const mysql2 = require('mysql2/promise');
+try { require('dotenv').config(); } catch (e) {}
+try { require('multer'); } catch (e) {}
+
 const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
 // Load routes from ../server/routes/
-const path = require('path');
 const serverDir = path.join(__dirname, '..', 'server');
 
 app.use('/api/auth', require(path.join(serverDir, 'routes/auth')));
