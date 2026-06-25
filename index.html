@@ -3463,7 +3463,7 @@
 
         if (apiConnected) {
           if (subStatus === 'graded') {
-            statusLabel = '<span style="color:var(--success);font-size:11px;">✅ 已批改 ' + (hw.submissionScore != null ? hw.submissionScore + '分' : '') + '</span>';
+            statusLabel = '<span style="color:var(--success);font-size:11px;">✅ 已批改 ' + (hw.submissionScore != null ? getGradeLetter(hw.submissionScore).letter : '') + '</span>';
             actionButton = '<button class="btn btn-outline" onclick="viewApiReport(' + hw.id + ')" style="color:var(--success);border-color:var(--success);">查看报告</button>';
           } else if (subStatus === 'submitted') {
             statusLabel = '<span style="color:var(--warning);font-size:11px;">⏳ 已提交，待批改</span>';
@@ -3913,7 +3913,7 @@
         <div class="grading-score" style="padding:24px 0 16px;text-align:center;">
           <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:12px;">
             <span style="font-size:56px;font-weight:800;color:${gradeColor};line-height:1;">${grade}</span>
-            <span style="display:inline-block;padding:4px 14px;border-radius:16px;background:${gradeColor}22;color:${gradeColor};font-size:14px;font-weight:600;">${score}分</span>
+            <span style="display:inline-block;padding:4px 14px;border-radius:16px;background:${gradeColor}22;color:${gradeColor};font-size:14px;font-weight:600;">${grade} 等</span>
           </div>
           <div style="font-size:13px;color:var(--text-secondary);">
             ✓ ${correctCount} 正确 · ✗ ${wrongCount} 错误 · 共 ${totalQuestions} 题
@@ -4252,8 +4252,8 @@
       let html = `
       <div class="grading-summary">
         <div class="grading-score-circle" style="background:${gColor}">
-          <span class="grading-score-num">${sub.score}</span>
-          <span class="grading-score-label">分</span>
+          <span class="grading-score-num">${grade}</span>
+          <span class="grading-score-label">等</span>
         </div>
         <div class="grading-grade">${grade}</div>
       </div>`;
@@ -4629,7 +4629,7 @@
         const opt = document.createElement('option');
         opt.value = hw.id;
         const subj = mockData.subjects.find(s => s.id === hw.subjectId);
-        opt.textContent = (subj ? '[' + subj.name + '] ' : '') + hw.title + (hw.score != null ? ' · ' + hw.score + '分' : '');
+        opt.textContent = (subj ? '[' + subj.name + '] ' : '') + hw.title + (hw.score != null ? ' · ' + getGradeLetter(hw.score).letter : '');
         sel.appendChild(opt);
       });
       if (graded.length > 0) {
@@ -5081,7 +5081,7 @@
       container.innerHTML = `
         <div style="text-align:center;padding:16px 0;">
           <span style="font-size:48px;font-weight:800;color:${gColor};">${grade}</span>
-          <span style="display:inline-block;margin-left:8px;padding:4px 14px;border-radius:16px;background:${gColor}22;color:${gColor};font-size:16px;font-weight:600;">${score}分</span>
+          <span style="display:inline-block;margin-left:8px;padding:4px 14px;border-radius:16px;background:${gColor}22;color:${gColor};font-size:16px;font-weight:600;">${grade}等</span>
         </div>
         <div style="font-size:13px;color:#666;text-align:center;margin-bottom:16px;">
           ${sub.studentName} · ${hw.title} · ${sub.gradedAt ? fmtDate(sub.gradedAt) : ''}
