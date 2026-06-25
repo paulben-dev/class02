@@ -90,7 +90,7 @@ export default function AssignHomework() {
   // Step 1: Basic info
   const [title, setTitle] = useState('');
   const [subjectId, setSubjectId] = useState(teacherSubject);
-  const [classId, setClassId] = useState('');
+  const [classIds, setClassIds] = useState([]);
   const [classes, setClasses] = useState([]);
   const [type, setType] = useState('school');
   const [deadline, setDeadline] = useState('');
@@ -138,10 +138,16 @@ export default function AssignHomework() {
       .then(res => {
         const list = res.data.data || [];
         setClasses(list);
-        if (list.length > 0) setClassId(list[0].id);
+        if (list.length > 0) setClassIds([list[0].id]);
       })
       .catch(() => {});
   }, []);
+
+  const toggleClass = (id) => {
+    setClassIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  };
 
   const toggleQuestion = (id) => {
     setSelectedIds(prev =>
@@ -174,7 +180,7 @@ export default function AssignHomework() {
       await createHomework({
         title: title.trim(),
         subject_id: subjectId,
-        class_id: classId,
+        class_ids: classIds,
         deadline,
         type,
         question_ids: selectedIds,
@@ -187,7 +193,7 @@ export default function AssignHomework() {
   };
 
   const canNextStep = () => {
-    if (step === 1) return title.trim() && deadline && classId;
+    if (step === 1) return title.trim() && deadline && classIds.length > 0;
     if (step === 2) return selectedIds.length > 0;
     return true;
   };
@@ -242,17 +248,22 @@ export default function AssignHomework() {
                 </div>
               </div>
               <div className="ah-field ah-field-half">
-                <label className="ah-label">班级</label>
-                <select
-                  className="ah-select"
-                  value={classId}
-                  onChange={e => setClassId(parseInt(e.target.value))}
-                >
-                  {classes.length === 0 && <option value="">加载中...</option>}
+                <label className="ah-label">班级（可多选）</label>
+                <div className="ah-class-checkboxes">
+                  {classes.length === 0 && <span className="ah-loading-text">加载中...</span>}
                   {classes.map(c => (
-                    <option key={c.id} value={c.id}>{c.name}</option>
+                    <label key={c.id} className={`ah-class-cb ${classIds.includes(c.id) ? 'checked' : ''}`}>
+                      <input
+                        type="checkbox"
+                        checked={classIds.includes(c.id)}
+                        onChange={() => toggleClass(c.id)}
+                        style={{display:'none'}}
+                      />
+                      <span className="ah-cb-box">{classIds.includes(c.id) ? '✓' : ''}</span>
+                      {c.name}
+                    </label>
                   ))}
-                </select>
+                </div>
               </div>
             </div>
             <div className="ah-row">
@@ -434,7 +445,7 @@ export default function AssignHomework() {
             </div>
             <div className="ah-summary-row">
               <span className="ah-summary-label">班级</span>
-              <span className="ah-summary-value">{classes.find(c => c.id === classId)?.name || classId}</span>
+              <span className="ah-summary-value">{classIds.map(id => classes.find(c => c.id === id)?.name).filter(Boolean).join('、')}</span>
             </div>
             <div className="ah-summary-row">
               <span className="ah-summary-label">类型</span>

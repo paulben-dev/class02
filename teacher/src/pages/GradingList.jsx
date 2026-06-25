@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getHomeworkList, getHomeworkStats, getClasses } from '../api/client';
+import { fmtDate } from '../utils';
 import './GradingList.css';
 
 const STATUS_BADGES = {
@@ -29,11 +30,14 @@ export default function GradingList() {
       .catch(() => {});
   }, []);
 
-  // Load homework when class changes
+  // Status filter state
+  const [statusFilter, setStatusFilter] = useState('active');
+
+  // Load homework when class or status changes
   useEffect(() => {
     setLoading(true);
     setError('');
-    const params = { status: 'active' };
+    const params = statusFilter ? { status: statusFilter } : {};
     getHomeworkList(params)
       .then(res => {
         const list = res.data.data || [];
@@ -59,7 +63,7 @@ export default function GradingList() {
         setError(err.response?.data?.error || '加载作业列表失败');
         setLoading(false);
       });
-  }, [selectedClassId]);
+  }, [selectedClassId, statusFilter]);
 
   // Filter by selected class
   const filteredHomework = selectedClassId
@@ -96,18 +100,32 @@ export default function GradingList() {
     <div className="grading-list">
       <h1 className="gl-title">批改作业</h1>
 
-      {/* Class selector */}
-      <div className="gl-class-filter">
-        <label className="gl-filter-label">班级：</label>
-        <select
-          className="gl-filter-select"
-          value={selectedClassId}
-          onChange={e => setSelectedClassId(e.target.value)}
-        >
-          {classes.map(c => (
-            <option key={c.id} value={c.id}>{c.name}</option>
-          ))}
-        </select>
+      {/* Filters: class + status */}
+      <div className="gl-filters">
+        <div className="gl-class-filter">
+          <label className="gl-filter-label">班级：</label>
+          <select
+            className="gl-filter-select"
+            value={selectedClassId}
+            onChange={e => setSelectedClassId(e.target.value)}
+          >
+            {classes.map(c => (
+              <option key={c.id} value={c.id}>{c.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="gl-status-filter">
+          <label className="gl-filter-label">状态：</label>
+          <select
+            className="gl-filter-select"
+            value={statusFilter}
+            onChange={e => setStatusFilter(e.target.value)}
+          >
+            <option value="">全部</option>
+            <option value="active">进行中</option>
+            <option value="closed">已完成</option>
+          </select>
+        </div>
       </div>
 
       {filteredHomework.length === 0 ? (
@@ -141,7 +159,7 @@ export default function GradingList() {
                         <div className="gl-card-meta">
                           <span>{hw.teacher_name}</span>
                           <span className="gl-meta-sep">·</span>
-                          <span>截止：{hw.deadline?.split('T')[0] || hw.deadline}</span>
+                          <span>截止：{fmtDate(hw.deadline)}</span>
                         </div>
                         {stats ? (
                           <div className="gl-card-progress">

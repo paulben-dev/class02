@@ -167,17 +167,19 @@
   padding: 10px 12px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.12s;
+  border: 1px solid transparent;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.12s;
 }
 
 .gd-student-card:hover {
   background: #f8f9fb;
+  transform: translateX(3px);
 }
 
 .gd-student-card.selected {
   background: #eef6ff;
-  border: 1px solid #d4e5fc;
-  margin: -1px;
+  border-color: #4A90D9;
+  box-shadow: 0 0 0 1px rgba(74,144,217,0.15);
 }
 
 .gd-student-info {
@@ -321,6 +323,17 @@
 .gd-student-answer-label {
   font-weight: 600;
   color: #b06e1a;
+}
+
+.gd-student-no-answer {
+  background: #f9f9f9;
+}
+.gd-student-no-answer .gd-student-answer-label {
+  color: #999;
+}
+.gd-student-no-answer .gd-student-answer-text {
+  color: #bbb;
+  font-style: italic;
 }
 
 .gd-student-answer-text {

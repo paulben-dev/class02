@@ -25,6 +25,17 @@ export default function Settings() {
       .catch(() => setLoading(false));
   }, []);
 
+  // Grade order for sorting
+  const GRADE_ORDER = ['一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '七年级', '八年级', '九年级'];
+  const gradeSort = (a, b) => {
+    const ai = GRADE_ORDER.indexOf(a);
+    const bi = GRADE_ORDER.indexOf(b);
+    if (ai === -1 && bi === -1) return a.localeCompare(b);
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  };
+
   // Group classes by grade level
   const gradeMap = {};
   allClasses.forEach(cls => {
@@ -32,7 +43,7 @@ export default function Settings() {
     if (!gradeMap[key]) gradeMap[key] = [];
     gradeMap[key].push(cls);
   });
-  const grades = Object.keys(gradeMap).sort();
+  const grades = Object.keys(gradeMap).sort(gradeSort);
   const currentClasses = gradeMap[activeGrade] || [];
 
   // Auto-select first grade
@@ -89,13 +100,36 @@ export default function Settings() {
 
   return (
     <div className="settings">
-      <h1 className="settings-title">设置</h1>
+      <h1 className="settings-title">任课班级设置</h1>
       <p className="settings-subtitle">选择您任课的班级，设置后工作台、布置作业和批改作业将只显示所选班级。</p>
 
       {toast && <div className={`settings-toast ${toastError ? 'settings-toast-error' : ''}`}>{toast}</div>}
 
+      {/* Card 1: Currently selected classes */}
+      <div className="settings-card selected-classes-card">
+        <h2 className="settings-card-title">您的任课班级</h2>
+        {selectedIds.length === 0 ? (
+          <p className="selected-classes-empty">尚未选择任课班级，请在下方的班级选择器中添加</p>
+        ) : (
+          <>
+            {Object.entries(selectedSummary).sort(([a], [b]) => gradeSort(a, b)).map(([grade, classList]) => (
+              <div key={grade} className="selected-classes-grade">
+                <span className="selected-classes-grade-label">{grade}</span>
+                <div className="selected-classes-tags">
+                  {classList.map(name => (
+                    <span key={name} className="selected-classes-tag">{name}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <div className="selected-classes-count">共 {selectedIds.length} 个班级</div>
+          </>
+        )}
+      </div>
+
+      {/* Card 2: Class selection interface */}
       <div className="settings-card">
-        <h2 className="settings-card-title">任课班级</h2>
+        <h2 className="settings-card-title">选择班级</h2>
         {grades.length === 0 ? (
           <div className="settings-empty">暂无可用班级</div>
         ) : (
@@ -144,16 +178,6 @@ export default function Settings() {
                 );
               })}
             </div>
-
-            {/* Selected summary */}
-            {Object.keys(selectedSummary).length > 0 && (
-              <div className="selected-summary">
-                <strong>当前已选班级：</strong>
-                {Object.entries(selectedSummary).map(([grade, classes]) => (
-                  <span key={grade}>{grade} · {classes.join('、')}</span>
-                ))}
-              </div>
-            )}
           </>
         )}
       </div>

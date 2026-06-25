@@ -1,8 +1,6 @@
 {
-  "name": "class2",
-  "version": "1.0.0",
+  "name": "class2-api",
   "private": true,
-  "description": "Homework Grading Platform MVP",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.6",

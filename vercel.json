@@ -1,10 +1,20 @@
 {
-  "installCommand": "npm install && cd teacher && npm install",
-  "buildCommand": "cd teacher && npm run build && rm -f index.html",
+  "installCommand": "npm install",
   "outputDirectory": ".",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "server/**"
+    }
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" },
     { "source": "/teacher/assets/(.*)", "destination": "/teacher/dist/assets/$1" },
     { "source": "/teacher/(.*)", "destination": "/teacher/dist/index.html" }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/grading",
+      "schedule": "0 0 * * *"
+    }
   ]
 }

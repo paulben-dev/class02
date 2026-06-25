@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getHomeworkDetail, getSubmissions, getSubmissionDetail, gradeSubmission } from '../api/client';
+import { fmtDate } from '../utils';
 import './GradingDetail.css';
 
 const TYPE_BADGES = {
@@ -232,7 +233,7 @@ export default function GradingDetail() {
         <div className="gd-meta">
           <span>{homework?.class_name}</span>
           <span className="gd-meta-sep">·</span>
-          <span>截止：{homework?.deadline}</span>
+          <span>截止：{fmtDate(homework?.deadline)}</span>
         </div>
       </div>
 
@@ -332,10 +333,15 @@ export default function GradingDetail() {
                     </div>
 
                     {/* Student's answer display */}
-                    {ga.userAnswer && (
+                    {ga.userAnswer ? (
                       <div className="gd-student-answer">
                         <span className="gd-student-answer-label">学生作答：</span>
                         <span className="gd-student-answer-text">{ga.userAnswer}</span>
+                      </div>
+                    ) : (
+                      <div className="gd-student-answer gd-student-no-answer">
+                        <span className="gd-student-answer-label">学生作答：</span>
+                        <span className="gd-student-answer-text">尚未提交答案</span>
                       </div>
                     )}
 

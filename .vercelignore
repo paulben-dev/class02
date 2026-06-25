@@ -1,0 +1,19 @@
+# Prevent server node_modules from being uploaded
+server/node_modules/
+
+# Prevent teacher source from being served as static
+teacher/src/
+teacher/node_modules/
+teacher/.eslintrc*
+teacher/public/
+
+# Config and docs
+.env
+.env.*
+*.md
+docs/
+.git/
+.gitignore
+# Misc
+*.log
+.DS_Store

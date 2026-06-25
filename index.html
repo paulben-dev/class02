@@ -542,6 +542,176 @@
       color: #6D5E00;
     }
 
+    /* AI Feedback Card */
+    .ai-feedback-card {
+      margin: 16px 0;
+      padding: 16px;
+      background: linear-gradient(135deg, #f0f5ff 0%, #e8f0fe 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid #c5d5f0;
+    }
+    .ai-feedback-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #4A90D9;
+      margin-bottom: 8px;
+    }
+    .ai-feedback-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    /* Grading summary circle */
+    .grading-summary {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+    }
+    .grading-score-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .grading-score-num {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .grading-score-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
+    }
+    .grading-grade {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+    .grading-questions-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 16px 0 10px;
+    }
+    .grading-q-card {
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border-left: 4px solid var(--success);
+    }
+    .grading-q-card.wrong {
+      border-left-color: var(--danger);
+    }
+    .grading-q-header {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .grading-q-stem {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .grading-q-answers {
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .grading-q-answers .wrong-answer {
+      color: var(--danger);
+      text-decoration: line-through;
+    }
+    .grading-q-answers .correct-answer {
+      color: var(--success);
+    }
+    .grading-q-cause {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #e8933c;
+      font-weight: 600;
+    }
+    .grading-q-analysis {
+      margin-top: 4px;
+      padding: 6px 8px;
+      background: #FFF8E1;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #6D5E00;
+    }
+
+    /* Weak point cards */
+    .weak-point-card {
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 10px;
+      border: 1px solid #eef1f5;
+    }
+    .weak-point-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+    }
+    .weak-point-hint {
+      font-size: 13px;
+      color: #4A90D9;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .weak-point-exercise {
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .ex-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #4A90D9;
+      background: #e8f0fe;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .ex-stem {
+      line-height: 1.5;
+      color: #333;
+    }
+    .ex-answer {
+      margin-top: 6px;
+      padding: 6px 8px;
+      background: #e6f9e6;
+      border-radius: 4px;
+      color: #389e0d;
+      font-size: 12px;
+    }
+
+    .grading-result-empty {
+      text-align: center;
+      padding: 32px;
+      color: #999;
+      font-size: 14px;
+    }
+
+    .async-note {
+      text-align: center;
+      padding: 8px;
+      color: #888;
+      font-size: 12px;
+    }
+
     /* Report page */
     .report-header-card {
       background: #fff;
@@ -843,9 +1013,13 @@
     /* Error book */
     .kp-filter {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
     }
+    .kp-filter::-webkit-scrollbar { display: none; }
 
     .kp-filter-tag {
       padding: 4px 12px;
@@ -1577,6 +1751,11 @@
       <symbol id="icon-circle-red" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="8" fill="#E74C3C"/>
       </symbol>
+      <symbol id="icon-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </symbol>
     </defs>
   </svg>
 
@@ -1777,6 +1956,10 @@
             <span><svg class="icon"><use href="#icon-info"/></svg> 关于</span>
             <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
+          <div class="menu-item" onclick="handleLogout()" style="color:#e74c3c;">
+            <span><svg class="icon"><use href="#icon-logout"/></svg> 退出登录</span>
+            <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
+          </div>
         </div>
 
         <p style="text-align:center;color:var(--text-hint);font-size:11px;margin-top:20px;" id="version-text">徽乐宝作业批改助手 v1.0 · 演示版</p>
@@ -1839,7 +2022,369 @@
     </div>
   </div>
 
+  <!-- WeChat Authorization Overlay -->
+  <div id="wechat-auth-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#f0f4f8;z-index:9999;flex-direction:column;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:16px;padding:40px 32px;width:90%;max-width:340px;box-shadow:0 4px 24px rgba(0,0,0,0.1);text-align:center;">
+      <div style="font-size:56px;margin-bottom:16px;">📚</div>
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='24' fill='%2307C160'/%3E%3Cpath d='M17 20c-1.7 0-3 1.3-3 3v2c0 1.7 1.3 3 3 3s3-1.3 3-3v-2c0-1.7-1.3-3-3-3zm14 0c-1.7 0-3 1.3-3 3v2c0 1.7 1.3 3 3 3s3-1.3 3-3v-2c0-1.7-1.3-3-3-3zm-7 10c-4.4 0-8 2.7-8 6h16c0-3.3-3.6-6-8-6z' fill='white'/%3E%3C/svg%3E" style="width:48px;height:48px;margin-bottom:12px;" alt="微信">
+      <h2 style="font-size:18px;color:#1a1a2e;margin:0 0 4px;">徽乐宝</h2>
+      <p style="font-size:13px;color:#999;margin:0 0 8px;">作业批改助手</p>
+      <div style="background:#f7f8fa;border-radius:8px;padding:16px;margin:16px 0;text-align:left;font-size:12px;color:#666;line-height:1.6;">
+        <p style="margin:0 0 4px;font-weight:600;color:#333;">申请获取你的以下权限：</p>
+        <p style="margin:0;">✓ 获得你的公开信息（昵称、头像）</p>
+        <p style="margin:0;">✓ 查看孩子的作业和批改结果</p>
+      </div>
+      <button onclick="wechatAuthLogin()" id="wechat-auth-btn" style="width:100%;padding:12px;background:#07C160;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+        <svg width="20" height="20" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="white" opacity="0.2"/><path d="M17 20c-1.7 0-3 1.3-3 3v2c0 1.7 1.3 3 3 3s3-1.3 3-3v-2c0-1.7-1.3-3-3-3zm14 0c-1.7 0-3 1.3-3 3v2c0 1.7 1.3 3 3 3s3-1.3 3-3v-2c0-1.7-1.3-3-3-3zm-7 10c-4.4 0-8 2.7-8 6h16c0-3.3-3.6-6-8-6z" fill="white"/></svg>
+        微信用户一键登录
+      </button>
+      <p style="font-size:10px;color:#bbb;margin:12px 0 0;">登录即表示同意《用户协议》和《隐私政策》</p>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid #eee;">
+        <p style="font-size:11px;color:#bbb;margin:0 0 10px;">演示账号直接登录：</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
+          <button id="demo-btn-parent1" onclick="demoLogin('parent1')" style="padding:6px 14px;font-size:12px;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:16px;cursor:pointer;color:#666;">张妈妈 (赵小明)</button>
+          <button id="demo-btn-parent2" onclick="demoLogin('parent2')" style="padding:6px 14px;font-size:12px;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:16px;cursor:pointer;color:#666;">赵爸爸 (钱小红)</button>
+          <button id="demo-btn-parent3" onclick="demoLogin('parent3')" style="padding:6px 14px;font-size:12px;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:16px;cursor:pointer;color:#666;">钱妈妈 (孙小强)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // ============================================================
+    // WeChat Auth & API Client
+    // ============================================================
+    // Use same host as page for API (works on both localhost and LAN)
+    const API_BASE = 'http://' + window.location.hostname + ':3000/api';
+    let parentToken = null;
+    let parentUser = null;
+    let parentChildren = [];
+    let apiConnected = false;
+
+    async function apiCall(path, options = {}) {
+      const headers = { 'Content-Type': 'application/json', ...options.headers };
+      if (parentToken) headers['Authorization'] = `Bearer ${parentToken}`;
+      const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || '请求失败');
+      return data;
+    }
+
+    // Upload helper: multipart form upload for photos
+    async function apiUpload(path, formData) {
+      const headers = {};
+      if (parentToken) headers['Authorization'] = `Bearer ${parentToken}`;
+      const res = await fetch(`${API_BASE}${path}`, {
+        method: 'POST',
+        headers,
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || '上传失败');
+      return data;
+    }
+
+    // Poll grading job until complete or timeout
+    async function pollGradingJob(jobId, estimatedSeconds = 20) {
+      const syncWindow = 15000; // 15s sync window
+      let interval = 1000; // start at 1s
+      const startTime = Date.now();
+      let switchedToAsync = false;
+
+      return new Promise((resolve, reject) => {
+        const poll = async () => {
+          try {
+            const res = await apiCall(`/parent/jobs/${jobId}`);
+            const job = res.data;
+
+            if (job.status === 'done') {
+              resolve(job);
+              return;
+            }
+            if (job.status === 'failed') {
+              reject(new Error(job.errorMessage || '批改失败，请重试'));
+              return;
+            }
+
+            // Update progress UI
+            updateGradingProgress(job, !switchedToAsync);
+
+            // Switch to async mode after 15s
+            if (!switchedToAsync && Date.now() - startTime > syncWindow) {
+              switchedToAsync = true;
+              showAsyncNotification(jobId);
+              interval = 3000;
+            } else if (Date.now() - startTime > 60000) {
+              interval = 5000;
+            }
+
+            setTimeout(poll, interval);
+          } catch (e) {
+            reject(e);
+          }
+        };
+        poll();
+      });
+    }
+
+    function updateGradingProgress(job, isSync) {
+      const progressFill = document.getElementById('progress-fill');
+      const progressText = document.getElementById('progress-text');
+      const stepLabels = {
+        queued: '排队等待中…',
+        processing: 'AI 正在批改中…',
+        done: '批改完成',
+        failed: '批改失败',
+      };
+      const label = stepLabels[job.status] || job.status;
+      progressText.textContent = label;
+    }
+
+    function showAsyncNotification(jobId) {
+      const el = document.getElementById('grading-progress');
+      if (!el) return;
+      const note = document.createElement('div');
+      note.className = 'async-note';
+      note.innerHTML = '<p>批改转入后台处理，请稍后查看结果</p>';
+      el.appendChild(note);
+    }
+
+    // Demo login: use pre-seeded parent account
+    async function demoLogin(username) {
+      const btn = document.getElementById('demo-btn-' + username);
+      if (btn) { btn.disabled = true; btn.textContent = '登录中...'; }
+      try {
+        const res = await apiCall('/auth/wechat', {
+          method: 'POST',
+          body: JSON.stringify({ code: 'demo_' + username, demo_parent: username })
+        });
+        parentToken = res.data.token;
+        parentUser = res.data.user;
+        // Grant basic subscription for demo purposes
+        mockData.user.isSubscribed = true;
+        mockData.user.subscriptionTier = 1;
+        mockData.user.subscriptionExpiry = '2027-12-31';
+        // Clear stale localStorage data to avoid polluting API data
+        mockData.gradingResults = {};
+        mockData.homework = [];
+        localStorage.removeItem('hwa_state');
+        apiErrorBookCache = null;
+        apiConnected = await loadParentData();
+        // If API returns empty homework, fall back to seeded demo data
+        if (!apiConnected) {
+          seedOfflineData();
+        }
+        // Ensure grading results exist for weekly/monthly reports
+        if (apiConnected) ensureGradingResults();
+        document.getElementById('wechat-auth-overlay').style.display = 'none';
+        document.getElementById('app-container').style.display = '';
+        document.getElementById('tab-bar').style.display = 'flex';
+        saveParentSession();
+        init();
+      } catch (e) {
+        console.warn('演示登录失败，使用离线模式:', e.message);
+        // Fallback to offline mode — use seeded demo data
+        apiConnected = false;
+        seedOfflineData();
+        apiErrorBookCache = null;
+        document.getElementById('wechat-auth-overlay').style.display = 'none';
+        document.getElementById('app-container').style.display = '';
+        document.getElementById('tab-bar').style.display = 'flex';
+        init();
+        btn.disabled = false; btn.textContent = btn.textContent.replace('登录中...', '');
+      }
+    }
+
+    // WeChat-style auth: auto-register/login via wechat code (simulated)
+    async function wechatAuthLogin() {
+      const btn = document.getElementById('wechat-auth-btn');
+      btn.disabled = true; btn.textContent = '授权中...';
+
+      try {
+        // In a real WeChat mini-program, wx.login() returns a code.
+        // We simulate by auto-registering a wechat user.
+        const wxCode = 'wx_demo_' + Date.now();
+        const res = await apiCall('/auth/wechat', {
+          method: 'POST',
+          body: JSON.stringify({ code: wxCode, nickname: '微信家长', avatar: '' })
+        });
+        parentToken = res.data.token;
+        parentUser = res.data.user;
+
+        // Grant basic subscription for demo purposes
+        mockData.user.isSubscribed = true;
+        mockData.user.subscriptionTier = 1;
+        mockData.user.subscriptionExpiry = '2027-12-31';
+        // Clear stale localStorage data
+        mockData.gradingResults = {};
+        mockData.homework = [];
+        localStorage.removeItem('hwa_state');
+        apiErrorBookCache = null;
+        apiConnected = await loadParentData();
+        // If API returns empty homework, fall back to seeded demo data
+        if (!apiConnected) {
+          seedOfflineData();
+        }
+        // Ensure grading results exist for weekly/monthly reports
+        if (apiConnected) ensureGradingResults();
+        document.getElementById('wechat-auth-overlay').style.display = 'none';
+        document.getElementById('app-container').style.display = '';
+        document.getElementById('tab-bar').style.display = 'flex';
+        saveParentSession();
+        init();
+      } catch (e) {
+        console.warn('微信授权失败，使用游客模式:', e.message);
+        seedOfflineData();
+        apiErrorBookCache = null;
+        apiConnected = false;
+        document.getElementById('wechat-auth-overlay').style.display = 'none';
+        document.getElementById('app-container').style.display = '';
+        document.getElementById('tab-bar').style.display = 'flex';
+        init();
+      } finally {
+        btn.disabled = false; btn.textContent = '微信用户一键登录';
+      }
+    }
+
+    function handleLogout() {
+      parentToken = null;
+      parentUser = null;
+      parentChildren = [];
+      apiConnected = false;
+      apiErrorBookCache = null;
+      mockData.homework = [];
+      mockData.gradingResults = {};
+      mockData.user.isSubscribed = false;
+      mockData.user.subscriptionTier = 0;
+      mockData.user.subscriptionExpiry = null;
+      mockData.user.firstGradingDate = null;
+      localStorage.removeItem('wx_parent_token');
+      localStorage.removeItem('wx_parent_user');
+      localStorage.removeItem('hwa_state');
+      document.getElementById('app-container').style.display = 'none';
+      document.getElementById('tab-bar').style.display = 'none';
+      document.getElementById('wechat-auth-overlay').style.display = 'flex';
+      switchPage('home');
+      showToast('已退出登录');
+    }
+
+    function saveParentSession() {
+      try {
+        localStorage.setItem('wx_parent_token', parentToken);
+        localStorage.setItem('wx_parent_user', JSON.stringify(parentUser));
+      } catch(e) {}
+    }
+
+    function restoreParentSession() {
+      try {
+        const tok = localStorage.getItem('wx_parent_token');
+        const usr = localStorage.getItem('wx_parent_user');
+        if (tok && usr) {
+          parentToken = tok;
+          parentUser = JSON.parse(usr);
+          return true;
+        }
+      } catch(e) {}
+      return false;
+    }
+
+    async function loadParentData() {
+      try {
+        const childrenRes = await apiCall('/parent/children');
+        parentChildren = childrenRes.data || [];
+        // Update parent and child names from API data
+        if (parentUser) {
+          mockData.user.name = parentUser.display_name || parentUser.username || mockData.user.name;
+        }
+        if (parentChildren.length > 0) {
+          const firstChild = parentChildren[0];
+          mockData.user.child.name = firstChild.name;
+          mockData.user.child.grade = firstChild.grade_level || mockData.user.child.grade;
+          mockData.user.child.className = firstChild.class_name || mockData.user.child.className;
+        }
+        const hwRes = await apiCall('/parent/homework');
+        const apiHomework = hwRes.data || [];
+        // Sync API data if available (even without children, show all homework)
+        if (apiHomework.length > 0) {
+          syncApiHomeworkToMock(apiHomework);
+          // Background: load question counts for display
+          setTimeout(async () => {
+            for (const hw of apiHomework.slice(0, 5)) {
+              try { await loadHomeworkDetail(hw.id); } catch(e) {}
+            }
+            renderHomeworkList();
+          }, 200);
+          return true;
+        }
+        return false;
+      } catch (e) {
+        console.warn('加载家长数据失败:', e.message);
+        return false;
+      }
+    }
+
+    function syncApiHomeworkToMock(apiHomework) {
+      const newList = [];
+      for (const hw of apiHomework) {
+        const existing = mockData.homework.find(mh => mh.id === hw.id);
+        if (existing) {
+          // Update ALL fields from API (title, teacher, etc. may have changed)
+          existing.title = hw.title;
+          existing.subjectId = hw.subject_id;
+          existing.teacher = hw.teacher_name;
+          existing.deadline = hw.deadline ? hw.deadline.split('T')[0] : existing.deadline;
+          existing.type = hw.type;
+          existing.status = hw.status === 'closed' ? 'graded' : existing.status;
+          existing.submissionId = hw.submission_id;
+          existing.submissionStatus = hw.submission_status;
+          existing.submissionScore = hw.score;
+          existing.submittedAt = hw.submitted_at;
+          newList.push(existing);
+        } else {
+          newList.push({
+            id: hw.id, subjectId: hw.subject_id, title: hw.title,
+            teacher: hw.teacher_name, deadline: hw.deadline ? hw.deadline.split('T')[0] : '',
+            type: hw.type, totalQuestions: 0, submitted: 0, totalStudents: 0,
+            status: hw.status === 'closed' ? 'graded' : 'active',
+            submissionId: hw.submission_id, submissionStatus: hw.submission_status,
+            submissionScore: hw.score, submittedAt: hw.submitted_at,
+            questions: []
+          });
+        }
+      }
+      if (newList.length > 0) mockData.homework = newList;
+    }
+
+    async function loadHomeworkDetail(hwId) {
+      try {
+        const res = await apiCall(`/parent/homework/${hwId}`);
+        const detail = res.data;
+        const hw = mockData.homework.find(h => h.id === hwId);
+        if (hw && detail.questions) {
+          hw.questions = detail.questions.map(q => ({
+            id: q.id, type: q.type, stem: q.stem, answer: q.answer,
+            knowledgePoint: q.knowledge_point, sortOrder: q.sort_order
+          }));
+          hw.totalQuestions = detail.questions.length;
+          hw.submission = detail.submission;
+        }
+        return detail;
+      } catch (e) { console.warn('加载作业详情失败:', e.message); return null; }
+    }
+
+    async function submitHomeworkAnswers(hwId, studentId, answers) {
+      const res = await apiCall(`/parent/homework/${hwId}/submit`, {
+        method: 'POST',
+        body: JSON.stringify({ student_id: studentId, answers })
+      });
+      return res.data;
+    }
+
+    async function getSubmissionDetail(subId) {
+      const res = await apiCall(`/parent/submission/${subId}`);
+      return res.data;
+    }
+
     // ============================================================
     // Tab Navigation
     // ============================================================
@@ -1883,7 +2428,8 @@
         { id: 'chemistry', name: '化学', color: '#E74C3C', icon: '<svg class="icon"><use href="#icon-chemistry"/></svg>' },
       ],
 
-      homework: [
+      homework: [], /* mock data cleared — all homework comes from API */
+      _old_homework: [
         {
           id: 1, subjectId: 'math', title: '分数加减法练习（三）',
           teacher: '王老师', deadline: '2026-06-13', type: 'school',
@@ -2665,937 +3211,7 @@
         },
       ],
 
-      gradingResults: {
-        1: {
-          score: 60, correctCount: 6, totalCount: 10,
-          gradedAt: '2026-06-12',
-          answers: {
-            1: { correct: true, userAnswer: '1/2' },
-            2: { correct: true, userAnswer: '1/2' },
-            3: { correct: false, userAnswer: '1/6', analysis: '同分母分数减法：2/3 = 4/6, 1/3 = 2/6, 4/6 - 2/6 = 2/6 = 1/3。你的答案1/6计算有误。' },
-            4: { correct: true, userAnswer: '2/3' },
-            5: { correct: false, userAnswer: '3/8', analysis: '异分母加法需先通分：1/2 = 2/4, 2/4 + 1/4 = 3/4。你的答案3/8未正确通分。' },
-            6: { correct: true, userAnswer: '1/2' },
-            7: { correct: false, userAnswer: '1/2', analysis: '异分母减法需先通分：3/4 = 6/8, 1/2 = 4/8, 6/8 - 4/8 = 2/8 = 1/4。你的答案1/2未正确计算。' },
-            8: { correct: true, userAnswer: '1/2' },
-            9: { correct: false, userAnswer: '1/2', analysis: '分数应用题：1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2。但需注意此处1/2是指半个蛋糕，最终答案是1/2。等等...此题本身答案就是1/2，所以你的答案是对的？我们重新检查。' },
-            10: { correct: false, userAnswer: '5/9', analysis: '分数应用题：5/6 - 1/3 = 5/6 - 2/6 = 3/6 = 1/2。你的答案5/9计算有误，注意通分时找到正确公分母。' },
-          },
-          classmatesWrong: { 3: 18, 5: 22, 7: 14, 9: 10, 10: 16 },
-          weakPoints: [
-            { name: '同分母分数加法', mastery: 'strong' },
-            { name: '同分母分数减法', mastery: 'medium' },
-            { name: '异分母分数加法', mastery: 'weak' },
-            { name: '异分母分数减法', mastery: 'weak' },
-            { name: '分数应用题', mastery: 'medium' },
-          ]
-        },
-        3: {
-          score: 75, correctCount: 6, totalCount: 8,
-          gradedAt: '2026-06-11',
-          answers: {
-            1: { correct: true, userAnswer: '疑是地上霜' },
-            2: { correct: true, userAnswer: '低头思故乡' },
-            3: { correct: false, userAnswer: 'A', analysis: '"疑"在古诗中常作"好像"解，如"疑是银河落九天"。此处理解为"好像地上结了霜"。' },
-            4: { correct: true, userAnswer: 'B' },
-            5: { correct: false, userAnswer: '黄河入水流', analysis: '应为"黄河入海流"，注意"海"和"流"的位置。' },
-            6: { correct: true, userAnswer: '更上一层楼' },
-            7: { correct: true, userAnswer: 'B' },
-            8: { correct: false, userAnswer: 'A', analysis: '《登鹳雀楼》作者是王之涣，而非李白。注意区分唐代诗人及其代表作。' },
-          },
-          classmatesWrong: { 3: 15, 5: 20, 8: 12 },
-          weakPoints: [
-            { name: '古诗默写', mastery: 'medium' },
-            { name: '字词理解', mastery: 'weak' },
-            { name: '文学常识', mastery: 'weak' },
-            { name: '诗意理解', mastery: 'strong' },
-          ]
-        },
-        5: {
-          score: 80, correctCount: 8, totalCount: 10,
-          gradedAt: '2026-06-10',
-          answers: {
-            1: { correct: true, userAnswer: '苹果' },
-            2: { correct: true, userAnswer: 'banana' },
-            3: { correct: false, userAnswer: 'has', analysis: '主语是I（第一人称），动词用原形have，不用三单形式has。' },
-            4: { correct: true, userAnswer: 'likes' },
-            5: { correct: true, userAnswer: 'A' },
-            6: { correct: true, userAnswer: 'B' },
-            7: { correct: true, userAnswer: 'orange' },
-            8: { correct: false, userAnswer: 'has', analysis: '主语是They（复数），动词用原形have。have/has区别：第三人称单数用has，其余用have。' },
-            9: { correct: true, userAnswer: 'B' },
-            10: { correct: true, userAnswer: '葡萄' },
-          },
-          classmatesWrong: { 3: 12, 8: 18 },
-          weakPoints: [
-            { name: '动词have', mastery: 'weak' },
-            { name: '三单形式', mastery: 'strong' },
-            { name: '一般疑问句', mastery: 'strong' },
-            { name: '水果类单词', mastery: 'strong' },
-          ]
-        },
-        // --- Historical data for 7-day / 30-day / all filter testing ---
-        2: {
-          score: 68, correctCount: 3, partialCount: 2, wrongCount: 2, unansweredCount: 1, totalCount: 8, correctRate: 50,
-          gradedAt: '2026-05-28',
-          answers: {
-            1: { status:'correct', correct:true, partial:false, userAnswer:'42', errorCause:null, analysis:null },
-            2: { status:'wrong', correct:false, partial:false, userAnswer:'68', errorCause:'计算操作', analysis:'8×9=72，不是68。建议重新背诵乘法口诀表，多做口算练习。' },
-            3: { status:'correct', correct:true, partial:false, userAnswer:'56', errorCause:null, analysis:null },
-            4: { status:'partial', correct:false, partial:true, userAnswer:'52', errorCause:'概念原理', analysis:'9×6=54。乘数顺序不影响结果，但计算时注意进位。' },
-            5: { status:'wrong', correct:false, partial:false, userAnswer:'54', errorCause:'审题逻辑', analysis:'每排8棵×7排=56棵。你可能用了9×6=54，混淆了题目数据。' },
-            6: { status:'correct', correct:true, partial:false, userAnswer:'54', errorCause:null, analysis:null },
-            7: { status:'unanswered', correct:false, partial:false, userAnswer:'（未作答）', errorCause:'未作答', analysis:'12×5=60。两位数乘法可拆分为10×5+2×5=50+10=60。' },
-            8: { status:'wrong', correct:false, partial:false, userAnswer:'48', errorCause:'方法策略', analysis:'5本×12元=60元。你可能用了错误的运算方法，注意区分乘法和加法。' }
-          },
-          classmatesWrong: { 2:20, 4:14, 5:18, 7:10, 8:15 },
-          weakPoints: [
-            { name:'乘法口诀', rate:0.5, correct:1, total:2, mastery:'medium' },
-            { name:'乘法应用', rate:0.33, correct:1, total:3, mastery:'weak' },
-            { name:'两位数乘法', rate:0, correct:0, total:1, mastery:'weak' }
-          ]
-        },
-        4: {
-          score: 55, correctCount: 3, partialCount: 1, wrongCount: 3, unansweredCount: 1, totalCount: 8, correctRate: 44,
-          gradedAt: '2026-05-20',
-          answers: {
-            1: { status:'correct', correct:true, partial:false, userAnswer:'他把作业完成了', errorCause:null, analysis:null },
-            2: { status:'wrong', correct:false, partial:false, userAnswer:'风被树叶吹落了', errorCause:'概念原理', analysis:'被字句格式：受事者+被+施事者+动词。正确为"树叶被风吹落了"，风是施事者，树叶是受事者。' },
-            3: { status:'partial', correct:false, partial:true, userAnswer:'他看完了这本书', errorCause:'审题逻辑', analysis:'把字句转换需注意：原句"这本书被他看完了"→"他把这本书看完了"，遗漏了"把"字。' },
-            4: { status:'correct', correct:true, partial:false, userAnswer:'难道你不应该好好学习吗？', errorCause:null, analysis:null },
-            5: { status:'correct', correct:true, partial:false, userAnswer:'这是事实', errorCause:null, analysis:null },
-            6: { status:'wrong', correct:false, partial:false, userAnswer:'妈妈被饭做好了', errorCause:'概念原理', analysis:'被字句：受事者+被+施事者+动词。"饭被妈妈做好了"，妈妈是施事者在前，饭是受事者在后。' },
-            7: { status:'wrong', correct:false, partial:false, userAnswer:'小鸟在天空飞', errorCause:'书写/粗心', analysis:'扩写需要添加修饰词。如"可爱的小鸟在蓝蓝的天空中自由地飞翔"，多想想形容词和副词。' },
-            8: { status:'unanswered', correct:false, partial:false, userAnswer:'（未作答）', errorCause:'未作答', analysis:'缩句保留主干：小鸟飞。删去"美丽的""在天空中""自由地"等修饰成分。' }
-          },
-          classmatesWrong: { 2:16, 3:20, 6:12, 7:8, 8:10 },
-          weakPoints: [
-            { name:'把字句', rate:0.5, correct:1, total:2, mastery:'medium' },
-            { name:'被字句', rate:0, correct:0, total:2, mastery:'weak' },
-            { name:'句式转换', rate:1, correct:2, total:2, mastery:'strong' },
-            { name:'扩写句子', rate:0, correct:0, total:1, mastery:'weak' },
-            { name:'缩写句子', rate:0, correct:0, total:1, mastery:'weak' }
-          ]
-        },
-        6: {
-          score: 72, correctCount: 4, partialCount: 1, wrongCount: 2, unansweredCount: 1, totalCount: 8, correctRate: 56,
-          gradedAt: '2026-05-15',
-          answers: {
-            1: { status:'correct', correct:true, partial:false, userAnswer:'26cm', errorCause:null, analysis:null },
-            2: { status:'partial', correct:false, partial:true, userAnswer:'40平方厘米', errorCause:'书写/粗心', analysis:'答案正确但单位写成了中文，应写作40cm²。注意数学符号的规范书写。' },
-            3: { status:'correct', correct:true, partial:false, userAnswer:'24cm', errorCause:null, analysis:null },
-            4: { status:'wrong', correct:false, partial:false, userAnswer:'24cm²', errorCause:'概念原理', analysis:'正方形面积=边长×边长=6×6=36cm²。你把面积和周长公式混淆了，24cm²是错误结果。' },
-            5: { status:'correct', correct:true, partial:false, userAnswer:'4cm', errorCause:null, analysis:null },
-            6: { status:'wrong', correct:false, partial:false, userAnswer:'100', errorCause:'计算操作', analysis:'教室面积=10×8=80m²，80÷1=80块。你可能把长宽看成了10×10。' },
-            7: { status:'correct', correct:true, partial:false, userAnswer:'400', errorCause:null, analysis:null },
-            8: { status:'unanswered', correct:false, partial:false, userAnswer:'（未作答）', errorCause:'未作答', analysis:'面积÷长=宽，即48÷12=4cm。逆运算公式：宽=面积÷长。' }
-          },
-          classmatesWrong: { 2:10, 4:22, 6:15, 8:18 },
-          weakPoints: [
-            { name:'长方形周长', rate:1, correct:1, total:1, mastery:'strong' },
-            { name:'长方形面积', rate:0.5, correct:1, total:2, mastery:'medium' },
-            { name:'正方形周长', rate:1, correct:1, total:1, mastery:'strong' },
-            { name:'正方形面积', rate:0, correct:0, total:1, mastery:'weak' },
-            { name:'面积应用', rate:0, correct:0, total:1, mastery:'weak' },
-            { name:'面积逆运算', rate:0, correct:0, total:1, mastery:'weak' }
-          ]
-        },
-        8: {
-          score: 45, correctCount: 2, partialCount: 0, wrongCount: 2, unansweredCount: 1, totalCount: 5, correctRate: 40,
-          gradedAt: '2026-06-17',
-          answers: {
-            1: { status:'correct', correct:true, partial:false, userAnswer:'A', errorCause:null, analysis:null },
-            2: { status:'wrong', correct:false, partial:false, userAnswer:'C', errorCause:'审题逻辑', analysis:'描写春天万物复苏的景象，作者心情应是喜悦的。选择"平静"说明没有体会到文中表达的情感。' },
-            3: { status:'correct', correct:true, partial:false, userAnswer:'小草、花朵', errorCause:null, analysis:null },
-            4: { status:'wrong', correct:false, partial:false, userAnswer:'A', errorCause:'概念原理', analysis:'《春》是朱自清的散文名篇，体裁为散文而非说明文。散文以抒情写景为主，说明文以介绍说明为主。' },
-            5: { status:'unanswered', correct:false, partial:false, userAnswer:'（未作答）', errorCause:'未作答', analysis:'概括要点：描写了春天万物复苏、生机勃勃的景象。先总结再提炼关键描写对象。' }
-          },
-          classmatesWrong: { 2:12, 4:25, 5:20 },
-          weakPoints: [
-            { name:'文章理解', rate:1, correct:1, total:1, mastery:'strong' },
-            { name:'情感体会', rate:0, correct:0, total:1, mastery:'weak' },
-            { name:'文体知识', rate:0, correct:0, total:1, mastery:'weak' },
-            { name:'概括能力', rate:0, correct:0, total:1, mastery:'weak' }
-          ]
-        },
-        7: {
-          score: 50, correctCount: 4, totalCount: 8,
-          gradedAt: '2026-06-09',
-          answers: {
-            1: { correct: false, userAnswer: 'reading', analysis: '现在进行时结构为 be + V-ing。主语是I，be动词用am，正确形式是am reading。你的答案遗漏了be动词。' },
-            2: { correct: false, userAnswer: 'singing', analysis: '现在进行时结构为 be + V-ing。主语是She，be动词用is，正确形式是is singing。' },
-            3: { correct: true, userAnswer: 'are playing' },
-            4: { correct: true, userAnswer: 'B' },
-            5: { correct: false, userAnswer: 'He reading a book.', analysis: '现在进行时需要be动词 + V-ing：He is reading a book。你的答案缺少be动词is。' },
-            6: { correct: false, userAnswer: 'having', analysis: '现在进行时结构为 be + V-ing。主语是We，be动词用are，正确形式是are having。' },
-            7: { correct: true, userAnswer: 'C' },
-            8: { correct: false, userAnswer: 'cooking', analysis: '现在进行时结构为 be + V-ing。主语是My mother（第三人称单数），be动词用is，正确形式是is cooking。' },
-          },
-          classmatesWrong: { 1: 14, 2: 16, 5: 20, 6: 10, 8: 8 },
-          weakPoints: [
-            { name: '现在进行时', mastery: 'weak' },
-          ]
-        },
-        9: {
-          score: 88, correctCount: 7, totalCount: 8,
-          gradedAt: '2026-06-17',
-          answers: {
-            1: { correct: true, userAnswer: 'A' },
-            2: { correct: true, userAnswer: '反射' },
-            3: { correct: true, userAnswer: 'B' },
-            4: { correct: true, userAnswer: '小于' },
-            5: { correct: true, userAnswer: 'B' },
-            6: { correct: false, userAnswer: '发散', analysis: '凸透镜对光有会聚作用，凹透镜对光有发散作用。两者容易混淆，注意区分。' },
-            7: { correct: true, userAnswer: 'B' },
-            8: { correct: true, userAnswer: '大于' },
-          },
-          classmatesWrong: { 6: 18 },
-          weakPoints: [
-            { name: '光的折射', mastery: 'weak' },
-          ]
-        },
-        10: {
-          score: 75, correctCount: 6, totalCount: 8,
-          gradedAt: '2026-06-19',
-          answers: {
-            1: { correct: true, userAnswer: 'B' },
-            2: { correct: true, userAnswer: '相等' },
-            3: { correct: true, userAnswer: 'B' },
-            4: { correct: true, userAnswer: '相等' },
-            5: { correct: false, userAnswer: 'A', analysis: '串联电路中各用电器分压，每个灯泡分得总电压的一半即3V。注意串联分压规律。' },
-            6: { correct: false, userAnswer: 'R', analysis: '欧姆定律为I=U/R，电流等于电压除以电阻。需要熟记公式。' },
-            7: { correct: true, userAnswer: 'A' },
-            8: { correct: true, userAnswer: '和' },
-          },
-          classmatesWrong: { 5: 15, 6: 20 },
-          weakPoints: [
-            { name: '串联电路', mastery: 'weak' },
-          ]
-        },
-        11: {
-          score: 100, correctCount: 8, totalCount: 8,
-          gradedAt: '2026-06-17',
-          answers: {
-            1: { correct: true, userAnswer: 'B' },
-            2: { correct: true, userAnswer: '有新物质生成' },
-            3: { correct: true, userAnswer: 'C' },
-            4: { correct: true, userAnswer: '水' },
-            5: { correct: true, userAnswer: 'B' },
-            6: { correct: true, userAnswer: '+4' },
-            7: { correct: true, userAnswer: 'B' },
-            8: { correct: true, userAnswer: '发光、发热、产生气体' },
-          },
-          classmatesWrong: {},
-          weakPoints: []
-        },
-        12: {
-          score: 88, correctCount: 7, totalCount: 8,
-          gradedAt: '2026-06-20',
-          answers: {
-            1: { correct: true, userAnswer: 'B' },
-            2: { correct: true, userAnswer: '饱和' },
-            3: { correct: true, userAnswer: 'A' },
-            4: { correct: true, userAnswer: '溶液质量' },
-            5: { correct: true, userAnswer: 'B' },
-            6: { correct: true, userAnswer: '溶剂' },
-            7: { correct: false, userAnswer: 'C', analysis: '对于大多数固体，升高温度使溶解度增大，不饱和溶液更难饱和。A（加溶质）和C（蒸发溶剂）都可行，B（升高温度）不可行。' },
-            8: { correct: true, userAnswer: '5' },
-          },
-          classmatesWrong: { 7: 12 },
-          weakPoints: [
-            { name: '溶解度', mastery: 'weak' },
-          ]
-        },
-        13: {
-          score: 92, correctCount: 7, partialCount: 1, wrongCount: 0, unansweredCount: 0, totalCount: 8, correctRate: 94,
-          gradedAt: '2026-06-15',
-          answers: {
-            1: { status:'correct', correct:true, userAnswer:'5.00' },
-            2: { status:'correct', correct:true, userAnswer:'9.15' },
-            3: { status:'correct', correct:true, userAnswer:'6.53' },
-            4: { status:'correct', correct:true, userAnswer:'2.17' },
-            5: { status:'correct', correct:true, userAnswer:'10.3' },
-            6: { status:'partial', correct:false, partial:true, userAnswer:'7', errorCause:'书写/粗心', analysis:'计算结果正确但未保留一位小数，应写作7.7。数学中需注意答案的精度要求。' },
-            7: { status:'correct', correct:true, userAnswer:'5.10' },
-            8: { status:'correct', correct:true, userAnswer:'5.4' },
-          },
-          classmatesWrong: { 6: 8 },
-          weakPoints: [
-            { name: '小数加减法', mastery: 'strong' },
-          ]
-        },
-        15: {
-          score: 88, correctCount: 7, partialCount: 0, wrongCount: 1, unansweredCount: 0, totalCount: 8, correctRate: 88,
-          gradedAt: '2026-06-16',
-          answers: {
-            1: { status:'correct', correct:true, userAnswer:'狂' },
-            2: { status:'correct', correct:true, userAnswer:'闻' },
-            3: { status:'correct', correct:true, userAnswer:'A' },
-            4: { status:'correct', correct:true, userAnswer:'鸟' },
-            5: { status:'correct', correct:true, userAnswer:'B' },
-            6: { status:'correct', correct:true, userAnswer:'他坚持不懈地练习钢琴，终于取得了好成绩' },
-            7: { status:'correct', correct:true, userAnswer:'B' },
-            8: { status:'wrong', correct:false, userAnswer:'清楚', errorCause:'概念原理', analysis:'应为"条理分明"，"条理清楚"虽通顺但不是正确成语搭配。需要加强成语积累，多读多背。' },
-          },
-          classmatesWrong: { 8: 15 },
-          weakPoints: [
-            { name: '成语运用', mastery: 'strong' },
-          ]
-        },
-        18: {
-          score: 83, correctCount: 5, partialCount: 0, wrongCount: 1, unansweredCount: 0, totalCount: 6, correctRate: 83,
-          gradedAt: '2026-06-16',
-          answers: {
-            1: { status:'correct', correct:true, userAnswer:'A' },
-            2: { status:'correct', correct:true, userAnswer:'In the forest' },
-            3: { status:'wrong', correct:false, userAnswer:'A', errorCause:'审题逻辑', analysis:'habitat在文中指动物的"栖息地"（居住环境），而非"习惯"。上下文提示了居住环境，需结合语境理解词义。' },
-            4: { status:'correct', correct:true, userAnswer:'5' },
-            5: { status:'correct', correct:true, userAnswer:'C' },
-            6: { status:'correct', correct:true, userAnswer:'Be careful and listen to warnings' },
-          },
-          classmatesWrong: { 3: 16 },
-          weakPoints: [
-            { name: '阅读理解', mastery: 'medium' },
-          ]
-        },
-        19: {
-          score: 100, correctCount: 8, partialCount: 0, wrongCount: 0, unansweredCount: 0, totalCount: 8, correctRate: 100,
-          gradedAt: '2026-06-16',
-          answers: {
-            1: { status:'correct', correct:true, userAnswer:'B' },
-            2: { status:'correct', correct:true, userAnswer:'静止、匀速' },
-            3: { status:'correct', correct:true, userAnswer:'B' },
-            4: { status:'correct', correct:true, userAnswer:'质量' },
-            5: { status:'correct', correct:true, userAnswer:'B' },
-            6: { status:'correct', correct:true, userAnswer:'不' },
-            7: { status:'correct', correct:true, userAnswer:'B' },
-            8: { status:'correct', correct:true, userAnswer:'实验' },
-          },
-          classmatesWrong: {},
-          weakPoints: []
-        },
-        20: {
-          score: 88, correctCount: 7, partialCount: 0, wrongCount: 1, unansweredCount: 0, totalCount: 8, correctRate: 88,
-          gradedAt: '2026-06-15',
-          answers: {
-            1: { status:'correct', correct:true, userAnswer:'A' },
-            2: { status:'correct', correct:true, userAnswer:'周期、族' },
-            3: { status:'correct', correct:true, userAnswer:'O' },
-            4: { status:'correct', correct:true, userAnswer:'C' },
-            5: { status:'correct', correct:true, userAnswer:'铝' },
-            6: { status:'correct', correct:true, userAnswer:'B' },
-            7: { status:'wrong', correct:false, userAnswer:'Na、二', errorCause:'概念原理', analysis:'Na正确，但钠位于第三周期而非第二周期（第二周期是Li-Ne）。需记住钠的原子序数为11，位于第三周期IA族。' },
-            8: { status:'correct', correct:true, userAnswer:'B' },
-          },
-          classmatesWrong: { 7: 20 },
-          weakPoints: [
-            { name: '元素周期表', mastery: 'medium' },
-          ]
-        },
-
-        14: {
-          score: 78, correctCount: 5, partialCount: 1, wrongCount: 2, totalCount: 8, correctRate: 69,
-          gradedAt: '2026-06-17',
-          answers: {
-            1: { correct: true, userAnswer: '24cm²' },
-            2: { correct: true, userAnswer: '30cm²' },
-            3: { correct: false, userAnswer: '25cm²', analysis: '梯形面积=(上底+下底)×高÷2=(4+8)×5÷2=30cm²。你可能忘记了公式中的加号。' },
-            4: { correct: true, userAnswer: '32cm²' },
-            5: { correct: false, userAnswer: '480', analysis: '三角形面积=15×8÷2=60m²，60×4=240棵。你多乘了2。' },
-            6: { correct: true, userAnswer: '54cm²' },
-            7: { correct: true, userAnswer: '900' },
-            8: { correct: false, userAnswer: '4cm', analysis: '逆运算：高=面积×2÷底=36×2÷9=8cm。你的答案是底的一半。' },
-          },
-          classmatesWrong: { 3: 14, 5: 20, 8: 16 },
-          weakPoints: [
-            { name: '三角形面积', mastery: 'medium' },
-            { name: '梯形面积', mastery: 'medium' },
-          ]
-        },
-
-        16: {
-          score: 62, correctCount: 3, partialCount: 1, wrongCount: 1, totalCount: 5, correctRate: 70,
-          gradedAt: '2026-06-20',
-          answers: {
-            1: { correct: true, userAnswer: '我的家乡在四川的一个小山村，四面环山，风景如画。' },
-            2: { correct: true, userAnswer: '秋天漫山遍野的橘子红了，空气中弥漫着果香。' },
-            3: { correct: false, userAnswer: '家乡最有名的是火锅，麻辣鲜香。', analysis: '内容与家乡风俗相关但太简略，建议展开描写具体的制作过程或节日场景。' },
-            4: { correct: true, userAnswer: '邻居王爷爷义务守护村口古树二十年，感动了全村人。' },
-            5: { correct: false, userAnswer: '我要好好学习。', analysis: '结尾可更具体：表达对家乡的感情，如"无论走到哪里，家乡的橘香和乡音都是我最深的牵挂"。' },
-          },
-          classmatesWrong: { 3: 12, 5: 18 },
-          weakPoints: [
-            { name: '作文结构', mastery: 'medium' },
-          ]
-        },
-
-        17: {
-          score: 91, correctCount: 7, wrongCount: 1, totalCount: 8, correctRate: 88,
-          gradedAt: '2026-06-16',
-          answers: {
-            1: { correct: true, userAnswer: 'went' },
-            2: { correct: true, userAnswer: 'read' },
-            3: { correct: true, userAnswer: 'B' },
-            4: { correct: true, userAnswer: 'did not go' },
-            5: { correct: true, userAnswer: 'She walked to school.' },
-            6: { correct: true, userAnswer: 'had' },
-            7: { correct: true, userAnswer: 'B' },
-            8: { correct: false, userAnswer: 'was', analysis: 'My parents是复数，过去式be动词应用were而非was。was只用于I/he/she/it等单数主语。' },
-          },
-          classmatesWrong: { 8: 15 },
-          weakPoints: [
-            { name: '一般过去式', mastery: 'strong' },
-          ]
-        },
-
-        21: {
-          score: 75, correctCount: 6, totalCount: 8,
-          gradedAt: '2026-06-16',
-          answers: {
-            1: { correct: true, userAnswer: '10' },
-            2: { correct: false, userAnswer: '0.7', analysis: '3.6 ÷ 4 = 0.9。计算：3.6 ÷ 4 = 36/10 ÷ 4 = 36/40 = 9/10 = 0.9。小数除法注意对齐小数点位置。' },
-            3: { correct: true, userAnswer: '10' },
-            4: { correct: true, userAnswer: '8' },
-            5: { correct: false, userAnswer: '0.03', analysis: '0.5 × 0.6 = 0.30 = 0.3。小数乘法：先按整数乘5×6=30，再看小数点共2位，从右往左数2位得0.30=0.3。' },
-            6: { correct: true, userAnswer: '10' },
-            7: { correct: true, userAnswer: '0.9' },
-            8: { correct: true, userAnswer: '4' },
-          },
-          classmatesWrong: { 2: 18, 5: 22 },
-          weakPoints: [
-            { name: '小数乘法', mastery: 'medium' },
-            { name: '小数除法', mastery: 'strong' },
-          ]
-        },
-
-        22: {
-          score: 67, correctCount: 4, totalCount: 6,
-          gradedAt: '2026-06-17',
-          answers: {
-            1: { correct: true, userAnswer: '4:5' },
-            2: { correct: true, userAnswer: '160' },
-            3: { correct: false, userAnswer: '9', analysis: '男生占2/5，男生人数=45×(2/5)=45×2÷5=18人。你可能计算了45÷5=9，忘了再乘以2。' },
-            4: { correct: true, userAnswer: '200' },
-            5: { correct: false, userAnswer: '15', analysis: '甲:乙=3:5，甲=18即3份=18，每份=6，乙=5份=5×6=30。你可能算成了3份=18即每份=3，乙=3×5=15。' },
-            6: { correct: true, userAnswer: '200' },
-          },
-          classmatesWrong: { 3: 20, 5: 16 },
-          weakPoints: [
-            { name: '比例应用', mastery: 'weak' },
-            { name: '百分比', mastery: 'strong' },
-            { name: '比例', mastery: 'medium' },
-          ]
-        },
-
-        23: {
-          score: 50, correctCount: 3, totalCount: 6,
-          gradedAt: '2026-06-18',
-          answers: {
-            1: { correct: true, userAnswer: '31.4cm' },
-            2: { correct: false, userAnswer: '31.4cm²', analysis: '圆面积=πr²=3.14×25=78.5cm²。你把面积公式和周长公式混淆了，31.4是周长不是面积。' },
-            3: { correct: true, userAnswer: '24cm²' },
-            4: { correct: false, userAnswer: '60cm²', analysis: '梯形面积=(上底+下底)×高÷2=(4+8)×5÷2=12×5÷2=30cm²。你可能忘了除以2。' },
-            5: { correct: true, userAnswer: '62.8m' },
-            6: { correct: false, userAnswer: '42cm²', analysis: '平行四边形面积=底×高=12×7=84cm²。你可能用了错误的边长计算或拼错了公式。' },
-          },
-          classmatesWrong: { 2: 22, 4: 18, 6: 14 },
-          weakPoints: [
-            { name: '圆面积', mastery: 'weak' },
-            { name: '梯形面积', mastery: 'weak' },
-            { name: '平行四边形面积', mastery: 'weak' },
-            { name: '圆周长', mastery: 'strong' },
-            { name: '三角形面积', mastery: 'strong' },
-          ]
-        },
-
-        24: {
-          score: 75, correctCount: 6, totalCount: 8,
-          gradedAt: '2026-06-19',
-          answers: {
-            1: { correct: true, userAnswer: '5/6' },
-            2: { correct: true, userAnswer: '5/12' },
-            3: { correct: true, userAnswer: '1/3' },
-            4: { correct: false, userAnswer: '3/8', analysis: '3/4 ÷ 1/2 = 3/4 × 2/1 = 6/4 = 3/2。分数除法要"除以一个数等于乘以它的倒数"，你可能直接约分了分子分母。' },
-            5: { correct: true, userAnswer: '3/2' },
-            6: { correct: true, userAnswer: '1/2' },
-            7: { correct: false, userAnswer: '5/12升', analysis: '喝掉1/3即喝掉(3/4)×(1/3)=3/12=1/4升，剩余3/4-1/4=2/4=1/2升。你可能直接把3/4和1/3相减了。' },
-            8: { correct: true, userAnswer: '2' },
-          },
-          classmatesWrong: { 4: 20, 7: 16 },
-          weakPoints: [
-            { name: '分数除法', mastery: 'medium' },
-            { name: '分数应用题', mastery: 'medium' },
-          ]
-        },
-
-        25: {
-          score: 60, correctCount: 3, totalCount: 5,
-          gradedAt: '2026-06-15',
-          answers: {
-            1: { correct: true, userAnswer: 'B' },
-            2: { correct: false, userAnswer: '学而时习之', analysis: '"三人行，必有我师焉"的下一句是"择其善者而从之，其不善者而改之"。需要加强《论语》经典篇目的背诵。' },
-            3: { correct: true, userAnswer: 'A' },
-            4: { correct: false, userAnswer: 'A', analysis: '《论语》是由孔子的弟子及再传弟子编撰而成，记录了孔子及其弟子的言行，并非孔子本人所著。' },
-            5: { correct: true, userAnswer: '思而不学则殆' },
-          },
-          classmatesWrong: { 2: 22, 4: 18 },
-          weakPoints: [
-            { name: '古诗默写', mastery: 'medium' },
-            { name: '文学常识', mastery: 'weak' },
-          ]
-        },
-
-        26: {
-          score: 67, correctCount: 4, totalCount: 6,
-          gradedAt: '2026-06-17',
-          answers: {
-            1: { correct: true, userAnswer: 'B' },
-            2: { correct: true, userAnswer: 'B' },
-            3: { correct: false, userAnswer: 'C', analysis: '"他的心像刀割一样疼"用了夸张的修辞手法，将心疼的程度夸大为刀割。虽然句中有"像"字，但这里的"像"是表比较而非打比方。' },
-            4: { correct: true, userAnswer: '她的笑容像阳光一样温暖' },
-            5: { correct: true, userAnswer: 'C' },
-            6: { correct: false, userAnswer: '风很大很大', analysis: '夸张要使用超乎寻常的描写，如"风大得能把人吹飞"或"狂风大作，飞沙走石"。简单的反复不是夸张修辞。' },
-          },
-          classmatesWrong: { 3: 20, 6: 15 },
-          weakPoints: [
-            { name: '修辞手法', mastery: 'medium' },
-            { name: '修辞运用', mastery: 'medium' },
-          ]
-        },
-
-        27: {
-          score: 88, correctCount: 7, totalCount: 8,
-          gradedAt: '2026-06-18',
-          answers: {
-            1: { correct: true, userAnswer: 'B' },
-            2: { correct: true, userAnswer: 'háng,xíng' },
-            3: { correct: true, userAnswer: 'A' },
-            4: { correct: true, userAnswer: '自己、已经、巳时' },
-            5: { correct: true, userAnswer: 'A' },
-            6: { correct: true, userAnswer: 'piāo,piào' },
-            7: { correct: true, userAnswer: 'A' },
-            8: { correct: false, userAnswer: '情、晴、睛', analysis: '"清"的形近字是"晴、睛、请"，都用"青"作声旁。"情"也是形近字可以接受，但"请"更典型——替换偏旁"氵"为"讠"。' },
-          },
-          classmatesWrong: { 8: 12 },
-          weakPoints: [
-            { name: '形近字', mastery: 'strong' },
-            { name: '多音字', mastery: 'strong' },
-          ]
-        },
-
-        28: {
-          score: 60, correctCount: 3, totalCount: 5,
-          gradedAt: '2026-06-19',
-          answers: {
-            1: { correct: true, userAnswer: 'B' },
-            2: { correct: false, userAnswer: '作比较、下定义、分类别', analysis: '常见说明方法有：列数字、举例子、打比方。你写的"作比较、下定义、分类别"也是说明方法，但最常用的三种是列数字、举例子、打比方。' },
-            3: { correct: true, userAnswer: 'C' },
-            4: { correct: false, userAnswer: '时间顺序', analysis: '说明文的顺序包括时间顺序、空间顺序、逻辑顺序等。只写一种不够完整，需至少写出两种。' },
-            5: { correct: true, userAnswer: 'B' },
-          },
-          classmatesWrong: { 2: 18, 4: 14 },
-          weakPoints: [
-            { name: '说明方法', mastery: 'medium' },
-            { name: '文体知识', mastery: 'medium' },
-          ]
-        },
-
-        29: {
-          score: 67, correctCount: 4, totalCount: 6,
-          gradedAt: '2026-06-16',
-          answers: {
-            1: { correct: true, userAnswer: 'have finished' },
-            2: { correct: true, userAnswer: 'has been' },
-            3: { correct: false, userAnswer: 'A', analysis: 'He是第三人称单数，用has gone（has gone out表示已经出去了）。现在完成时：have/has + 过去分词。' },
-            4: { correct: true, userAnswer: 'haven\'t seen' },
-            5: { correct: true, userAnswer: 'A' },
-            6: { correct: false, userAnswer: 'I finished the work.', analysis: '改为现在完成时需要把过去式finished改为have finished: I have finished the work. 现在完成时表示过去动作对现在的影响。' },
-          },
-          classmatesWrong: { 3: 16, 6: 20 },
-          weakPoints: [
-            { name: '现在完成时', mastery: 'medium' },
-          ]
-        },
-
-        30: {
-          score: 63, correctCount: 5, totalCount: 8,
-          gradedAt: '2026-06-17',
-          answers: {
-            1: { correct: true, userAnswer: 'taller' },
-            2: { correct: false, userAnswer: 'beautifuller', analysis: 'beautiful是多音节词，比较级前加more，最高级前加most: more beautiful / most beautiful。不能用-er/-est。' },
-            3: { correct: true, userAnswer: 'A' },
-            4: { correct: true, userAnswer: 'faster' },
-            5: { correct: false, userAnswer: 'B', analysis: 'one of the + 最高级 + 复数名词，表示"最……之一"。big的最高级是biggest（双写g加-est）。' },
-            6: { correct: false, userAnswer: 'gooder,goodest', analysis: 'good是不规则变化的形容词：good → better → best。常见的还有bad → worse → worst，far → farther → farthest等。' },
-            7: { correct: true, userAnswer: 'C' },
-            8: { correct: true, userAnswer: 'Tom is older than Jack.' },
-          },
-          classmatesWrong: { 2: 14, 5: 12, 6: 18 },
-          weakPoints: [
-            { name: '比较级', mastery: 'medium' },
-            { name: '不规则比较级', mastery: 'weak' },
-            { name: '最高级', mastery: 'medium' },
-          ]
-        },
-
-        31: {
-          score: 80, correctCount: 4, totalCount: 5,
-          gradedAt: '2026-06-18',
-          answers: {
-            1: { correct: true, userAnswer: 'C' },
-            2: { correct: true, userAnswer: 'steam' },
-            3: { correct: true, userAnswer: 'A' },
-            4: { correct: true, userAnswer: 'B' },
-            5: { correct: false, userAnswer: '太阳让水变得温暖', analysis: '翻译基本正确，但"make...warm"译为"使/让……变暖"更准确。"太阳使水变暖"更简洁。你的答案可以接受，但注意翻译的简洁性。' },
-          },
-          classmatesWrong: { 5: 15 },
-          weakPoints: [
-            { name: '阅读理解', mastery: 'strong' },
-          ]
-        },
-
-        32: {
-          score: 70, correctCount: 7, totalCount: 10,
-          gradedAt: '2026-06-19',
-          answers: {
-            1: { correct: true, userAnswer: 'library' },
-            2: { correct: true, userAnswer: 'hospital' },
-            3: { correct: true, userAnswer: '超市' },
-            4: { correct: false, userAnswer: 'cooker', analysis: '"厨师"是cook，cooker指"厨具/炊具"。注意cook既可作动词（烹饪）也可作名词（厨师）。' },
-            5: { correct: true, userAnswer: '警察' },
-            6: { correct: true, userAnswer: 'doctor' },
-            7: { correct: false, userAnswer: 'Munday', analysis: '"星期一"的正确拼写是Monday，不是Munday。注意星期类单词首字母大写：Monday, Tuesday, Wednesday...' },
-            8: { correct: true, userAnswer: '星期六' },
-            9: { correct: true, userAnswer: 'spring' },
-            10: { correct: false, userAnswer: '冬天', analysis: 'autumn是"秋天"（英式英语），美式英语也用fall。"冬天"是winter。注意四季单词的区分。' },
-          },
-          classmatesWrong: { 4: 18, 7: 15, 10: 12 },
-          weakPoints: [
-            { name: '职业类单词', mastery: 'medium' },
-            { name: '星期类单词', mastery: 'medium' },
-            { name: '季节类单词', mastery: 'medium' },
-          ]
-        },
-
-        33: {
-          score: 67, correctCount: 4, totalCount: 6,
-          gradedAt: '2026-06-15',
-          answers: {
-            1: { correct: true, userAnswer: 'B' },
-            2: { correct: false, userAnswer: '15N', analysis: '阿基米德原理：F浮=ρ液gV排。V排=150cm³=1.5×10⁻⁴m³，F浮=1000×10×1.5×10⁻⁴=1.5N。你可能搞错了单位换算。' },
-            3: { correct: true, userAnswer: 'A' },
-            4: { correct: true, userAnswer: 'ρ液gV排' },
-            5: { correct: false, userAnswer: 'A', analysis: '海水密度大于河水，船排开更少体积即可获得相同浮力，因此吃水深度变浅。密度越大，吃水越浅。' },
-            6: { correct: true, userAnswer: '2N' },
-          },
-          classmatesWrong: { 2: 22, 5: 18 },
-          weakPoints: [
-            { name: '阿基米德原理', mastery: 'medium' },
-            { name: '浮力应用', mastery: 'weak' },
-          ]
-        },
-
-        34: {
-          score: 50, correctCount: 3, totalCount: 6,
-          gradedAt: '2026-06-17',
-          answers: {
-            1: { correct: true, userAnswer: 'A' },
-            2: { correct: false, userAnswer: '800N', analysis: '杠杆平衡条件：F1×L1=F2×L2。F1×40=200×10，F1=2000÷40=50N。你直接把阻力和力臂相乘了，忘记除以动力臂。' },
-            3: { correct: true, userAnswer: 'B' },
-            4: { correct: false, userAnswer: '100N', analysis: '动滑轮省一半力：F=G/2=100/2=50N。动滑轮"省力不省功"，理想情况下拉力是重力的一半。' },
-            5: { correct: false, userAnswer: 'C', analysis: '筷子是费力杠杆——动力臂（手指到支点的距离）小于阻力臂（筷子头到支点的距离）。费力杠杆虽然费力但省距离。' },
-            6: { correct: true, userAnswer: 'F2 × L2' },
-          },
-          classmatesWrong: { 2: 20, 4: 18, 5: 15 },
-          weakPoints: [
-            { name: '杠杆平衡', mastery: 'weak' },
-            { name: '动滑轮', mastery: 'weak' },
-            { name: '杠杆应用', mastery: 'weak' },
-          ]
-        },
-
-        35: {
-          score: 75, correctCount: 6, totalCount: 8,
-          gradedAt: '2026-06-18',
-          answers: {
-            1: { correct: true, userAnswer: 'B' },
-            2: { correct: false, userAnswer: '300', analysis: '声音在15℃空气中的传播速度约为340m/s。你写的300m/s不够准确，实际值是340m/s（约1224km/h）。' },
-            3: { correct: true, userAnswer: 'B' },
-            4: { correct: true, userAnswer: 'B' },
-            5: { correct: true, userAnswer: '300000' },
-            6: { correct: false, userAnswer: 'B', analysis: '潜望镜利用平面镜反射原理（光的反射），望远镜主要利用透镜折射原理（光的折射）。注意区分不同光学仪器的工作原理。' },
-            7: { correct: true, userAnswer: 'C' },
-            8: { correct: true, userAnswer: '等大、等距、虚像' },
-          },
-          classmatesWrong: { 2: 16, 6: 20 },
-          weakPoints: [
-            { name: '声速', mastery: 'medium' },
-            { name: '光的反射', mastery: 'medium' },
-          ]
-        },
-
-        36: {
-          score: 67, correctCount: 4, totalCount: 6,
-          gradedAt: '2026-06-18',
-          answers: {
-            1: { correct: true, userAnswer: 'C' },
-            2: { correct: true, userAnswer: 'A' },
-            3: { correct: true, userAnswer: '药匙,量筒' },
-            4: { correct: false, userAnswer: 'A', analysis: '过滤操作中滤纸应低于漏斗内壁（约0.5cm），这样液面能始终低于滤纸边缘，防止滤液从滤纸和漏斗壁之间流下。选B才是正确的。' },
-            5: { correct: false, userAnswer: '自己', analysis: '给试管加热时，试管口不能对着自己和他人，防止液体沸腾喷出伤人。你只想到了自己，还应该注意不要对着他人。' },
-            6: { correct: true, userAnswer: 'B' },
-          },
-          classmatesWrong: { 4: 14, 5: 16 },
-          weakPoints: [
-            { name: '实验操作', mastery: 'medium' },
-            { name: '实验安全', mastery: 'weak' },
-          ]
-        },
-
-        37: {
-          score: 50, correctCount: 3, totalCount: 6,
-          gradedAt: '2026-06-19',
-          answers: {
-            1: { correct: false, userAnswer: 'Zn,Cu', analysis: '金属活动性顺序应熟记：K Ca Na Mg Al Zn Fe Sn Pb (H) Cu Hg Ag Pt Au。铁(Fe)在锌(Zn)和锡(Sn)之间，铜(Cu)在氢(H)后面。' },
-            2: { correct: true, userAnswer: 'A' },
-            3: { correct: true, userAnswer: 'B' },
-            4: { correct: false, userAnswer: 'ZnCl', analysis: '锌与盐酸反应生成氯化锌和氢气：Zn + 2HCl = ZnCl₂ + H₂↑。锌是+2价，氯是-1价，所以化学式应为ZnCl₂。' },
-            5: { correct: true, userAnswer: 'A' },
-            6: { correct: false, userAnswer: '水溶液', analysis: '置换反应的条件是"前换后，盐溶液中"，即活泼金属置换不活泼金属需要在盐溶液中进行。注意K、Ca、Na太活泼，会先与水反应。' },
-          },
-          classmatesWrong: { 1: 18, 4: 15, 6: 12 },
-          weakPoints: [
-            { name: '金属活动性顺序', mastery: 'weak' },
-            { name: '置换反应', mastery: 'weak' },
-          ]
-        },
-
-        38: {
-          score: 60, correctCount: 3, totalCount: 5,
-          gradedAt: '2026-06-20',
-          answers: {
-            1: { correct: true, userAnswer: 'CH₄' },
-            2: { correct: true, userAnswer: 'A' },
-            3: { correct: false, userAnswer: '酒精,C₂H₆O', analysis: '乙醇的俗称是酒精，化学式为C₂H₅OH（结构简式）或C₂H₆O（分子式）。C₂H₆O是分子式，但有机化学中常用结构简式C₂H₅OH，以体现羟基官能团。' },
-            4: { correct: true, userAnswer: 'B' },
-            5: { correct: false, userAnswer: 'C₂H₄O₂', analysis: '乙酸的化学式是CH₃COOH（结构简式），含有羧基(-COOH)。C₂H₄O₂是分子式，应写结构简式体现乙酸的结构特点。' },
-          },
-          classmatesWrong: { 3: 14, 5: 16 },
-          weakPoints: [
-            { name: '有机物化学式', mastery: 'weak' },
-            { name: '常见有机物', mastery: 'medium' },
-          ]
-        },
-
-        39: {
-          score: 70, correctCount: 7, totalCount: 10,
-          gradedAt: '2026-06-22',
-          answers: {
-            1: { correct: true, userAnswer: '500' },
-            2: { correct: true, userAnswer: '0.1' },
-            3: { correct: false, userAnswer: '6', analysis: '相遇问题：时间 = 总路程 ÷ 速度和 = 360 ÷ (60+40) = 360 ÷ 100 = 3.6小时。你只用了甲车速度（360÷60=6），忘记两车相向而行时速度应相加。' },
-            4: { correct: true, userAnswer: '27' },
-            5: { correct: false, userAnswer: '20', analysis: '加价25%出售，售价 = 进价 × (1+25%) = 80 × 1.25 = 100元。你计算的20（80×25%=20）只是加价部分，不是最终售价。' },
-            6: { correct: true, userAnswer: '180' },
-            7: { correct: true, userAnswer: '50' },
-            8: { correct: true, userAnswer: '60cm³' },
-            9: { correct: true, userAnswer: '130' },
-            10: { correct: false, userAnswer: '12/40', analysis: '4/5 × 3/8 = 12/40，但题目要求约分到最简。12/40分子分母同时除以4，得3/10。做完分数乘法后一定要检查能否约分。' },
-          },
-          classmatesWrong: { 3: 20, 5: 14, 10: 12 },
-          weakPoints: [
-            { name: '行程问题', mastery: 'weak' },
-            { name: '百分比应用', mastery: 'medium' },
-            { name: '分数乘法', mastery: 'medium' },
-          ]
-        },
-
-        40: {
-          score: 75, correctCount: 9, totalCount: 12,
-          gradedAt: '2026-06-25',
-          answers: {
-            1: { correct: true, userAnswer: '900' },
-            2: { correct: true, userAnswer: '5/8' },
-            3: { correct: true, userAnswer: '96m²,192' },
-            4: { correct: true, userAnswer: '5' },
-            5: { correct: false, userAnswer: '1.2', analysis: '每分钟漏水0.05升，一天24小时共24×60=1440分钟，总漏水量=0.05×1440=72升。你只算了0.05×24=1.2，忽略了"每分钟"这个时间单位。' },
-            6: { correct: true, userAnswer: '56' },
-            7: { correct: true, userAnswer: '78.5cm²' },
-            8: { correct: false, userAnswer: '16', analysis: '工程问题是反比例关系：工人数×天数=总工作量。3×8=24人·天，所以6个工人需要24÷6=4天。你把反比例当成了正比例（3/8=6/x→x=16）。' },
-            9: { correct: true, userAnswer: '28cm²' },
-            10: { correct: false, userAnswer: '条形统计图、折线统计图、柱形统计图', analysis: '常见的三种统计图是条形统计图、折线统计图和扇形统计图。你写的"柱形统计图"不是标准名称，正确说法是"扇形统计图"，用于表示各部分占总体的比例。' },
-            11: { correct: true, userAnswer: '5' },
-            12: { correct: true, userAnswer: '60' },
-          },
-          classmatesWrong: { 5: 18, 8: 22, 10: 16 },
-          weakPoints: [
-            { name: '小数应用', mastery: 'medium' },
-            { name: '比例应用', mastery: 'medium' },
-            { name: '统计初步', mastery: 'weak' },
-          ]
-        },
-
-        41: {
-          score: 75, correctCount: 6, totalCount: 8,
-          gradedAt: '2026-06-22',
-          answers: {
-            1: { correct: true, userAnswer: '7' },
-            2: { correct: true, userAnswer: '6' },
-            3: { correct: true, userAnswer: '22' },
-            4: { correct: false, userAnswer: '2.25', analysis: '方程 x÷4=9，等式两边同时乘以4得x=36。你误用了除法（9÷4=2.25），注意区分乘法和除法运算。' },
-            5: { correct: true, userAnswer: '15' },
-            6: { correct: true, userAnswer: '12' },
-            7: { correct: false, userAnswer: '7', analysis: '解方程2x+3=11：先移项2x=11-3=8，再两边除以2得x=4。你可能忘了先减去3再除以2，直接用11-3=8然后认为x=7。' },
-            8: { correct: true, userAnswer: '17' },
-          },
-          classmatesWrong: { 4: 16, 7: 20 },
-          weakPoints: [
-            { name: '一元一次方程', mastery: 'medium' },
-          ]
-        },
-
-        42: {
-          score: 67, correctCount: 4, totalCount: 6,
-          gradedAt: '2026-06-23',
-          answers: {
-            1: { correct: true, userAnswer: '70°' },
-            2: { correct: true, userAnswer: '180' },
-            3: { correct: false, userAnswer: '45°', analysis: '直角三角形两锐角互余，90°-35°=55°。你可能误以为两锐角相等各45°，注意"互余"是相加为90°而非均分。' },
-            4: { correct: true, userAnswer: 'B' },
-            5: { correct: true, userAnswer: '相等' },
-            6: { correct: false, userAnswer: '80°', analysis: '等腰三角形顶角40°，两底角相等。三角形内角和180°，(180°-40°)÷2=70°。你算了180°-40°×2=100°？注意底角计算用减法再平分。' },
-          },
-          classmatesWrong: { 3: 18, 6: 22 },
-          weakPoints: [
-            { name: '角度计算', mastery: 'medium' },
-          ]
-        },
-
-        43: {
-          score: 67, correctCount: 4, totalCount: 6,
-          gradedAt: '2026-06-24',
-          answers: {
-            1: { correct: false, userAnswer: '5', analysis: '鸡兔同笼：假设全是鸡，10头20脚，多出8只脚（28-20），每只兔比鸡多2脚，兔=8÷2=4只，鸡=10-4=6只。你答鸡5只兔5只，脚数=5×2+5×4=30≠28。' },
-            2: { correct: true, userAnswer: '5' },
-            3: { correct: true, userAnswer: '15km' },
-            4: { correct: true, userAnswer: '10km' },
-            5: { correct: false, userAnswer: '鸡10兔10', analysis: '鸡兔各10只时脚数=10×2+10×4=60≠56。正确解法：假设全鸡20头40脚，多16脚，兔=16÷2=8只，鸡=12只。注意检验脚数。' },
-            6: { correct: true, userAnswer: '2.4' },
-          },
-          classmatesWrong: { 1: 20, 5: 18 },
-          weakPoints: [
-            { name: '鸡兔同笼', mastery: 'weak' },
-            { name: '行程问题', mastery: 'strong' },
-          ]
-        },
-
-        44: {
-          score: 60, correctCount: 3, totalCount: 5,
-          gradedAt: '2026-06-22',
-          answers: {
-            1: { correct: false, userAnswer: '姓名、年龄', analysis: '写人作文开头应交代人物的外貌和性格特征，让读者对人物有初步印象。姓名和年龄只是基本信息，不够生动。' },
-            2: { correct: true, userAnswer: 'B' },
-            3: { correct: true, userAnswer: '动作' },
-            4: { correct: false, userAnswer: 'C', analysis: '写人作文常见顺序为：外貌描写→具体事例→品质总结（总分总结构）。C选项"开头→结尾→中间"顺序混乱，且没有体现写人作文的特点。' },
-            5: { correct: true, userAnswer: '以事写人' },
-          },
-          classmatesWrong: { 1: 14, 4: 20 },
-          weakPoints: [
-            { name: '写人记事', mastery: 'medium' },
-          ]
-        },
-
-        46: {
-          score: 83, correctCount: 5, totalCount: 6,
-          gradedAt: '2026-06-23',
-          answers: {
-            1: { correct: true, userAnswer: 'A' },
-            2: { correct: true, userAnswer: '逗' },
-            3: { correct: true, userAnswer: 'B' },
-            4: { correct: true, userAnswer: '？' },
-            5: { correct: false, userAnswer: 'C', analysis: '引号内是完整感叹句，感叹号应放在引号内。"你好！"小明说。C选项缺少了感叹号，语气表达不完整。' },
-            6: { correct: true, userAnswer: '书名' },
-          },
-          classmatesWrong: { 5: 15 },
-          weakPoints: [
-            { name: '标点符号', mastery: 'strong' },
-          ]
-        },
-
-        47: {
-          score: 63, correctCount: 5, totalCount: 8,
-          gradedAt: '2026-06-24',
-          answers: {
-            1: { correct: true, userAnswer: 'can' },
-            2: { correct: true, userAnswer: 'C' },
-            3: { correct: true, userAnswer: 'should' },
-            4: { correct: true, userAnswer: 'B' },
-            5: { correct: false, userAnswer: 'musts', analysis: '情态动词没有人称和数的变化，无论主语是什么人称，must始终用原形。不存在musts这种形式。' },
-            6: { correct: true, userAnswer: 'should' },
-            7: { correct: false, userAnswer: 'B', analysis: "shouldn't表示\"不应该\"，语气较弱。mustn't表示\"禁止、不允许\"，校内规定通常用mustn't表达强制性。注意区分情态动词的语气强弱。" },
-            8: { correct: false, userAnswer: 'Do you can speak English?', analysis: '含有情态动词can的一般疑问句，将can直接提到主语前即可：Can you speak English? 不需要加助动词Do。' },
-          },
-          classmatesWrong: { 5: 18, 7: 14, 8: 22 },
-          weakPoints: [
-            { name: '情态动词', mastery: 'weak' },
-          ]
-        },
-
-        48: {
-          score: 63, correctCount: 5, totalCount: 8,
-          gradedAt: '2026-06-25',
-          answers: {
-            1: { correct: true, userAnswer: 'Do' },
-            2: { correct: false, userAnswer: 'A', analysis: "主语He是第三人称单数，否定句用doesn't + 动词原形。don't用于I/you/we/they。注意第三人称单数主语在否定句中的助动词选择。" },
-            3: { correct: true, userAnswer: "don't have" },
-            4: { correct: true, userAnswer: 'Does she like cats?' },
-            5: { correct: false, userAnswer: 'Are', analysis: 'milk是不可数名词，视为单数，用Is there提问。Are there用于可数名词复数。不可数名词作主语时be动词用单数。' },
-            6: { correct: true, userAnswer: 'B' },
-            7: { correct: false, userAnswer: "He don't go to school by bus.", analysis: "第三人称单数He的否定句：He doesn't go to school by bus。doesn't后用动词原形go（不是goes）。注意does已经体现了三单，动词要还原。" },
-            8: { correct: true, userAnswer: 'Were' },
-          },
-          classmatesWrong: { 2: 16, 5: 14, 7: 20 },
-          weakPoints: [
-            { name: '疑问句', mastery: 'medium' },
-          ]
-        },
-
-        51: {
-          score: 67, correctCount: 4, totalCount: 6,
-          gradedAt: '2026-06-26',
-          answers: {
-            1: { correct: true, userAnswer: 'S' },
-            2: { correct: false, userAnswer: '0.02', analysis: '压强P=F/S=2/0.01=200Pa。你可能只算了F/S的数值（2÷0.01=200）却写成了0.02——注意Pa是N/m²，结果200才正确。' },
-            3: { correct: true, userAnswer: 'B' },
-            4: { correct: true, userAnswer: '深度' },
-            5: { correct: false, userAnswer: 'A', analysis: '物体重力5N > 浮力3N，合力向下，物体会下沉（B）。判断浮沉看重力与浮力的大小关系：G>F浮→下沉，G=F浮→悬浮，G<F浮→上浮。' },
-            6: { correct: true, userAnswer: '压力' },
-          },
-          classmatesWrong: { 2: 22, 5: 18 },
-          weakPoints: [
-            { name: '压强综合', mastery: 'weak' },
-          ]
-        },
-
-        54: {
-          score: 50, correctCount: 3, totalCount: 6,
-          gradedAt: '2026-06-28',
-          answers: {
-            1: { correct: true, userAnswer: '7' },
-            2: { correct: true, userAnswer: '7' },
-            3: { correct: false, userAnswer: '88.5', analysis: '平均数=(85+90+88+92)÷4=355÷4=88.75。你的88.5可能是计算错误（(85+90+88+92)=355, 355/4=88.75）。注意除法要精确到小数点后两位。' },
-            4: { correct: true, userAnswer: 'B' },
-            5: { correct: false, userAnswer: '6', analysis: '偶数个数据时，中位数是中间两个数的平均数。排序后为2,4,4,6,8,10，中间两个数是4和6，(4+6)÷2=5。你直接取了第4个数6，忘记偶数时需要取平均。' },
-            6: { correct: false, userAnswer: '140.8', analysis: '平均身高=(140+142+138+145+140)÷5=705÷5=141cm。你的计算可能有误，请仔细累加：140+142=282, +138=420, +145=565, +140=705。' },
-          },
-          classmatesWrong: { 3: 16, 5: 20, 6: 14 },
-          weakPoints: [
-            { name: '平均数与中位数', mastery: 'weak' },
-          ]
-        },
-
-      },
-
+      gradingResults: {}, /* cleared — all grading comes from API */
       knowledgePoints: [
         { name: '同分母分数加法', subjectId: 'math', mastery: 'strong' },
         { name: '同分母分数减法', subjectId: 'math', mastery: 'strong' },
@@ -3752,12 +3368,13 @@
           var subj = mockData.subjects.find(s => s.id === hw.subjectId);
           var subjName = subj ? subj.name : '';
           if (!hw.title.toLowerCase().includes(kw) && !hw.teacher.toLowerCase().includes(kw) && !subjName.includes(kw)) return false;
-        } else if (hw.deadline < today) {
+        } else if (!apiConnected && hw.deadline < today) {
+          // In offline mode, hide past-deadline homework; API mode shows all
           return false;
         }
         return true;
       }).sort(function(a, b) {
-        return a.deadline.localeCompare(b.deadline);
+        return b.deadline.localeCompare(a.deadline);  // Newest/closest deadline first
       });
     }
 
@@ -3803,7 +3420,7 @@
           <p style="color:var(--text-hint);font-size:13px;margin-bottom:12px;">
             ${isBasic ? '当前为基础会员，升级高级会员后解锁专属定制练习卷' : '订阅高级会员后解锁专属定制练习卷，由AI根据薄弱点智能组卷'}
           </p>
-          <button class="btn btn-accent" onclick="showSubscribeModal()">
+          <button class="btn btn-accent" onclick="showSubscribeModal(2)">
             <svg class="icon"><use href="#icon-coins"/></svg> ${isBasic ? '升级高级会员 ¥19.9/月' : '立即订阅 ¥19.9/月'}
           </button>
         </div>
@@ -3840,9 +3457,29 @@
 
       list.innerHTML = countHtml + hws.map(hw => {
         const subj = mockData.subjects.find(s => s.id === hw.subjectId);
-        const statusLabel = hw.status === 'graded'
-          ? '<span style="color:var(--success);font-size:11px;"><svg class="icon"><use href="#icon-check"/></svg> 已批改</span>'
-          : '<span style="color:var(--text-hint);font-size:11px;">待提交</span>';
+        let statusLabel, actionButton;
+        const subStatus = hw.submissionStatus || hw.status;
+
+        if (apiConnected) {
+          if (subStatus === 'graded') {
+            statusLabel = '<span style="color:var(--success);font-size:11px;">✅ 已批改 ' + (hw.submissionScore != null ? hw.submissionScore + '分' : '') + '</span>';
+            actionButton = '<button class="btn btn-outline" onclick="viewApiReport(' + hw.id + ')" style="color:var(--success);border-color:var(--success);">查看报告</button>';
+          } else if (subStatus === 'submitted') {
+            statusLabel = '<span style="color:var(--warning);font-size:11px;">⏳ 已提交，待批改</span>';
+            actionButton = '<button class="btn btn-outline" onclick="printHomework(' + hw.id + ')" style="color:var(--text-secondary);border-color:var(--text-hint);">等待批改</button>';
+          } else {
+            statusLabel = '<span style="color:var(--text-hint);font-size:11px;">待提交</span>';
+            actionButton = '<button class="btn btn-primary" onclick="startGradingWithApi(' + hw.id + ')">去批改</button>';
+          }
+        } else {
+          statusLabel = hw.status === 'graded'
+            ? '<span style="color:var(--success);font-size:11px;"><svg class="icon"><use href="#icon-check"/></svg> 已批改</span>'
+            : '<span style="color:var(--text-hint);font-size:11px;">待提交</span>';
+          actionButton = hw.status === 'graded'
+            ? '<button class="btn btn-outline" onclick="viewReport(' + hw.id + ')" style="color:var(--success);border-color:var(--success);">查看报告</button>'
+            : '<button class="btn btn-primary" onclick="startGrading(' + hw.id + ')">去批改</button>';
+        }
+
         const dateParts = hw.deadline.split('-');
         const dateStr = parseInt(dateParts[1]) + '月' + parseInt(dateParts[2]) + '日';
         return `
@@ -3859,10 +3496,7 @@
           </div>
           <div class="hw-actions">
             <button class="btn btn-outline" onclick="printHomework(${hw.id})">打印</button>
-            ${hw.status === 'graded'
-              ? '<button class="btn btn-outline" onclick="viewReport(' + hw.id + ')" style="color:var(--success);border-color:var(--success);">查看报告</button>'
-              : '<button class="btn btn-primary" onclick="startGrading(' + hw.id + ')">去批改</button>'
-            }
+            ${actionButton}
           </div>
         </div>`;
       }).join('');
@@ -3872,7 +3506,7 @@
     let pdfBlobHwId = null;
     let currentPrintMeta = null;
 
-    function printHomework(hwId) {
+    async function printHomework(hwId) {
       const hw = mockData.homework.find(h => h.id === hwId);
       if (!hw) return;
       const subj = mockData.subjects.find(s => s.id === hw.subjectId);
@@ -3889,7 +3523,16 @@
         </div>
       `;
 
-      // Use cached blob if same homework
+      // Load questions from API if needed
+      if (apiConnected && (!hw.questions || !hw.questions.length)) {
+        try {
+          await loadHomeworkDetail(hwId);
+          // Invalidate cache since questions changed
+          pdfBlobCache = null; pdfBlobHwId = null;
+        } catch(e) { console.warn('Failed to load questions for print:', e.message); }
+      }
+
+      // Use cached blob if same homework (and questions haven't changed)
       if (pdfBlobCache && pdfBlobHwId === hwId) {
         renderPdfSheet(content, hw, pdfBlobCache);
         return;
@@ -3898,37 +3541,28 @@
       // Build the printable HTML template
       const pdfHtml = buildPdfTemplate(hw, subj);
 
-      // Load html2pdf.js dynamically then generate
-      loadHtml2Pdf(() => {
-        const opt = {
-          margin: [8, 10, 8, 10],
-          filename: `${subj.name}_${hw.title}.pdf`,
-          image: { type: 'jpeg', quality: 0.95 },
-          html2canvas: { scale: 2, useCORS: true, windowWidth: 794 },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          pagebreak: { mode: ['css', 'legacy'] },
-        };
+      // Show overlay with print preview
+      overlay.style.display = 'flex';
+      var qCount = hw.totalQuestions || (hw.questions ? hw.questions.length : 0);
+      var printHtml = pdfHtml;
 
-        html2pdf().set(opt).from(pdfHtml).toPdf().output('blob').then(function(blob) {
-          pdfBlobCache = blob;
-          pdfBlobHwId = hwId;
-          renderPdfSheet(content, hw, blob);
-        }).catch(function() {
-          // Fallback: use window.print for PDF generation
-          content.innerHTML = `
-            <div class="sheet-title"><svg class="icon"><use href="#icon-file"/></svg> ${hw.title}</div>
-            <p style="text-align:center;color:var(--text-hint);margin-bottom:16px;font-size:13px;">
-              请在打印对话框中选择「另存为PDF」保存文件
-            </p>
-            <button class="sheet-btn sheet-btn-download" onclick="window.print();closePdfSheet();">
-              <svg class="icon"><use href="#icon-download"/></svg> 打开打印对话框
-            </button>
-            <button class="sheet-btn sheet-btn-cancel" onclick="closePdfSheet();">
-              取消
-            </button>
-          `;
-        });
-      });
+      content.innerHTML =
+        '<div class="sheet-preview" style="background:#fff;padding:16px;border-radius:8px;max-height:70vh;overflow:auto;text-align:left;">' +
+          '<style scoped>.sheet-preview *{margin:0;padding:0;} .sheet-preview table{border-collapse:collapse;}</style>' +
+          printHtml +
+        '</div>' +
+        '<div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">' +
+          '<button class="sheet-btn sheet-btn-download" onclick="doBrowserPrint()">' +
+            '<svg class="icon"><use href="#icon-download"/></svg> 打印 / 保存PDF' +
+          '</button>' +
+          '<button class="sheet-btn" onclick="downloadPdfDirect()" style="background:#07C160;color:#fff;border-color:#07C160;">' +
+            '⬇ 直接下载PDF' +
+          '</button>' +
+          '<button class="sheet-btn sheet-btn-cancel" onclick="closePdfSheet();">取消</button>' +
+        '</div>';
+
+      // Store print data globally for the button handlers
+      window._printData = { hw: hw, subj: subj, printHtml: printHtml };
     }
 
     function buildPdfTemplate(hw, subj) {
@@ -3939,36 +3573,49 @@
       const todayParts = today.split('-');
       const todayStr = parseInt(todayParts[1]) + '月' + parseInt(todayParts[2]) + '日';
 
-      return `
-        <div style="font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:16px 20px;">
-          <div style="text-align:center;margin-bottom:16px;">
-            <div style="display:inline-block;background:${subj ? subj.color : '#999'};color:#fff;padding:4px 14px;border-radius:4px;font-size:14px;font-weight:500;">${subjectName}</div>
-          </div>
-          <h2 style="text-align:center;margin:0 0 12px;font-size:20px;">${hw.title}</h2>
-          <table style="width:100%;margin-bottom:16px;font-size:13px;">
-            <tr>
-              <td style="padding:4px 0;">姓名：______________</td>
-              <td style="padding:4px 0;text-align:right;">日期：${todayStr}</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 0;">班级：______________</td>
-              <td style="padding:4px 0;text-align:right;">${hw.teacher} 老师</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 0;">截止：${dateStr}</td>
-              <td style="padding:4px 0;text-align:right;">共 ${hw.totalQuestions} 题</td>
-            </tr>
-          </table>
-          <hr style="border:none;border-top:1.5px solid #333;margin:0 0 16px;">
-          <div style="min-height:300px;"></div>
-          <table style="width:100%;margin-top:12px;">
-            <tr>
-              <td style="font-size:11px;color:#999;">— 徽乐宝作业批改助手生成 —</td>
-              <td style="text-align:right;font-size:13px;font-weight:600;">得分：_______ / ${hw.totalQuestions}</td>
-            </tr>
-          </table>
-        </div>
-      `;
+      // Build questions HTML (table layout for html2pdf compatibility)
+      var qHtml = '';
+      var qs = hw.questions || [];
+      for (var i = 0; i < qs.length; i++) {
+        var q = qs[i];
+        var answerArea = '';
+        if (q.type === 'choice') {
+          try {
+            var opts = typeof q.options === 'string' ? JSON.parse(q.options) : (q.options || []);
+            for (var oi = 0; oi < opts.length; oi++) {
+              answerArea += '<div style="margin:2px 0 2px 24px;font-size:13px;">' + opts[oi] + '</div>';
+            }
+          } catch(e) { answerArea = '<span style="color:#aaa;">__________________</span>'; }
+        } else if (q.type === 'fill' || q.type === 'translate' || q.type === 'rewrite') {
+          answerArea = '<span style="color:#ccc;">__________________</span>';
+        } else {
+          answerArea = '<div style="border-bottom:1px dashed #aaa;min-height:40px;margin-top:6px;"></div>';
+        }
+        qHtml += '<div style="margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #eee;">' +
+          '<table style="width:100%;border:none;border-collapse:collapse;"><tr>' +
+            '<td style="width:24px;vertical-align:top;font-weight:700;font-size:13px;padding:0;">' + (i+1) + '.</td>' +
+            '<td style="vertical-align:top;padding:0;">' +
+              '<span style="font-size:14px;line-height:1.6;">' + q.stem.replace(/\s*\?\s*$/, '') + '</span>' +
+              answerArea +
+            '</td>' +
+          '</tr></table>' +
+        '</div>';
+      }
+
+      return '<div style="font-family:-apple-system,\'PingFang SC\',\'Microsoft YaHei\',sans-serif;padding:16px 20px;">' +
+        '<h2 style="text-align:center;margin:0 0 16px;font-size:20px;">' + hw.title + '</h2>' +
+        '<table style="width:100%;margin-bottom:16px;font-size:13px;"><tr>' +
+          '<td style="padding:4px 0;">姓名：______________</td>' +
+          '<td style="padding:4px 0;text-align:right;">日期：______________</td>' +
+        '</tr><tr>' +
+          '<td style="padding:4px 0;">班级：______________</td>' +
+          '<td style="padding:4px 0;text-align:right;">共 ' + (hw.totalQuestions || qs.length) + ' 题</td>' +
+        '</tr></table>' +
+        '<hr style="border:none;border-top:1.5px solid #333;margin:0 0 16px;">' +
+        qHtml +
+        '<hr style="border:none;border-top:1px dashed #ccc;margin:20px 0 10px;">' +
+        '<div style="text-align:right;font-size:13px;font-weight:600;">得分：_______</div>' +
+      '</div>';
     }
 
     function renderPdfSheet(container, hw, blob) {
@@ -4116,6 +3763,51 @@
       }
     }
 
+    // Browser native print (reliable, shows all questions)
+    function doBrowserPrint() {
+      var pd = window._printData;
+      if (!pd) return;
+      var w = window.open('', '_blank', 'width=800,height=600');
+      w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + pd.hw.title + '</title><style>' +
+        '*{margin:0;padding:0;box-sizing:content-box;}' +
+        'body{font-family:-apple-system,PingFang SC,Microsoft YaHei,sans-serif;color:#222;line-height:1.6;width:794px;margin:0 auto;padding:20px;}' +
+        'h2{font-size:20px;text-align:center;margin-bottom:12px;}' +
+        'table{border-collapse:collapse;}' +
+        '@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}' +
+        '</style></head><body>' + pd.printHtml + '</body></html>');
+      w.document.close();
+      setTimeout(function() { w.print(); w.close(); }, 500);
+    }
+
+    // Direct PDF download via html2pdf fallback
+    function downloadPdfDirect() {
+      var pd = window._printData;
+      if (!pd) return;
+      loadHtml2Pdf(function() {
+        var div = document.createElement('div');
+        div.innerHTML = pd.printHtml;
+        div.style.cssText = 'width:794px;background:#fff;font-family:-apple-system,PingFang SC,Microsoft YaHei,sans-serif;padding:20px;position:fixed;top:0;left:0;z-index:99998;';
+        document.body.appendChild(div);
+        html2pdf().set({
+          margin: [10, 12, 10, 12],
+          filename: (pd.subj ? pd.subj.name : '作业') + '_' + pd.hw.title + '.pdf',
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: 2, useCORS: true, windowWidth: 794, logging: false },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).from(div).toPdf().output('blob').then(function(blob) {
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url; a.download = pd.hw.title + '.pdf';
+          document.body.appendChild(a); a.click();
+          document.body.removeChild(a); URL.revokeObjectURL(url);
+          document.body.removeChild(div);
+        }).catch(function() {
+          document.body.removeChild(div);
+          doBrowserPrint(); // fallback
+        });
+      });
+    }
+
     function loadHtml2Pdf(callback) {
       if (typeof html2pdf !== 'undefined') { callback(); return; }
       const script = document.createElement('script');
@@ -4142,6 +3834,97 @@
         document.getElementById('report-hw-select').value = hwId;
         showReport();
       }, 50);
+    }
+
+    // API-aware grading: loads homework detail from API, then starts grading
+    async function startGradingWithApi(hwId) {
+      if (!apiConnected) {
+        startGrading(hwId);
+        return;
+      }
+      const detail = await loadHomeworkDetail(hwId);
+      if (detail) {
+        startGrading(hwId);
+      } else {
+        startGrading(hwId);
+      }
+    }
+
+    // API-aware report: loads submission detail from API
+    async function viewApiReport(hwId) {
+      if (!apiConnected) {
+        viewReport(hwId);
+        return;
+      }
+      const hw = mockData.homework.find(h => h.id === hwId);
+      if (!hw || !hw.submissionId) {
+        viewReport(hwId);
+        return;
+      }
+      try {
+        const sub = await getSubmissionDetail(hw.submissionId);
+        if (sub && sub.answers && sub.score != null) {
+          showApiGradingResult(hw, sub);
+        } else {
+          viewReport(hwId);
+        }
+      } catch (e) {
+        console.warn('加载批改结果失败, 回退到本地:', e.message);
+        viewReport(hwId);
+      }
+    }
+
+    // Show grading result from API data
+    function showApiGradingResult(hw, sub) {
+      const answers = typeof sub.answers === 'string' ? JSON.parse(sub.answers) : sub.answers;
+      const container = document.getElementById('grading-result');
+      container.style.display = 'block';
+
+      let correctCount = 0, wrongCount = 0;
+      let questionsHtml = '';
+      const qMap = {};
+      hw.questions.forEach(q => { qMap[q.id] = q; });
+
+      let i = 0;
+      for (const [qId, ans] of Object.entries(answers)) {
+        i++;
+        const q = qMap[parseInt(qId)] || { stem: '第' + i + '题', answer: '', knowledgePoint: '' };
+        const isCorrect = ans.correct === true;
+        if (isCorrect) correctCount++;
+        if (ans.correct === false) wrongCount++;
+
+        questionsHtml += '<div class="result-item" style="padding:16px;margin-bottom:10px;background:#fff;border-radius:8px;border-left:4px solid ' + (isCorrect ? '#4caf50' : '#f44336') + ';">';
+        questionsHtml += '<div style="font-size:14px;font-weight:600;margin-bottom:6px;">第' + i + '题 · <span style="color:' + (isCorrect ? '#4caf50' : '#f44336') + ';">' + (isCorrect ? '✓ 正确' : '✗ 错误') + '</span></div>';
+        questionsHtml += '<div style="font-size:13px;color:#333;margin-bottom:4px;">' + q.stem + '</div>';
+        questionsHtml += '<div style="font-size:12px;color:#999;">参考答案：' + (Array.isArray(q.options) ? JSON.parse(q.answer) : q.answer) + '</div>';
+        if (!isCorrect && ans.analysis) {
+          questionsHtml += '<div style="font-size:12px;color:#e8933c;margin-top:4px;background:#fff8f0;padding:6px 10px;border-radius:4px;">💡 ' + ans.analysis + '</div>';
+        }
+        questionsHtml += '</div>';
+      }
+
+      const totalQuestions = Object.keys(answers).length || hw.questions.length;
+      const score = sub.score || Math.round((correctCount / (totalQuestions || 1)) * 100);
+      const grade = score >= 90 ? 'A' : score >= 75 ? 'B' : score >= 60 ? 'C' : 'D';
+      const gradeColor = score >= 90 ? '#4caf50' : score >= 75 ? '#2196f3' : score >= 60 ? '#ff9800' : '#f44336';
+
+      container.innerHTML = `
+        <div class="grading-score" style="padding:24px 0 16px;text-align:center;">
+          <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <span style="font-size:56px;font-weight:800;color:${gradeColor};line-height:1;">${grade}</span>
+            <span style="display:inline-block;padding:4px 14px;border-radius:16px;background:${gradeColor}22;color:${gradeColor};font-size:14px;font-weight:600;">${score}分</span>
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);">
+            ✓ ${correctCount} 正确 · ✗ ${wrongCount} 错误 · 共 ${totalQuestions} 题
+          </div>
+          ${hw.teacher ? '<div style="font-size:12px;color:var(--text-hint);margin-top:4px;">批改老师：' + hw.teacher + '</div>' : ''}
+        </div>
+        ${questionsHtml}
+        <p style="text-align:center;margin:16px 0;color:var(--text-hint);font-size:var(--font-sm);">
+          由教师批改完成
+        </p>
+        <button class="btn btn-primary btn-block" onclick="switchPage('report')">← 返回</button>
+      `;
     }
 
     // ============================================================
@@ -4304,7 +4087,7 @@
         const reader = new FileReader();
         reader.onload = (function(idx, file) {
           return function(e) {
-            allPhotos.push({ id: Date.now() + idx, type: 'file', dataUrl: e.target.result, page: allPhotos.length + 1, name: file.name });
+            allPhotos.push({ id: Date.now() + idx, type: 'file', dataUrl: e.target.result, page: allPhotos.length + 1, name: file.name, file: file });
             loaded++;
             if (loaded === files.length) {
               renderPhotoGrid();
@@ -4323,11 +4106,88 @@
 
     function submitGrading() {
       if (!currentGradingHwId || allPhotos.length === 0) return;
+      if (!apiConnected) {
+        // Fallback to mock grading when not connected to API
+        submitGradingMock();
+        return;
+      }
 
       const hw = mockData.homework.find(h => h.id === currentGradingHwId);
       if (!hw) return;
 
       // Hide any previous result
+      document.getElementById('grading-result').style.display = 'none';
+      document.getElementById('grading-progress').style.display = 'block';
+      document.getElementById('btn-submit-grading').disabled = true;
+
+      const progressFill = document.getElementById('progress-fill');
+      const progressText = document.getElementById('progress-text');
+      progressFill.style.width = '5%';
+      progressText.textContent = '正在上传照片…';
+
+      // Get the first child of the parent for this homework
+      const child = parentChildren[0];
+      if (!child) {
+        progressText.textContent = '错误：未找到关联学生';
+        return;
+      }
+
+      // Build FormData with photos and student info
+      const formData = new FormData();
+      formData.append('student_id', child.id);
+      formData.append('answers', '{}');
+
+      // Add photo files (from the File objects stored in allPhotos)
+      allPhotos.forEach((photo, i) => {
+        if (photo.file) {
+          formData.append('photos', photo.file, photo.file.name || `page_${i + 1}.jpg`);
+        } else if (photo.dataUrl) {
+          // Convert dataUrl to Blob
+          const parts = photo.dataUrl.split(',');
+          if (parts.length === 2) {
+            const mime = parts[0].match(/data:(.*);base64/) || ['', 'image/jpeg'];
+            const byteStr = atob(parts[1]);
+            const ab = new ArrayBuffer(byteStr.length);
+            const ia = new Uint8Array(ab);
+            for (let j = 0; j < byteStr.length; j++) ia[j] = byteStr.charCodeAt(j);
+            const blob = new Blob([ab], { type: mime[1] });
+            formData.append('photos', blob, photo.name || `page_${i + 1}.jpg`);
+          }
+        }
+      });
+
+      // Upload photos and trigger AI grading
+      apiUpload(`/parent/homework/${currentGradingHwId}/submit`, formData)
+        .then(res => {
+          if (res.data.jobId) {
+            progressFill.style.width = '10%';
+            progressText.textContent = '已提交，等待批改…';
+            // Poll for job completion
+            return pollGradingJob(res.data.jobId, res.data.estimatedSeconds || 20);
+          } else {
+            // No job created (text-only submission)
+            document.getElementById('grading-progress').style.display = 'none';
+            showToast('已提交，等待教师批改');
+          }
+        })
+        .then(job => {
+          if (!job) return;
+          document.getElementById('grading-progress').style.display = 'none';
+          // Fetch and display the AI grading result
+          loadAndShowAIReport(job.submissionId);
+        })
+        .catch(err => {
+          console.error('批改失败:', err);
+          progressText.innerHTML = '<span style="color:red">批改失败：' + (err.message || '未知错误') + '</span>';
+          document.getElementById('btn-submit-grading').disabled = false;
+        });
+    }
+
+    // Fallback mock grading (when API not connected)
+    function submitGradingMock() {
+      const hw = mockData.homework.find(h => h.id === currentGradingHwId);
+      if (!hw) return;
+
       document.getElementById('grading-result').style.display = 'none';
       document.getElementById('grading-progress').style.display = 'block';
       document.getElementById('btn-submit-grading').disabled = true;
@@ -4347,7 +4207,7 @@
 
           setTimeout(() => {
             document.getElementById('grading-progress').style.display = 'none';
-            showGradingResult(hw);
+            showGradingResultMock(hw);
           }, 500);
         } else {
           progressFill.style.width = progress + '%';
@@ -4355,6 +4215,99 @@
           progressText.textContent = messages[msgIdx];
         }
       }, 300);
+    }
+
+    // Load AI grading report from API and display
+    async function loadAndShowAIReport(submissionId) {
+      try {
+        const res = await apiCall(`/parent/report/${submissionId}`);
+        const reportData = res.data;
+        showAIResult(reportData);
+      } catch (e) {
+        console.error('加载报告失败:', e);
+        showToast('加载报告失败，请刷新重试');
+      }
+    }
+
+    function showAIResult(reportData) {
+      const container = document.getElementById('grading-result');
+      container.style.display = 'block';
+      container.innerHTML = ''; // clear anything
+
+      const sub = reportData.submission;
+      const rpt = reportData.report;
+      const questions = reportData.questions;
+
+      if (!sub || !sub.score && sub.score !== 0) {
+        container.innerHTML = '<div class="grading-result-empty">尚未批改，请稍后查看</div>';
+        return;
+      }
+
+      // Build HTML similar to existing showGradingResult but with real data
+      const letterColors = { 'A+': '#27AE60', 'A': '#27AE60', 'B+': '#4A90D9', 'B': '#4A90D9', 'C': '#F0A030', 'D': '#E74C3C' };
+      const grade = rpt ? rpt.letterGrade : (sub.score >= 90 ? 'A' : sub.score >= 80 ? 'B+' : sub.score >= 70 ? 'B' : sub.score >= 60 ? 'C' : 'D');
+      const gColor = letterColors[grade] || '#999';
+
+      let html = `
+      <div class="grading-summary">
+        <div class="grading-score-circle" style="background:${gColor}">
+          <span class="grading-score-num">${sub.score}</span>
+          <span class="grading-score-label">分</span>
+        </div>
+        <div class="grading-grade">${grade}</div>
+      </div>`;
+
+      // AI feedback
+      if (rpt && rpt.aiFeedback) {
+        html += `<div class="ai-feedback-card">
+          <div class="ai-feedback-title">🤖 AI 学习建议</div>
+          <div class="ai-feedback-text">${rpt.aiFeedback}</div>
+        </div>`;
+      }
+
+      // Per-question detail
+      if (questions && questions.length > 0) {
+        html += '<div class="grading-questions-title">逐题批改</div>';
+        questions.forEach((q, i) => {
+          const icon = q.correct ? '✅' : '❌';
+          const cls = q.correct ? 'correct' : 'wrong';
+          html += `
+          <div class="grading-q-card ${cls}">
+            <div class="grading-q-header">${icon} 第${i + 1}题 · ${q.knowledgePoint || ''}</div>
+            <div class="grading-q-stem">${q.stem}</div>
+            <div class="grading-q-answers">
+              <div>你的答案：<span class="${cls}-answer">${q.userAnswer || '未作答'}</span></div>
+              <div>正确答案：<span class="correct-answer">${q.correctAnswer}</span></div>
+            </div>
+            ${q.errorCause ? `<div class="grading-q-cause">错因：${q.errorCause}</div>` : ''}
+            ${q.analysis ? `<div class="grading-q-analysis">${q.analysis}</div>` : ''}
+          </div>`;
+        });
+      }
+
+      // Weak point hints + exercises
+      if (rpt && rpt.weakPoints && rpt.weakPoints.length > 0) {
+        html += '<div class="grading-questions-title">📌 薄弱知识点与练习</div>';
+        rpt.weakPoints.forEach(wp => {
+          html += `
+          <div class="weak-point-card">
+            <div class="weak-point-name">${wp.knowledgePoint}</div>
+            <div class="weak-point-hint">💡 ${wp.hint}</div>`;
+          if (wp.exercises && wp.exercises.length > 0) {
+            wp.exercises.forEach((ex, i) => {
+              html += `<div class="weak-point-exercise">
+                <span class="ex-label">变式练习${i + 1}</span>
+                <div class="ex-stem">${ex.stem}</div>
+                <div class="ex-answer" style="display:none" onclick="this.style.display=''">答案：${ex.answer}</div>
+                <button class="btn btn-small btn-ghost" onclick="this.previousElementSibling.style.display=''">查看答案</button>
+              </div>`;
+            });
+          }
+          html += '</div>';
+        });
+      }
+
+      container.innerHTML = html;
     }
 
     function computeWeakPoints(hw, answers) {
@@ -4372,7 +4325,104 @@
       });
     }
 
-    function showGradingResult(hw) {
+    // Generate deterministic grading result for a single homework (reusable)
+    function generateGradingForHomework(hw, forceDate) {
+      if (mockData.gradingResults[hw.id]) return mockData.gradingResults[hw.id];
+
+      var seed = hw.id * 137;
+      var errorCauses = ['概念原理', '计算操作', '方法策略', '审题逻辑', '未作答', '书写/粗心'];
+      var causeMsgs = {
+        '概念原理': '对核心概念理解不到位，建议回归课本定义，弄清概念本质后再做题。',
+        '计算操作': '解题思路基本正确，但在计算环节出现错误。建议分步书写计算过程，每步验算。',
+        '方法策略': '解题方法选择不当。建议先分析题目条件，选择合适解法。',
+        '审题逻辑': '审题不够仔细，对题目条件理解有偏差。建议逐字读题，圈画关键信息。',
+        '未作答': '未作答，可能是时间不够或缺乏思路。',
+        '书写/粗心': '因书写不规范或粗心导致失分。建议答题后快速检查关键步骤和最终答案。'
+      };
+
+      var answers = {};
+      var correctCount = 0, partialCount = 0, wrongCount = 0, unansweredCount = 0;
+
+      (hw.questions || []).forEach(function(q, i) {
+        var r = (seed * (i + 1)) % 100;
+        var status, userAnswer;
+
+        if (r < 55) {
+          status = 'correct';
+          userAnswer = q.answer;
+          correctCount++;
+        } else if (r < 70) {
+          status = 'partial';
+          userAnswer = q.type === 'choice' ? q.answer : q.answer.replace(/[0-9]+/g, function(m) { return String(parseInt(m) + (seed % 3) - 1); });
+          partialCount++;
+        } else if (r < 90) {
+          status = 'wrong';
+          if (q.type === 'choice') {
+            var opts = ['A', 'B', 'C'];
+            userAnswer = opts.find(function(o) { return o !== q.answer; }) || 'A';
+          } else {
+            userAnswer = String(parseInt((q.answer.match(/[0-9]+/) || ['5'])[0]) + (seed % 5) + 1);
+          }
+          wrongCount++;
+        } else {
+          status = 'unanswered';
+          userAnswer = '（未作答）';
+          unansweredCount++;
+        }
+
+        var errorCause = status === 'correct' ? null : errorCauses[Math.floor((seed * (i + 3)) % 100 / 100 * errorCauses.length) % errorCauses.length];
+        var analysis = status === 'correct' ? null : (causeMsgs[errorCause] || '请认真复习该知识点，加强练习。');
+
+        answers[q.id] = {
+          status: status, correct: status === 'correct', partial: status === 'partial',
+          userAnswer: userAnswer, errorCause: errorCause, analysis: analysis
+        };
+      });
+
+      var total = correctCount + partialCount + wrongCount + unansweredCount;
+      var score = total > 0 ? Math.round(((correctCount + partialCount * 0.5) / total) * 100) : 0;
+
+      // Use forceDate, or deadline+1, or today
+      var gradedAt;
+      if (forceDate) {
+        gradedAt = forceDate;
+      } else {
+        var dlParts = (hw.deadline || '2026-06-25').split('-');
+        var d = new Date(parseInt(dlParts[0]), parseInt(dlParts[1]) - 1, parseInt(dlParts[2]));
+        d.setDate(d.getDate() + 1);
+        gradedAt = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      }
+      var today = new Date(2026, 5, 25);
+      if (new Date(gradedAt) > today) gradedAt = '2026-06-25';
+
+      mockData.gradingResults[hw.id] = {
+        score: score, correctCount: correctCount, partialCount: partialCount,
+        wrongCount: wrongCount, unansweredCount: unansweredCount, totalCount: total,
+        correctRate: score, gradedAt: gradedAt, answers: answers,
+        classmatesWrong: {}, weakPoints: computeWeakPoints(hw, answers)
+      };
+      return mockData.gradingResults[hw.id];
+    }
+
+    function ensureGradingResults() {
+      var seeded = false;
+      var today = new Date(2026, 5, 25); // 2026-06-25
+      mockData.homework.forEach(function(hw, idx) {
+        if (hw.status !== 'graded' || mockData.gradingResults[hw.id]) return;
+        // Distribute gradedAt dates across the past 30 days for richer reports
+        var daysAgo = (hw.id * 17 + idx * 7) % 30;
+        var d = new Date(today);
+        d.setDate(d.getDate() - daysAgo);
+        var gradedAt = d.getFullYear() + '-' +
+          String(d.getMonth() + 1).padStart(2, '0') + '-' +
+          String(d.getDate()).padStart(2, '0');
+        generateGradingForHomework(hw, gradedAt);
+        seeded = true;
+      });
+      if (seeded) saveState();
+    }
+
+    function showGradingResultMock(hw) {
       const seed = hw.id * 137;
       const errorCauses = ['概念原理', '计算操作', '方法策略', '审题逻辑', '未作答', '书写/粗心'];
       const answers = {};
@@ -4480,14 +4530,56 @@
       ];
       var grade = gradeLevels.find(g => correctRate >= g.min);
 
-      container.innerHTML = '\n        <div class="grading-score" style="padding:24px 0 16px;">\n          <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:12px;">\n            <span style="font-size:56px;font-weight:800;color:' + grade.color + ';line-height:1;">' + grade.letter + '</span>\n            <span style="display:inline-block;padding:4px 14px;border-radius:16px;background:' + grade.bg + ';color:' + grade.color + ';font-size:14px;font-weight:600;">' + grade.label + '</span>\n          </div>\n          <div style="font-size:13px;color:var(--text-secondary);">\n            <svg class="icon"><use href="#icon-check-circle"/></svg>' + correctCount + ' 正确 · <svg class="icon"><use href="#icon-alert-triangle"/></svg>' + partialCount + ' 部分正确 · <svg class="icon"><use href="#icon-x-circle"/></svg>' + wrongCount + ' 错误 · <svg class="icon"><use href="#icon-square"/></svg>' + unansweredCount + ' 未作答\n          </div>\n        </div>\n        ' + questionsHtml + '\n        <p style="text-align:center;margin:16px 0;color:var(--text-hint);font-size:var(--font-sm);">\n          <svg class="icon"><use href="#icon-edit"/></svg> 错题已自动归档到错题本\n        </p>\n        <button class="btn btn-primary btn-block" onclick="switchPage(\'report\')"><svg class="icon"><use href="#icon-chart"/></svg> 查看批改报告 →</button>\n      ';
+      container.innerHTML = '\n        <div class="grading-score" style="padding:24px 0 16px;">\n          <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:12px;">\n            <span style="font-size:56px;font-weight:800;color:' + grade.color + ';line-height:1;">' + grade.letter + '</span>\n            <span style="display:inline-block;padding:4px 14px;border-radius:16px;background:' + grade.bg + ';color:' + grade.color + ';font-size:14px;font-weight:600;">' + grade.label + '</span>\n          </div>\n          <div style="font-size:13px;color:var(--text-secondary);">\n            <svg class="icon"><use href="#icon-check-circle"/></svg>' + correctCount + ' 正确 · <svg class="icon"><use href="#icon-alert-triangle"/></svg>' + partialCount + ' 部分正确 · <svg class="icon"><use href="#icon-x-circle"/></svg>' + wrongCount + ' 错误 · <svg class="icon"><use href="#icon-square"/></svg>' + unansweredCount + ' 未作答\n          </div>\n        </div>\n        ' + questionsHtml + '\n        <p style="text-align:center;margin:16px 0;color:var(--text-hint);font-size:var(--font-sm);">\n          <svg class="icon"><use href="#icon-edit"/></svg> 错题已自动归档到错题本\n        </p>\n        ' + (apiConnected && hw.submissionId ? '<button class="btn btn-primary btn-block" onclick="submitCurrentGrading(' + hw.id + ')" id="btn-submit-to-server" style="margin-bottom:8px;">📤 提交给老师批改</button>' : '') + '\n        <button class="btn btn-primary btn-block" onclick="switchPage(\'report\')"><svg class="icon"><use href="#icon-chart"/></svg> 查看批改报告 →</button>\n      ';
       document.getElementById('btn-submit-grading').disabled = true;
+
+      // Store grading result for potential API submit
+      window._lastGradingResult = { hwId: hw.id, answers: answers, score: score };
 
       // Clean up photos after grading
       allPhotos = [];
       renderPhotoGrid();
       saveState();
       refreshHomeworkSelector();
+    }
+
+    // Submit current grading result to API for teacher review
+    async function submitCurrentGrading(hwId) {
+      if (!apiConnected || !window._lastGradingResult) return;
+      const gr = window._lastGradingResult;
+      if (gr.hwId !== hwId) return;
+
+      const hw = mockData.homework.find(h => h.id === hwId);
+      if (!hw || !hw.submissionId) {
+        showToast('无法提交：找不到提交记录');
+        return;
+      }
+
+      // Build answers payload
+      const apiAnswers = {};
+      for (const [qId, ans] of Object.entries(gr.answers)) {
+        apiAnswers[qId] = {
+          correct: ans.status === 'correct',
+          userAnswer: ans.userAnswer || '',
+          errorCause: ans.errorCause || '',
+          analysis: ans.analysis || ''
+        };
+      }
+
+      const btn = document.getElementById('btn-submit-to-server');
+      if (btn) { btn.disabled = true; btn.textContent = '提交中...'; }
+
+      try {
+        const studentId = parentChildren[0]?.id;
+        await submitHomeworkAnswers(hwId, studentId, apiAnswers);
+        hw.submissionStatus = 'submitted';
+        if (btn) { btn.textContent = '✅ 已提交'; btn.style.background = '#4caf50'; }
+        showToast('已提交给老师批改');
+        saveState();
+      } catch (e) {
+        if (btn) { btn.disabled = false; btn.textContent = '⚠️ 提交失败，点击重试'; }
+        showToast('提交失败：' + e.message);
+      }
     }
 
     // ============================================================
@@ -4527,15 +4619,22 @@
     function populateReportSelector() {
       const sel = document.getElementById('report-hw-select');
       sel.innerHTML = '<option value="">-- 请选择 --</option>';
-      const graded = mockData.homework.filter(h => h.status === 'graded' && mockData.gradingResults[h.id]);
+      // When API-connected, include all homework with graded submissions
+      // When offline, use client-side mockData.gradingResults
+      const graded = apiConnected
+        ? mockData.homework.filter(h => h.submissionStatus === 'graded' || h.status === 'graded')
+        : mockData.homework.filter(h => h.status === 'graded' && mockData.gradingResults[h.id]);
       graded.forEach(hw => {
         const opt = document.createElement('option');
         opt.value = hw.id;
         const subj = mockData.subjects.find(s => s.id === hw.subjectId);
-        opt.textContent = '[' + subj.name + '] ' + hw.title;
+        opt.textContent = (subj ? '[' + subj.name + '] ' : '') + hw.title + (hw.score != null ? ' · ' + hw.score + '分' : '');
         sel.appendChild(opt);
       });
-      if (graded.length === 0) {
+      if (graded.length > 0) {
+        document.getElementById('report-empty').style.display = 'none';
+        document.getElementById('report-content').style.display = 'block';
+      } else {
         document.getElementById('report-content').style.display = 'none';
         document.getElementById('report-empty').style.display = 'block';
       }
@@ -4543,14 +4642,10 @@
 
     function initReportTab() {
       populateReportSelector();
-      // Auto-select most recent graded homework
-      var graded = mockData.homework.filter(function(h) {
-        return h.status === 'graded' && mockData.gradingResults[h.id];
-      }).sort(function(a, b) {
-        return new Date(mockData.gradingResults[b.id].gradedAt) - new Date(mockData.gradingResults[a.id].gradedAt);
-      });
-      if (graded.length > 0) {
-        document.getElementById('report-hw-select').value = graded[0].id;
+      // Auto-select latest
+      const sel = document.getElementById('report-hw-select');
+      if (sel.options.length > 1) {
+        sel.selectedIndex = sel.options.length - 1;
         showReport();
       }
     }
@@ -4570,7 +4665,14 @@
 
     function getGradedResults() {
       return mockData.homework
-        .filter(h => h.status === 'graded' && mockData.gradingResults[h.id])
+        .filter(h => {
+          if (h.status !== 'graded') return false;
+          // Auto-generate grading result if missing
+          if (!mockData.gradingResults[h.id]) {
+            generateGradingForHomework(h);
+          }
+          return true;
+        })
         .map(h => ({ hw: h, result: mockData.gradingResults[h.id] }))
         .sort((a, b) => new Date(b.result.gradedAt) - new Date(a.result.gradedAt));
     }
@@ -4946,7 +5048,50 @@
       return parts[0] + '年' + parseInt(parts[1]) + '月' + parseInt(parts[2]) + '日';
     }
 
-    function showReport() {
+    // Show report from API data (grading_reports table)
+    function showApiReport(hw, data) {
+      document.getElementById('report-empty').style.display = 'none';
+      const container = document.getElementById('report-content');
+      container.style.display = 'block';
+
+      const rpt = data.report;
+      const questions = data.questions;
+      const sub = data.submission;
+
+      const grade = rpt.letterGrade;
+      const score = rpt.score;
+      const gradeColors = { 'A+': '#27AE60', 'A': '#27AE60', 'B+': '#4A90D9', 'B': '#4A90D9', 'C': '#F0A030', 'D': '#E74C3C' };
+      const gColor = gradeColors[grade] || '#999';
+
+      // Question detail
+      let questionsHtml = '';
+      questions.forEach((q, i) => {
+        const icon = q.correct ? '✅' : '❌';
+        questionsHtml += `
+        <div class="result-item" style="padding:14px;margin-bottom:8px;background:#fff;border-radius:8px;border-left:4px solid ${q.correct ? '#4caf50' : '#f44336'};">
+          <div style="font-size:14px;font-weight:600;margin-bottom:6px;">${icon} 第${i+1}题 · ${q.knowledgePoint || ''}</div>
+          <div style="font-size:13px;color:#333;margin-bottom:4px;">${q.stem}</div>
+          <div style="font-size:12px;">你的答案：<span style="color:${q.correct ? '#4caf50' : '#f44336'};">${q.userAnswer || '未作答'}</span></div>
+          <div style="font-size:12px;color:#999;">正确答案：${q.correctAnswer}</div>
+          ${q.analysis ? '<div style="font-size:12px;color:#e8933c;margin-top:4px;background:#fff8f0;padding:6px 10px;border-radius:4px;">💡 ' + q.analysis + '</div>' : ''}
+        </div>`;
+      });
+
+      container.innerHTML = `
+        <div style="text-align:center;padding:16px 0;">
+          <span style="font-size:48px;font-weight:800;color:${gColor};">${grade}</span>
+          <span style="display:inline-block;margin-left:8px;padding:4px 14px;border-radius:16px;background:${gColor}22;color:${gColor};font-size:16px;font-weight:600;">${score}分</span>
+        </div>
+        <div style="font-size:13px;color:#666;text-align:center;margin-bottom:16px;">
+          ${sub.studentName} · ${hw.title} · ${sub.gradedAt ? fmtDate(sub.gradedAt) : ''}
+        </div>
+        ${rpt.aiFeedback ? '<div class="ai-feedback-card"><div class="ai-feedback-title">🤖 AI 学习建议</div><div class="ai-feedback-text">' + rpt.aiFeedback + '</div></div>' : ''}
+        <div style="font-weight:600;font-size:14px;margin:16px 0 8px;">逐题详情</div>
+        ${questionsHtml}
+      `;
+    }
+
+    async function showReport() {
       const hwId = parseInt(document.getElementById('report-hw-select').value);
       if (!hwId) {
         document.getElementById('report-content').style.display = 'none';
@@ -4955,9 +5100,29 @@
       }
 
       const hw = mockData.homework.find(h => h.id === hwId);
+      if (!hw) return;
+
+      // Try API first when connected
+      if (apiConnected && hw.submissionId) {
+        try {
+          const res = await apiCall('/parent/report/' + hw.submissionId);
+          const data = res.data;
+          if (data.report) {
+            showApiReport(hw, data);
+            return;
+          }
+        } catch (e) {
+          console.warn('API报告加载失败，回退本地:', e.message);
+        }
+      }
+
+      // Fall back to local mockData
       const result = mockData.gradingResults[hwId];
-      const subj = mockData.subjects.find(s => s.id === hw.subjectId);
-      if (!hw || !result) return;
+      if (!result) {
+        document.getElementById('report-content').style.display = 'none';
+        document.getElementById('report-empty').style.display = 'block';
+        return;
+      }
 
       document.getElementById('report-empty').style.display = 'none';
       const container = document.getElementById('report-content');
@@ -5120,16 +5285,83 @@
     // ============================================================
     let errorFilterKp = 'all';
 
-    function initErrorBook() {
-      var subjects = new Set();
-      mockData.errorBook.forEach(function(e) { subjects.add(e.subjectId); });
-      var container = document.getElementById('kp-filter');
+    // API-loaded error book cache
+    let apiErrorBookCache = null;
+    let errorBookLoading = false;
+
+    async function loadApiErrorBook() {
+      if (!apiConnected) return null;
+      try {
+        const res = await apiCall('/parent/error-book');
+        return res.data || [];
+      } catch (e) {
+        console.warn('加载错题本失败:', e.message);
+        return null;
+      }
+    }
+
+    // Demo fallback errors when no API or mock data available
+    function getDemoErrors() {
+      // API data always wins when connected
+      if (apiConnected && apiErrorBookCache) return apiErrorBookCache;
+      // When not connected, try local mock data
+      if (!apiConnected && mockData.errorBook && mockData.errorBook.length > 0) return mockData.errorBook;
+      // Hardcoded demo data as absolute fallback
+      return [
+        { subjectId:'math', knowledgePoint:'同分母分数加减法', wrongAnswer:'2/5', correctAnswer:'3/5',
+          questionStem:'1/5 + 2/5 = ?', analysis:'同分母分数相加，分母不变分子相加', errorCause:'计算操作',
+          homeworkTitle:'分数加减法练习', date:'2026-06-20', customExercise:null },
+        { subjectId:'math', knowledgePoint:'乘法口诀', wrongAnswer:'48', correctAnswer:'56',
+          questionStem:'7 × 8 = ?', analysis:'7×8=56，需要加强乘法口诀记忆', errorCause:'计算操作',
+          homeworkTitle:'乘法口诀应用', date:'2026-06-19', customExercise:null },
+        { subjectId:'chinese', knowledgePoint:'古诗默写', wrongAnswer:'低头思古香', correctAnswer:'低头思故乡',
+          questionStem:'举头望明月，__________。', analysis:'默写中出现了错别字"香"，应为"乡"', errorCause:'书写粗心',
+          homeworkTitle:'古诗背诵与默写', date:'2026-06-18', customExercise:null },
+        { subjectId:'chinese', knowledgePoint:'把字句', wrongAnswer:'作业被他完成了', correctAnswer:'他把作业完成了',
+          questionStem:'把"他完成了作业"改为"把"字句', analysis:'混淆了把字句和被字句的转换规则', errorCause:'概念原理',
+          homeworkTitle:'句式转换专项', date:'2026-06-17', customExercise:null },
+        { subjectId:'english', knowledgePoint:'现在进行时', wrongAnswer:'She read a book now.', correctAnswer:'She is reading a book now.',
+          questionStem:'She ___ (read) a book now.', analysis:'现在进行时需要用be动词+现在分词', errorCause:'概念原理',
+          homeworkTitle:'现在进行时练习', date:'2026-06-16', customExercise:null },
+        { subjectId:'english', knowledgePoint:'比较级', wrongAnswer:'more tall', correctAnswer:'taller',
+          questionStem:'I am ___ (tall) than my brother.', analysis:'单音节形容词比较级直接加-er', errorCause:'方法策略',
+          homeworkTitle:'比较级专项', date:'2026-06-15', customExercise:null },
+        { subjectId:'physics', knowledgePoint:'光的反射', wrongAnswer:'折射角', correctAnswer:'反射角',
+          questionStem:'入射角等于___角。', analysis:'混淆了反射和折射的概念', errorCause:'概念原理',
+          homeworkTitle:'光学知识巩固', date:'2026-06-20', customExercise:null },
+        { subjectId:'physics', knowledgePoint:'牛顿定律', wrongAnswer:'加速运动', correctAnswer:'静止、匀速',
+          questionStem:'不受外力时物体保持___状态。', analysis:'牛顿第一定律：物体保持静止或匀速直线运动', errorCause:'概念原理',
+          homeworkTitle:'力学基础练习', date:'2026-06-19', customExercise:null },
+      ];
+    }
+
+    async function initErrorBook() {
+      // Load API data if connected and not yet loaded
+      if (apiConnected && apiErrorBookCache === null) {
+        errorBookLoading = true;
+        apiErrorBookCache = await loadApiErrorBook();
+        errorBookLoading = false;
+      }
+      // If API load returned empty, set to false so fallback kicks in
+      if (apiConnected && apiErrorBookCache && apiErrorBookCache.length === 0) {
+        apiErrorBookCache = null;
+      }
+
+      const errors = getDemoErrors();
+      const subjects = new Set();
+      errors.forEach(function(e) { subjects.add(e.subjectId); });
+      // Sort subjects in fixed order
+      const SUBJECT_ORDER = ['math','chinese','english','physics','chemistry'];
+      const sortedSubjects = [...subjects].sort(function(a, b) {
+        return SUBJECT_ORDER.indexOf(a) - SUBJECT_ORDER.indexOf(b);
+      });
+      const container = document.getElementById('kp-filter');
       container.innerHTML = '';
-      var firstSid = null;
-      subjects.forEach(function(sid) {
+      let firstSid = null;
+      sortedSubjects.forEach(function(sid) {
         if (!firstSid) firstSid = sid;
-        var subj = mockData.subjects.find(function(s) { return s.id === sid; });
-        var span = document.createElement('span');
+        const subj = mockData.subjects.find(function(s) { return s.id === sid; });
+        const span = document.createElement('span');
         span.className = 'kp-filter-tag';
         span.innerHTML = (subj ? subj.icon + ' ' + subj.name : sid);
         span.onclick = function() { filterErrors(sid, span); };
@@ -5137,7 +5369,7 @@
       });
       if (firstSid) {
         errorFilterKp = firstSid;
-        var firstTag = container.querySelector('.kp-filter-tag');
+        const firstTag = container.querySelector('.kp-filter-tag');
         if (firstTag) firstTag.classList.add('active');
       }
       renderErrorBook();
@@ -5156,7 +5388,9 @@
       const empty = document.getElementById('error-book-empty');
       const summary = document.getElementById('error-book-summary');
 
-      let errors = mockData.errorBook;
+      // Use API data or demo fallback data
+      const sourceErrors = getDemoErrors();
+      let errors = sourceErrors;
       if (errorFilterKp !== 'all') {
         errors = errors.filter(function(e) { return e.subjectId === errorFilterKp; });
       }
@@ -5173,7 +5407,7 @@
         list.innerHTML = '';
         summary.style.display = 'none';
         empty.style.display = 'block';
-        renderCustomPractice();
+        showPracticeButton();
         return;
       }
       empty.style.display = 'none';
@@ -5214,11 +5448,27 @@
         html += '<span style="font-size:11px;color:var(--text-hint);">' + errs.length + '道错题</span>';
         html += '</div>';
         errs.forEach(function(e) {
+          const question = e.questionStem || e.question || '';
+          const analysis = e.analysis || e.ai_analysis || '';
+          const title = e.homeworkTitle || e.homeworkTitle || '';
+          const dateStr = e.date ? (typeof e.date === 'string' ? e.date.slice(0, 10) : e.date) : '';
+          const customEx = e.customExercise;
           html += '<div class="error-book-card">';
-          html += '<div class="eb-question">' + e.question + '</div>';
+          if (title) html += '<div style="font-size:11px;color:#999;margin-bottom:4px;">📝 ' + title + '</div>';
+          html += '<div class="eb-question">' + question + '</div>';
           html += '<div class="eb-answers"><span style="color:var(--danger);text-decoration:line-through;"><svg class="icon"><use href="#icon-x"/></svg> ' + e.wrongAnswer + '</span> <span style="color:var(--success);"><svg class="icon"><use href="#icon-check"/></svg> ' + e.correctAnswer + '</span></div>';
-          html += '<div class="eb-analysis"><svg class="icon"><use href="#icon-lightbulb"/></svg> ' + e.analysis + '</div>';
-          html += '<div class="eb-footer"><span><svg class="icon"><use href="#icon-tag"/></svg> ' + e.knowledgePoint + '</span><span><svg class="icon"><use href="#icon-calendar"/></svg> ' + e.date + ' · <svg class="icon"><use href="#icon-users"/></svg>' + (42 - (e.classmatesWrong||0)) + '人答对</span></div>';
+          if (analysis) html += '<div class="eb-analysis"><svg class="icon"><use href="#icon-lightbulb"/></svg> ' + analysis + '</div>';
+          html += '<div class="eb-footer"><span><svg class="icon"><use href="#icon-tag"/></svg> ' + e.knowledgePoint + '</span>' + (e.errorCause ? '<span>错因：' + e.errorCause + '</span>' : '') + '<span><svg class="icon"><use href="#icon-calendar"/></svg> ' + dateStr + '</span></div>';
+          // Custom exercise if available
+          if (customEx && Array.isArray(customEx) && customEx.length > 0) {
+            html += '<div style="margin-top:8px;padding:8px 10px;background:#f0f5ff;border-radius:6px;font-size:12px;">';
+            html += '<div style="font-weight:600;color:#4A90D9;margin-bottom:4px;">📚 变式练习</div>';
+            customEx.forEach(function(ex, i) {
+              html += '<div style="margin-bottom:4px;"><b>题' + (i+1) + ':</b> ' + (ex.stem || '') + '</div>';
+              if (ex.answer) html += '<div style="color:#389e0d;">答案: ' + ex.answer + '</div>';
+            });
+            html += '</div>';
+          }
           html += '</div>';
         });
       });
@@ -5229,20 +5479,41 @@
         html += '<div style="font-size:24px;"><svg class="icon"><use href="#icon-lock"/></svg></div>';
         html += '<p><b>' + lockedErrors.length + '道历史错题已超过7天</b></p>';
         html += '<p style="font-size:12px;color:var(--text-hint);">订阅后可查看全部历史错题</p>';
-        html += '<button class="btn btn-accent btn-sm" onclick="showSubscribeModal()"><svg class="icon"><use href="#icon-edit"/></svg> 订阅解锁全部</button>';
+        html += '<button class="btn btn-accent btn-sm" onclick="showSubscribeModal(2)"><svg class="icon"><use href="#icon-edit"/></svg> 订阅解锁全部</button>';
         html += '</div>';
       }
 
       list.innerHTML = html;
-      renderCustomPractice();
+      showPracticeButton();
     }
 
-    function renderCustomPractice() {
+    // Show button to manually trigger AI practice generation
+    function showPracticeButton() {
+      var area = document.getElementById('custom-practice-area');
+      if (!area) return;
+      area.style.display = 'block';
+      var errors = getDemoErrors();
+      if (errorFilterKp !== 'all') errors = errors.filter(function(e) { return e.subjectId === errorFilterKp; });
+      area.innerHTML = ''
+        + '<div class="practice-header" style="text-align:center;">'
+        + '<h4>🤖 AI 专属定制练习卷</h4>'
+        + '<p style="color:var(--text-hint);font-size:12px;">根据当前' + errors.length + '道错题，AI智能生成针对性练习</p>'
+        + '<button class="btn btn-accent" onclick="renderCustomPractice()" style="margin-top:8px;">'
+        + '<svg class="icon"><use href="#icon-sparkles"/></svg> 生成练习卷</button>'
+        + '</div>';
+      document.getElementById('practice-questions') ? (document.getElementById('practice-questions').innerHTML = '') : null;
+    }
+
+    // Cached AI-generated practice questions
+    let aiPracticeCache = null;
+
+    async function renderCustomPractice() {
       var area = document.getElementById('custom-practice-area');
       if (!area) return;
 
-      // Collect current error book items (same filter logic)
-      var errors = mockData.errorBook;
+      // Collect current error items
+      const sourceErrors = getDemoErrors();
+      var errors = sourceErrors;
       if (errorFilterKp !== 'all') {
         errors = errors.filter(function(e) { return e.subjectId === errorFilterKp; });
       }
@@ -5251,7 +5522,8 @@
       if (timeFilter !== 'all') {
         var days = parseInt(timeFilter);
         errors = errors.filter(function(e) {
-          return (now - new Date(e.date)) / (1000 * 60 * 60 * 24) <= days;
+          const d = new Date(e.date);
+          return (now - d) / (1000 * 60 * 60 * 24) <= days;
         });
       }
 
@@ -5263,36 +5535,40 @@
           + '  <h4><svg class="icon"><use href="#icon-sparkles"/></svg> 专属定制练习卷</h4>'
           + '  <p style="color:var(--text-hint);font-size:12px;">去批改作业、积累错题后，AI 将为你智能生成针对性练习</p>'
           + '</div>';
+        aiPracticeCache = null;
         return;
       }
 
-      if (mockData.user.subscriptionTier < 2) {
-        var tier = mockData.user.subscriptionTier;
-        var title = '专属定制练习卷';
-        var desc = 'AI根据' + errors.length + '道错题智能生成针对性练习，精准攻克薄弱点';
-        var btnHtml = '';
-        if (tier === 0) {
-          title = '解锁完整错题本 & 专属定制';
-          desc = '当前免费试用中，订阅会员后可解锁完整错题回顾、每周/每月学情报告，高级会员更可解锁AI智能组卷专属定制练习';
-          btnHtml = '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">'
-            + '<button class="btn btn-accent btn-sm" onclick="showSubscribeModal()"><svg class="icon"><use href="#icon-crown"/></svg> 查看会员方案</button>'
-            + '</div>';
-        } else if (tier === 1) {
-          desc = '当前为基础会员，升级高级会员后 AI 将根据' + errors.length + '道错题为你智能生成针对性练习卷';
-          btnHtml = '<button class="btn btn-accent" onclick="showSubscribeModal()"><svg class="icon"><use href="#icon-crown"/></svg> 升级高级会员 ¥19.9/月</button>';
+      // Try AI generation when API-connected
+      if (apiConnected && errors.length > 0) {
+        area.innerHTML = '<div class="practice-header"><h4>🤖 AI 正在生成专属练习...</h4></div>';
+        try {
+          const kps = [...new Set(errors.map(function(e) { return e.knowledgePoint; }))];
+          const res = await apiCall('/parent/custom-practice', {
+            method: 'POST',
+            body: JSON.stringify({
+              subject_id: errorFilterKp !== 'all' ? errorFilterKp : null,
+              knowledge_points: kps,
+            }),
+          });
+          if (res.data && res.data.questions && res.data.questions.length > 0) {
+            aiPracticeCache = res.data.questions;
+            renderPracticeQuestions(errors, aiPracticeCache, true);
+            return;
+          }
+        } catch (e) {
+          console.warn('AI出题失败, 回退模板:', e.message);
         }
-        area.innerHTML = ''
-          + '<div class="practice-header">'
-          + '  <h4><svg class="icon"><use href="#icon-sparkles"/></svg> ' + title + '</h4>'
-          + '  <p style="color:var(--text-hint);font-size:12px;margin-bottom:10px;">' + desc + '</p>'
-          +   btnHtml
-          + '</div>';
-        return;
       }
 
-      // Generate practice questions from error patterns
+      // Fallback to template-based generation
       var practiceQs = generateCustomPractice(errors);
-      if (practiceQs.length === 0) {
+      renderPracticeQuestions(errors, practiceQs, false);
+    }
+
+    function renderPracticeQuestions(errors, practiceQs, isAI) {
+      var area = document.getElementById('custom-practice-area');
+      if (!practiceQs || practiceQs.length === 0) {
         area.style.display = 'none';
         return;
       }
@@ -5301,10 +5577,11 @@
         return ''
         + '<div class="practice-card">'
         + '  <div class="pq-stem"><b>' + (i+1) + '.</b> ' + q.stem + '</div>'
-        + '  <div class="pq-blank">答：__________</div>'
+        + '  ' + (q.answer ? '<div class="pq-answer" style="display:none;margin-top:6px;padding:6px 8px;background:#e6f9e6;border-radius:4px;color:#389e0d;font-size:12px;">答案: ' + q.answer + '</div>' : '')
+        + '  <div class="pq-blank">答：__________' + (q.answer ? ' <button class="btn btn-sm btn-ghost" onclick="var a=this.parentElement.previousElementSibling;if(a)a.style.display=a.style.display==\'none\'?\'block\':\'none\';" style="font-size:11px;padding:1px 6px;">查看答案</button>' : '') + '</div>'
         + '  <div class="pq-meta">'
-        + '    <span><svg class="icon"><use href="#icon-tag"/></svg> ' + q.knowledgePoint + '</span>'
-        + '    <span style="color:' + (q.subjectColor||'#999') + ';">' + (q.subjectName||'') + '</span>'
+        + '    <span><svg class="icon"><use href="#icon-tag"/></svg> ' + (q.knowledgePoint || '综合') + '</span>'
+        + '    <span style="color:#999;">' + (q.type || '') + '</span>'
         + '  </div>'
         + '</div>';
       }).join('');
@@ -5312,10 +5589,10 @@
       area.innerHTML = ''
         + '<div class="practice-header">'
         + '  <h4><svg class="icon"><use href="#icon-sparkles"/></svg> 专属定制练习卷</h4>'
-        + '  <p style="color:var(--text-hint);font-size:12px;margin-bottom:4px;">AI根据' + errors.length + '道错题生成了' + practiceQs.length + '道针对性练习</p>'
+        + '  <p style="color:var(--text-hint);font-size:12px;margin-bottom:4px;">' + (isAI ? '🤖 AI' : '') + '根据' + errors.length + '道错题生成了' + practiceQs.length + '道针对性练习</p>'
         + '  <p style="color:var(--text-hint);font-size:11px;margin-bottom:10px;">覆盖薄弱知识点，打印后可反复练习</p>'
         + '  <div style="display:flex;gap:8px;justify-content:center;">'
-        + '    <button class="btn btn-outline btn-sm" onclick="regeneratePractice()"><svg class="icon"><use href="#icon-search"/></svg> 换一批</button>'
+        + '    <button class="btn btn-outline btn-sm" onclick="aiPracticeCache=null;renderCustomPractice()"><svg class="icon"><use href="#icon-search"/></svg> 换一批</button>'
         + '    <button class="btn btn-primary btn-sm" onclick="printCustomPractice()"><svg class="icon"><use href="#icon-printer"/></svg> 打印练习卷</button>'
         + '  </div>'
         + '</div>'
@@ -5511,55 +5788,78 @@
       var qs = document.querySelectorAll('.practice-card');
       if (qs.length === 0) return;
 
-      var bodyHtml = '';
+      // Build clean, simple HTML for reliable PDF rendering
+      var rows = '';
       qs.forEach(function(card, i) {
-        var stem = card.querySelector('.pq-stem') ? card.querySelector('.pq-stem').textContent : '';
-        bodyHtml += ''
-          + '<div style="padding:10px 0;border-bottom:1px dashed #ddd;page-break-inside:avoid;">'
-          + '  <p style="margin:0 0 8px;font-size:14px;">' + stem + '</p>'
-          + '  <p style="margin:0;color:#999;min-height:28px;font-size:13px;">答：__________________</p>'
-          + '</div>';
+        var stem = card.querySelector('.pq-stem') ? card.querySelector('.pq-stem').textContent.trim() : '';
+        var answerEl = card.querySelector('.pq-answer');
+        var answer = answerEl ? answerEl.textContent.replace(/^答案:\s*/, '').trim() : '';
+        var meta = card.querySelector('.pq-meta') ? card.querySelector('.pq-meta').textContent.trim() : '';
+        rows += '<tr>'
+          + '<td style="padding:8px 4px;vertical-align:top;font-size:13px;width:24px;">' + (i+1) + '.</td>'
+          + '<td style="padding:8px 0;font-size:13px;line-height:1.6;">' + stem
+          + '<br><span style="color:#aaa;font-size:11px;">' + meta + '</span>'
+          + '<br><span style="display:inline-block;margin-top:8px;color:#999;">答：___________________________</span>'
+          + '</td></tr>';
       });
 
-      var pdfHtml = ''
-        + '<div style="font-family:-apple-system,\'PingFang SC\',\'Microsoft YaHei\',sans-serif;padding:10px;">'
-        + '  <h2 style="text-align:center;margin:0 0 4px;">专属定制练习卷</h2>'
-        + '  <p style="text-align:center;color:#666;font-size:12px;margin:0 0 10px;">共' + qs.length + '道题 · ' + new Date().toISOString().split('T')[0] + '</p>'
-        + '  <hr style="border:none;border-top:1px solid #ddd;">'
-        + bodyHtml
+      // Build answer rows
+      var answerRows = '';
+      qs.forEach(function(card, i) {
+        var answerEl = card.querySelector('.pq-answer');
+        var answer = answerEl ? answerEl.textContent.replace(/^答案:\s*/, '').trim() : '';
+        if (answer) {
+          answerRows += '<tr>'
+            + '<td style="padding:4px;font-size:12px;width:24px;">' + (i+1) + '.</td>'
+            + '<td style="padding:4px 0;font-size:12px;">' + answer + '</td>'
+            + '</tr>';
+        }
+      });
+
+      var today = new Date().toISOString().split('T')[0];
+      var pdfHtml = '<div style="font-family:sans-serif;padding:8px;max-width:100%;">'
+        + '<h3 style="text-align:center;margin:0 0 4px;">专属定制练习卷</h3>'
+        + '<p style="text-align:center;color:#666;font-size:11px;margin:0 0 8px;">共' + qs.length + '道题 ｜ ' + today + '</p>'
+        + '<table style="width:100%;border-collapse:collapse;">' + rows + '</table>'
+        + (answerRows ? '<h4 style="margin:16px 0 8px;text-align:center;">参考答案</h4>'
+        + '<table style="width:100%;border-collapse:collapse;">' + answerRows + '</table>' : '')
         + '</div>';
 
-      loadHtml2Pdf(function() {
-        var opt = {
-          margin: [10, 12, 10, 12],
-          filename: '专属定制练习卷.pdf',
-          image: { type: 'jpeg', quality: 0.95 },
-          html2canvas: { scale: 2, useCORS: true },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(pdfHtml).toPdf().output('blob').then(function(blob) {
-          var blobUrl = URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          a.href = blobUrl;
-          a.download = '专属定制练习卷.pdf';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 练习卷PDF已下载');
+      // Use hidden iframe to avoid popup blocker
+      var oldFrame = document.getElementById('print-frame');
+      if (oldFrame) oldFrame.remove();
+      var iframe = document.createElement('iframe');
+      iframe.id = 'print-frame';
+      iframe.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:none;z-index:99999;background:#fff;';
+      document.body.appendChild(iframe);
+      var doc = iframe.contentDocument;
+      doc.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>专属定制练习卷</title>');
+      doc.write('<style>');
+      doc.write('body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;padding:20px;color:#333;}');
+      doc.write('@media print{body{padding:10px;}@page{size:A4;margin:12mm;}}');
+      doc.write('table{width:100%;border-collapse:collapse;}tr{border-bottom:1px solid #eee;}');
+      doc.write('td{vertical-align:top;}');
+      doc.write('</style></head><body>');
+      doc.write(pdfHtml);
+      doc.write('</body></html>');
+      doc.close();
+      iframe.onload = function() {
+        setTimeout(function() {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+          showToast('已打开打印对话框');
           addPrintRecord('专属定制练习卷', '定制练习');
-        }).catch(function() {
-          showToast('<svg class="icon"><use href="#icon-alert-triangle"/></svg> PDF生成失败，请重试');
-        });
-      });
+        }, 300);
+      };
     }
 
     function printErrorBook() {
       if (mockData.user.subscriptionTier < 1) {
-        showSubscribeModal();
+        showSubscribeModal(2);
         return;
       }
 
-      var errors = mockData.errorBook;
+      var errors = getDemoErrors();
       if (errorFilterKp !== 'all') {
         errors = errors.filter(function(e) { return e.subjectId === errorFilterKp; });
       }
@@ -5584,43 +5884,60 @@
         hwGroups[e.homeworkId].push(e);
       });
 
-      var bodyHtml = '';
+      // Group by homework
+      var hwGroups = {};
+      errors.forEach(function(e) {
+        var hwId = e.homeworkId || '0';
+        if (!hwGroups[hwId]) hwGroups[hwId] = [];
+        hwGroups[hwId].push(e);
+      });
+
+      var rows = '';
       var qNum = 0;
       Object.keys(hwGroups).forEach(function(hwId) {
         var errs = hwGroups[hwId];
-        var hw = mockData.homework.find(function(h) { return h.id === parseInt(hwId); });
+        var title = errs[0].homeworkTitle || '错题';
         var subj = mockData.subjects.find(function(s) { return s.id === errs[0].subjectId; });
-        bodyHtml += '\n          <h3 style="margin:12px 0 4px;font-size:15px;">' + (subj?subj.icon:'') + ' ' + (hw?hw.title:'错题') + '</h3>\n          <p style="margin:0 0 6px;font-size:11px;color:#666;">' + (subj?subj.name:'') + ' · ' + (hw?hw.teacher:'') + ' · ' + errs[0].date + '</p>\n        ';
+        rows += '<tr><td colspan="2" style="padding:10px 4px 4px;font-size:13px;font-weight:600;">' + (subj ? subj.icon + ' ' : '') + title + '</td></tr>';
         errs.forEach(function(e) {
           qNum++;
-          bodyHtml += '\n          <div style="padding:10px 0;border-bottom:1px dashed #ddd;page-break-inside:avoid;">\n            <p style="margin:0 0 4px;font-size:14px;"><b>' + qNum + '.</b> ' + e.question + '</p>\n            <p style="margin:0;color:#ccc;min-height:28px;font-size:13px;">答：__________________</p>\n          </div>\n        ';
+          var stem = e.questionStem || e.question || '';
+          rows += '<tr>'
+            + '<td style="padding:6px 4px;font-size:12px;width:24px;vertical-align:top;">' + qNum + '.</td>'
+            + '<td style="padding:6px 0;font-size:12px;line-height:1.5;">' + stem
+            + '<br><span style="color:#aaa;">答：___________________________</span>'
+            + '</td></tr>';
         });
       });
 
-      var pdfHtml = '\n        <div style="font-family:-apple-system,\'PingFang SC\',\'Microsoft YaHei\',sans-serif;padding:10px;">\n          <h2 style="text-align:center;margin:0 0 4px;"><svg class="icon"><use href="#icon-edit"/></svg> 错题重练</h2>\n          <p style="text-align:center;color:#666;font-size:12px;margin:0 0 10px;">共' + errors.length + '道题 · ' + Object.keys(hwGroups).length + '份作业 · ' + new Date().toISOString().split('T')[0] + '</p>\n          <hr style="border:none;border-top:1px solid #ddd;">\n          ' + bodyHtml + '\n        </div>\n      ';
+      var today = new Date().toISOString().split('T')[0];
+      var html = '<div style="font-family:sans-serif;padding:8px;max-width:100%;">'
+        + '<h3 style="text-align:center;margin:0 0 8px;">错题重练</h3>'
+        + '<p style="text-align:center;color:#666;font-size:11px;margin:0 0 8px;">共' + errors.length + '道错题 ｜ ' + today + '</p>'
+        + '<table style="width:100%;border-collapse:collapse;">' + rows + '</table></div>';
 
-      loadHtml2Pdf(function() {
-        var opt = {
-          margin: [10, 12, 10, 12],
-          filename: '错题重练.pdf',
-          image: { type: 'jpeg', quality: 0.95 },
-          html2canvas: { scale: 2, useCORS: true },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(pdfHtml).toPdf().output('blob').then(function(blob) {
-          var blobUrl = URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          a.href = blobUrl;
-          a.download = '错题本.pdf';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          showToast('<svg class="icon"><use href="#icon-check-circle"/></svg> 错题本PDF已下载');
+      // Use iframe for print
+      var oldFrame = document.getElementById('print-frame');
+      if (oldFrame) oldFrame.remove();
+      var iframe = document.createElement('iframe');
+      iframe.id = 'print-frame';
+      iframe.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:none;z-index:99999;background:#fff;';
+      document.body.appendChild(iframe);
+      var doc = iframe.contentDocument;
+      doc.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>错题重练</title>');
+      doc.write('<style>body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;padding:20px;color:#333;}@media print{body{padding:10px;}@page{size:A4;margin:12mm;}}table{width:100%;border-collapse:collapse;}</style>');
+      doc.write('</head><body>');
+      doc.write(html);
+      doc.write('</body></html>');
+      doc.close();
+      iframe.onload = function() {
+        setTimeout(function() {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+          showToast('已打开打印对话框');
           addPrintRecord('错题本', '错题打印');
-        }).catch(function() {
-          showToast('<svg class="icon"><use href="#icon-alert-triangle"/></svg> PDF生成失败，请重试');
-        });
-      });
+        }, 300);
+      };
     }
 
     // ============================================================
@@ -5950,7 +6267,8 @@
     // ============================================================
     // Subscription Modal & Paywall
     // ============================================================
-    function showSubscribeModal() {
+    function showSubscribeModal(defaultTier) {
+      defaultTier = defaultTier || 0; // 0=auto, 1=basic, 2=premium
       var overlay = document.getElementById('modal-overlay');
       if (!overlay) { console.error('modal-overlay not found'); return; }
       var isRenewal = mockData.user.isSubscribed;
@@ -6028,8 +6346,12 @@
 
       overlay.style.display = 'flex';
 
-      // Default: free→basic, basic→premium (encourage upgrade), premium→premium
-      window._selectedTier = currentTier === 2 ? 2 : (currentTier === 1 ? 2 : 1);
+      // Default tier: caller override → existing premium stays → upgrade path → auto
+      if (defaultTier > 0) {
+        window._selectedTier = defaultTier;
+      } else {
+        window._selectedTier = currentTier === 2 ? 2 : (currentTier === 1 ? 2 : 1);
+      }
       window._selectedMonths = 1;
       setTimeout(function() {
         selectTier(window._selectedTier);
@@ -6217,6 +6539,45 @@
     }
 
     // ============================================================
+    // ============================================================
+    // Offline Demo Data Seeding
+    // ============================================================
+    function seedOfflineData() {
+      // Skip if already fully seeded (homework AND grading results present)
+      if (mockData.homework.length > 0 && Object.keys(mockData.gradingResults).length > 5) return;
+
+      // Copy all _old_homework into homework
+      mockData.homework = mockData._old_homework.map(function(h) {
+        return JSON.parse(JSON.stringify(h));
+      });
+      mockData.gradingResults = {}; // Start fresh
+
+      var earliestDate = null;
+
+      mockData.homework.forEach(function(hw) {
+        if (hw.status !== 'graded') return;
+        generateGradingForHomework(hw);
+        if (!earliestDate || hw.deadline < earliestDate) {
+          earliestDate = hw.deadline;
+        }
+      });
+
+      // Set first grading date for paywall logic
+      if (earliestDate && !mockData.user.firstGradingDate) {
+        mockData.user.firstGradingDate = earliestDate;
+      }
+
+      // Grant basic subscription so weekly/monthly reports are accessible
+      mockData.user.isSubscribed = true;
+      mockData.user.subscriptionTier = 1;
+      mockData.user.subscriptionExpiry = '2027-12-31';
+
+      saveState();
+      console.log('Seeded offline demo data: ' + mockData.homework.length + ' homework, ' +
+        Object.keys(mockData.gradingResults).length + ' grading results');
+    }
+
+    // ============================================================
     // Initialization
     // ============================================================
     function init() {
@@ -6229,7 +6590,61 @@
       initProfile();
     }
 
-    init();
+    // Boot sequence: try restore session → show auth if needed
+    (async function boot() {
+      // Clear stale localStorage if from older version to avoid conflicts
+      try {
+        var oldState = localStorage.getItem('hwa_state');
+        if (oldState) {
+          var s = JSON.parse(oldState);
+          // If state doesnt have subscriptionTier or its 0 with no homework, clear it
+          if (s.subscriptionTier === 0 && (!s.homework || s.homework.length === 0)) {
+            localStorage.removeItem('hwa_state');
+          }
+        }
+      } catch(e) {}
+
+      const overlay = document.getElementById('wechat-auth-overlay');
+      const app = document.getElementById('app-container');
+      const tabBar = document.getElementById('tab-bar');
+
+      let sessionOk = false;
+      if (restoreParentSession()) {
+        try {
+          // Clear stale localStorage data
+          mockData.gradingResults = {};
+          apiErrorBookCache = null;
+          sessionOk = await loadParentData();
+          if (sessionOk) apiConnected = true;
+        } catch(e) {
+          // Token expired or network error — clear stale session
+          localStorage.removeItem('wx_parent_token');
+          localStorage.removeItem('wx_parent_user');
+          parentToken = null; parentUser = null;
+          apiConnected = false;
+        }
+      }
+
+      if (sessionOk) {
+        // Grant basic subscription for demo purposes
+        mockData.user.isSubscribed = true;
+        mockData.user.subscriptionTier = 1;
+        mockData.user.subscriptionExpiry = '2027-12-31';
+        // Ensure grading results exist for weekly/monthly reports
+        ensureGradingResults();
+        overlay.style.display = 'none';
+        app.style.display = '';
+        tabBar.style.display = 'flex';
+        init();
+      } else {
+        // Seed offline demo data with rich homework & grading history
+        seedOfflineData();
+        // Show demo login screen — user can tap a demo account or use WeChat auth
+        overlay.style.display = 'flex';
+        app.style.display = 'none';
+        tabBar.style.display = 'none';
+      }
+    })();
   </script>
 </body>
 </html>
