@@ -53,7 +53,8 @@ router.get('/homework', async (req, res) => {
     if (!children.length) {
       const [allHw] = await pool.query(
         `SELECT h.*, c.name as class_name, c.grade_level, u.display_name as teacher_name, u.subject as teacher_subject,
-          hs.id as submission_id, hs.status as submission_status, hs.score, hs.submitted_at, hs.graded_at
+          hs.id as submission_id, hs.status as submission_status, hs.score, hs.submitted_at, hs.graded_at,
+          (SELECT COUNT(*) FROM homework_submissions WHERE homework_id = h.id) as total_students
          FROM homework h
          JOIN classes c ON h.class_id = c.id
          JOIN users u ON h.teacher_id = u.id
@@ -72,7 +73,8 @@ router.get('/homework', async (req, res) => {
 
     const [homework] = await pool.query(
       `SELECT h.*, c.name as class_name, c.grade_level, u.display_name as teacher_name, u.subject as teacher_subject,
-        hs.id as submission_id, hs.status as submission_status, hs.score, hs.submitted_at, hs.graded_at
+        hs.id as submission_id, hs.status as submission_status, hs.score, hs.submitted_at, hs.graded_at,
+        (SELECT COUNT(*) FROM homework_submissions WHERE homework_id = h.id) as total_students
        FROM homework h
        JOIN classes c ON h.class_id = c.id
        JOIN users u ON h.teacher_id = u.id
