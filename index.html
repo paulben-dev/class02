@@ -5101,6 +5101,7 @@
 
       const hw = mockData.homework.find(h => h.id === hwId);
       if (!hw) return;
+      const subj = mockData.subjects.find(s => s.id === hw.subjectId);
 
       // Try API first when connected
       if (apiConnected && hw.submissionId) {
