@@ -2054,8 +2054,9 @@
     // ============================================================
     // WeChat Auth & API Client
     // ============================================================
-    // Use same host as page for API (works on both localhost and LAN)
-    const API_BASE = 'http://' + window.location.hostname + ':3000/api';
+    // Use same-origin on production (Vercel) or port 3000 for local dev
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.startsWith('192.168.');
+    const API_BASE = isLocal ? 'http://' + window.location.hostname + ':3000/api' : '/api';
     let parentToken = null;
     let parentUser = null;
     let parentChildren = [];
