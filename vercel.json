@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install",
+  "installCommand": "npm install && cd api && npm install",
   "outputDirectory": ".",
   "functions": {
     "api/index.js": {
