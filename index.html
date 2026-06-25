@@ -3830,7 +3830,12 @@
 
     function viewReport(hwId) {
       switchPage('report');
-      setTimeout(() => {
+      setTimeout(async () => {
+        // Ensure questions are loaded (API mode may have only metadata)
+        const hw = mockData.homework.find(h => h.id === hwId);
+        if (apiConnected && hw && (!hw.questions || !hw.questions.length)) {
+          try { await loadHomeworkDetail(hwId); } catch(e) {}
+        }
         initReportTab();
         document.getElementById('report-hw-select').value = hwId;
         showReport();
@@ -5178,7 +5183,8 @@
       const weakHtml = renderKpTier(weak, '#E74C3C', '#FDE8E8', '<svg class="icon icon-fill"><use href="#icon-circle-red"/></svg>');
 
       // --- Per-question detail ---
-      const perQuestionHtml = hw.questions.map((q, i) => {
+      const questions = hw.questions || [];
+      const perQuestionHtml = questions.length > 0 ? questions.map((q, i) => {
         const ans = result.answers[q.id];
         const isCorrect = ans && ans.status === 'correct';
         const isPartial = ans && ans.status === 'partial';
@@ -5187,7 +5193,7 @@
         const statusColor = isCorrect ? 'var(--success)' : (isPartial ? 'var(--warning)' : 'var(--danger)');
         const userAns = ans ? (ans.userAnswer || '（未作答）') : '（未作答）';
         return '\n            <div class="result-item" style="padding:14px;margin-bottom:8px;background:#fff;border-radius:8px;border-left:4px solid ' + statusColor + ';">\n              <div style="font-size:14px;font-weight:600;margin-bottom:6px;">' + icon + ' 第' + (i+1) + '题 · <span style="color:' + statusColor + ';">' + statusLabel + '</span><span style="font-size:11px;color:var(--text-hint);margin-left:8px;">' + (q.knowledgePoint || '') + '</span></div>\n              <div style="font-size:13px;color:#333;margin-bottom:6px;">' + q.stem + '</div>\n              <div style="font-size:12px;">你的答案：<span style="color:' + statusColor + ';">' + userAns + '</span></div>\n              ' + (!isCorrect ? '<div style="font-size:12px;color:#999;">正确答案：<span style="color:var(--success);">' + q.answer + '</span></div>' : '') + '\n              ' + (ans && ans.analysis ? '<div style="font-size:12px;color:#e8933c;margin-top:4px;background:#fff8f0;padding:6px 10px;border-radius:4px;">💡 ' + ans.analysis + '</div>' : '') + '\n            </div>\n          ';
-      }).join('');
+      }).join('') : '<p style="color:var(--text-hint);text-align:center;">暂无题目数据</p>';
 
       // --- Typical error analysis ---
       const errorGroups = {};
