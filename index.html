@@ -1948,10 +1948,6 @@
             <span><svg class="icon"><use href="#icon-settings"/></svg> 字体大小</span>
             <span class="menu-arrow"><span id="font-size-label" style="color:var(--text-hint);font-size:13px;margin-right:4px;">标准</span><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
           </div>
-          <div class="menu-item" onclick="resetAllData()">
-            <span><svg class="icon"><use href="#icon-trash"/></svg> 恢复出厂设置</span>
-            <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
-          </div>
           <div class="menu-item" onclick="showToast('关于徽乐宝作业批改助手 v1.0')">
             <span><svg class="icon"><use href="#icon-info"/></svg> 关于</span>
             <span class="menu-arrow"><svg class="icon"><use href="#icon-chevron-right"/></svg></span>
@@ -3893,7 +3889,7 @@
         if (ans.correct === false) wrongCount++;
 
         const apiCr = ans.classmatesWrong || 0;
-        const apiTotal = hw.totalStudents || 0;
+        const apiTotal = hw.totalStudents || 42;
         const peerInfo = (!isCorrect && ans.classmatesWrong != null && apiTotal > 1)
           ? '<div style="font-size:11px;color:var(--text-hint);margin-top:4px;">📊 ' + Math.max(0, apiTotal - apiCr - 1) + '人做对</div>' : '';
         questionsHtml += '<div class="result-item" style="padding:16px;margin-bottom:10px;background:#fff;border-radius:8px;border-left:4px solid ' + (isCorrect ? '#4caf50' : '#f44336') + ';">';
@@ -5093,17 +5089,22 @@
         </div>`;
       });
 
-      // Class average & encouragement
-      const apiClassTotal = questions.filter(q => q.classmatesRight != null).length;
-      const apiMyRight = questions.filter(q => q.correct).length;
-      const apiClassRightSum = questions.reduce((s, q) => s + (q.classmatesRight || 0), 0);
+      const apiAcc = questions.reduce((a, q) => {
+        if (q.classmatesRight != null) { a.classTotal++; a.classRightSum += q.classmatesRight; }
+        if (q.correct) {
+          a.myRight++;
+          if (q.classmatesRight != null && q.totalSubmissions > 1 && q.classmatesRight / (q.totalSubmissions - 1) < 0.6)
+            a.hardRight.push(q);
+        }
+        return a;
+      }, { classTotal: 0, classRightSum: 0, myRight: 0, hardRight: [] });
       const apiTotalSubs = questions[0] ? (questions[0].totalSubmissions || 0) : 0;
-      const apiClassAvg = apiClassTotal > 0 ? Math.round((apiClassRightSum / apiClassTotal) / Math.max(1, apiTotalSubs - 1) * 100 * apiClassTotal / apiClassTotal) : null;
-      const apiMyRate = apiClassTotal > 0 ? Math.round((apiMyRight / apiClassTotal) * 100) : 0;
+      const apiClassAvg = apiAcc.classTotal > 0 ? Math.round((apiAcc.classRightSum / apiAcc.classTotal) / Math.max(1, apiTotalSubs - 1) * 100) : null;
+      const apiMyRate = apiAcc.classTotal > 0 ? Math.round((apiAcc.myRight / apiAcc.classTotal) * 100) : 0;
       const apiVsClass = apiClassAvg !== null
         ? (apiMyRate > apiClassAvg ? '<span style="color:var(--success);">高于</span>' : apiMyRate < apiClassAvg ? '<span style="color:var(--danger);">低于</span>' : '持平')
         : '';
-      const apiHardRight = questions.filter(q => q.correct && q.classmatesRight != null && q.totalSubmissions > 0 && q.classmatesRight / (q.totalSubmissions - 1) < 0.6);
+      const apiHardRight = apiAcc.hardRight;
 
       container.innerHTML = `
         <div style="text-align:center;padding:16px 0;">
@@ -5280,10 +5281,12 @@
         : '';
 
       // --- Progress Tracking ---
-      const sameSubjectGraded = mockData.homework
-        .filter(h => h.subjectId === hw.subjectId && h.status === 'graded' && h.id !== hw.id && mockData.gradingResults[h.id])
-        .sort((a, b) => (mockData.gradingResults[b.id].gradedAt || '').localeCompare(mockData.gradingResults[a.id].gradedAt || ''));
-      const prevGraded = sameSubjectGraded.length > 0 ? sameSubjectGraded[0] : null;
+      const prevGraded = mockData.homework.reduce((best, h) => {
+        if (h.subjectId !== hw.subjectId || h.status !== 'graded' || h.id === hw.id) return best;
+        if (!mockData.gradingResults[h.id]) return best;
+        if (!best || (mockData.gradingResults[h.id].gradedAt || '') > (mockData.gradingResults[best.id].gradedAt || '')) return h;
+        return best;
+      }, null);
       const prevResult = prevGraded ? mockData.gradingResults[prevGraded.id] : null;
       const progressHtml = prevResult
         ? (() => {
@@ -5298,15 +5301,16 @@
         : '';
 
       // --- Encouragement: questions student got right that were hard for class ---
+      const totalStudents = hw.totalStudents || 42;
+      const wrongs = result.classmatesWrong;
       const proudMoments = hw.questions.filter(q => {
         const ans = result.answers[q.id];
         if (!ans || ans.status !== 'correct') return false;
-        if (!result.classmatesWrong || !(q.id in result.classmatesWrong)) return false;
-        const total = hw.totalStudents || 42;
-        const cw = result.classmatesWrong[q.id];
-        const cr = Math.max(0, total - cw - 1);
+        const cw = wrongs?.[q.id];
+        if (cw === undefined) return false;
+        const cr = Math.max(0, totalStudents - cw - 1);
         // Hard question: fewer than 60% of classmates got it right
-        return cr / Math.max(1, total - 1) < 0.6;
+        return cr / Math.max(1, totalStudents - 1) < 0.6;
       });
       const encouragementHtml = proudMoments.length > 0
         ? '\n        <div class="report-section">\n          <h4 class="report-section-title">🎯 值得表扬</h4>\n          <div style="background:#F0F9F0;padding:12px;border-radius:8px;">\n            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">以下' + proudMoments.length + '道题多数同学做错，但你的孩子做对了：</p>\n            ' + proudMoments.map(q => '<div style="font-size:12px;margin-top:6px;padding:8px;background:#fff;border-radius:6px;">✅ ' + q.stem + ' <span style="color:var(--text-hint);">（' + q.knowledgePoint + '）</span></div>').join('') + '\n          </div>\n        </div>\n        '
@@ -6136,13 +6140,6 @@
       saveState();
       showPrintHistory();
       showToast('打印历史已清空');
-    }
-
-    function resetAllData() {
-      if (confirm('确定要清除所有数据吗？此操作不可恢复。')) {
-        localStorage.clear();
-        location.reload();
-      }
     }
 
     // Hidden debug: rapid-click version text 5 times to reset membership only
